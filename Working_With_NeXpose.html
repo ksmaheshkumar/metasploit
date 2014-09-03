@@ -1,0 +1,779 @@
+
+		<!DOCTYPE html>
+		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
+		<head>
+			<title>Working With NeXpose - Metasploit Unleashed</title>
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		</head>
+
+		<body>
+			<div id="wrapper">
+			
+				<div id="header">
+					<div id="header-content">
+						<h1><a style="color:#F0F0F0" href="index.html">Metasploit Unleashed</a></h1>
+						<div class="tagline">Mastering the Framework</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div id="page">
+					<div id="right-box">
+						
+						<div id="controls">
+									<ul>
+			<li id="ca-nstab-main" class="selected"><a href="Working_With_NeXpose" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Working_With_NeXpose&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Working_With_NeXpose&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Working_With_NeXpose&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+		</ul>
+							
+							<div class="portlet" id="p-personal">
+								<div class="pBody">
+								<ul>
+																	</ul>
+								</div>
+							</div>
+							
+							<div class="search">
+									<div id="p-search" class="portlet">
+		<div id="searchBody" class="pBody">
+			<form action="http://www.offensive-security.com/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search Metasploit Unleashed [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+							</div>
+							
+							<div class="clear"></div>
+						</div>
+					
+						<a id="top"></a>
+						
+						<div id="content">
+							<h1>Working With NeXpose</h1>
+						
+							<div id="siteSub">From Metasploit Unleashed</div>
+							<div id="contentSub"></div>
+																													<div id="jump-to-nav">Jump to: <a href="Working_With_NeXpose#column-one">navigation</a>, <a href="Working_With_NeXpose#searchInput">search</a></div>
+														<!-- start content -->
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>With the acquisition of Metasploit by Rapid7 back in 2009, there is now excellent compatibility between Metasploit and the NeXpose vulnerability scanner.  Rapid7 has a community edition of their scanner that is available at <a rel="nofollow" class="external free" href="http://www.rapid7.com/vulnerability-scanner.jsp">http://www.rapid7.com/vulnerability-scanner.jsp</a>. After we have installed and updated NeXpose, we run a full credentialed scan against our vulnerable Linux machine.
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Nexpose_scan_results_2.PNG" class="image"><img alt="Nexpose scan results 2.PNG" src="http://www.offensive-security.com/w/images/thumb/b/b0/Nexpose_scan_results_2.PNG/860px-Nexpose_scan_results_2.PNG" width="860" height="436" /></a></div></div>
+<p><br />
+We create a new report in NeXpose and save the scan results in 'NeXpose Simple XML' format that we can later import into Metasploit.  Next, we fire up Metasploit, create a new workspace, and use the 'db_import' command to auto-detect and import our scan results file.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>db_import /root/Nexpose/report.xml</span>
+<span style='color:#0000FF;'>[*]</span> Importing 'NeXpose Simple XML' data
+<span style='color:#0000FF;'>[*]</span> Importing host 172.16.194.172
+<span style='color:#0000FF;'>[*]</span> Successfully imported /root/Nexpose/report.xml
+
+</pre>
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>services</span>
+
+Services
+========
+
+host            port   proto  name               state  info
+----            ----   -----  ----               -----  ----
+172.16.194.172  21     tcp    ftp                open   vsFTPd 2.3.4
+172.16.194.172  22     tcp    ssh                open   OpenSSH 4.7p1
+172.16.194.172  23     tcp    telnet             open   
+172.16.194.172  25     tcp    smtp               open   Postfix
+172.16.194.172  53     tcp    dns-tcp            open   BIND 9.4.2
+172.16.194.172  53     udp    dns                open   BIND 9.4.2
+172.16.194.172  80     tcp    http               open   Apache 2.2.8
+172.16.194.172  111    tcp    portmapper         open   
+172.16.194.172  111    udp    portmapper         open   
+172.16.194.172  137    udp    cifs name service  open   
+172.16.194.172  139    tcp    cifs               open   Samba 3.0.20-Debian
+172.16.194.172  445    tcp    cifs               open   Samba 3.0.20-Debian
+172.16.194.172  512    tcp    remote execution   open   
+172.16.194.172  513    tcp    remote login       open   
+172.16.194.172  514    tcp    remote shell       open   
+172.16.194.172  1524   tcp    ingreslock         open   
+172.16.194.172  2049   tcp    nfs                open   
+172.16.194.172  2049   udp    nfs                open   
+172.16.194.172  3306   tcp    mysql              open   MySQL 5.0.51a
+172.16.194.172  5432   tcp    postgres           open   
+172.16.194.172  5900   tcp    vnc                open   
+172.16.194.172  6000   tcp    xwindows           open   
+172.16.194.172  8180   tcp    http               open   Apache Tomcat
+172.16.194.172  41407  udp    status             open   
+172.16.194.172  44841  tcp    mountd             open   
+172.16.194.172  47207  tcp    nfs lockd          open   
+172.16.194.172  48972  udp    nfs lockd          open   
+172.16.194.172  51255  tcp    status             open   
+172.16.194.172  58769  udp    mountd             open  
+
+</pre>
+<br />
+We now have NeXpose's report at out disposal directly from the msfconsole. As discussed in a previous 
+modules, using the database backend commands, we can search this information using a few simple key strokes.
+One that was not covered however was the 'vulns' command. We can issue this command and see what vulnerabilities were found by our NeXpose scan. With no options given 'vulns' will simply display every vulnerability found such
+as service names, associated ports, CVEs (if any) etc.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>vulns</span>
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:50 UTC Vuln: host=172.16.194.172 name=NEXPOSE-vnc-password-password refs=NEXPOSE-vnc-password-password 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:50 UTC Vuln: host=172.16.194.172 name=NEXPOSE-backdoor-vnc-0001 refs=NEXPOSE-backdoor-vnc-0001 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:49 UTC Vuln: host=172.16.194.172 name=NEXPOSE-cifs-nt-0001 refs=CVE-1999-0519,URL-http://www.hsc.fr/ressources/presentations/null_sessions/,NEXPOSE-cifs-nt-0001
+
+<span style='color:#00ff00;'>...snip...</span>
+
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:52 UTC Vuln: host=172.16.194.172 name=NEXPOSE-openssl-debian-weak-keys refs=CVE-2008-0166,BID-29179,SECUNIA-30136,SECUNIA-30220,SECUNIA-30221,SECUNIA-30231,SECUNIA-30239,SECUNIA-30249,URL-http://metasploit.com/users/hdm/tools/debian-openssl/,URL-http://wiki.debian.org/SSLkeys,URL-http://www.debian.org/security/2008/dsa-1571,URL-http://www.debian.org/security/2008/dsa-1576,URL-http://www.debian.org/security/key-rollover/,URL-http://www.ubuntu.com/usn/usn-612-1,URL-http://www.ubuntu.com/usn/usn-612-2,URL-http://www.ubuntu.com/usn/usn-612-3,URL-http://www.ubuntu.com/usn/usn-612-4,URL-http://www.ubuntu.com/usn/usn-612-5,URL-http://www.ubuntu.com/usn/usn-612-6,URL-http://www.ubuntu.com/usn/usn-612-7,URL-http://www.ubuntu.com/usn/usn-612-8,NEXPOSE-openssl-debian-weak-keys 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:52 UTC Vuln: host=172.16.194.172 name=NEXPOSE-ssh-openssh-x11uselocalhost-x11-forwarding-session-hijack refs=CVE-2008-3259,BID-30339,SECUNIA-31179,NEXPOSE-ssh-openssh-x11uselocalhost-x11-forwarding-session-hijack 
+</pre>
+<br />
+<br />
+Much like the 'hosts' &amp; 'services' commands, we have a few options available to produce a more specific output when searching vulnerabilities stored in our imported report. Let's take a look at those.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>vulns -h</span>
+Print all vulnerabilities in the database
+
+Usage: vulns [addr range]
+
+  -h,--help             Show this help information
+  -p,--port &lt;portspec>  List vulns matching this port spec
+  -s &lt;svc names>        List vulns matching these service names
+  -S,--search           Search string to filter by
+  -i,--info             Display Vuln Info
+
+Examples:
+  vulns -p 1-65536          # only vulns with associated services
+  vulns -p 1-65536 -s http  # identified as http on any port
+  
+</pre>
+<br />
+<br />
+Lets target a specific service we know to be running on Metasploitable and see what information was collected by our scan. We'll display vulnerabilities found for the 'mysql' service. Using the following options: '-p' to specify the port number, '-s' service name and finally '-i' the vulnerability information.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>vulns -p 3306 -s mysql -i</span>
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-dispatch_command-multiple-format-string refs=CVE-2009-2446,BID-35609,OSVDB-55734,SECUNIA-35767,SECUNIA-38517,NEXPOSE-mysql-dispatch_command-multiple-format-string info=mysql-dispatch_command-multiple-format-string
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-bug-32707-send-error-bof refs=URL-http://bugs.mysql.com/bug.php?id=32707,NEXPOSE-mysql-bug-32707-send-error-bof info=mysql-bug-32707-send-error-bof
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-bug-37428-user-defind-function-remote-codex refs=URL-http://bugs.mysql.com/bug.php?id=37428,NEXPOSE-mysql-bug-37428-user-defind-function-remote-codex info=mysql-bug-37428-user-defind-function-remote-codex
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-default-account-root-nopassword refs=CVE-2002-1809,BID-5503,NEXPOSE-mysql-default-account-root-nopassword info=mysql-default-account-root-nopassword
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-yassl-certdecodergetname-multiple-bofs refs=CVE-2009-4484,BID-37640,BID-37943,BID-37974,OSVDB-61956,SECUNIA-37493,SECUNIA-38344,SECUNIA-38364,SECUNIA-38517,SECUNIA-38573,URL-http://bugs.mysql.com/bug.php?id=50227,URL-http://dev.mysql.com/doc/refman/5.0/en/news-5-0-90.html,URL-http://dev.mysql.com/doc/refman/5.1/en/news-5-1-43.html,NEXPOSE-mysql-yassl-certdecodergetname-multiple-bofs info=mysql-yassl-certdecodergetname-multiple-bofs
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-yassl-multiple-bof refs=CVE-2008-0226,CVE-2008-0227,BID-27140,BID-31681,SECUNIA-28324,SECUNIA-28419,SECUNIA-28597,SECUNIA-29443,SECUNIA-32222,URL-http://bugs.mysql.com/bug.php?id=33814,NEXPOSE-mysql-yassl-multiple-bof info=mysql-yassl-multiple-bof
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-directory-traversal-and-arbitrary-table-access refs=CVE-2010-1848,URL-http://bugs.mysql.com/bug.php?id=53371,URL-http://dev.mysql.com/doc/refman/5.0/en/news-5-0-91.html,URL-http://dev.mysql.com/doc/refman/5.1/en/news-5-1-47.html,NEXPOSE-mysql-directory-traversal-and-arbitrary-table-access info=mysql-directory-traversal-and-arbitrary-table-access
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-vio_verify_callback-zero-depth-x-509-certificate refs=CVE-2009-4028,URL-http://bugs.mysql.com/bug.php?id=47320,URL-http://dev.mysql.com/doc/refman/5.0/en/news-5-0-88.html,URL-http://dev.mysql.com/doc/refman/5.1/en/news-5-1-41.html,NEXPOSE-mysql-vio_verify_callback-zero-depth-x-509-certificate info=mysql-vio_verify_callback-zero-depth-x-509-certificate
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-bug-29801-remote-federated-engine-crash refs=URL-http://bugs.mysql.com/bug.php?id=29801,NEXPOSE-mysql-bug-29801-remote-federated-engine-crash info=mysql-bug-29801-remote-federated-engine-crash
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-bug-38296-nested-boolean-query-exhaustion-dos refs=URL-http://bugs.mysql.com/bug.php?id=38296,NEXPOSE-mysql-bug-38296-nested-boolean-query-exhaustion-dos info=mysql-bug-38296-nested-boolean-query-exhaustion-dos
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-com_field_list-command-bof refs=CVE-2010-1850,URL-http://bugs.mysql.com/bug.php?id=53237,URL-http://dev.mysql.com/doc/refman/5.0/en/news-5-0-91.html,URL-http://dev.mysql.com/doc/refman/5.1/en/news-5-1-47.html,NEXPOSE-mysql-com_field_list-command-bof info=mysql-com_field_list-command-bof
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-datadir-isam-table-privilege-escalation refs=CVE-2008-2079,BID-29106,BID-31681,SECUNIA-30134,SECUNIA-31066,SECUNIA-31226,SECUNIA-31687,SECUNIA-32222,SECUNIA-36701,URL-http://bugs.mysql.com/32091,URL-http://dev.mysql.com/doc/refman/5.1/en/news-5-1-23.html,URL-http://dev.mysql.com/doc/refman/6.0/en/news-6-0-4.html,NEXPOSE-mysql-datadir-isam-table-privilege-escalation info=mysql-datadir-isam-table-privilege-escalation
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-my_net_skip_rest-packet-length-dos refs=CVE-2010-1849,URL-http://bugs.mysql.com/bug.php?id=50974,URL-http://bugs.mysql.com/bug.php?id=53371,URL-http://dev.mysql.com/doc/refman/5.1/en/news-5-1-47.html,NEXPOSE-mysql-my_net_skip_rest-packet-length-dos info=mysql-my_net_skip_rest-packet-length-dos
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-myisam-table-privilege-check-bypass refs=CVE-2008-4097,CVE-2008-4098,SECUNIA-32759,SECUNIA-38517,URL-http://bugs.mysql.com/bug.php?id=32167,URL-http://lists.mysql.com/commits/50036,URL-http://lists.mysql.com/commits/50773,NEXPOSE-mysql-myisam-table-privilege-check-bypass info=mysql-myisam-table-privilege-check-bypass
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-bug-29908-alter-view-priv-esc refs=URL-http://bugs.mysql.com/bug.php?id=29908,NEXPOSE-mysql-bug-29908-alter-view-priv-esc info=mysql-bug-29908-alter-view-priv-esc
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-bug-44798-stored-procedures-server-crash refs=URL-http://bugs.mysql.com/bug.php?id=44798,NEXPOSE-mysql-bug-44798-stored-procedures-server-crash info=mysql-bug-44798-stored-procedures-server-crash
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-empty-bit-string-dos refs=CVE-2008-3963,SECUNIA-31769,SECUNIA-32759,SECUNIA-34907,URL-http://bugs.mysql.com/bug.php?id=35658,NEXPOSE-mysql-empty-bit-string-dos info=mysql-empty-bit-string-dos
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-innodb-dos refs=CVE-2007-5925,BID-26353,SECUNIA-27568,SECUNIA-27649,SECUNIA-27823,SECUNIA-28025,SECUNIA-28040,SECUNIA-28099,SECUNIA-28108,SECUNIA-28128,SECUNIA-28838,URL-http://bugs.mysql.com/bug.php?id=32125,NEXPOSE-mysql-innodb-dos info=mysql-innodb-dos
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:51 UTC Vuln: host=172.16.194.172 name=NEXPOSE-mysql-html-output-script-insertion refs=CVE-2008-4456,BID-31486,SECUNIA-32072,SECUNIA-34907,SECUNIA-38517,URL-http://bugs.mysql.com/bug.php?id=27884,URL-http://www.henlich.de/it-security/mysql-command-line-client-html-injection-vulnerability,NEXPOSE-mysql-html-output-script-insertion info=mysql-html-output-script-insertion
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 02:09:50 UTC Vuln: host=172.16.194.172 name=NEXPOSE-database-open-access refs=URL-https://www.pcisecuritystandards.org/security_standards/download.html?id=pci_dss_v1-2.pdf,NEXPOSE-database-open-access info=database-open-access
+
+</pre>
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Vulnerability_Scanning" title="Vulnerability Scanning">Vulnerability Scanning</a> &gt; Working With NeXpose</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="SMB_Login_Check" title="SMB Login Check">SMB Login Check</a> &#124; <a href="VNC_Authentication" title="VNC Authentication">VNC Authentication</a> &#124; <a href="WMAP_Web_Scanner" title="WMAP Web Scanner">WMAP Web Scanner</a> &#124; <strong class="selflink">Working With NeXpose</strong> &#124; <a href="Working_With_Nessus" title="Working With Nessus">Working With Nessus</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="NeXpose_Via_Msfconsole" title="NeXpose Via Msfconsole">NeXpose Via Msfconsole</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 509/1000000
+Preprocessor generated node count: 2683/1000000
+Post‐expand include size: 4284/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:266-0!*!0!*!*!2!* and timestamp 20131124001128 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Working_With_NeXpose&amp;oldid=1428">http://www.offensive-security.com/w/index.php?title=Working_With_NeXpose&amp;oldid=1428</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Vulnerability_Scanning&amp;action=edit&amp;redlink=1" class="new" title="Category:Vulnerability Scanning (page does not exist)">Vulnerability Scanning</a></li></ul></div></div>							<!-- end content -->
+													</div>
+						
+					</div>
+				
+					<div id="left-box">
+								<ul id="nav">
+				<li><a href="Donate" class="root">Donate</a></li>
+				<li>
+					<a href="Introduction" class="root"><span class="chapter">01</span> Introduction</a>
+					<div class="menu two-column">
+						<h3>Introduction</h3>
+						<ul class="one">
+							<li><a href="Metasploit_Architecture">Metasploit Architecture</a>
+								<ul class="two small">
+									<li><a href="Filesystem_And_Libraries">Filesystem And Libraries</a></li>
+									<li><a href="Modules_And_Locations">Modules And Locations</a></li>
+									<li><a href="Metasploit_Object_Model">Metasploit Object Model</a></li>
+									<li><a href="Mixins_And_Plugins">Mixins And Plugins</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+					<a href="Requirements" class="root"><span class="chapter">02</span> Requirements</a>
+					<div class="menu two-column">
+						<h3>Required Materials</h3>
+						<ul class="one">
+							<li><a href="Metasploitable">Metasploitable</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Metasploit_Fundamentals" class="root"><span class="chapter">03</span>Metasploit Fundamentals</a>
+					<div class="menu four-column">
+						<h3>Metasploit Fundamentals</h3>
+						<ul class="one">
+							<li><a href="Msfcli">Msfcli</a></li>
+							<li><a href="Msfconsole">Msfconsole</a>
+								<ul class="two small">
+									<li><a href="Msfconsole_Commands">Msfconsole Commands</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Exploits">Exploits</a>
+								<ul class="two">
+									<li><a href="Using_Exploits">Using Exploits</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Payloads">Payloads</a>
+								<ul class="two small">
+									<li><a href="Payload_Types">Payload Types</a></li>
+									<li><a href="Generating_Payloads">Generating Payloads</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+                                                        <li><a href="Databases">Databases</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Using_the_Database">Using the Database</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+							<li><a href="About_Meterpreter">About Meterpreter</a>
+								<ul class="two">
+									<li><a href="Meterpreter_Basics">Meterpreter Basics</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+				<a href="Information_Gathering" class="root"><span class="chapter">04</span> Information Gathering</a>
+					<div class="menu two-column">
+						<h3>Information Gathering</h3>
+						<ul class="one">
+							<li><a href="Port_Scanning">Port Scanning</a></li>
+							<li><a href="Hunting_For_MSSQL">Hunting For MSSQL</a></li>
+							<li><a href="Service_Identification">Service Identification</a></li>
+							<li><a href="Password_Sniffing">Password Sniffing</a>
+								<ul class="two">
+									<li><a href="Extending_Psnuffle">Extending Psnuffle</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="SNMP_Sweeping">SNMP Sweeping</a></li>
+							<li><a href="Writing_Your_Own_Scanner">Writing Your Own Scanner</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Vulnerability_Scanning" class="root"><span class="chapter">05</span> Vulnerability Scanning</a>
+					<div class="menu two-column">
+						<h3>Vulnerability Scanning</h3>
+						<ul class="one">
+							<li><a href="SMB_Login_Check">SMB Login Check</a></li>
+							<li><a href="VNC_Authentication">VNC Authentication</a></li>
+							<li><a href="WMAP_Web_Scanner">WMAP Web Scanner</a></li>
+							<li><a href="Working_With_NeXpose">Working With NeXpose</a>
+		     		                                <ul class="two small">
+                                                                        <li><a href="NeXpose_Via_Msfconsole">NeXpose Via Msfconsole</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							</li>
+                                                        <li><a href="Working_With_Nessus">Working With Nessus</a>
+								<ul class="two small">
+									<li><a href="Nessus_Via_Msfconsole">Nessus Via Msfconsole</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Writing_A_Simple_Fuzzer" class="root"><span class="chapter">06</span> Writing A Simple Fuzzer</a>
+					<div class="menu two-column">
+						<h3>Writing a Simple Fuzzer</h3>
+						<ul class="one">
+							<li><a href="Simple_TFTP_Fuzzer">Simple TFTP Fuzzer</a></li>
+							<li><a href="Simple_IMAP_Fuzzer">Simple IMAP Fuzzer</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Exploit_Development" class="root"><span class="chapter">07</span> Exploit Development</a>
+					<div class="menu two-column">
+						<h3>Exploit Development</h3>
+						<ul class="one">
+							<li><a href="Exploit_Design_Goals">Exploit Design Goals</a></li>
+							<li><a href="Exploit_Format">Exploit Format</a></li>
+							<li><a href="Exploit_Mixins">Exploit Mixins</a></li>
+							<li><a href="Exploit_Targets">Exploit Targets</a></li>
+							<li><a href="Exploit_Payloads">Exploit Payloads</a>
+								<ul class="two small">
+									<li><a href="Msfvenom">Msfvenom</a></li>
+									<li><a href="Msfpayload">Msfpayload</a></li>
+									<li><a href="Msfencode">Msfencode</a></li>
+									<li><a href="Alphanumeric_Shellcode">Alphanumeric Shellcode</a></li>
+									<li><a href="Msfrop">Msfrop</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Writing_An_Exploit">Writing An Exploit</a>
+								<ul class="two small">
+									<li><a href="Getting_A_Shell">Getting A Shell</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Using_The_Egghunter_Mixin">Using The Egghunter Mixin</a>
+								<ul class="two small">
+									<li><a href="Completing_The_Exploit">Completing The Exploit</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Porting_Exploits">Porting Exploits</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li>
+                                        <a href="Web_App_Exploit_Dev" class="root"><span class="chapter">08</span> Web App Exploit Dev</a>
+                                        <div class="menu two-column">
+                                                <h3>Client-side Exploits</h3>
+                                                <ul class="one">
+                                                        <li><a href="Installing_dotDefender">Installing dotDefender</a></li>
+                                                        <li><a href="Analyzing_the_Exploit">Analyzing the Exploit</a></li>
+                                                        <li><a href="Skeleton_Creation">Skeleton Creation</a></li>
+                                                        <li><a href="Making_A_Log_Entry">Making A Log Entry</a></li>
+                                                        <li><a href="Hosting_the_Javascript">Hosting the Javascript</a></li>
+                                                        <li><a href="Final_Exploit">Final Exploit</a></li>
+                                                </ul>
+                                        </div>
+                                </li>
+				<li>
+					<a href="Client_Side_Attacks" class="root"><span class="chapter">09</span> Client Side Attacks</a>
+					<div class="menu three-column">
+						<h3>Client Side Attacks</h3>
+						<ul class="one">
+							<li><a href="Binary_Payloads">Binary Payloads</a></li>
+							<ul class="two small">
+								<li><a href="Binary_Linux_Trojan">Binary Linux Trojan</a></li>
+							</ul>
+							<div class="clear"></div>
+							<li><a href="Client_Side_Exploits">Client Side Exploits</a></li>
+							<li><a href="VBScript_Infection_Methods">VBScript Infection Methods</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Post_Exploitation" class="root"><span class="chapter">10</span> MSF Post Exploitation</a>
+					<div class="menu two-column">
+						<h3>MSF Post Exploitation</h3>
+						<ul class="one">
+							<li><a href="Privilege_Escalation">Privilege Escalation</a></li>
+							<li><a href="PSExec_Pass_The_Hash">PSExec Pass the Hash</a></li>
+							<li><a href="Event_Log_Management">Event Log Management</a></li>
+							<li><a href="Fun_With_Incognito">Fun with Incognito</a></li>
+							<li><a href="Interacting_With_The_Registry">Interacting with the Registry</a>
+								<ul class="two small">
+									<li><a href="Persistent_Netcat_Backdoor">Persistent Netcat Backdoor</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Enabling_Remote_Desktop">Enabling Remote Desktop</a></li>
+							<li><a href="Packet_Sniffing">Packet Sniffing</a></li>
+							<li><a href="Pivoting">Pivoting</a></li>
+                                                                <ul class="two small">
+                                                                        <li><a href="Portfwd">Portfwd</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							<li><a href="TimeStomp">TimeStomp</a></li>
+							<li><a href="Screen_Capture">Screen Capture</a></li>
+							<li><a href="Searching_For_Content">Searching For Content</a></li>
+							<li><a href="John_The_Ripper">John The Ripper</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Meterpreter_Scripting" class="root"><span class="chapter">11</span> Meterpreter Scripting</a>
+					<div class="menu two-column">
+						<h3>Meterpreter Scripting</h3>
+						<ul class="one">
+							<li><a href="Existing_Scripts">Existing Scripts</a></li>
+							<li><a href="Writing_Meterpreter_Scripts">Writing Meterpreter Scripts</a></li>
+							<li><a href="Custom_Scripting">Custom Scripting</a></li>
+							<li><a href="Useful_API_Calls">Useful API Calls</a></li>
+							<li><a href="Useful_Functions">Useful Functions</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Maintaining_Access" class="root"><span class="chapter">12</span> Maintaining Access</a>
+					<div class="menu two-column">
+						<h3>Maintaining Access</h3>
+						<ul class="one">
+							<li><a href="Keylogging">Keylogging</a></li>
+							<li><a href="Meterpreter_Backdoor">Meterpreter Backdoor</a></li>
+							<li><a href="Persistent_Backdoors">Persistent Backdoors</a></li>
+						        <ul class="two small">
+								 <li><a href="Netcat_Backdoor">Netcat Backdoor</a></li>
+		 						 <li><a href="Meterpreter_Service">Meterpreter Service</a></li>
+							</ul>
+								 <div class="clear"></div>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Extended_Usage" class="root"><span class="chapter">13</span> MSF Extended Usage</a>
+					<div class="menu two-column">
+						<h3>MSF Extended Usage</h3>
+						<ul class="one">
+							<li><a href="PHP_Meterpreter">PHP Meterpreter</a></li>
+							<li><a href="Backdooring_EXE_Files">Backdooring EXE Files</a></li>
+							<li><a href="Karmetasploit">Karmetasploit</a>
+								<ul class="two small">
+									<li><a href="Karmetasploit_Configuration">Configuration</a></li>
+									<li><a href="Karmetasploit_In_Action">Karmetasploit in Action</a></li>
+									<li><a href="Attack_Analysis">Attack Analysis</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="MSF_vs_OS_X">MSF vs OS X</a></li>
+							<li><a href="File-Upload_Backdoors">File-Upload Backdoors</a></li>
+							<li><a href="Building_A_Module">Building A Module</a>
+								<ul class="two small">
+									<li><a href="Payloads_Through_MSSQL">Payloads Through MSSQL</a></li>
+									<li><a href="Creating_Our_Auxiliary_Module">Creating Our Auxiliary Module</a></li>
+									<li><a href="The_Guts_Behind_It">The Guts Behind It</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+                                        <a href="Metasploit_GUIs" class="root"><span class="chapter">14</span> Metasploit GUIs</a>
+					<div class="menu two-column">
+						<h3>Metasploit GUIs</h3>
+						<ul class="one">
+							<li><a href="MSF_Community_Edition">MSF Community Edition</a>
+								<ul class="two small">
+                                                                        <li><a href="Scanning">Scanning</a></li>
+                                                                        <li><a href="Exploitation">Exploitation</a></li>
+                                                                        <li><a href="Post_Exploitation">Post Exploitation</a></li>
+                                                                </ul>
+								<div class="clear"></div>
+                                                        </li>
+							<li><a href="Armitage">Armitage</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Armitage_Setup">Armitage Setup</a></li>
+                                                                        <li><a href="Armitage_Scanning">Armitage Scanning</a></li>
+                                                                        <li><a href="Armitage_Exploitation">Armitage Exploitation</a></li>
+                                                                	<li><a href="Armitage_Post_Exploitation">Armitage Post Exploitation</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="About_The_Authors" class="root">About The Authors</a>
+					<div class="menu two-column">
+						<h3>About the Authors</h3>
+						<ul class="one">
+							<li><a href="Mati_Aharoni">Mati Aharoni</a></li>
+							<li><a href="William_Coppola">William Coppola</a></li>
+							<li><a href="Paul_Hand">Paul Hand</a></li>
+							<li><a href="Alain_Hernandez">Alain Hernandez</a></li>
+							<li><a href="Devon_Kearns">Devon Kearns</a></li>
+							<li><a href="David_Kennedy">David Kennedy</a></li>
+							<li><a href="Steven_McElrea">Steven McElrea</a></li>
+							<li><a href="Matteo_Memelli">Matteo Memelli</a></li>
+							<li><a href="http://www.offensive-security.com/metasploit-unleashed/Jim_O'Gorman">Jim O'Gorman</a></li>
+							<li><a href="David_Ovitz">David Ovitz</a></li>
+							<li><a href="Carlos_Perez">Carlos Perez</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li><a href="Post_Module_Reference" class="root">Post Module Reference</a>    
+                                        <div class="menu three-column">
+                                                <h3>Post Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Windows   
+                                                                <ul class="two">
+                                                                        <li><a href="Windows_Post_Capture_Modules">Capture</a></li>
+                                                                        <li><a href="Windows_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Windows_Post_Manage_Modules">Manage</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Linux
+                                                                <ul class="two">
+                                                                        <li><a href="Linux_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>OS X
+                                                                <ul class="two">
+                                                                        <li><a href="OS_X_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                        <li>Multiple OS
+                                                                <ul class="two">
+                                                                        <li><a href="Multiple_OS_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Multiple_OS_Post_General_Modules">General</a></li>
+                                                                </ul>
+							                                	<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+                                <li><a href="Auxiliary_Module_Reference" class="root">Auxiliary Module Reference</a>    
+                                        <div class="menu four-column">
+                                                <h3>Auxiliary Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Admin   
+                                                                <ul class="two">
+                                                                        <li><a href="Admin_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Admin_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Admin_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Admin_Postgres_Auxiliary_Modules">Postgres</a></li>
+                                                                        <li><a href="Admin_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Scanner
+                                                                <ul class="two">
+                                                                        <li><a href="Scanner_DCERPC_Auxiliary_Modules">DCERPC</a></li>
+                                                                        <li><a href="Scanner_Discovery_Auxiliary_Modules">Discovery</a></li>
+                                                                        <li><a href="Scanner_FTP_Auxiliary_Modules">FTP</a></li>
+                                                                        <li><a href="Scanner_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Scanner_IMAP_Auxiliary_Modules">IMAP</a></li>
+                                                                        <li><a href="Scanner_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Scanner_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Scanner_NetBIOS_Auxiliary_Modules">NetBIOS</a></li>
+                                                                        <li><a href="Scanner_POP3_Auxiliary_Modules">POP3</a></li>
+                                                                        <li><a href="Scanner_SMB_Auxiliary_Modules">SMB</a></li>
+                                                                        <li><a href="Scanner_SMTP_Auxiliary_Modules">SMTP</a></li>
+                                                                        <li><a href="Scanner_SNMP_Auxiliary_Modules">SNMP</a></li>
+                                                                        <li><a href="Scanner_SSH_Auxiliary_Modules">SSH</a></li>
+                                                                        <li><a href="Scanner_Telnet_Auxiliary_Modules">Telnet</a></li>
+                                                                        <li><a href="Scanner_TFTP_Auxiliary_Modules">TFTP</a></li>
+                                                                        <li><a href="Scanner_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                        <li><a href="Scanner_VNC_Auxiliary_Modules">VNC</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Server
+                                                                <ul class="two">
+                                                                        <li><a href="Server_Capture_Auxiliary_Modules">Capture</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+			<br />
+			<br />
+			<br />
+			<br />
+			</ul>
+													</div>
+				
+					<div class="clear"></div>
+				</div>
+
+				<div id="footer">
+					<div id="footer-content">
+						<div class="left">
+							Copyright &copy; 2013 Offensive Security Ltd. All rights reserved.
+						</div>
+						<div class="right">
+							<a href="http://www.offensive-security.com/"><img src="http://www.offensive-security.com/w/skins/msfu/offsec.png" alt="Offensive Security" /></a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			
+		</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script>
+<script src="http://www.offensive-security.com/w/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=msfu&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1981501-1");
+pageTracker._trackPageview();
+</script><!-- Served in 0.152 secs. --></body></html>

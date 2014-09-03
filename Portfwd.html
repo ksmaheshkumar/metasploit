@@ -1,0 +1,772 @@
+
+		<!DOCTYPE html>
+		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
+		<head>
+			<title>Portfwd - Metasploit Unleashed</title>
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		</head>
+
+		<body>
+			<div id="wrapper">
+			
+				<div id="header">
+					<div id="header-content">
+						<h1><a style="color:#F0F0F0" href="index.html">Metasploit Unleashed</a></h1>
+						<div class="tagline">Mastering the Framework</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div id="page">
+					<div id="right-box">
+						
+						<div id="controls">
+									<ul>
+			<li id="ca-nstab-main" class="selected"><a href="Portfwd" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Portfwd&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Portfwd&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Portfwd&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+		</ul>
+							
+							<div class="portlet" id="p-personal">
+								<div class="pBody">
+								<ul>
+																	</ul>
+								</div>
+							</div>
+							
+							<div class="search">
+									<div id="p-search" class="portlet">
+		<div id="searchBody" class="pBody">
+			<form action="http://www.offensive-security.com/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search Metasploit Unleashed [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+							</div>
+							
+							<div class="clear"></div>
+						</div>
+					
+						<a id="top"></a>
+						
+						<div id="content">
+							<h1>Portfwd</h1>
+						
+							<div id="siteSub">From Metasploit Unleashed</div>
+							<div id="contentSub"></div>
+																													<div id="jump-to-nav">Jump to: <a href="Portfwd#column-one">navigation</a>, <a href="Portfwd#searchInput">search</a></div>
+														<!-- start content -->
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The <b>portfwd</b> command from within the Meterpreter shell is most commonly used as a pivoting technique. Allowing direct access to machines otherwise inaccessible from the attacking system.  Running this command on a compromised host with access to both the attacker and destination network (or system), we can essentially forward TCP connections through this machine. Effectively making it a pivot point. Much like the port forwarding technique used with an ssh connection, portfwd will relay TCP connections to and from the connected machines.
+<br />
+<br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Portfwd#Help"><span class="tocnumber">1</span> <span class="toctext">Help</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Portfwd#Options"><span class="tocnumber">2</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Portfwd#Arguments"><span class="tocnumber">3</span> <span class="toctext">Arguments</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Portfwd#Syntax"><span class="tocnumber">4</span> <span class="toctext">Syntax</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Portfwd#Add"><span class="tocnumber">4.1</span> <span class="toctext">Add</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="Portfwd#Delete"><span class="tocnumber">4.1.1</span> <span class="toctext">Delete</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Help"> Help </span></h2>
+<p>From an active Meterpreter session, typing <i>portfwd –h</i> will display the command’s various options and arguments.
+<br />
+<br />
+<a href="File:Portfwd_figure1.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/c/c8/Portfwd_figure1.png/400px-Portfwd_figure1.png" width="400" height="207" /></a><br />
+<font size="2">Figure 1 Help banner</font>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Options"> Options </span></h2>
+<p>-L: Use to specify the listening host. Unless you need the forwarding to occur on a specific network adapter you can omit this option.If none is entered 0.0.0.0 will be used.<br />
+-h: Displays the above information.<br />
+-l: This is a local port which will listen on the attacking machine.Connections to this port will be forwarded to the remote system.<br /> 
+-p: The port to which TCP connections will be forward to.<br />
+-r: The IP address the connections are relayed to (target).<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Arguments"> Arguments </span></h2>
+<p>Add:	This argument is used to create the forwarding.<br />
+Delete: This will delete a previous entry from our list of forwarded ports.<br />
+List:	This will list all ports currently forwarded.<br />
+Flush:	This will delete all ports from our forwarding list.<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<h4> <span class="mw-headline" id="Add"> Add </span></h4>
+<p>From the Meterpreter shell the command is used in the following manner:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd add –l 3389 –p 3389 –r < target host ></span>
+</pre><br />
+“add” will add the port forwarding to the list, and will essentially create a tunnel for us. Please note, this tunnel will also exist outside the Metasploit console. Making it available to any terminal session.
+</p><p>“-l 3389” is the local port that will be listening and forwarded to our target.<br />This can be any port on your machine, as long as it’s not already being used.
+</p><p>“-p 3389” is the destination port on our targeting host.
+</p><p>“-r &lt;target host&gt;” is the our targeted system’s IP or hostname.
+</p><p><a href="File:Portfwd_figure2.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/1/16/Portfwd_figure2.png/500px-Portfwd_figure2.png" width="500" height="76" /></a><br />
+<font size="2">Figure 2 Adding a port</font>
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="Delete"> Delete </span></h5>
+<p>Entries are deleted very much like the previous command. Once again from an active meterpreter session we would type the following:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd delete –l 3389 –p 3389 –r < target host ></span>
+</pre>
+<br />
+<a href="File:Portfwd_figure3.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/3/35/Portfwd_figure3.png/500px-Portfwd_figure3.png" width="500" height="69" /></a><br />
+<font size="2">Figure 3 Deleting a port</font>
+<br />
+<br />
+LIST:<br />
+This argument needs no options and provides us with a list of currently listening and forwarded ports.<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd list</span>
+</pre>
+<br />
+<a href="File:Portfwd_figure4.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/2/22/Portfwd_figure4.png/400px-Portfwd_figure4.png" width="400" height="148" /></a><br />
+<font size="2">Figure 4 List command</font>
+<br />
+<br />
+FLUSH:<br />
+This argument will allow us to remove all the local port forward at once.<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd flush</span>
+</pre>
+<br />
+<a href="File:Portfwd_figure5.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/7/74/Portfwd_figure5.png/400px-Portfwd_figure5.png" width="400" height="255" /></a><br />
+<font size="2">Figure 5 Flush command</font>
+<br />
+<br />
+Example Usage:<br />
+</p><p>In this example, we will open a port on our local machine and have our meterpreter session forward a connection to our victim on that same port. We’ll be using port 3389, which is the Window’s default port for Remote Desktop connections.
+</p><p>Here are the players involved:
+</p><p><a href="File:Portfwd_figure6.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/0/0d/Portfwd_figure6.png/450px-Portfwd_figure6.png" width="450" height="214" /></a><br />
+<font size="2">Figure 6 Victim machine</font>
+</p><p><br />
+<a href="File:Portfwd_figure7.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/d/d2/Portfwd_figure7.png/450px-Portfwd_figure7.png" width="450" height="297" /></a><br />
+<font size="2">Figure 7 Our Pivot machine</font>
+</p><p><br />
+<a href="File:Portfwd_figure8.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/9/91/Portfwd_figure8.png/450px-Portfwd_figure8.png" width="450" height="232" /></a><br />
+<font size="2">Figure 8 Attacker's machine</font>
+</p><p><br />
+First we setup the port forwarding on our pivot using the following command:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd add –l 3389 –p 3389 –r 172.16.194.141</span>
+</pre>
+<br />
+We verify that port 3389 is listening by issuing the “netstat” command from another terminal.
+</p><p><a href="File:Portfwd_figure9.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/c/c3/Portfwd_figure9.png/600px-Portfwd_figure9.png" width="600" height="245" /></a><br />
+<font size="2">Figure 9 Local machine's listening ports</font>
+</p><p>We can see 0.0.0.0 is listening on port 3389, as well as the connection to our pivot machine on port 4444.
+</p><p>From here we can initiate a remote desktop connection to our local 3389 port. Which will be forwarded to our victim machine on the corresponding port.
+</p><p><a href="File:Portfwd_figure10.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/4/40/Portfwd_figure10.png/500px-Portfwd_figure10.png" width="500" height="300" /></a><br />
+<font size="2">Figure 10 Remote Desktop connection using local port</font>
+</p><p>Another example of “portfwd” usage is using it to forward exploit modules such as “MS08-067”.<br />
+Using the same technique as show previously, it’s just a matter of forwarding the correct ports for the<br /> desired exploit.
+</p><p>Here we forwarded port 445, which is the port associated with Window’s Small Message Block or SMB.<br /> Configuring our module target host and port to our forwarded socket. The exploit is sent via our pivot to the victim machine.
+</p><p><a href="File:Portfwd_figure11.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/8/86/Portfwd_figure11.png/500px-Portfwd_figure11.png" width="500" height="536" /></a><br />
+<font size="2">Figure 11 MS08-067 via Pivot</font>
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; <a href="Pivoting" title="Pivoting">Pivoting</a> &gt; Portfwd</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Portfwd</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 547/1000000
+Preprocessor generated node count: 2727/1000000
+Post‐expand include size: 2794/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:329-0!*!0!!en!2!* and timestamp 20131124112627 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Portfwd&amp;oldid=1337">http://www.offensive-security.com/w/index.php?title=Portfwd&amp;oldid=1337</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Pivoting&amp;action=edit&amp;redlink=1" class="new" title="Category:Pivoting (page does not exist)">Pivoting</a></li></ul></div></div>							<!-- end content -->
+													</div>
+						
+					</div>
+				
+					<div id="left-box">
+								<ul id="nav">
+				<li><a href="Donate" class="root">Donate</a></li>
+				<li>
+					<a href="Introduction" class="root"><span class="chapter">01</span> Introduction</a>
+					<div class="menu two-column">
+						<h3>Introduction</h3>
+						<ul class="one">
+							<li><a href="Metasploit_Architecture">Metasploit Architecture</a>
+								<ul class="two small">
+									<li><a href="Filesystem_And_Libraries">Filesystem And Libraries</a></li>
+									<li><a href="Modules_And_Locations">Modules And Locations</a></li>
+									<li><a href="Metasploit_Object_Model">Metasploit Object Model</a></li>
+									<li><a href="Mixins_And_Plugins">Mixins And Plugins</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+					<a href="Requirements" class="root"><span class="chapter">02</span> Requirements</a>
+					<div class="menu two-column">
+						<h3>Required Materials</h3>
+						<ul class="one">
+							<li><a href="Metasploitable">Metasploitable</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Metasploit_Fundamentals" class="root"><span class="chapter">03</span>Metasploit Fundamentals</a>
+					<div class="menu four-column">
+						<h3>Metasploit Fundamentals</h3>
+						<ul class="one">
+							<li><a href="Msfcli">Msfcli</a></li>
+							<li><a href="Msfconsole">Msfconsole</a>
+								<ul class="two small">
+									<li><a href="Msfconsole_Commands">Msfconsole Commands</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Exploits">Exploits</a>
+								<ul class="two">
+									<li><a href="Using_Exploits">Using Exploits</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Payloads">Payloads</a>
+								<ul class="two small">
+									<li><a href="Payload_Types">Payload Types</a></li>
+									<li><a href="Generating_Payloads">Generating Payloads</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+                                                        <li><a href="Databases">Databases</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Using_the_Database">Using the Database</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+							<li><a href="About_Meterpreter">About Meterpreter</a>
+								<ul class="two">
+									<li><a href="Meterpreter_Basics">Meterpreter Basics</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+				<a href="Information_Gathering" class="root"><span class="chapter">04</span> Information Gathering</a>
+					<div class="menu two-column">
+						<h3>Information Gathering</h3>
+						<ul class="one">
+							<li><a href="Port_Scanning">Port Scanning</a></li>
+							<li><a href="Hunting_For_MSSQL">Hunting For MSSQL</a></li>
+							<li><a href="Service_Identification">Service Identification</a></li>
+							<li><a href="Password_Sniffing">Password Sniffing</a>
+								<ul class="two">
+									<li><a href="Extending_Psnuffle">Extending Psnuffle</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="SNMP_Sweeping">SNMP Sweeping</a></li>
+							<li><a href="Writing_Your_Own_Scanner">Writing Your Own Scanner</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Vulnerability_Scanning" class="root"><span class="chapter">05</span> Vulnerability Scanning</a>
+					<div class="menu two-column">
+						<h3>Vulnerability Scanning</h3>
+						<ul class="one">
+							<li><a href="SMB_Login_Check">SMB Login Check</a></li>
+							<li><a href="VNC_Authentication">VNC Authentication</a></li>
+							<li><a href="WMAP_Web_Scanner">WMAP Web Scanner</a></li>
+							<li><a href="Working_With_NeXpose">Working With NeXpose</a>
+		     		                                <ul class="two small">
+                                                                        <li><a href="NeXpose_Via_Msfconsole">NeXpose Via Msfconsole</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							</li>
+                                                        <li><a href="Working_With_Nessus">Working With Nessus</a>
+								<ul class="two small">
+									<li><a href="Nessus_Via_Msfconsole">Nessus Via Msfconsole</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Writing_A_Simple_Fuzzer" class="root"><span class="chapter">06</span> Writing A Simple Fuzzer</a>
+					<div class="menu two-column">
+						<h3>Writing a Simple Fuzzer</h3>
+						<ul class="one">
+							<li><a href="Simple_TFTP_Fuzzer">Simple TFTP Fuzzer</a></li>
+							<li><a href="Simple_IMAP_Fuzzer">Simple IMAP Fuzzer</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Exploit_Development" class="root"><span class="chapter">07</span> Exploit Development</a>
+					<div class="menu two-column">
+						<h3>Exploit Development</h3>
+						<ul class="one">
+							<li><a href="Exploit_Design_Goals">Exploit Design Goals</a></li>
+							<li><a href="Exploit_Format">Exploit Format</a></li>
+							<li><a href="Exploit_Mixins">Exploit Mixins</a></li>
+							<li><a href="Exploit_Targets">Exploit Targets</a></li>
+							<li><a href="Exploit_Payloads">Exploit Payloads</a>
+								<ul class="two small">
+									<li><a href="Msfvenom">Msfvenom</a></li>
+									<li><a href="Msfpayload">Msfpayload</a></li>
+									<li><a href="Msfencode">Msfencode</a></li>
+									<li><a href="Alphanumeric_Shellcode">Alphanumeric Shellcode</a></li>
+									<li><a href="Msfrop">Msfrop</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Writing_An_Exploit">Writing An Exploit</a>
+								<ul class="two small">
+									<li><a href="Getting_A_Shell">Getting A Shell</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Using_The_Egghunter_Mixin">Using The Egghunter Mixin</a>
+								<ul class="two small">
+									<li><a href="Completing_The_Exploit">Completing The Exploit</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Porting_Exploits">Porting Exploits</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li>
+                                        <a href="Web_App_Exploit_Dev" class="root"><span class="chapter">08</span> Web App Exploit Dev</a>
+                                        <div class="menu two-column">
+                                                <h3>Client-side Exploits</h3>
+                                                <ul class="one">
+                                                        <li><a href="Installing_dotDefender">Installing dotDefender</a></li>
+                                                        <li><a href="Analyzing_the_Exploit">Analyzing the Exploit</a></li>
+                                                        <li><a href="Skeleton_Creation">Skeleton Creation</a></li>
+                                                        <li><a href="Making_A_Log_Entry">Making A Log Entry</a></li>
+                                                        <li><a href="Hosting_the_Javascript">Hosting the Javascript</a></li>
+                                                        <li><a href="Final_Exploit">Final Exploit</a></li>
+                                                </ul>
+                                        </div>
+                                </li>
+				<li>
+					<a href="Client_Side_Attacks" class="root"><span class="chapter">09</span> Client Side Attacks</a>
+					<div class="menu three-column">
+						<h3>Client Side Attacks</h3>
+						<ul class="one">
+							<li><a href="Binary_Payloads">Binary Payloads</a></li>
+							<ul class="two small">
+								<li><a href="Binary_Linux_Trojan">Binary Linux Trojan</a></li>
+							</ul>
+							<div class="clear"></div>
+							<li><a href="Client_Side_Exploits">Client Side Exploits</a></li>
+							<li><a href="VBScript_Infection_Methods">VBScript Infection Methods</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Post_Exploitation" class="root"><span class="chapter">10</span> MSF Post Exploitation</a>
+					<div class="menu two-column">
+						<h3>MSF Post Exploitation</h3>
+						<ul class="one">
+							<li><a href="Privilege_Escalation">Privilege Escalation</a></li>
+							<li><a href="PSExec_Pass_The_Hash">PSExec Pass the Hash</a></li>
+							<li><a href="Event_Log_Management">Event Log Management</a></li>
+							<li><a href="Fun_With_Incognito">Fun with Incognito</a></li>
+							<li><a href="Interacting_With_The_Registry">Interacting with the Registry</a>
+								<ul class="two small">
+									<li><a href="Persistent_Netcat_Backdoor">Persistent Netcat Backdoor</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Enabling_Remote_Desktop">Enabling Remote Desktop</a></li>
+							<li><a href="Packet_Sniffing">Packet Sniffing</a></li>
+							<li><a href="Pivoting">Pivoting</a></li>
+                                                                <ul class="two small">
+                                                                        <li><a href="Portfwd">Portfwd</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							<li><a href="TimeStomp">TimeStomp</a></li>
+							<li><a href="Screen_Capture">Screen Capture</a></li>
+							<li><a href="Searching_For_Content">Searching For Content</a></li>
+							<li><a href="John_The_Ripper">John The Ripper</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Meterpreter_Scripting" class="root"><span class="chapter">11</span> Meterpreter Scripting</a>
+					<div class="menu two-column">
+						<h3>Meterpreter Scripting</h3>
+						<ul class="one">
+							<li><a href="Existing_Scripts">Existing Scripts</a></li>
+							<li><a href="Writing_Meterpreter_Scripts">Writing Meterpreter Scripts</a></li>
+							<li><a href="Custom_Scripting">Custom Scripting</a></li>
+							<li><a href="Useful_API_Calls">Useful API Calls</a></li>
+							<li><a href="Useful_Functions">Useful Functions</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Maintaining_Access" class="root"><span class="chapter">12</span> Maintaining Access</a>
+					<div class="menu two-column">
+						<h3>Maintaining Access</h3>
+						<ul class="one">
+							<li><a href="Keylogging">Keylogging</a></li>
+							<li><a href="Meterpreter_Backdoor">Meterpreter Backdoor</a></li>
+							<li><a href="Persistent_Backdoors">Persistent Backdoors</a></li>
+						        <ul class="two small">
+								 <li><a href="Netcat_Backdoor">Netcat Backdoor</a></li>
+		 						 <li><a href="Meterpreter_Service">Meterpreter Service</a></li>
+							</ul>
+								 <div class="clear"></div>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Extended_Usage" class="root"><span class="chapter">13</span> MSF Extended Usage</a>
+					<div class="menu two-column">
+						<h3>MSF Extended Usage</h3>
+						<ul class="one">
+							<li><a href="PHP_Meterpreter">PHP Meterpreter</a></li>
+							<li><a href="Backdooring_EXE_Files">Backdooring EXE Files</a></li>
+							<li><a href="Karmetasploit">Karmetasploit</a>
+								<ul class="two small">
+									<li><a href="Karmetasploit_Configuration">Configuration</a></li>
+									<li><a href="Karmetasploit_In_Action">Karmetasploit in Action</a></li>
+									<li><a href="Attack_Analysis">Attack Analysis</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="MSF_vs_OS_X">MSF vs OS X</a></li>
+							<li><a href="File-Upload_Backdoors">File-Upload Backdoors</a></li>
+							<li><a href="Building_A_Module">Building A Module</a>
+								<ul class="two small">
+									<li><a href="Payloads_Through_MSSQL">Payloads Through MSSQL</a></li>
+									<li><a href="Creating_Our_Auxiliary_Module">Creating Our Auxiliary Module</a></li>
+									<li><a href="The_Guts_Behind_It">The Guts Behind It</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+                                        <a href="Metasploit_GUIs" class="root"><span class="chapter">14</span> Metasploit GUIs</a>
+					<div class="menu two-column">
+						<h3>Metasploit GUIs</h3>
+						<ul class="one">
+							<li><a href="MSF_Community_Edition">MSF Community Edition</a>
+								<ul class="two small">
+                                                                        <li><a href="Scanning">Scanning</a></li>
+                                                                        <li><a href="Exploitation">Exploitation</a></li>
+                                                                        <li><a href="Post_Exploitation">Post Exploitation</a></li>
+                                                                </ul>
+								<div class="clear"></div>
+                                                        </li>
+							<li><a href="Armitage">Armitage</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Armitage_Setup">Armitage Setup</a></li>
+                                                                        <li><a href="Armitage_Scanning">Armitage Scanning</a></li>
+                                                                        <li><a href="Armitage_Exploitation">Armitage Exploitation</a></li>
+                                                                	<li><a href="Armitage_Post_Exploitation">Armitage Post Exploitation</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="About_The_Authors" class="root">About The Authors</a>
+					<div class="menu two-column">
+						<h3>About the Authors</h3>
+						<ul class="one">
+							<li><a href="Mati_Aharoni">Mati Aharoni</a></li>
+							<li><a href="William_Coppola">William Coppola</a></li>
+							<li><a href="Paul_Hand">Paul Hand</a></li>
+							<li><a href="Alain_Hernandez">Alain Hernandez</a></li>
+							<li><a href="Devon_Kearns">Devon Kearns</a></li>
+							<li><a href="David_Kennedy">David Kennedy</a></li>
+							<li><a href="Steven_McElrea">Steven McElrea</a></li>
+							<li><a href="Matteo_Memelli">Matteo Memelli</a></li>
+							<li><a href="http://www.offensive-security.com/metasploit-unleashed/Jim_O'Gorman">Jim O'Gorman</a></li>
+							<li><a href="David_Ovitz">David Ovitz</a></li>
+							<li><a href="Carlos_Perez">Carlos Perez</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li><a href="Post_Module_Reference" class="root">Post Module Reference</a>    
+                                        <div class="menu three-column">
+                                                <h3>Post Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Windows   
+                                                                <ul class="two">
+                                                                        <li><a href="Windows_Post_Capture_Modules">Capture</a></li>
+                                                                        <li><a href="Windows_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Windows_Post_Manage_Modules">Manage</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Linux
+                                                                <ul class="two">
+                                                                        <li><a href="Linux_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>OS X
+                                                                <ul class="two">
+                                                                        <li><a href="OS_X_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                        <li>Multiple OS
+                                                                <ul class="two">
+                                                                        <li><a href="Multiple_OS_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Multiple_OS_Post_General_Modules">General</a></li>
+                                                                </ul>
+							                                	<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+                                <li><a href="Auxiliary_Module_Reference" class="root">Auxiliary Module Reference</a>    
+                                        <div class="menu four-column">
+                                                <h3>Auxiliary Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Admin   
+                                                                <ul class="two">
+                                                                        <li><a href="Admin_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Admin_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Admin_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Admin_Postgres_Auxiliary_Modules">Postgres</a></li>
+                                                                        <li><a href="Admin_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Scanner
+                                                                <ul class="two">
+                                                                        <li><a href="Scanner_DCERPC_Auxiliary_Modules">DCERPC</a></li>
+                                                                        <li><a href="Scanner_Discovery_Auxiliary_Modules">Discovery</a></li>
+                                                                        <li><a href="Scanner_FTP_Auxiliary_Modules">FTP</a></li>
+                                                                        <li><a href="Scanner_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Scanner_IMAP_Auxiliary_Modules">IMAP</a></li>
+                                                                        <li><a href="Scanner_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Scanner_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Scanner_NetBIOS_Auxiliary_Modules">NetBIOS</a></li>
+                                                                        <li><a href="Scanner_POP3_Auxiliary_Modules">POP3</a></li>
+                                                                        <li><a href="Scanner_SMB_Auxiliary_Modules">SMB</a></li>
+                                                                        <li><a href="Scanner_SMTP_Auxiliary_Modules">SMTP</a></li>
+                                                                        <li><a href="Scanner_SNMP_Auxiliary_Modules">SNMP</a></li>
+                                                                        <li><a href="Scanner_SSH_Auxiliary_Modules">SSH</a></li>
+                                                                        <li><a href="Scanner_Telnet_Auxiliary_Modules">Telnet</a></li>
+                                                                        <li><a href="Scanner_TFTP_Auxiliary_Modules">TFTP</a></li>
+                                                                        <li><a href="Scanner_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                        <li><a href="Scanner_VNC_Auxiliary_Modules">VNC</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Server
+                                                                <ul class="two">
+                                                                        <li><a href="Server_Capture_Auxiliary_Modules">Capture</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+			<br />
+			<br />
+			<br />
+			<br />
+			</ul>
+													</div>
+				
+					<div class="clear"></div>
+				</div>
+
+				<div id="footer">
+					<div id="footer-content">
+						<div class="left">
+							Copyright &copy; 2013 Offensive Security Ltd. All rights reserved.
+						</div>
+						<div class="right">
+							<a href="http://www.offensive-security.com/"><img src="http://www.offensive-security.com/w/skins/msfu/offsec.png" alt="Offensive Security" /></a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			
+		</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script>
+<script src="http://www.offensive-security.com/w/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=msfu&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1981501-1");
+pageTracker._trackPageview();
+</script><!-- Served in 0.138 secs. --></body></html>
