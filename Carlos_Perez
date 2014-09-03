@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Carlos Perez - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Carlos_Perez" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Carlos_Perez&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Carlos_Perez&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Carlos_Perez&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,166 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Carlos Perez</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Carlos_Perez#column-one">navigation</a>, <a href="Carlos_Perez#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><b>Carlos Perez</b> (Darkoperator) is a Solution Architect for a large IT Integrator, he has worked in the security field for Compaq, HP and as a internal contractor for Microsoft. In addition he is a contributor to the Metasploit project in the area of post exploitation using the Meterpreter payload writing several of the scripts included with the project, he is also a member of the Pauldotcom Security Weekly podcast at <a rel="nofollow" class="external free" href="http://www.pauldotcom.com">http://www.pauldotcom.com</a> . Many of his scripts and other tools can be found in <a rel="nofollow" class="external free" href="http://www.darkoperator.com">http://www.darkoperator.com</a> he is a MCSE, MCDBA, CCDA, Security +, A+. Network+, Linux + and other HR pleasing soup of letters.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="About_The_Authors" title="About The Authors">About The Authors</a> &gt; Carlos Perez</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Mati_Aharoni" title="Mati Aharoni">Mati Aharoni</a> &#124; <a href="William_Coppola" title="William Coppola">William Coppola</a> &#124; <a href="Paul_Hand" title="Paul Hand">Paul Hand</a> &#124; <a href="Alain_Hernandez" title="Alain Hernandez">Alain Hernandez</a> &#124; <a href="Devon_Kearns" title="Devon Kearns">Devon Kearns</a> &#124; <a href="David_Kennedy" title="David Kennedy">David Kennedy</a> &#124; <a href="Steven_McElrea" title="Steven McElrea">Steven McElrea</a> &#124; <a href="Matteo_Memelli" title="Matteo Memelli">Matteo Memelli</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Max_Moser&amp;action=edit&amp;redlink=1" class="new" title="Max Moser (page does not exist)">Max Moser</a> &#124; <a href="Jim_O'Gorman" title="Jim O'Gorman">Jim O'Gorman</a> &#124; <a href="David_Ovitz" title="David Ovitz">David Ovitz</a> &#124; <strong class="selflink">Carlos Perez</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 487/1000000
+Preprocessor generated node count: 2569/1000000
+Post‐expand include size: 3752/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:282-0!*!0!*!*!*!* and timestamp 20131124055202 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Carlos_Perez&amp;oldid=325">http://www.offensive-security.com/w/index.php?title=Carlos_Perez&amp;oldid=325</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:About_The_Authors&amp;action=edit&amp;redlink=1" class="new" title="Category:About The Authors (page does not exist)">About The Authors</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +651,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.147 secs. --></body></html>

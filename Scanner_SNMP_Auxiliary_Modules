@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Scanner SNMP Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Scanner_SNMP_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Scanner_SNMP_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_SNMP_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_SNMP_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,401 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Scanner SNMP Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Scanner_SNMP_Auxiliary_Modules#column-one">navigation</a>, <a href="Scanner_SNMP_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Scanner_SNMP_Auxiliary_Modules#snmp_enum"><span class="tocnumber">1</span> <span class="toctext">snmp_enum</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Scanner_SNMP_Auxiliary_Modules#snmp_enumshares"><span class="tocnumber">2</span> <span class="toctext">snmp_enumshares</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Scanner_SNMP_Auxiliary_Modules#snmp_enumusers"><span class="tocnumber">3</span> <span class="toctext">snmp_enumusers</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Scanner_SNMP_Auxiliary_Modules#snmp_login"><span class="tocnumber">4</span> <span class="toctext">snmp_login</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="snmp_enum"> snmp_enum </span></h2>
+<p>The <b>"snmp_enum"</b> module performs detailed enumeration of a host or range of hosts via SNMP similar to the standalone tools snmpenum and snmpcheck.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/snmp/snmp_enum</span>
+msf auxiliary(<span style='color:#ff0000;'>snmp_enum</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   COMMUNITY  public           yes       SNMP Community String
+   RETRIES    1                yes       SNMP Retries
+   RHOSTS                      yes       The target address range or CIDR identifier
+   RPORT      161              yes       The target port
+   THREADS    1                yes       The number of concurrent threads
+   TIMEOUT    1                yes       SNMP Timeout
+   VERSION    1                yes       SNMP Version</pre>
+<br />
+Although you can pass a range of hosts to this module, the output will become quite cluttered and confusing so it is best to simply do one host at a time.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>snmp_enum</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.2</span>
+RHOSTS => 192.168.1.2
+msf auxiliary(<span style='color:#ff0000;'>snmp_enum</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> System information
+
+Hostname                : Netgear-GSM7224
+Description             : GSM7224 L2 Managed Gigabit Switch
+Contact                 : dookie
+Location                : Basement
+Uptime snmp             : 56 days, 00:36:28.00
+Uptime system           : -
+System date             : -
+
+<span style='color:#0000FF;'>[*]</span> Network information
+
+IP forwarding enabled   :  no
+Default TTL             :  64
+TCP segments received   :  20782
+TCP segments sent       :  9973
+TCP segments retrans.   :  9973
+Input datagrams         :  4052407
+Delivered datagrams     :  1155615
+Output datagrams        :  18261
+
+<span style='color:#0000FF;'>[*]</span> Network interfaces
+
+Interface [ up ] Unit: 1 Slot: 0 Port: 1 Gigabit - Level
+
+	Id              : 1
+	Mac address     : 00:0f:b5:fc:bd:24
+	Type            : ethernet-csmacd
+	Speed           : 1000 Mbps
+	Mtu             : 1500
+	In octets       : 3716564861
+	Out octets      : 675201778
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#0000FF;'>[*]</span> Routing information
+
+     Destination         Next hop             Mask           Metric
+
+         0.0.0.0      5.1.168.192          0.0.0.0                1
+       1.0.0.127        1.0.0.127  255.255.255.255                0
+
+<span style='color:#0000FF;'>[*]</span> TCP connections and listening ports
+
+   Local address       Local port   Remote address      Remote port            State
+
+         0.0.0.0               23          0.0.0.0                0           listen
+         0.0.0.0               80          0.0.0.0                0           listen
+         0.0.0.0             4242          0.0.0.0                0           listen
+       1.0.0.127             2222          0.0.0.0                0           listen
+
+<span style='color:#0000FF;'>[*]</span> Listening UDP ports
+
+   Local address       Local port
+
+         0.0.0.0                0
+         0.0.0.0              161
+         0.0.0.0              514
+
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>snmp_enum</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="snmp_enumshares"> snmp_enumshares </span></h2>
+<p>The <b>"snmp_enumshares"</b> module is a simple scanner that will query a range of hosts via SNMP to determine any available shares.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/snmp/snmp_enumshares</span>
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumshares</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   COMMUNITY  public           yes       SNMP Community String
+   RETRIES    1                yes       SNMP Retries
+   RHOSTS                      yes       The target address range or CIDR identifier
+   RPORT      161              yes       The target port
+   THREADS    1                yes       The number of concurrent threads
+   TIMEOUT    1                yes       SNMP Timeout
+   VERSION    1                yes       SNMP Version &lt;1/2c&gt;</pre>
+<br />
+We configure the module by setting our RHOSTS range and THREADS value and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>snmp_enumshares</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-210</span>
+RHOSTS => 192.168.1.200-210
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumshares</span>) > <span style='color:#13C16A;'>set THREADS 11</span>
+THREADS => 11
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumshares</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#00ff00;'>[+]</span> 192.168.1.201 
+	shared_docs -  (C:\Documents and Settings\Administrator\Desktop\shared_docs)
+<span style='color:#0000FF;'>[*]</span> Scanned 02 of 11 hosts (018% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 03 of 11 hosts (027% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 05 of 11 hosts (045% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 07 of 11 hosts (063% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 09 of 11 hosts (081% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 11 of 11 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumshares</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="snmp_enumusers"> snmp_enumusers </span></h2>
+<p>The <b>"snmp_enumusers"</b> module queries a range of hosts via SNMP and gathers a list of usernames on the remote system.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/snmp/snmp_enumusers</span>
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumusers</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   COMMUNITY  public           yes       SNMP Community String
+   RETRIES    1                yes       SNMP Retries
+   RHOSTS                      yes       The target address range or CIDR identifier
+   RPORT      161              yes       The target port
+   THREADS    1                yes       The number of concurrent threads
+   TIMEOUT    1                yes       SNMP Timeout
+   VERSION    1                yes       SNMP Version &lt;1/2c&gt;</pre>
+<br />
+As with most auxiliary modules, we set our RHOSTS and THREADS value and launch it.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>snmp_enumusers</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-211</span>
+RHOSTS => 192.168.1.200-211
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumusers</span>) > <span style='color:#13C16A;'>set THREADS 11</span>
+THREADS => 11
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumusers</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#00ff00;'>[+]</span> 192.168.1.201 Found Users: ASPNET, Administrator, Guest, HelpAssistant, SUPPORT_388945a0, victim 
+<span style='color:#0000FF;'>[*]</span> Scanned 02 of 12 hosts (016% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 05 of 12 hosts (041% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 06 of 12 hosts (050% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 07 of 12 hosts (058% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 08 of 12 hosts (066% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 09 of 12 hosts (075% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 11 of 12 hosts (091% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 12 of 12 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>snmp_enumusers</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="snmp_login"> snmp_login </span></h2>
+<p>The snmp_login scanner is a module that scans a range of IP addresses to determine the community string for SNMP-enabled devices.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/snmp/snmp_login</span>
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name              Current Setting                                             Required  Description
+   ----              ---------------                                             --------  -----------
+   BATCHSIZE         256                                                         yes       The number of hosts to probe in each set
+   BLANK_PASSWORDS   true                                                        yes       Try blank passwords for all users
+   BRUTEFORCE_SPEED  5                                                           yes       How fast to bruteforce, from 0 to 5
+   CHOST                                                                         no        The local client address
+   PASSWORD                                                                      no        The password to test
+   PASS_FILE         /opt/metasploit3/msf3/data/wordlists/snmp_default_pass.txt  no        File containing communities, one per line
+   RHOSTS                                                                        yes       The target address range or CIDR identifier
+   RPORT             161                                                         yes       The target port
+   STOP_ON_SUCCESS   false                                                       yes       Stop guessing when a credential works for a host
+   THREADS           1                                                           yes       The number of concurrent threads
+   USERNAME                                                                      no        A specific username to authenticate as
+   USERPASS_FILE                                                                 no        File containing users and passwords separated by space, one pair per line
+   USER_FILE                                                                     no        File containing usernames, one per line
+   VERBOSE           true                                                        yes       Whether to print output for all attempts</pre>
+<br />
+We set our RHOSTS and THREADS values while using the default wordlist and let the scanner run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>set THREADS 254</span>
+THREADS => 254
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#00ff00;'>[+]</span> SNMP: 192.168.1.2 community string: 'public' info: 'GSM7224 L2 Managed Gigabit Switch'
+<span style='color:#00ff00;'>[+]</span> SNMP: 192.168.1.199 community string: 'public' info: 'HP ETHERNET MULTI-ENVIRONMENT'
+<span style='color:#00ff00;'>[+]</span> SNMP: 192.168.1.2 community string: 'private' info: 'GSM7224 L2 Managed Gigabit Switch'
+<span style='color:#00ff00;'>[+]</span> SNMP: 192.168.1.199 community string: 'private' info: 'HP ETHERNET MULTI-ENVIRONMENT'
+<span style='color:#0000FF;'>[*]</span> Validating scan results from 2 hosts...
+<span style='color:#0000FF;'>[*]</span> Host 192.168.1.199 provides READ-WRITE access with community 'internal'
+<span style='color:#0000FF;'>[*]</span> Host 192.168.1.199 provides READ-WRITE access with community 'private'
+<span style='color:#0000FF;'>[*]</span> Host 192.168.1.199 provides READ-WRITE access with community 'public'
+<span style='color:#0000FF;'>[*]</span> Host 192.168.1.2 provides READ-WRITE access with community 'private'
+<span style='color:#0000FF;'>[*]</span> Host 192.168.1.2 provides READ-ONLY access with community 'public'
+<span style='color:#0000FF;'>[*]</span> Scanned 256 of 256 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) ></pre>
+<br />
+<br />
+Our quick SNMP sweep found both the default public and private community strings of 2 devices on our network. This module can also be a useful tool for network administrators to identify attached devices that are insecurely configured.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Scanner Modules (page does not exist)">Scanner Modules</a> &gt; Scanner SNMP Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=DCERPC&amp;action=edit&amp;redlink=1" class="new" title="DCERPC (page does not exist)">DCERPC</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Discovery&amp;action=edit&amp;redlink=1" class="new" title="Discovery (page does not exist)">Discovery</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=FTP&amp;action=edit&amp;redlink=1" class="new" title="FTP (page does not exist)">FTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=HTTP&amp;action=edit&amp;redlink=1" class="new" title="HTTP (page does not exist)">HTTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=IMAP&amp;action=edit&amp;redlink=1" class="new" title="IMAP (page does not exist)">IMAP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MSSQL&amp;action=edit&amp;redlink=1" class="new" title="MSSQL (page does not exist)">MSSQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MySQL&amp;action=edit&amp;redlink=1" class="new" title="MySQL (page does not exist)">MySQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=NetBIOS&amp;action=edit&amp;redlink=1" class="new" title="NetBIOS (page does not exist)">NetBIOS</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=POP3&amp;action=edit&amp;redlink=1" class="new" title="POP3 (page does not exist)">POP3</a> &#124; <a href="Port_Scanners" title="Port Scanners" class="mw-redirect">Port Scanners</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMB&amp;action=edit&amp;redlink=1" class="new" title="SMB (page does not exist)">SMB</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMTP&amp;action=edit&amp;redlink=1" class="new" title="SMTP (page does not exist)">SMTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SNMP&amp;action=edit&amp;redlink=1" class="new" title="SNMP (page does not exist)">SNMP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SSH&amp;action=edit&amp;redlink=1" class="new" title="SSH (page does not exist)">SSH</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Telnet&amp;action=edit&amp;redlink=1" class="new" title="Telnet (page does not exist)">Telnet</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=TFTP&amp;action=edit&amp;redlink=1" class="new" title="TFTP (page does not exist)">TFTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=VNC&amp;action=edit&amp;redlink=1" class="new" title="VNC (page does not exist)">VNC</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 593/1000000
+Preprocessor generated node count: 2809/1000000
+Post‐expand include size: 5460/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:252-0!*!0!!en!*!* and timestamp 20131123214023 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Scanner_SNMP_Auxiliary_Modules&amp;oldid=1269">http://www.offensive-security.com/w/index.php?title=Scanner_SNMP_Auxiliary_Modules&amp;oldid=1269</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Scanner Modules (page does not exist)">Scanner Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +886,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.155 secs. --></body></html>

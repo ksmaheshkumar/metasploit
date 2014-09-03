@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Installing dotDefender - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Installing_dotDefender" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Installing_dotDefender&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Installing_dotDefender&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Installing_dotDefender&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,212 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Installing dotDefender</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Installing_dotDefender#column-one">navigation</a>, <a href="Installing_dotDefender#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>First we have to install dotDefender on Metasploitable.  This can be done by opening a prompt and using wget on the following url:
+<br />
+<br />
+<pre>http://www.applicure.com/downloads/3.85/linux/dotDefender-3.8-5.Linux.i386.deb.bin.gz</pre>
+</p><p><a href="File:Dot1.png" class="image"><img alt="Dot1.png" src="http://www.offensive-security.com/w/images/9/99/Dot1.png" width="834" height="569" /></a>
+</p><p>Then we must gunzip the downloaded file, make it executable using the chmod command and then run the .bin file to start the installation.
+</p><p><a href="File:Dot2.png" class="image"><img alt="Dot2.png" src="http://www.offensive-security.com/w/images/d/db/Dot2.png" width="834" height="569" /></a>
+</p><p>Once the installation starts we should be prompted with the following screen.  Select "Next".
+</p><p><a href="File:Dot3.png" class="image"><img alt="Dot3.png" src="http://www.offensive-security.com/w/images/7/71/Dot3.png" width="834" height="569" /></a>
+</p><p>We must agree to the License Agreement by selecting "I Agree".
+</p><p><a href="File:Dot4.png" class="image"><img alt="Dot4.png" src="http://www.offensive-security.com/w/images/1/14/Dot4.png" width="834" height="569" /></a>
+</p><p>We can leave the default options and continue with the installation by selecting "Next".
+</p><p><a href="File:Dot5.png" class="image"><img alt="Dot5.png" src="http://www.offensive-security.com/w/images/8/87/Dot5.png" width="834" height="569" /></a>
+</p><p>Here we must insert the location of Apache in Metasploitable.  Apache is located at:
+<br />
+<br />
+<pre>/usr/sbin/apache2</pre>
+<br />
+<br />
+Then continue by selecting "Next".
+</p><p><a href="File:Dot6.png" class="image"><img alt="Dot6.png" src="http://www.offensive-security.com/w/images/a/ac/Dot6.png" width="834" height="569" /></a>
+</p><p>This information should be auto-filled in by the installer.  Continue by selecting "Next".
+</p><p><a href="File:Dot7.png" class="image"><img alt="Dot7.png" src="http://www.offensive-security.com/w/images/a/a3/Dot7.png" width="834" height="569" /></a>
+</p><p>Here we must enter the password we would like to use for the dotDefender Administration GUI.  Once we are finished we can select "Next".
+</p><p><a href="File:Dot8.png" class="image"><img alt="Dot8.png" src="http://www.offensive-security.com/w/images/c/c7/Dot8.png" width="834" height="569" /></a>
+</p><p>Make sure all the configuration options are correct with the following picture and select "Next".
+</p><p><a href="File:Dot9.png" class="image"><img alt="Dot9.png" src="http://www.offensive-security.com/w/images/2/23/Dot9.png" width="834" height="569" /></a>
+</p><p>Once we select "Go" the installation will begin.
+</p><p><a href="File:Dot10.png" class="image"><img alt="Dot10.png" src="http://www.offensive-security.com/w/images/9/98/Dot10.png" width="834" height="569" /></a>
+</p><p>For this demonstration we only need to use dotDefender for monitoring.  Once that is selected we can hit "Next".
+</p><p><a href="File:Dot11.png" class="image"><img alt="Dot11.png" src="http://www.offensive-security.com/w/images/2/2b/Dot11.png" width="834" height="569" /></a>
+</p><p>If everything was successful we should have a screen like the one as follows.  We will need to restart Apache before being able to use dotDefender so we can do so with:
+<br />
+<br />
+<pre>/etc/init.d/apache2 restart</pre>
+<br />
+<br />
+<a href="File:Dot12.png" class="image"><img alt="Dot12.png" src="http://www.offensive-security.com/w/images/5/56/Dot12.png" width="834" height="569" /></a>
+</p><p>Once Apache has restarted we will need to connect to the GUI URL and insert the username "admin" and the password we created during the install and then hit "Log In".
+</p><p><a href="File:Dot13.png" class="image"><img alt="Dot13.png" src="http://www.offensive-security.com/w/images/b/bf/Dot13.png" width="1134" height="806" /></a>
+</p><p>Now we have to add the site to dotDefender.  This will be the IP of Metasploitable. Then select "Add New Site".
+</p><p><a href="File:Dot14.png" class="image"><img alt="Dot14.png" src="http://www.offensive-security.com/w/images/0/0e/Dot14.png" width="1134" height="806" /></a>
+</p><p>Once it has been added we will see the new section.  Now the only thing left to do is select "Start dotDefender"
+</p><p><a href="File:Dot15.png" class="image"><img alt="Dot15.png" src="http://www.offensive-security.com/w/images/e/e9/Dot15.png" width="1134" height="806" /></a>
+</p><p>Once we see the green check mark saying "dotDefender is enabled" the install is finished.
+</p><p><a href="File:Dot16.png" class="image"><img alt="Dot16.png" src="http://www.offensive-security.com/w/images/f/f3/Dot16.png" width="1134" height="806" /></a>
+<br />
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Web_App_Exploit_Dev" title="Web App Exploit Dev">Web App Exploit Dev</a> &gt; Installing dotDefender</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Installing dotDefender</strong> &#124; <a href="Analyzing_the_Exploit" title="Analyzing the Exploit">Analyzing the Exploit</a> &#124; <a href="Skeleton_Creation" title="Skeleton Creation">Skeleton Creation</a> &#124; <a href="Making_A_Log_Entry" title="Making A Log Entry">Making A Log Entry</a> &#124; <a href="Hosting_the_Javascript" title="Hosting the Javascript">Hosting the Javascript</a> &#124; <a href="Final_Exploit" title="Final Exploit">Final Exploit</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 505/1000000
+Preprocessor generated node count: 2647/1000000
+Post‐expand include size: 4442/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:354-0!*!0!*!*!2!* and timestamp 20131124132414 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Installing_dotDefender&amp;oldid=780">http://www.offensive-security.com/w/index.php?title=Installing_dotDefender&amp;oldid=780</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Web_App_Exploit_Dev&amp;action=edit&amp;redlink=1" class="new" title="Category:Web App Exploit Dev (page does not exist)">Web App Exploit Dev</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +697,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.159 secs. --></body></html>

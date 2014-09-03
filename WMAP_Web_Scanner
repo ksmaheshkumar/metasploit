@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>WMAP Web Scanner - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="WMAP_Web_Scanner" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:WMAP_Web_Scanner&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=WMAP_Web_Scanner&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=WMAP_Web_Scanner&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,379 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>WMAP Web Scanner</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="WMAP_Web_Scanner#column-one">navigation</a>, <a href="WMAP_Web_Scanner#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>WMAP is a feature-rich web vulnerability scanner that was originally created from a tool named SQLMap. This tool is integrated with Metasploit and allows us to conduct webapp scanning from within the Framework.
+We begin by first creating a new database to store our scan results in, load the <b>"wmap"</b> plugin, and run <b>"help"</b> to see what new commands are available to us.
 <br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>load wmap</span>
+<span style='color:#ff0000;'>
+.-.-.-..-.-.-..---..---.
+| | | || | | || | || |-'
+`-----'`-'-'-'`-^-'`-'</span>
+[WMAP 1.5.1] ===  et [  ] metasploit.com 2012
+<span style='color:#0000FF;'>[*]</span> Successfully loaded plugin: wmap
+
+msf > <span style='color:#13C16A;'> help</span>
+
+wmap Commands
+=============
+
+    Command       Description
+    -------       -----------
+    wmap_modules  Manage wmap modules
+    wmap_nodes    Manage nodes
+    wmap_run      Test targets
+    wmap_sites    Manage sites
+    wmap_targets  Manage targets
+    wmap_vulns    Display web vulns
+
+<span style='color:#00ff00;'>...snip...</span>
+
+</pre>
+<br />
+Prior to running a scan, we first need to add a new target URL by passing the <b>"-a"</b> switch to <b>"wmap_sites"</b>. Afterwards, running <b>"wmap_sites -l"</b> will print out the available targets.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>wmap_sites -h</span>
+<span style='color:#0000FF;'>[*]</span>  Usage: wmap_targets [options]
+	-h        Display this help text
+	-a [url]  Add site (vhost,url)
+	-l        List all available sites
+	-s [id]   Display site structure (vhost,url|ids) (level)
+
+	
+msf > <span style='color:#13C16A;'>wmap_sites -a http://172.16.194.172</span>
+<span style='color:#0000FF;'>[*]</span> Site created.
+msf > <span style='color:#13C16A;'>wmap_sites -l</span>
+<span style='color:#0000FF;'>[*]</span> Available sites
+===============
+
+     Id  Host            Vhost           Port  Proto  # Pages  # Forms
+     --  ----            -----           ----  -----  -------  -------
+     0   172.16.194.172  172.16.194.172  80    http   0        0
+
+
+</pre>
+<br />
+Next, we add the site as a target with <b>"wmap_targets"</b>.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>wmap_targets -h</span>
+<span style='color:#0000FF;'>[*]</span> Usage: wmap_targets [options]
+	-h 		Display this help text
+	-t [urls]	Define target sites (vhost1,url[space]vhost2,url) 
+	-d [ids]	Define target sites (id1, id2, id3 ...)
+	-c 		Clean target sites list
+	-l  		List all target sites
+
+
+msf > <span style='color:#13C16A;'>wmap_targets -t http://172.16.194.172/mutillidae/index.php</span>
+
+</pre>
+<br />
+Once added, we can view our list of targets by using the '-l' switch from the console.
+<br />
+<br />
+<pre>
+msf > wmap_targets -l
+[*] Defined targets
+===============
+
+     Id  Vhost           Host            Port  SSL    Path
+     --  -----           ----            ----  ---    ----
+     0   172.16.194.172  172.16.194.172  80    false	/mutillidae/index.php
+
+</pre>
+<br />
+Using the <b>"wmap_run"</b> command will scan the target system. 
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>wmap_run -h</span>
+<span style='color:#0000FF;'>[*]</span> Usage: wmap_run [options]
+	-h                        Display this help text
+	-t                        Show all enabled modules
+	-m [regex]                Launch only modules that name match provided regex.
+	-p [regex]                Only test path defined by regex.
+	-e [/path/to/profile]     Launch profile modules against all matched targets.
+	                          (No profile file runs all enabled modules.)
+
+</pre>
+<br />
+We first using the <b>"-t"</b> switch to list the modules that will be used to scan the remote system.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>wmap_run -t</span>
+
+<span style='color:#0000FF;'>[*]</span> Testing target:
+<span style='color:#0000FF;'>[*]</span> 	Site: 192.168.1.100 (192.168.1.100)
+<span style='color:#0000FF;'>[*]</span> 	Port: 80 SSL: false
+<span style='color:#0000FF;'>[*]</span> ============================================================
+<span style='color:#0000FF;'>[*]</span> Testing started. 2012-01-16 15:46:42 -0500
+<span style='color:#0000FF;'>[*]</span> 
+=[ SSL testing ]=
+<span style='color:#0000FF;'>[*]</span> ============================================================
+<span style='color:#0000FF;'>[*]</span> Target is not SSL. SSL modules disabled.
+<span style='color:#0000FF;'>[*]</span> 
+=[ Web Server testing ]=
+<span style='color:#0000FF;'>[*]</span> ============================================================
+<span style='color:#0000FF;'>[*]</span> Loaded auxiliary/admin/http/contentkeeper_fileaccess ...
+<span style='color:#0000FF;'>[*]</span> Loaded auxiliary/admin/http/tomcat_administration ...
+<span style='color:#0000FF;'>[*]</span> Loaded auxiliary/admin/http/tomcat_utf8_traversal ...
+<span style='color:#0000FF;'>[*]</span> Loaded auxiliary/admin/http/trendmicro_dlp_traversal ...
+<span style='color:#00ff00;'>..snip...</span>
+
+msf >
+</pre>
+<br />
+All that remains now is to actually run the scan against our target URL.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>wmap_run -e</span>
+<span style='color:#0000FF;'>[*]</span> Using ALL wmap enabled modules.
+<span style='color:#ff0000;'>[-]</span> NO WMAP NODES DEFINED. Executing local modules
+<span style='color:#0000FF;'>[*]</span> Testing target:
+<span style='color:#0000FF;'>[*]</span> 	Site: 172.16.194.172 (172.16.194.172)
+<span style='color:#0000FF;'>[*]</span> 	Port: 80 SSL: false
+============================================================
+<span style='color:#0000FF;'>[*]</span> Testing started. 2012-06-27 09:29:13 -0400
+<span style='color:#0000FF;'>[*]</span> 
+=[ SSL testing ]=
+============================================================
+<span style='color:#0000FF;'>[*]</span> Target is not SSL. SSL modules disabled.
+<span style='color:#0000FF;'>[*]</span> 
+=[ Web Server testing ]=
+============================================================
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/http_version
+
+<span style='color:#0000FF;'>[*]</span> 172.16.194.172:80 Apache/2.2.8 (Ubuntu) DAV/2 ( Powered by PHP/5.2.4-2ubuntu5.10 )
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/open_proxy
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/robots_txt
+
+
+<span style='color:#00ff00;'>..snip...</span>
+<span style='color:#00ff00;'>..snip...</span>
+<span style='color:#00ff00;'>..snip...</span>
+
+
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/soap_xml
+<span style='color:#0000FF;'>[*]</span> Path: /
+<span style='color:#0000FF;'>[*]</span> Server 172.16.194.172:80 returned HTTP 404 for /.  Use a different one.
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/trace_axd
+<span style='color:#0000FF;'>[*]</span> Path: /
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/verb_auth_bypass
+<span style='color:#0000FF;'>[*]</span> 
+=[ Unique Query testing ]=
+============================================================
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/blind_sql_query
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/error_sql_injection
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/http_traversal
+<span style='color:#0000FF;'>[*]</span> Module auxiliary/scanner/http/rails_mass_assignment
+<span style='color:#0000FF;'>[*]</span> Module exploit/multi/http/lcms_php_exec
+<span style='color:#0000FF;'>[*]</span> 
+=[ Query testing ]=
+============================================================
+<span style='color:#0000FF;'>[*]</span> 
+=[ General testing ]=
+============================================================
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Launch completed in 212.01512002944946 seconds.
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<span style='color:#0000FF;'>[*]</span> Done.
+
+</pre>
+<br />
+Once the scan has finished executing, we take a look at the database to see if wmap found anything of interest.
+<br />
+<br />
+<pre>
+msf > wmap_vulns -l
+[*] + [172.16.194.172] (172.16.194.172): scraper /
+[*] 	scraper Scraper
+[*] 	GET Metasploitable2 - Linux
+[*] + [172.16.194.172] (172.16.194.172): directory /dav/
+[*] 	directory Directory found.
+[*] 	GET Res code: 200
+[*] + [172.16.194.172] (172.16.194.172): directory /cgi-bin/
+[*] 	directory Directoy found.
+[*] 	GET Res code: 403
+
+<span style='color:#00ff00;'>...snip...</span>
+
+msf ></pre> 
+<br />
+Looking at the above output, we can see that wmap has reported on 1 vulnerability. Running <b>"vulns"</b> will list the details for us.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>vulns</span>
+<span style='color:#0000FF;'>[*]</span> Time: 2012-01-16 20:58:49 UTC Vuln: host=172.16.2.207 port=80 proto=tcp name=auxiliary/scanner/http/options refs=CVE-2005-3398,CVE-2005-3498,OSVDB-877,BID-11604,BID-9506,BID-9561
+
+msf ></pre>
+<br />
+We can now use this information to gather further information on the reported vulnerability. As pentesters, we would want to investigate each finding further and identify if there are potential methods for attack.
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Vulnerability_Scanning" title="Vulnerability Scanning">Vulnerability Scanning</a> &gt; WMAP Web Scanner</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="SMB_Login_Check" title="SMB Login Check">SMB Login Check</a> &#124; <a href="VNC_Authentication" title="VNC Authentication">VNC Authentication</a> &#124; <strong class="selflink">WMAP Web Scanner</strong> &#124; <a href="Working_With_NeXpose" title="Working With NeXpose">Working With NeXpose</a> &#124; <a href="Working_With_Nessus" title="Working With Nessus">Working With Nessus</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 535/1000000
+Preprocessor generated node count: 2791/1000000
+Post‐expand include size: 3834/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:36-0!*!0!*!*!*!* and timestamp 20131124082114 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=WMAP_Web_Scanner&amp;oldid=991">http://www.offensive-security.com/w/index.php?title=WMAP_Web_Scanner&amp;oldid=991</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Vulnerability_Scanning&amp;action=edit&amp;redlink=1" class="new" title="Category:Vulnerability Scanning (page does not exist)">Vulnerability Scanning</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +864,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.147 secs. --></body></html>

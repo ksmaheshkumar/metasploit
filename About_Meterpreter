@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>About the Metasploit Meterpreter - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="About_Meterpreter" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:About_Meterpreter&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=About_Meterpreter&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=About_Meterpreter&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,229 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>About the Metasploit Meterpreter</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="About_Meterpreter#column-one">navigation</a>, <a href="About_Meterpreter#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+Meterpreter is an advanced, dynamically extensible payload that uses in-memory DLL injection stagers and is extended over the network at runtime. It communicates over the stager socket and provides a comprehensive client-side Ruby API. It features command history, tab completion, channels, and more.
+Metepreter was originally written by skape for Metasploit 2.x, common extensions were merged for 3.x and is currently undergoing an overhaul for Metasploit 3.3. The server portion is implemented in plain C and is now compiled with MSVC, making it somewhat portable. The client can be written in any language but Metasploit has a full-featured Ruby client API.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="About_Meterpreter#How_Meterpreter_Works"><span class="tocnumber">1</span> <span class="toctext">How Meterpreter Works</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="About_Meterpreter#Meterpreter_Design_Goals"><span class="tocnumber">2</span> <span class="toctext">Meterpreter Design Goals</span></a>
+<ul>
+<li class="toclevel-2 tocsection-3"><a href="About_Meterpreter#Stealthy"><span class="tocnumber">2.1</span> <span class="toctext">Stealthy</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="About_Meterpreter#Powerful"><span class="tocnumber">2.2</span> <span class="toctext">Powerful</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="About_Meterpreter#Extensible"><span class="tocnumber">2.3</span> <span class="toctext">Extensible</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-6"><a href="About_Meterpreter#Adding_Runtime_Features"><span class="tocnumber">3</span> <span class="toctext">Adding Runtime Features</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h4> <span class="mw-headline" id="How_Meterpreter_Works">How Meterpreter Works</span></h4>
+<dl><dd><ul><li>The target executes the initial stager. This is usually one of bind, reverse, findtag, passivex, etc.
+</li><li>The stager loads the DLL prefixed with Reflective.  The Reflective stub handles the loading/injection of the DLL.
+</li><li>The Metepreter core initializes, establishes a TLS/1.0 link over the socket and sends a GET. Metasploit receives this GET and configures the client.
+</li><li>Lastly, Meterpreter loads extensions. It will always load stdapi and will load priv if the module gives administrative rights. All of these extensions are loaded over TLS/1.0 using a TLV protocol.
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Meterpreter_Design_Goals">Meterpreter Design Goals</span></h4>
+<h5> <span class="mw-headline" id="Stealthy">Stealthy</span></h5>
+<dl><dd><ul><li>Meterpreter resides entirely in memory and writes nothing to disk.
+</li><li>No new processes are created as Meterpreter injects itself into the compromised process and can migrate to other running processes easily.
+</li><li>By default, Meterpreter uses encrypted communications.
+</li><li>All of these provide limited forensic evidence and impact on the victim machine.
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h5> <span class="mw-headline" id="Powerful">Powerful</span></h5>
+<dl><dd><ul><li>Meterpreter utilizes a channelized communication system.
+</li><li>The TLV protocol has few limitations.
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h5> <span class="mw-headline" id="Extensible">Extensible</span></h5>
+<dl><dd><ul><li>Features can be augmented at runtime and are loaded over the network.
+</li><li>New features can be added to Meterpreter without having to rebuild it.
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Adding_Runtime_Features">Adding Runtime Features</span></h4>
+<p>New features are added to Meterpreter by loading extensions.
+</p>
+<dl><dd><ul><li>The client uploads the DLL over the socket.
+</li><li>The server running on the victim loads the DLL in-memory and initializes it.
+</li><li>The new extension registers itself with the server.
+</li><li>The client on the attackers machine loads the local extension API and can now call the extensions functions.
+</li></ul>
+</dd></dl>
+<p>This entire process is seamless and takes approximately 1 second to complete.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &gt; About Meterpreter</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Msfcli" title="Msfcli">Msfcli</a> &#124; <a href="Msfconsole" title="Msfconsole">Msfconsole</a> &#124; <a href="Exploits" title="Exploits">Exploits</a> &#124; <a href="Payloads" title="Payloads">Payloads</a> &#124; <a href="Databases" title="Databases">Databases</a> &#124; <strong class="selflink">About Meterpreter</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Meterpreter_Basics" title="Meterpreter Basics">Meterpreter Basics</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 519/1000000
+Preprocessor generated node count: 2615/1000000
+Post‐expand include size: 3972/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:23-0!*!0!!en!*!* and timestamp 20131124062913 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=About_Meterpreter&amp;oldid=296">http://www.offensive-security.com/w/index.php?title=About_Meterpreter&amp;oldid=296</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Fundamentals&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Fundamentals (page does not exist)">Metasploit Fundamentals</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +714,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.147 secs. --></body></html>

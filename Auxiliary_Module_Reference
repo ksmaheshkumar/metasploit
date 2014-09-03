@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Auxiliary Module Reference - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Auxiliary_Module_Reference" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Auxiliary_Module_Reference&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Module_Reference&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Module_Reference&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,94 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Auxiliary Module Reference</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Auxiliary_Module_Reference#column-one">navigation</a>, <a href="Auxiliary_Module_Reference#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The Metasploit Framework includes hundreds of auxiliary modules that perform scanning, fuzzing, sniffing, and much more.  Although these modules will not give you a shell, they are extremely valuable when conducting a penetration test.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Auxiliary_Module_Reference#Admin"><span class="tocnumber">1</span> <span class="toctext">Admin</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Auxiliary_Module_Reference#Scanner"><span class="tocnumber">2</span> <span class="toctext">Scanner</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Auxiliary_Module_Reference#Server"><span class="tocnumber">3</span> <span class="toctext">Server</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h2> <span class="mw-headline" id="Admin"> Admin </span></h2>
+<p><a href="Admin_HTTP_Auxiliary_Modules" title="Admin HTTP Auxiliary Modules">Admin HTTP Modules</a>
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+<a href="Admin_MSSQL_Auxiliary_Modules" title="Admin MSSQL Auxiliary Modules">Admin MSSQL Modules</a>
+<br />
+<a href="Admin_MySQL_Auxiliary_Modules" title="Admin MySQL Auxiliary Modules">Admin MySQL Modules</a>
+<br />
+<a href="Admin_Postgres_Auxiliary_Modules" title="Admin Postgres Auxiliary Modules">Admin Postgres Modules</a>
+<br />
+<a href="Admin_VMWare_Auxiliary_Modules" title="Admin VMWare Auxiliary Modules">Admin VMWare Modules</a>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Scanner"> Scanner </span></h2>
+<p><a href="Scanner_DCERPC_Auxiliary_Modules" title="Scanner DCERPC Auxiliary Modules">DCERPC</a>
+<br />
+<a href="Scanner_Discovery_Auxiliary_Modules" title="Scanner Discovery Auxiliary Modules">Discovery</a>
+<br />
+<a href="Scanner_FTP_Auxiliary_Modules" title="Scanner FTP Auxiliary Modules">FTP</a>
+<br />
+<a href="Scanner_HTTP_Auxiliary_Modules" title="Scanner HTTP Auxiliary Modules">HTTP</a>
+<br />
+<a href="Scanner_IMAP_Auxiliary_Modules" title="Scanner IMAP Auxiliary Modules">IMAP</a>
+<br />
+<a href="Scanner_MSSQL_Auxiliary_Modules" title="Scanner MSSQL Auxiliary Modules">MSSQL</a>
+<br />
+<a href="Scanner_MySQL_Auxiliary_Modules" title="Scanner MySQL Auxiliary Modules">MySQL</a>
+<br />
+<a href="Scanner_NetBIOS_Auxiliary_Modules" title="Scanner NetBIOS Auxiliary Modules">NetBIOS</a>
+<br />
+<a href="Scanner_POP3_Auxiliary_Modules" title="Scanner POP3 Auxiliary Modules">POP3</a>
+<br />
+<a href="Scanner_SMB_Auxiliary_Modules" title="Scanner SMB Auxiliary Modules">SMB</a>
+<br />
+<a href="Scanner_SMTP_Auxiliary_Modules" title="Scanner SMTP Auxiliary Modules">SMTP</a>
+<br />
+<a href="Scanner_SNMP_Auxiliary_Modules" title="Scanner SNMP Auxiliary Modules">SNMP</a>
+<br />
+<a href="Scanner_SSH_Auxiliary_Modules" title="Scanner SSH Auxiliary Modules">SSH</a>
+<br />
+<a href="Scanner_Telnet_Auxiliary_Modules" title="Scanner Telnet Auxiliary Modules">Telnet</a>
+<br />
+<a href="Scanner_TFTP_Auxiliary_Modules" title="Scanner TFTP Auxiliary Modules">TFTP</a>
+<br />
+<a href="Scanner_VMWare_Auxiliary_Modules" title="Scanner VMWare Auxiliary Modules">VMWare</a>
+<br />
+<a href="Scanner_VNC_Auxiliary_Modules" title="Scanner VNC Auxiliary Modules">VNC</a>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Server"> Server </span></h2>
+<p><a href="Server_Capture_Auxiliary_Modules" title="Server Capture Auxiliary Modules">Server Capture Modules</a>
+<br />
 <br />
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
+Preprocessor visited node count: 40/1000000
+Preprocessor generated node count: 74/1000000
 Post‐expand include size: 0/2097152 bytes
 Template argument size: 0/2097152 bytes
 Highest expansion depth: 2/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:448-0!*!0!!en!*!* and timestamp 20131123190249 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Module_Reference&amp;oldid=1516">http://www.offensive-security.com/w/index.php?title=Auxiliary_Module_Reference&amp;oldid=1516</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Main&amp;action=edit&amp;redlink=1" class="new" title="Category:Main (page does not exist)">Main</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +579,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.148 secs. --></body></html>

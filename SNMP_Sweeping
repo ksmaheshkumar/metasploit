@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>SNMP Sweeping - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="SNMP_Sweeping" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:SNMP_Sweeping&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=SNMP_Sweeping&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=SNMP_Sweeping&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,305 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>SNMP Sweeping</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="SNMP_Sweeping#column-one">navigation</a>, <a href="SNMP_Sweeping#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>SNMP sweeps are often a good indicator in finding a ton of information about a specific system or actually compromising the remote device. If you can find a Cisco device running a private string for example, you can actually download the entire device configuration, modify it, and upload your own malicious config. Also a lot of times, the passwords themselves are level 7 encoded which means they are trivial to decode and obtain the enable or login password for the specific device.
+<br />
+<br />
+Metasploit comes with a built in auxiliary module specifically for sweeping SNMP devices. There are a couple of things to understand before we perform our attack. First, read only and read write community strings play an important role on what type of information can be extracted or modified on the devices themselves. If you can "guess" the read-only or read-write strings you can obtain quite a bit of access you would not normally have. In addition, if Windows based devices are configured with SNMP, often times with the RO/RW community strings you can extract patch levels, services running, last reboot times, usernames on the system, routes, and various other amounts of information that is valuable to an attacker.
+<br />
+<br />
+When querying through SNMP, there is whats called an MIB API. The MIB stands for the Management Information Base (MIB), this interface allows you to query the device and extract information. Metasploit comes loaded with a list of default MIBs that it has in its database, it uses them to query the device for more information depending on what level of access is obtained. Let's take a peek at the auxiliary module.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>search snmp</span>
+
+Matching Modules
+================
+
+   Name                                               Disclosure Date  Rank    Description
+   ----                                               ---------------  ----    -----------
+   auxiliary/scanner/misc/oki_scanner                                  normal  OKI Printer Default Login Credential Scanner
+   auxiliary/scanner/snmp/aix_version                                  normal  AIX SNMP Scanner Auxiliary Module
+   auxiliary/scanner/snmp/cisco_config_tftp                            normal  Cisco IOS SNMP Configuration Grabber (TFTP)
+   auxiliary/scanner/snmp/cisco_upload_file                            normal  Cisco IOS SNMP File Upload (TFTP)
+   auxiliary/scanner/snmp/snmp_enum                                    normal  SNMP Enumeration Module
+   auxiliary/scanner/snmp/snmp_enumshares                              normal  SNMP Windows SMB Share Enumeration
+   auxiliary/scanner/snmp/snmp_enumusers                               normal  SNMP Windows Username Enumeration
+   auxiliary/scanner/snmp/snmp_login                                   normal  SNMP Community Scanner
+   auxiliary/scanner/snmp/snmp_set                                     normal  SNMP Set Module
+   auxiliary/scanner/snmp/xerox_workcentre_enumusers                   normal  Xerox WorkCentre User Enumeration (SNMP)
+   exploit/windows/ftp/oracle9i_xdb_ftp_unlock        2003-08-18       great   Oracle 9i XDB FTP UNLOCK Overflow (win32)
+   exploit/windows/http/hp_nnm_ovwebsnmpsrv_main      2010-06-16       great   HP OpenView Network Node Manager ovwebsnmpsrv.exe main Buffer Overflow
+   exploit/windows/http/hp_nnm_ovwebsnmpsrv_ovutil    2010-06-16       great   HP OpenView Network Node Manager ovwebsnmpsrv.exe ovutil Buffer Overflow
+   exploit/windows/http/hp_nnm_ovwebsnmpsrv_uro       2010-06-08       great   HP OpenView Network Node Manager ovwebsnmpsrv.exe Unrecognized Option Buffer Overflow
+   exploit/windows/http/hp_nnm_snmp                   2009-12-09       great   HP OpenView Network Node Manager Snmp.exe CGI Buffer Overflow
+   exploit/windows/http/hp_nnm_snmpviewer_actapp      2010-05-11       great   HP OpenView Network Node Manager snmpviewer.exe Buffer Overflow
+   post/windows/gather/enum_snmp                                       normal  Windows Gather SNMP Settings Enumeration (Registry)
+
+msf > <span style='color:#13C16A;'>use auxiliary/scanner/snmp/snmp_login</span> 
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/snmp/snmp_login):
+
+   Name              Current Setting                                             Required  Description
+   ----              ---------------                                             --------  -----------
+   BATCHSIZE         256                                                         yes       The number of hosts to probe in each set
+   BLANK_PASSWORDS   true                                                        no        Try blank passwords for all users
+   BRUTEFORCE_SPEED  5                                                           yes       How fast to bruteforce, from 0 to 5
+   CHOST                                                                         no        The local client address
+   PASSWORD                                                                      no        The password to test
+   PASS_FILE         /opt/metasploit3/msf3/data/wordlists/snmp_default_pass.txt  no        File containing communities, one per line
+   RHOSTS                                                                        yes       The target address range or CIDR identifier
+   RPORT             161                                                         yes       The target port
+   STOP_ON_SUCCESS   false                                                       yes       Stop guessing when a credential works for a host
+   THREADS           1                                                           yes       The number of concurrent threads
+   USER_AS_PASS      true                                                        no        Try the username as the password for all users
+   VERBOSE           true                                                        yes       Whether to print output for all attempts
+
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.0.0-192.168.5.255</span>
+rhosts => 192.168.0.0-192.168.5.255
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>set THREADS 10</span>
+threads => 10
+msf auxiliary(<span style='color:#ff0000;'>snmp_login</span>) > <span style='color:#13C16A;'>run</span>
+<span style='color:#0000FF;'>[*]</span> >> progress (192.168.0.0-192.168.0.255) 0/30208...
+<span style='color:#0000FF;'>[*]</span> >> progress (192.168.1.0-192.168.1.255) 0/30208...
+<span style='color:#0000FF;'>[*]</span> >> progress (192.168.2.0-192.168.2.255) 0/30208...
+<span style='color:#0000FF;'>[*]</span> >> progress (192.168.3.0-192.168.3.255) 0/30208...
+<span style='color:#0000FF;'>[*]</span> >> progress (192.168.4.0-192.168.4.255) 0/30208...
+<span style='color:#0000FF;'>[*]</span> >> progress (-) 0/0...
+<span style='color:#0000FF;'>[*]</span> 192.168.1.50 'public' 'APC Web/SNMP Management Card (MB:v3.8.6 PF:v3.5.5 PN:apc_hw02_aos_355.bin AF1:v3.5.5 AN1:apc_hw02_sumx_355.bin MN:AP9619 HR:A10 SN: NA0827001465 MD:07/01/2008) (Embedded PowerNet SNMP Agent SW v2.2 compatible)'
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed</pre>
+<br />
+As we can see here, we were able to find a community string of "public", this is most likely read-only and doesn't reveal a ton of information. We do learn that the device is an APC Web/SNMP device, and what versions its running.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="SNMP_Enum"> SNMP Enum </span></h2>
 <p><br />
+We can gather lots of information when using SNMP scanning modules. Such as open ports, services, hostname, processes and uptime to name a few. Using our Metasploitable virtual machine as our target, we'll run the 'snmp_enum' module and see what information it will provide us. First we load the module and set the RHOST option using the information stored in our workspace. Using 'hosts -R' will set this options for us.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<pre>
+msf  auxiliary(<span style='color:#ff0000;'>snmp_enum</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#00FF00'>[+]</span> 172.16.194.172, Connected.
+
+[*] System information:
+
+Host IP                       : 172.16.194.172
+Hostname                      : metasploitable
+Description                   : Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686
+Contact                       : msfdev@metasploit.com
+Location                      : Metasploit Lab
+Uptime snmp                   : 02:35:38.71
+Uptime system                 : 00:20:13.21
+System date                   : 2012-7-9 18:11:11.0
+
+[*] Network information:
+
+IP forwarding enabled         : no
+Default TTL                   : 64
+TCP segments received         : 19
+TCP segments sent             : 21
+TCP segments retrans          : 0
+Input datagrams               : 5055
+Delivered datagrams           : 5050
+Output datagrams              : 4527
+
+<span style='color:#00ff00;'>...snip...</span>
+
+[*] Device information:
+
+Id                  Type                Status              Descr               
+768                 Processor           unknown             GenuineIntel: Intel(R) Core(TM) i7-2860QM CPU @ 2.50GHz
+1025                Network             unknown             network interface lo
+1026                Network             unknown             network interface eth0
+1552                Disk Storage        unknown             SCSI disk (/dev/sda)
+3072                Coprocessor         unknown             Guessing that there's a floating point co-processor
+
+[*] Processes:
+
+Id                  Status              Name                Path                Parameters          
+1                   runnable            init                /sbin/init                              
+2                   runnable            kthreadd            kthreadd                                
+3                   runnable            migration/0         migration/0                             
+4                   runnable            ksoftirqd/0         ksoftirqd/0                             
+5                   runnable            watchdog/0          watchdog/0                              
+6                   runnable            events/0            events/0                                
+7                   runnable            khelper             khelper                                 
+41                  runnable            kblockd/0           kblockd/0                               
+68                  runnable            kseriod             kseriod       
+
+<span style='color:#00ff00;'>...snip...</span>
+
+5696                runnable            su                  su                                      
+5697                runnable            bash                bash                                    
+5747                running             snmpd               snmpd                                   
+
+
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+</pre>
+<br />
+The output provided by our scan provides us with a wealth of information on our system. Although cropped for length, we can still see lots of relavant information about our target such as processor type, process IDs etc.
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Information_Gathering" title="Information Gathering">Information Gathering</a> &gt; SNMP Sweeping</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Port_Scanning" title="Port Scanning">Port Scanning</a> &#124; <a href="Hunting_For_MSSQL" title="Hunting For MSSQL">Hunting For MSSQL</a> &#124; <a href="Service_Identification" title="Service Identification">Service Identification</a> &#124; <a href="Password_Sniffing" title="Password Sniffing">Password Sniffing</a> &#124; <strong class="selflink">SNMP Sweeping</strong> &#124; <a href="Writing_Your_Own_Scanner" title="Writing Your Own Scanner">Writing Your Own Scanner</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 507/1000000
+Preprocessor generated node count: 2625/1000000
+Post‐expand include size: 3622/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:31-0!*!0!*!*!*!* and timestamp 20131123160044 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=SNMP_Sweeping&amp;oldid=997">http://www.offensive-security.com/w/index.php?title=SNMP_Sweeping&amp;oldid=997</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Information_Gathering&amp;action=edit&amp;redlink=1" class="new" title="Category:Information Gathering (page does not exist)">Information Gathering</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +790,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.145 secs. --></body></html>

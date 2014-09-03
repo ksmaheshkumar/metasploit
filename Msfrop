@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Msfrop - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Msfrop" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Msfrop&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Msfrop&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Msfrop&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,228 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Msfrop</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Msfrop#column-one">navigation</a>, <a href="Msfrop#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>As you develop exploits for newer versions of the Windows operation systems, you will find that they now have Data Execution Prevention (DEP) enabled by default. DEP prevents shellcode from being executed on the stack and has forced exploit developers to find a way around this mitigation and the so-called Return Oriented Programming (ROP) was developed.
+A ROP payload in created by using pre-existing sets of instructions from non-ASLR enabled binaries to make your shellcode executable. Each set of instructions needs to end in a RETN instruction to carry on the ROP-chain with each set of instructions commonly referred to as a gadget.
+The <b>"msfrop"</b> tool in Metasploit will search a given binary and return the usable gadgets.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfrop -h</span>
+
+Options:
+    -d, --depth [size]               Number of maximum bytes to backwards disassemble from return instructions
+    -s, --search [regex]             Search for gadgets matching a regex, match intel syntax or raw bytes
+    -n, --nocolor                    Disable color. Useful for piping to other tools like the less and more commands
+    -x, --export [filename]          Export gadgets to CSV format
+    -i, --import [filename]          Import gadgets from previous collections
+    -v, --verbose                    Output very verbosely
+    -h, --help                       Show this message</pre>
+<br />
+Running msfrop with the -v switch will return all of the found gadgets directly to the console:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp# <span style='color:#13C16A;'>msfrop -v metsrv.dll</span> 
+Collecting gadgets from metsrv.dll
+Found 4829 gadgets
+
+metsrv.dll gadget: 0x10001057
+0x10001057:	leave
+0x10001058:	ret
+
+metsrv.dll gadget: 0x10001241
+0x10001241:	leave
+0x10001242:	ret
+
+metsrv.dll gadget: 0x1000132e
+0x1000132e:	leave
+0x1000132f:	ret
+
+metsrv.dll gadget: 0x1000138c
+0x1000138c:	leave
+0x1000138d:	ret
+...snip...</pre>
+<br />
+The verbose output is not particularly helpful when a binary contains thousands of gadgets so a far more useful switch is -x that allows you to ouput the gadgets into a csv file that you can then search later.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/tmp# <span style='color:#13C16A;'>msfrop -x metsrv_gadgets metsrv.dll</span> 
+Collecting gadgets from metsrv.dll
+Found 4829 gadgets
+
+Found 4829 gadgets total
+
+Exporting 4829 gadgets to metsrv_gadgets
+Success! gadgets exported to metsrv_gadgets
+<span style='color:#ff0000;'>root@kali</span>:/tmp# <span style='color:#13C16A;'>head -n 10 metsrv_gadgets</span> 
+Address,Raw,Disassembly
+"0x10001098","5ec20c00","0x10001098: pop esi | 0x10001099: ret 0ch | "
+"0x100010f7","5ec20800","0x100010f7: pop esi | 0x100010f8: ret 8 | "
+"0x1000113d","5dc21800","0x1000113d: pop ebp | 0x1000113e: ret 18h | "
+"0x1000117a","5dc21c00","0x1000117a: pop ebp | 0x1000117b: ret 1ch | "
+"0x100011c3","5dc22800","0x100011c3: pop ebp | 0x100011c4: ret 28h | "
+"0x100018b5","5dc20c00","0x100018b5: pop ebp | 0x100018b6: ret 0ch | "
+"0x10002cb4","c00f9fc28d54","0x10002cb4: ror byte ptr [edi], 9fh | 0x10002cb7: ret 548dh | "
+"0x10002df8","0483c20483","0x10002df8: add al, -7dh | 0x10002dfa: ret 8304h | "
+"0x10002e6e","080bc20fb6","0x10002e6e: or [ebx], cl | 0x10002e70: ret 0b60fh | "
+root@kali:/tmp#</pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &gt; <a href="Exploit_Payloads" title="Exploit Payloads">Exploit Payloads</a> &gt; Msfrop</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Msfvenom" title="Msfvenom">Msfvenom</a> &#124; <a href="Msfpayload" title="Msfpayload">Msfpayload</a> &#124; <a href="Msfencode" title="Msfencode">Msfencode</a> &#124; <a href="Alphanumeric_Shellcode" title="Alphanumeric Shellcode">Alphanumeric Shellcode</a> &#124; <strong class="selflink">Msfrop</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 503/1000000
+Preprocessor generated node count: 2643/1000000
+Post‐expand include size: 2908/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:102-0!*!0!*!*!*!* and timestamp 20131124051816 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Msfrop&amp;oldid=1540">http://www.offensive-security.com/w/index.php?title=Msfrop&amp;oldid=1540</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Payloads (page does not exist)">Exploit Payloads</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +713,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.129 secs. --></body></html>

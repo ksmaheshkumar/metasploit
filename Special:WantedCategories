@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Wanted categories - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,7 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-special" class="selected"><a href="Special:WantedCategories" title="This is a special page, you cannot edit the page itself">Special page</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,35 +54,62 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Wanted categories</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Special:WantedCategories#column-one">navigation</a>, <a href="Special:WantedCategories#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
-<br />
-<br />
-</p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
-<p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
-</p>
-<!-- 
-NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
-Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
-Expensive parser function count: 0/100
--->
-
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
-</div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
+							<div id="mw-content-text"><div class="mw-spcontent"><p>Showing below up to <b>44</b> results starting with #<b>1</b>.
+</p><p>View (previous 50  |  next 50) (<a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=20&amp;offset=0" title="Show 20 results per page" class="mw-numlink">20</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=50&amp;offset=0" title="Show 50 results per page" class="mw-numlink">50</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=100&amp;offset=0" title="Show 100 results per page" class="mw-numlink">100</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=250&amp;offset=0" title="Show 250 results per page" class="mw-numlink">250</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=500&amp;offset=0" title="Show 500 results per page" class="mw-numlink">500</a>)</p>
+<ol start='1' class='special'>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Scanner Modules (page does not exist)">Scanner Modules</a>‏‎ (18 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Main&amp;action=edit&amp;redlink=1" class="new" title="Category:Main (page does not exist)">Main</a>‏‎ (17 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a>‏‎ (12 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:About_The_Authors&amp;action=edit&amp;redlink=1" class="new" title="Category:About The Authors (page does not exist)">About The Authors</a>‏‎ (11 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Development&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Development (page does not exist)">Exploit Development</a>‏‎ (8 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Information_Gathering&amp;action=edit&amp;redlink=1" class="new" title="Category:Information Gathering (page does not exist)">Information Gathering</a>‏‎ (6 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Extended_Usage&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Extended Usage (page does not exist)">MSF Extended Usage</a>‏‎ (6 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Vulnerability_Scanning&amp;action=edit&amp;redlink=1" class="new" title="Category:Vulnerability Scanning (page does not exist)">Vulnerability Scanning</a>‏‎ (6 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Web_App_Exploit_Dev&amp;action=edit&amp;redlink=1" class="new" title="Category:Web App Exploit Dev (page does not exist)">Web App Exploit Dev</a>‏‎ (6 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Fundamentals&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Fundamentals (page does not exist)">Metasploit Fundamentals</a>‏‎ (6 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Meterpreter_Scripting&amp;action=edit&amp;redlink=1" class="new" title="Category:Meterpreter Scripting (page does not exist)">Meterpreter Scripting</a>‏‎ (5 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Payloads (page does not exist)">Exploit Payloads</a>‏‎ (5 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Maintaining_Access&amp;action=edit&amp;redlink=1" class="new" title="Category:Maintaining Access (page does not exist)">Maintaining Access</a>‏‎ (5 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Admin_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Admin Modules (page does not exist)">Admin Modules</a>‏‎ (4 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Armitage&amp;action=edit&amp;redlink=1" class="new" title="Category:Armitage (page does not exist)">Armitage</a>‏‎ (4 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Architecture&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Architecture (page does not exist)">Metasploit Architecture</a>‏‎ (4 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Windows_Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Windows Post Modules (page does not exist)">Windows Post Modules</a>‏‎ (4 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Karmetasploit&amp;action=edit&amp;redlink=1" class="new" title="Category:Karmetasploit (page does not exist)">Karmetasploit</a>‏‎ (3 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Community_Edition&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Community Edition (page does not exist)">MSF Community Edition</a>‏‎ (3 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Building_A_Module&amp;action=edit&amp;redlink=1" class="new" title="Category:Building A Module (page does not exist)">Building A Module</a>‏‎ (3 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Writing_A_Simple_Fuzzer&amp;action=edit&amp;redlink=1" class="new" title="Category:Writing A Simple Fuzzer (page does not exist)">Writing A Simple Fuzzer</a>‏‎ (2 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Payloads (page does not exist)">Payloads</a>‏‎ (2 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Client_Side_Attacks&amp;action=edit&amp;redlink=1" class="new" title="Category:Client Side Attacks (page does not exist)">Client Side Attacks</a>‏‎ (2 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_GUIs&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit GUIs (page does not exist)">Metasploit GUIs</a>‏‎ (2 members)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Databases&amp;action=edit&amp;redlink=1" class="new" title="Category:Databases (page does not exist)">Databases</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Meterpreter_Backdoor&amp;action=edit&amp;redlink=1" class="new" title="Category:Meterpreter Backdoor (page does not exist)">Meterpreter Backdoor</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Working_With_Nessus&amp;action=edit&amp;redlink=1" class="new" title="Category:Working With Nessus (page does not exist)">Working With Nessus</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Msfconsole&amp;action=edit&amp;redlink=1" class="new" title="Category:Msfconsole (page does not exist)">Msfconsole</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Writing_An_Exploit&amp;action=edit&amp;redlink=1" class="new" title="Category:Writing An Exploit (page does not exist)">Writing An Exploit</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploits&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploits (page does not exist)">Exploits</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Multiple_OS_Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Multiple OS Post Modules (page does not exist)">Multiple OS Post Modules</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Password_Sniffing&amp;action=edit&amp;redlink=1" class="new" title="Category:Password Sniffing (page does not exist)">Password Sniffing</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Interacting_With_The_Registry&amp;action=edit&amp;redlink=1" class="new" title="Category:Interacting With The Registry (page does not exist)">Interacting With The Registry</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Introduction&amp;action=edit&amp;redlink=1" class="new" title="Category:Introduction (page does not exist)">Introduction</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Pivoting&amp;action=edit&amp;redlink=1" class="new" title="Category:Pivoting (page does not exist)">Pivoting</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:About_Meterpreter&amp;action=edit&amp;redlink=1" class="new" title="Category:About Meterpreter (page does not exist)">About Meterpreter</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Post Modules (page does not exist)">Post Modules</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Required_Materials&amp;action=edit&amp;redlink=1" class="new" title="Category:Required Materials (page does not exist)">Required Materials</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Server_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Server Modules (page does not exist)">Server Modules</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Auxiliary Modules (page does not exist)">Auxiliary Modules</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Using_The_Egghunter_Mixin&amp;action=edit&amp;redlink=1" class="new" title="Category:Using The Egghunter Mixin (page does not exist)">Using The Egghunter Mixin</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Binary_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Binary Payloads (page does not exist)">Binary Payloads</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Client_Side_Exploits&amp;action=edit&amp;redlink=1" class="new" title="Category:Client Side Exploits (page does not exist)">Client Side Exploits</a>‏‎ (1 member)</li>
+<li><a href="http://www.offensive-security.com/w/index.php?title=Category:Working_With_NeXpose&amp;action=edit&amp;redlink=1" class="new" title="Category:Working With NeXpose (page does not exist)">Working With NeXpose</a>‏‎ (1 member)</li>
+</ol>
+<p>View (previous 50  |  next 50) (<a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=20&amp;offset=0" title="Show 20 results per page" class="mw-numlink">20</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=50&amp;offset=0" title="Show 50 results per page" class="mw-numlink">50</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=100&amp;offset=0" title="Show 100 results per page" class="mw-numlink">100</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=250&amp;offset=0" title="Show 250 results per page" class="mw-numlink">250</a> | <a href="http://www.offensive-security.com/w/index.php?title=Special:WantedCategories&amp;limit=500&amp;offset=0" title="Show 500 results per page" class="mw-numlink">500</a>)</p></div></div><div class="printfooter">
+Retrieved from "<a href="Special:WantedCategories">http://www.offensive-security.com/metasploit-unleashed/Special:WantedCategories</a>"</div>
 							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
 													</div>
 						
@@ -521,4 +545,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.171 secs. --></body></html>

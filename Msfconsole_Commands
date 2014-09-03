@@ -1,0 +1,1562 @@
+
+		<!DOCTYPE html>
+		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
+		<head>
+			<title>Msfconsole Commands - Metasploit Unleashed</title>
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
+			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
+			<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+		</head>
+
+		<body>
+			<div id="wrapper">
+			
+				<div id="header">
+					<div id="header-content">
+						<h1><a style="color:#F0F0F0" href="index.html">Metasploit Unleashed</a></h1>
+						<div class="tagline">Mastering the Framework</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				
+				<div id="page">
+					<div id="right-box">
+						
+						<div id="controls">
+									<ul>
+			<li id="ca-nstab-main" class="selected"><a href="Msfconsole_Commands" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Msfconsole_Commands&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Msfconsole_Commands&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Msfconsole_Commands&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+		</ul>
+							
+							<div class="portlet" id="p-personal">
+								<div class="pBody">
+								<ul>
+																	</ul>
+								</div>
+							</div>
+							
+							<div class="search">
+									<div id="p-search" class="portlet">
+		<div id="searchBody" class="pBody">
+			<form action="http://www.offensive-security.com/w/index.php" id="searchform">
+				<input type='hidden' name="title" value="Special:Search"/>
+				<input type="search" name="search" title="Search Metasploit Unleashed [f]" accesskey="f" id="searchInput" />
+				<input type="submit" name="go" value="Go" title="Go to a page with this exact name if exists" id="searchGoButton" class="searchButton" />&#160;
+				<input type="submit" name="fulltext" value="Search" title="Search the pages for this text" id="mw-searchButton" class="searchButton" />
+			</form>
+		</div>
+	</div>
+							</div>
+							
+							<div class="clear"></div>
+						</div>
+					
+						<a id="top"></a>
+						
+						<div id="content">
+							<h1>Msfconsole Commands</h1>
+						
+							<div id="siteSub">From Metasploit Unleashed</div>
+							<div id="contentSub"></div>
+																													<div id="jump-to-nav">Jump to: <a href="Msfconsole_Commands#column-one">navigation</a>, <a href="Msfconsole_Commands#searchInput">search</a></div>
+														<!-- start content -->
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The msfconsole has many different command options to chose from.
+<br />
+<br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Msfconsole_Commands#back"><span class="tocnumber">1</span> <span class="toctext">back</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Msfconsole_Commands#check"><span class="tocnumber">2</span> <span class="toctext">check</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Msfconsole_Commands#connect"><span class="tocnumber">3</span> <span class="toctext">connect</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Msfconsole_Commands#info"><span class="tocnumber">4</span> <span class="toctext">info</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Msfconsole_Commands#irb"><span class="tocnumber">5</span> <span class="toctext">irb</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Msfconsole_Commands#jobs"><span class="tocnumber">6</span> <span class="toctext">jobs</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Msfconsole_Commands#load"><span class="tocnumber">7</span> <span class="toctext">load</span></a>
+<ul>
+<li class="toclevel-2 tocsection-8"><a href="Msfconsole_Commands#loadpath"><span class="tocnumber">7.1</span> <span class="toctext">loadpath</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="Msfconsole_Commands#unload"><span class="tocnumber">7.2</span> <span class="toctext">unload</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-10"><a href="Msfconsole_Commands#resource"><span class="tocnumber">8</span> <span class="toctext">resource</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Msfconsole_Commands#route"><span class="tocnumber">9</span> <span class="toctext">route</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Msfconsole_Commands#search"><span class="tocnumber">10</span> <span class="toctext">search</span></a>
+<ul>
+<li class="toclevel-2 tocsection-13"><a href="Msfconsole_Commands#help"><span class="tocnumber">10.1</span> <span class="toctext">help</span></a></li>
+<li class="toclevel-2 tocsection-14"><a href="Msfconsole_Commands#name"><span class="tocnumber">10.2</span> <span class="toctext">name</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="Msfconsole_Commands#path"><span class="tocnumber">10.3</span> <span class="toctext">path</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="Msfconsole_Commands#platform"><span class="tocnumber">10.4</span> <span class="toctext">platform</span></a></li>
+<li class="toclevel-2 tocsection-17"><a href="Msfconsole_Commands#type"><span class="tocnumber">10.5</span> <span class="toctext">type</span></a></li>
+<li class="toclevel-2 tocsection-18"><a href="Msfconsole_Commands#author"><span class="tocnumber">10.6</span> <span class="toctext">author</span></a></li>
+<li class="toclevel-2 tocsection-19"><a href="Msfconsole_Commands#multiple"><span class="tocnumber">10.7</span> <span class="toctext">multiple</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-20"><a href="Msfconsole_Commands#sessions"><span class="tocnumber">11</span> <span class="toctext">sessions</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="Msfconsole_Commands#set"><span class="tocnumber">12</span> <span class="toctext">set</span></a>
+<ul>
+<li class="toclevel-2 tocsection-22"><a href="Msfconsole_Commands#unset"><span class="tocnumber">12.1</span> <span class="toctext">unset</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-23"><a href="Msfconsole_Commands#setg"><span class="tocnumber">13</span> <span class="toctext">setg</span></a></li>
+<li class="toclevel-1 tocsection-24"><a href="Msfconsole_Commands#show"><span class="tocnumber">14</span> <span class="toctext">show</span></a>
+<ul>
+<li class="toclevel-2 tocsection-25"><a href="Msfconsole_Commands#auxiliary"><span class="tocnumber">14.1</span> <span class="toctext">auxiliary</span></a></li>
+<li class="toclevel-2 tocsection-26"><a href="Msfconsole_Commands#exploits"><span class="tocnumber">14.2</span> <span class="toctext">exploits</span></a></li>
+<li class="toclevel-2 tocsection-27"><a href="Msfconsole_Commands#payloads"><span class="tocnumber">14.3</span> <span class="toctext">payloads</span></a>
+<ul>
+<li class="toclevel-3 tocsection-28"><a href="Msfconsole_Commands#payloads_2"><span class="tocnumber">14.3.1</span> <span class="toctext">payloads</span></a></li>
+<li class="toclevel-3 tocsection-29"><a href="Msfconsole_Commands#options"><span class="tocnumber">14.3.2</span> <span class="toctext">options</span></a></li>
+<li class="toclevel-3 tocsection-30"><a href="Msfconsole_Commands#targets"><span class="tocnumber">14.3.3</span> <span class="toctext">targets</span></a></li>
+<li class="toclevel-3 tocsection-31"><a href="Msfconsole_Commands#advanced"><span class="tocnumber">14.3.4</span> <span class="toctext">advanced</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2 tocsection-32"><a href="Msfconsole_Commands#encoders"><span class="tocnumber">14.4</span> <span class="toctext">encoders</span></a></li>
+<li class="toclevel-2 tocsection-33"><a href="Msfconsole_Commands#nops"><span class="tocnumber">14.5</span> <span class="toctext">nops</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1 tocsection-34"><a href="Msfconsole_Commands#use"><span class="tocnumber">15</span> <span class="toctext">use</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="back"> back </span></h2>
+<p>Once you have finished working with a particular module, or if you inadvertently select the wrong module, you can issue the 'back' command to move out of the current context. This, however is not required. Just as you can in commercial routers, you can switch modules from within other modules. As a reminder, variables will only carry over if they are set globally.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>ms09_001_write</span>) > <span style='color:#339966;'>back</span>
+msf ></pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="check"> check </span></h2>
+<p>There aren't many exploits that support it, but there is also a 'check' option that will check to see if a target is vulnerable to a particular exploit instead of actually exploiting it.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>show options</span>
+
+Module options (exploit/windows/smb/ms08_067_netapi):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOST    172.16.194.134   yes       The target address
+   RPORT    445              yes       Set the SMB service port
+   SMBPIPE  BROWSER          yes       The pipe name to use (BROWSER, SRVSVC)
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic Targeting
+
+
+msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>check</span>
+
+<span style='color:#0000FF;'>[*]</span> Verifying vulnerable status... (path: 0x0000005a)
+<span style='color:#0000FF;'>[*]</span> System is not vulnerable (status: 0x00000000)
+<span style='color:#0000FF;'>[*]</span> The target is not exploitable.
+msf  exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) >
+
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="connect"> connect </span></h2>
+<p>There is a miniature netcat clone built into the msfconsole that supports SSL, proxies, pivoting, and file sends. By issuing the 'connect' command with an ip address and port number, you can connect to a remote host from within msfconsole the same as you would with netcat or telnet.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>connect 192.168.1.1 23</span>
+<span style='color:#333399;'>[*]</span> Connected to 192.168.1.1:23
+DD-WRT v24 std (c) 2008 NewMedia-NET GmbH
+Release: 07/27/08 (SVN revision: 10011)
+DD-WRT login:</pre>
+<br />
+You can see all the additional options by issuing the "-h" parameter.
+<pre>
+msf > <span style='color:#339966;'>connect -h</span>
+Usage: connect [options] <host> <port>
+
+Communicate with a host, similar to interacting via netcat, taking advantage of
+any configured session pivoting.
+
+OPTIONS:
+
+    -C        Try to use CRLF for EOL sequence.
+    -P &lt;opt>  Specify source port.
+    -S &lt;opt>  Specify source address.
+    -c &lt;opt>  Specify which Comm to use.
+    -h        Help banner.
+    -i &lt;opt>  Send the contents of a file.
+    -p &lt;opt>  List of proxies to use.
+    -s        Connect with SSL.
+    -u        Switch to a UDP socket.
+    -w &lt;opt>  Specify connect timeout.
+    -z        Just try to connect, then return.
+
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="info"> info </span></h2>
+<p>The 'info' command will provide detailed information about a particular module including all options, targets, and other information. Be sure to always read the module description prior to using it as some may have un-desired effects.
+</p><p>The info command also provides the following information:
+</p>
+<dl><dd><ul><li>The author and licensing information
+</li><li>Vulnerability references (ie: CVE, BID, etc)
+</li><li>Any payload restrictions the module may have
+</li></ul>
+</dd></dl>
+<p><pre>
+msf  exploit(<span style='color:#FF0000;'>ms09_050_smb2_negotiate_func_index</span>) > <span style='color:#339966;'>info exploit/windows/smb/ms09_050_smb2_negotiate_func_index</span> 
+
+       Name: Microsoft SRV2.SYS SMB Negotiate ProcessID Function Table Dereference
+     Module: exploit/windows/smb/ms09_050_smb2_negotiate_func_index
+    Version: 14774
+   Platform: Windows
+ Privileged: Yes
+    License: Metasploit Framework License (BSD)
+       Rank: Good
+
+Provided by:
+  Laurent Gaffie <laurent.gaffie@gmail.com>
+  hdm <hdm@metasploit.com>
+  sf <stephen_fewer@harmonysecurity.com>
+
+Available targets:
+  Id  Name
+  --  ----
+  0   Windows Vista SP1/SP2 and Server 2008 (x86)
+
+Basic options:
+  Name   Current Setting  Required  Description
+  ----   ---------------  --------  -----------
+  RHOST                   yes       The target address
+  RPORT  445              yes       The target port
+  WAIT   180              yes       The number of seconds to wait for the attack to complete.
+
+Payload information:
+  Space: 1024
+
+Description:
+  This module exploits an out of bounds function table dereference in 
+  the SMB request validation code of the SRV2.SYS driver included with 
+  Windows Vista, Windows 7 release candidates (not RTM), and Windows 
+  2008 Server prior to R2. Windows Vista without SP1 does not seem 
+  affected by this flaw.
+
+References:
+  http://www.microsoft.com/technet/security/bulletin/MS09-050.mspx
+  http://cve.mitre.org/cgi-bin/cvename.cgi?name=2009-3103
+  http://www.securityfocus.com/bid/36299
+  http://www.osvdb.org/57799
+  http://seclists.org/fulldisclosure/2009/Sep/0039.html
+  http://www.microsoft.com/technet/security/Bulletin/MS09-050.mspx
+
+msf  exploit(<span style='color:#FF0000;'>ms09_050_smb2_negotiate_func_index</span>) >
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="irb"> irb </span></h2>
+<p>Running the 'irb' command will drop you into a live Ruby interpreter shell where you can issue commands and create Metasploit scripts on the fly. This feature is also very useful for understanding the internals of the Framework.
+<pre>
+msf > <span style='color:#339966;'>irb</span>
+<span style='color:#0000FF;'>[*]</span> Starting IRB shell...
+
+>> puts "Hello, metasploit!"
+Hello, metasploit!
+=> nil
+>> Framework::Version
+=> "4.4.0-dev"
+>> framework.modules.keys.length
+=> 1791
+>> 
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="jobs"> jobs </span></h2>
+<p>Jobs are modules that are running in the background. The 'jobs' command provides the ability to list and terminate these jobs.
+</p><p><pre>
+msf > <span style='color:#339966;'>jobs -h</span>
+Usage: jobs [options]
+
+Active job manipulation and interaction.
+
+OPTIONS:
+
+    -K        Terminate all running jobs.
+    -h        Help banner.
+    -i &lt;opt>  Lists detailed information about a running job.
+    -k &lt;opt>  Terminate the specified job name.
+    -l        List all running jobs.
+    -v        Print more detailed info.  Use with -i and -l
+
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="load"> load </span></h2>
+<p>The 'load' command loads a plugin from Metasploit's 'plugin' directory.  Arguments are passed as 'key=val' on the shell.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>load</span>
+Usage: load <path> [var=val var=val ...]
+
+Loads a plugin from the supplied path.  If path is not absolute, fist looks
+in the user's plugin directory (/root/.msf4/plugins) then
+in the framework root plugin directory (/opt/metasploit/msf3/plugins).
+The optional var=val options are custom parameters that can be passed to plugins.
+
+msf > <span style='color:#339966;'>load pcap_log</span>
+[*] PcapLog plugin loaded.
+[*] Successfully loaded plugin: pcap_log
+
+</pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="loadpath"> loadpath </span></h3>
+<p>The 'loadpath' command will load a third-part module tree for the path so you can point Metasploit at your 0-day exploits, encoders, payloads, etc.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>loadpath /home/secret/modules</span>
+
+Loaded 0 modules.</pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="unload"> unload </span></h3>
+<p>Conversely, the 'unload' command unloads a previously loaded plugin and removes any extended commands.
+<br />
+<br />
+<pre>
+msf > <span style='color:#339966;'>unload pcap_log</span>
+Unloading plugin pcap_log...unloaded.</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="resource"> resource </span></h2>
+<p>The 'resource' command runs resource (batch) files that can be loaded through msfconsole.
+</p><p><pre>
+msf > <span style='color:#339966;'>resource</span>
+Usage: resource path1 [path2 ...]
+
+Run the commands stored in the supplied files.  Resource files may also contain
+ruby code between <ruby></ruby> tags.
+
+See also: makerc
+
+msf >
+</pre>
+</p><p>Some attacks such as Karmetasploit use resource files to run a set of commands in a [karma.rc file PUT SOMETHING HERE] to create an attack. Later on we will discuss how, outside of Karmetasploit, that can be very useful.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>resource karma.rc</span>
+[*] Processing karma.rc for ERB directives.
+resource (karma.rc)> db_connect msf3:PASSWORD@127.0.0.1:7175/msf3
+resource (karma.rc)> use auxiliary/server/browser_autopwn
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+Batch files can greatly speed up testing and development times as well as allow the user to automate many tasks. Besides loading a batch file from within msfconsole, they can also be passed at startup using the '-r' flag. The simple example below creates a batch file to display the Metasploit version number at startup.
+<br />
+<br />
+<pre>root@kali:~# <span style='color:#339966;'>echo version > version.rc</span>
+root@kali:~# <span style='color:#339966;'>msfconsole -r version.rc</span>
+
+
+ _                                                      _
+/  \  / \        __                          _   __    /_/ __
+| |\ /  | _____  \ \            ___   _____ | | /   \  _   \ \
+| | \/| | | ___\ |- -|   /\    / __\ | -__/ | | | |  || | |- -|
+|_|   | | | _|__  | |_  / -\ __\ \   | |    | |_ \__/ | |  | |_
+      |/  |____/  \___\/ /\  \___/   \/      \__|     |_\  \___\
+
+
+       =[<span style='color:#FFFF00;'> metasploit v4.5.0-dev [core:4.5 api:1.0]</span>
++ -- --=[ 936 exploits - 500 auxiliary - 151 post
++ -- --=[ 252 payloads - 28 encoders - 8 nops
+      =[ svn r15767 updated today (2012.08.22)
+
+<span style='color:#339966;'>[*]</span> Processing version.rc for ERB directives.
+resource (version.rc)> version
+Framework: 4.4.0-dev.15205
+Console  : 4.4.0-dev.15168
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="route"> route </span></h2>
+<p>The <b>"route"</b> command in Metasploit allows you to route sockets through a session or 'comm', providing basic pivoting capabilities. To add a route, you pass the target subnet and network mask followed by the session (comm) number.
+<pre>
+meterpreter > <span style='color:#339966;'>route -h</span>
+Usage: route [-h] command [args]
+
+Display or modify the routing table on the remote machine.
+
+Supported commands:
+
+   add    [subnet] [netmask] [gateway]
+   delete [subnet] [netmask] [gateway]
+   list
+
+meterpreter >
+</pre>
+<pre>
+meterpreter > <span style='color:#339966;'>route</span>
+
+Network routes
+==============
+
+    Subnet           Netmask          Gateway
+    ------           -------          -------
+    0.0.0.0          0.0.0.0          172.16.1.254
+    127.0.0.0        255.0.0.0        127.0.0.1
+    172.16.1.0       255.255.255.0    172.16.1.100
+    172.16.1.100     255.255.255.255  127.0.0.1
+    172.16.255.255   255.255.255.255  172.16.1.100
+    224.0.0.0        240.0.0.0        172.16.1.100
+    255.255.255.255  255.255.255.255  172.16.1.100
+
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="search"> search </span></h2>
+<p>The msfconsole includes an extensive regular-expression based search functionality. If you have a general idea of what you are looking for you can search for it via 'search '. In the output below, a search is being made for MS Bulletin MS09-011. The search function will locate this string within the module names, descriptions, references, etc.
+</p><p>Note the naming convention for Metasploit modules uses underscores versus hyphens.
+<br />
+<br />
+<pre>
+msf > <span style='color:#339966;'>search usermap_script</span>
+
+Matching Modules
+================
+
+   Name                                Disclosure Date  Rank       Description
+   ----                                ---------------  ----       -----------
+   exploit/multi/samba/usermap_script  2007-05-14       excellent  Samba "username map script" Command Execution
+
+
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="help"> help </span></h3>
+<p>You can further refine your searches by using the built-in keyword system. 
+</p><p><pre>
+msf > <span style='color:#339966;'>help search</span>
+Usage: search [keywords]
+
+Keywords:
+  name      :  Modules with a matching descriptive name
+  path      :  Modules with a matching path or reference name
+  platform  :  Modules affecting this platform
+  type      :  Modules of a specific type (exploit, auxiliary, or post)
+  app       :  Modules that are client or server attacks
+  author    :  Modules written by this author
+  cve       :  Modules with a matching CVE ID
+  bid       :  Modules with a matching Bugtraq ID
+  osvdb     :  Modules with a matching OSVDB ID
+
+Examples:
+  search cve:2009 type:exploit app:client
+
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="name"> name </span></h3>
+<p>To search using a descriptive name, use the "name" keyword. 
+</p><p><pre>
+msf > <span style='color:#339966;'>search name:mysql</span>
+
+Matching Modules
+================
+
+   Name                                               Disclosure Date  Rank       Description
+   ----                                               ---------------  ----       -----------
+   auxiliary/admin/mysql/mysql_enum                                    normal     MySQL Enumeration Module
+   auxiliary/admin/mysql/mysql_sql                                     normal     MySQL SQL Generic Query
+   auxiliary/analyze/jtr_mysql_fast                                    normal     John the Ripper MySQL Password Cracker (Fast Mode)
+   auxiliary/scanner/mysql/mysql_authbypass_hashdump  2012-06-09       normal     MySQL Authentication Bypass Password Dump
+   auxiliary/scanner/mysql/mysql_hashdump                              normal     MYSQL Password Hashdump
+   auxiliary/scanner/mysql/mysql_login                                 normal     MySQL Login Utility
+   auxiliary/scanner/mysql/mysql_schemadump                            normal     MYSQL Schema Dump
+   auxiliary/scanner/mysql/mysql_version                               normal     MySQL Server Version Enumeration
+   exploit/linux/mysql/mysql_yassl_getname            2010-01-25       good       MySQL yaSSL CertDecoder::GetName Buffer Overflow
+   exploit/linux/mysql/mysql_yassl_hello              2008-01-04       good       MySQL yaSSL SSL Hello Message Buffer Overflow
+   exploit/windows/mysql/mysql_payload                2009-01-16       excellent  Oracle MySQL for Microsoft Windows Payload Execution
+   exploit/windows/mysql/mysql_yassl_hello            2008-01-04       average    MySQL yaSSL SSL Hello Message Buffer Overflow
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="path"> path </span></h3>
+<p>Use the "path" keyword to search within the module paths. 
+</p><p><pre>msf > <span style='color:#339966;'>search path:scada</span>
+
+Matching Modules
+================
+
+   Name                                                 Disclosure Date  Rank     Description
+   ----                                                 ---------------  ----     -----------
+   auxiliary/admin/scada/igss_exec_17                   2011-03-21       normal   Interactive Graphical SCADA System Remote Command Injection
+   exploit/windows/scada/citect_scada_odbc              2008-06-11       normal   CitectSCADA/CitectFacilities ODBC Buffer Overflow
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="platform"> platform </span></h3>
+<p>You can use <b>"platform"</b> to narrow down your search to modules that affect a specific platform.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>search platform:aix</span>
+
+Matching Modules
+================
+
+   Name                                  Disclosure Date  Rank    Description
+   ----                                  ---------------  ----    -----------
+   payload/aix/ppc/shell_bind_tcp                         normal  AIX Command Shell, Bind TCP Inline
+   payload/aix/ppc/shell_find_port                        normal  AIX Command Shell, Find Port Inline
+   payload/aix/ppc/shell_interact                         normal  AIX execve shell for inetd
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="type"> type </span></h3>
+<p>Using the <b>"type"</b> lets you filter by module type such as auxiliary, post, exploit, etc.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>search type:post</span>
+
+Matching Modules
+================
+
+   Name                                                Disclosure Date  Rank    Description
+   ----                                                ---------------  ----    -----------
+   post/linux/gather/checkvm                                            normal  Linux Gather Virtual Environment Detection
+   post/linux/gather/enum_cron                                          normal  Linux Cron Job Enumeration
+   post/linux/gather/enum_linux                                         normal  Linux Gather System Information
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="author"> author </span></h3>
+<p>Searching with the <b>"author"</b> keyword lets you search for modules by your favorite author.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>search author:dookie</span>
+
+Matching Modules
+================
+
+   Name                                                       Disclosure Date  Rank     Description
+   ----                                                       ---------------  ----     -----------
+   exploit/osx/http/evocam_webserver                          2010-06-01       average  MacOS X EvoCam HTTP GET Buffer Overflow
+   exploit/osx/misc/ufo_ai                                    2009-10-28       average  UFO: Alien Invasion IRC Client Buffer Overflow Exploit
+   exploit/windows/browser/amaya_bdo                          2009-01-28       normal   Amaya Browser v11.0 bdo tag overflow
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="multiple"> multiple </span></h3>
+<p>You can also combine multiple keywords together to further narrow down the returned results.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>search cve:2011 author:jduck platform:linux</span>
+
+Matching Modules
+================
+
+   Name                                         Disclosure Date  Rank     Description
+   ----                                         ---------------  ----     -----------
+   exploit/linux/misc/netsupport_manager_agent  2011-01-08       average  NetSupport Manager Agent Remote Buffer Overflow</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="sessions"> sessions </span></h2>
+<p>The 'sessions' command allows you to list, interact with, and kill spawned sessions.  The sessions can be shells, Meterpreter sessions, VNC, etc.
+</p><p><pre>
+msf > <span style='color:#339966;'>sessions -h</span>
+Usage: sessions [options]
+
+Active session manipulation and interaction.
+
+OPTIONS:
+
+    -K        Terminate all sessions
+    -c &lt;opt>  Run a command on the session given with -i, or all
+    -d &lt;opt>  Detach an interactive session
+    -h        Help banner
+    -i &lt;opt>  Interact with the supplied session ID
+    -k &lt;opt>  Terminate session
+    -l        List all active sessions
+    -q        Quiet mode
+    -r        Reset the ring buffer for the session given with -i, or all
+    -s &lt;opt>  Run a script on the session given with -i, or all
+    -u &lt;opt>  Upgrade a win32 shell to a meterpreter session
+    -v        List verbose fields
+</pre>
+</p><p>To list any active sessions, pass the '-l' options to 'sessions'.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>3proxy</span>) > <span style='color:#339966;'>sessions -l</span>
+
+Active sessions
+===============
+
+  Id  Description    Tunnel
+  --  -----------    ------
+  1   Command shell  192.168.1.101:33191 -> 192.168.1.104:4444</pre>
+<br />
+To interact with a given session, you just need to use the '-i' switch followed by the Id number of the session.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>3proxy</span>) > <span style='color:#339966;'>sessions -i 1</span>
+<span style='color:#333399;'>[*]</span> Starting interaction with 1...
+
+C:\WINDOWS\system32></pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="set"> set </span></h2>
+<p>The 'set' command allows you to configure Framework options and parameters for the current module you are working with.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>ms09_050_smb2_negotiate_func_index</span>) > <span style='color:#339966;'>set RHOST 172.16.194.134</span>
+RHOST => 172.16.194.134
+msf auxiliary(<span style='color:#ff0000;'>ms09_050_smb2_negotiate_func_index</span>) > <span style='color:#339966;'>show options</span>
+
+Module options (exploit/windows/smb/ms09_050_smb2_negotiate_func_index):
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST  172.16.194.134   yes       The target address
+   RPORT  445              yes       The target port
+   WAIT   180              yes       The number of seconds to wait for the attack to complete.
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Windows Vista SP1/SP2 and Server 2008 (x86)
+
+</pre>
+<br />
+Metasploit also allows you the ability to set an encoder to use at run-time.  This is particularly useful in exploit development when you aren't quite certain as to which payload encoding methods will work with an exploit.
+<br />
+<br />
+<pre>
+msf  exploit(<span style='color:#FF0000;'>ms09_050_smb2_negotiate_func_index</span>) > <span style='color:#339966;'>show encoders</span>
+
+Compatible Encoders
+===================
+
+   Name                    Disclosure Date  Rank       Description
+   ----                    ---------------  ----       -----------
+   generic/none                             normal     The "none" Encoder
+   x86/alpha_mixed                          low        Alpha2 Alphanumeric Mixedcase Encoder
+   x86/alpha_upper                          low        Alpha2 Alphanumeric Uppercase Encoder
+   x86/avoid_utf8_tolower                   manual     Avoid UTF8/tolower
+   x86/call4_dword_xor                      normal     Call+4 Dword XOR Encoder
+   x86/context_cpuid                        manual     CPUID-based Context Keyed Payload Encoder
+   x86/context_stat                         manual     stat(2)-based Context Keyed Payload Encoder
+   x86/context_time                         manual     time(2)-based Context Keyed Payload Encoder
+   x86/countdown                            normal     Single-byte XOR Countdown Encoder
+   x86/fnstenv_mov                          normal     Variable-length Fnstenv/mov Dword XOR Encoder
+   x86/jmp_call_additive                    normal     Jump/Call XOR Additive Feedback Encoder
+   x86/nonalpha                             low        Non-Alpha Encoder
+   x86/nonupper                             low        Non-Upper Encoder
+   x86/shikata_ga_nai                       excellent  Polymorphic XOR Additive Feedback Encoder
+   x86/single_static_bit                    manual     Single Static Bit
+   x86/unicode_mixed                        manual     Alpha2 Alphanumeric Unicode Mixedcase Encoder
+   x86/unicode_upper                        manual     Alpha2 Alphanumeric Unicode Uppercase Encoder
+
+</pre>
+<br />
+<br />
+</p>
+<h3> <span class="mw-headline" id="unset"> unset </span></h3>
+<p>The opposite of the 'set' command, of course, is 'unset'. 'Unset' removes a parameter previously configured with 'set'. You can remove all assigned variables with 'unset all'.
+<pre>
+msf > <span style='color:#339966;'>set RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf > <span style='color:#339966;'>set THREADS 50</span>
+THREADS => 50
+msf > set
+
+Global
+======
+
+  Name     Value
+  ----     -----
+  RHOSTS   192.168.1.0/24
+  THREADS  50
+
+msf > <span style='color:#339966;'>unset THREADS</span>
+Unsetting THREADS...
+msf > <span style='color:#339966;'>unset all</span>
+Flushing datastore...
+msf > <span style='color:#339966;'>set</span>
+
+Global
+======
+
+No entries in data store.
+
+msf > 
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="setg"> setg </span></h2>
+<p>In order to save a lot of typing during a pentest, you can set global variables within msfconsole. You can do this with the 'setg' command. Once these have been set, you can use them in as many exploits and auxiliary modules as you like. You can also save them for use the next time your start msfconsole. However, the pitfall is forgetting you have saved globals, so always check your options before you <b>"run"</b> or <b>"exploit"</b>. Conversely, you can use the <b>"unsetg"</b> command to unset a global variable. In the examples that follow, variables are entered in all-caps (ie: LHOST), but Metasploit is case-insensitive so it is not necessary to do so.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>setg LHOST 192.168.1.101</span>
+LHOST => 192.168.1.101
+msf > <span style='color:#13C16A;'>setg RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf > <span style='color:#13C16A;'>setg RHOST 192.168.1.136</span>
+RHOST => 192.168.1.136</pre>
+<br />
+After setting your different variables, you can run the 'save' command to save your current environment and settings.  With your settings saved, they will be automatically loaded on startup which saves you from having to set everything again.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>save</span>
+Saved configuration to: /root/.msf3/config
+msf ></pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="show"> show </span></h2>
+<p>Entering 'show' at the msfconsole prompt will display every module within Metasploit.
+<br />
+<pre>msf > <span style='color:#339966;'>show</span>
+
+Encoders
+========
+
+   Name                    Disclosure Date  Rank       Description
+   ----                    ---------------  ----       -----------
+   cmd/generic_sh                           good       Generic Shell Variable Substitution Command Encoder
+   cmd/ifs                                  low        Generic ${IFS} Substitution Command Encoder
+   cmd/printf_php_mq                        manual     printf(1) via PHP magic_quotes Utility Command Encoder
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+There are a number of 'show' commands you can use but the ones you will use most frequently are 'show auxiliary', 'show exploits', 'show payloads', 'show encoders', and 'show nops'.
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="auxiliary"> auxiliary </span></h4>
+<p>Executing 'show auxiliary' will display a listing of all of the available auxiliary modules within Metasploit. As mentioned earlier, auxiliary modules include scanners, denial of service modules, fuzzers, and more.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>show auxiliary</span>
+Auxiliary
+=========
+
+   Name                                                  Disclosure Date  Rank    Description
+   ----                                                  ---------------  ----    -----------
+   admin/2wire/xslt_password_reset                       2007-08-15       normal  2Wire Cross-Site Request Forgery Password Reset Vulnerability
+   admin/backupexec/dump                                                  normal  Veritas Backup Exec Windows Remote File Access
+   admin/backupexec/registry                                              normal  Veritas Backup Exec Server Registry Access
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="exploits"> exploits </span></h4>
+<p>Naturally, 'show exploits' will be the command you are most interested in running since at its core, Metasploit is all about exploitation. Run 'show exploits' to get a listing of all exploits contained in the framework.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>show exploits</span>
+
+Exploits
+========
+
+   Name                                                           Disclosure Date  Rank       Description
+   ----                                                           ---------------  ----       -----------
+   aix/rpc_cmsd_opcode21                                          2009-10-07       great      AIX Calendar Manager Service Daemon (rpc.cmsd) Opcode 21 Buffer Overflow
+   aix/rpc_ttdbserverd_realpath                                   2009-06-17       great      ToolTalk rpc.ttdbserverd _tt_internal_realpath Buffer Overflow (AIX)
+   bsdi/softcart/mercantec_softcart                               2004-08-19       great      Mercantec SoftCart CGI Overflow
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="payloads"> payloads </span></h4>
+<p>Running 'show payloads' will display all of the different payloads for all platforms available within Metasploit.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>show payloads</span>
+
+Payloads
+========
+
+   Name                                             Disclosure Date  Rank    Description
+   ----                                             ---------------  ----    -----------
+   aix/ppc/shell_bind_tcp                                            normal  AIX Command Shell, Bind TCP Inline
+   aix/ppc/shell_find_port                                           normal  AIX Command Shell, Find Port Inline
+   aix/ppc/shell_interact                                            normal  AIX execve shell for inetd
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="payloads_2"> payloads </span></h5>
+<p>As you can see, there are a lot of payloads available. Fortunately, when you are in the context of a particular exploit, running 'show payloads' will only display the payloads that are compatible with that particular exploit. For instance, if it is a Windows exploit, you will not be shown the Linux payloads.
+<br />
+<br />
+<pre>msf  exploit(<span style='color:#FF0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>show payloads</span>
+
+Compatible Payloads
+===================
+
+   Name                                             Disclosure Date  Rank    Description
+   ----                                             ---------------  ----    -----------
+   generic/custom                                                    normal  Custom Payload
+   generic/debug_trap                                                normal  Generic x86 Debug Trap
+   generic/shell_bind_tcp                                            normal  Generic Command Shell, Bind TCP Inline
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="options"> options </span></h5>
+<p>If you have selected a specific module, you can issue the 'show options' command to display which settings are available and/or required for that specific module.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>show options</span>
+
+Module options:
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   RHOST                     yes       The target address
+   RPORT    445              yes       Set the SMB service port
+   SMBPIPE  BROWSER          yes       The pipe name to use (BROWSER, SRVSVC)
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic Targeting</pre>
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="targets"> targets </span></h5>
+<p>If you aren't certain whether an operating system is vulnerable to a particular exploit, run the 'show targets' command from within the context of an exploit module to see which targets are supported.
+<br />
+<br />
+<pre>
+
+msf  exploit(<span style='color:#FF0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>show targets</span>
+
+Exploit targets:
+
+   Id  Name
+   --  ----
+   0   Automatic Targeting
+   1   Windows 2000 Universal
+   10  Windows 2003 SP1 Japanese (NO NX)
+   11  Windows 2003 SP2 English (NO NX)
+   12  Windows 2003 SP2 English (NX)
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h5> <span class="mw-headline" id="advanced"> advanced </span></h5>
+<p>If you wish the further fine-tune an exploit, you can see more advanced options by running 'show advanced'.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>show advanced</span>
+
+Module advanced options:
+
+   Name           : CHOST
+   Current Setting:
+   Description    : The local client address
+
+   Name           : CPORT
+   Current Setting:
+   Description    : The local client port
+
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="encoders"> encoders </span></h4>
+<p>Running 'show encoders' will display a listing of the encoders that are available within MSF.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>show encoders</span>
+Compatible Encoders
+===================
+
+   Name                    Disclosure Date  Rank       Description
+   ----                    ---------------  ----       -----------
+   cmd/generic_sh                           good       Generic Shell Variable Substitution Command Encoder
+   cmd/ifs                                  low        Generic ${IFS} Substitution Command Encoder
+   cmd/printf_php_mq                        manual     printf(1) via PHP magic_quotes Utility Command Encoder
+   generic/none                             normal     The "none" Encoder
+   mipsbe/longxor                           normal     XOR Encoder
+   mipsle/longxor                           normal     XOR Encoder
+   php/base64                               great      PHP Base64 encoder
+   ppc/longxor                              normal     PPC LongXOR Encoder
+   ppc/longxor_tag                          normal     PPC LongXOR Encoder
+   sparc/longxor_tag                        normal     SPARC DWORD XOR Encoder
+   x64/xor                                  normal     XOR Encoder
+   x86/alpha_mixed                          low        Alpha2 Alphanumeric Mixedcase Encoder
+   x86/alpha_upper                          low        Alpha2 Alphanumeric Uppercase Encoder
+   x86/avoid_utf8_tolower                   manual     Avoid UTF8/tolower
+   x86/call4_dword_xor                      normal     Call+4 Dword XOR Encoder
+   x86/context_cpuid                        manual     CPUID-based Context Keyed Payload Encoder
+   x86/context_stat                         manual     stat(2)-based Context Keyed Payload Encoder
+   x86/context_time                         manual     time(2)-based Context Keyed Payload Encoder
+   x86/countdown                            normal     Single-byte XOR Countdown Encoder
+   x86/fnstenv_mov                          normal     Variable-length Fnstenv/mov Dword XOR Encoder
+   x86/jmp_call_additive                    normal     Jump/Call XOR Additive Feedback Encoder
+   x86/nonalpha                             low        Non-Alpha Encoder
+   x86/nonupper                             low        Non-Upper Encoder
+   x86/shikata_ga_nai                       excellent  Polymorphic XOR Additive Feedback Encoder
+   x86/single_static_bit                    manual     Single Static Bit
+   x86/unicode_mixed                        manual     Alpha2 Alphanumeric Unicode Mixedcase Encoder
+   x86/unicode_upper                        manual     Alpha2 Alphanumeric Unicode Uppercase Encoder</pre>
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="nops"> nops </span></h4>
+<p>Lastly, issuing the 'show nops' command will display the NOP Generators that Metasploit has to offer.
+<br />
+<br />
+<pre>msf > <span style='color:#339966;'>show nops</span>
+NOP Generators
+==============
+
+   Name             Disclosure Date  Rank    Description
+   ----             ---------------  ----    -----------
+   armle/simple                      normal  Simple
+   php/generic                       normal  PHP Nop Generator
+   ppc/simple                        normal  Simple
+   sparc/random                      normal  SPARC NOP generator
+   tty/generic                       normal  TTY Nop Generator
+   x64/simple                        normal  Simple
+   x86/opty2                         normal  Opty2
+   x86/single_byte                   normal  Single Byte
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="use"> use </span></h2>
+<p>When you have decided on a particular module to make use of, issue the 'use' command to select it. The 'use' command changes your context to a specific module, exposing type-specific commands. Notice in the output below that any global variables that were previously set are already configured.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use dos/windows/smb/ms09_001_write</span>
+msf auxiliary(<span style='color:#ff0000;'>ms09_001_write</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST                   yes       The target address
+   RPORT  445              yes       Set the SMB service port
+
+msf auxiliary(<span style='color:#ff0000;'>ms09_001_write</span>) ></pre>
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &gt; <a href="Msfconsole" title="Msfconsole">Msfconsole</a> &gt; Msfconsole Commands</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Msfconsole Commands</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<!-- 
+NewPP limit report
+Preprocessor visited node count: 1127/1000000
+Preprocessor generated node count: 3813/1000000
+Post‐expand include size: 3906/2097152 bytes
+Template argument size: 0/2097152 bytes
+Highest expansion depth: 3/40
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:263-0!*!0!!en!*!* and timestamp 20131124015730 -->
+</div><div class="printfooter">
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Msfconsole_Commands&amp;oldid=1520">http://www.offensive-security.com/w/index.php?title=Msfconsole_Commands&amp;oldid=1520</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Msfconsole&amp;action=edit&amp;redlink=1" class="new" title="Category:Msfconsole (page does not exist)">Msfconsole</a></li></ul></div></div>							<!-- end content -->
+													</div>
+						
+					</div>
+				
+					<div id="left-box">
+								<ul id="nav">
+				<li><a href="Donate" class="root">Donate</a></li>
+				<li>
+					<a href="Introduction" class="root"><span class="chapter">01</span> Introduction</a>
+					<div class="menu two-column">
+						<h3>Introduction</h3>
+						<ul class="one">
+							<li><a href="Metasploit_Architecture">Metasploit Architecture</a>
+								<ul class="two small">
+									<li><a href="Filesystem_And_Libraries">Filesystem And Libraries</a></li>
+									<li><a href="Modules_And_Locations">Modules And Locations</a></li>
+									<li><a href="Metasploit_Object_Model">Metasploit Object Model</a></li>
+									<li><a href="Mixins_And_Plugins">Mixins And Plugins</a></li>
+								</ul>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+					<a href="Requirements" class="root"><span class="chapter">02</span> Requirements</a>
+					<div class="menu two-column">
+						<h3>Required Materials</h3>
+						<ul class="one">
+							<li><a href="Metasploitable">Metasploitable</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Metasploit_Fundamentals" class="root"><span class="chapter">03</span>Metasploit Fundamentals</a>
+					<div class="menu four-column">
+						<h3>Metasploit Fundamentals</h3>
+						<ul class="one">
+							<li><a href="Msfcli">Msfcli</a></li>
+							<li><a href="Msfconsole">Msfconsole</a>
+								<ul class="two small">
+									<li><a href="Msfconsole_Commands">Msfconsole Commands</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Exploits">Exploits</a>
+								<ul class="two">
+									<li><a href="Using_Exploits">Using Exploits</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Payloads">Payloads</a>
+								<ul class="two small">
+									<li><a href="Payload_Types">Payload Types</a></li>
+									<li><a href="Generating_Payloads">Generating Payloads</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+                                                        <li><a href="Databases">Databases</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Using_the_Database">Using the Database</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+							<li><a href="About_Meterpreter">About Meterpreter</a>
+								<ul class="two">
+									<li><a href="Meterpreter_Basics">Meterpreter Basics</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+						<div class="clear"></div>
+					</div>
+				</li>
+				<li>
+				<a href="Information_Gathering" class="root"><span class="chapter">04</span> Information Gathering</a>
+					<div class="menu two-column">
+						<h3>Information Gathering</h3>
+						<ul class="one">
+							<li><a href="Port_Scanning">Port Scanning</a></li>
+							<li><a href="Hunting_For_MSSQL">Hunting For MSSQL</a></li>
+							<li><a href="Service_Identification">Service Identification</a></li>
+							<li><a href="Password_Sniffing">Password Sniffing</a>
+								<ul class="two">
+									<li><a href="Extending_Psnuffle">Extending Psnuffle</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="SNMP_Sweeping">SNMP Sweeping</a></li>
+							<li><a href="Writing_Your_Own_Scanner">Writing Your Own Scanner</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Vulnerability_Scanning" class="root"><span class="chapter">05</span> Vulnerability Scanning</a>
+					<div class="menu two-column">
+						<h3>Vulnerability Scanning</h3>
+						<ul class="one">
+							<li><a href="SMB_Login_Check">SMB Login Check</a></li>
+							<li><a href="VNC_Authentication">VNC Authentication</a></li>
+							<li><a href="WMAP_Web_Scanner">WMAP Web Scanner</a></li>
+							<li><a href="Working_With_NeXpose">Working With NeXpose</a>
+		     		                                <ul class="two small">
+                                                                        <li><a href="NeXpose_Via_Msfconsole">NeXpose Via Msfconsole</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							</li>
+                                                        <li><a href="Working_With_Nessus">Working With Nessus</a>
+								<ul class="two small">
+									<li><a href="Nessus_Via_Msfconsole">Nessus Via Msfconsole</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Writing_A_Simple_Fuzzer" class="root"><span class="chapter">06</span> Writing A Simple Fuzzer</a>
+					<div class="menu two-column">
+						<h3>Writing a Simple Fuzzer</h3>
+						<ul class="one">
+							<li><a href="Simple_TFTP_Fuzzer">Simple TFTP Fuzzer</a></li>
+							<li><a href="Simple_IMAP_Fuzzer">Simple IMAP Fuzzer</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Exploit_Development" class="root"><span class="chapter">07</span> Exploit Development</a>
+					<div class="menu two-column">
+						<h3>Exploit Development</h3>
+						<ul class="one">
+							<li><a href="Exploit_Design_Goals">Exploit Design Goals</a></li>
+							<li><a href="Exploit_Format">Exploit Format</a></li>
+							<li><a href="Exploit_Mixins">Exploit Mixins</a></li>
+							<li><a href="Exploit_Targets">Exploit Targets</a></li>
+							<li><a href="Exploit_Payloads">Exploit Payloads</a>
+								<ul class="two small">
+									<li><a href="Msfvenom">Msfvenom</a></li>
+									<li><a href="Msfpayload">Msfpayload</a></li>
+									<li><a href="Msfencode">Msfencode</a></li>
+									<li><a href="Alphanumeric_Shellcode">Alphanumeric Shellcode</a></li>
+									<li><a href="Msfrop">Msfrop</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Writing_An_Exploit">Writing An Exploit</a>
+								<ul class="two small">
+									<li><a href="Getting_A_Shell">Getting A Shell</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Using_The_Egghunter_Mixin">Using The Egghunter Mixin</a>
+								<ul class="two small">
+									<li><a href="Completing_The_Exploit">Completing The Exploit</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Porting_Exploits">Porting Exploits</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li>
+                                        <a href="Web_App_Exploit_Dev" class="root"><span class="chapter">08</span> Web App Exploit Dev</a>
+                                        <div class="menu two-column">
+                                                <h3>Client-side Exploits</h3>
+                                                <ul class="one">
+                                                        <li><a href="Installing_dotDefender">Installing dotDefender</a></li>
+                                                        <li><a href="Analyzing_the_Exploit">Analyzing the Exploit</a></li>
+                                                        <li><a href="Skeleton_Creation">Skeleton Creation</a></li>
+                                                        <li><a href="Making_A_Log_Entry">Making A Log Entry</a></li>
+                                                        <li><a href="Hosting_the_Javascript">Hosting the Javascript</a></li>
+                                                        <li><a href="Final_Exploit">Final Exploit</a></li>
+                                                </ul>
+                                        </div>
+                                </li>
+				<li>
+					<a href="Client_Side_Attacks" class="root"><span class="chapter">09</span> Client Side Attacks</a>
+					<div class="menu three-column">
+						<h3>Client Side Attacks</h3>
+						<ul class="one">
+							<li><a href="Binary_Payloads">Binary Payloads</a></li>
+							<ul class="two small">
+								<li><a href="Binary_Linux_Trojan">Binary Linux Trojan</a></li>
+							</ul>
+							<div class="clear"></div>
+							<li><a href="Client_Side_Exploits">Client Side Exploits</a></li>
+							<li><a href="VBScript_Infection_Methods">VBScript Infection Methods</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Post_Exploitation" class="root"><span class="chapter">10</span> MSF Post Exploitation</a>
+					<div class="menu two-column">
+						<h3>MSF Post Exploitation</h3>
+						<ul class="one">
+							<li><a href="Privilege_Escalation">Privilege Escalation</a></li>
+							<li><a href="PSExec_Pass_The_Hash">PSExec Pass the Hash</a></li>
+							<li><a href="Event_Log_Management">Event Log Management</a></li>
+							<li><a href="Fun_With_Incognito">Fun with Incognito</a></li>
+							<li><a href="Interacting_With_The_Registry">Interacting with the Registry</a>
+								<ul class="two small">
+									<li><a href="Persistent_Netcat_Backdoor">Persistent Netcat Backdoor</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="Enabling_Remote_Desktop">Enabling Remote Desktop</a></li>
+							<li><a href="Packet_Sniffing">Packet Sniffing</a></li>
+							<li><a href="Pivoting">Pivoting</a></li>
+                                                                <ul class="two small">
+                                                                        <li><a href="Portfwd">Portfwd</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+							<li><a href="TimeStomp">TimeStomp</a></li>
+							<li><a href="Screen_Capture">Screen Capture</a></li>
+							<li><a href="Searching_For_Content">Searching For Content</a></li>
+							<li><a href="John_The_Ripper">John The Ripper</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Meterpreter_Scripting" class="root"><span class="chapter">11</span> Meterpreter Scripting</a>
+					<div class="menu two-column">
+						<h3>Meterpreter Scripting</h3>
+						<ul class="one">
+							<li><a href="Existing_Scripts">Existing Scripts</a></li>
+							<li><a href="Writing_Meterpreter_Scripts">Writing Meterpreter Scripts</a></li>
+							<li><a href="Custom_Scripting">Custom Scripting</a></li>
+							<li><a href="Useful_API_Calls">Useful API Calls</a></li>
+							<li><a href="Useful_Functions">Useful Functions</a></li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="Maintaining_Access" class="root"><span class="chapter">12</span> Maintaining Access</a>
+					<div class="menu two-column">
+						<h3>Maintaining Access</h3>
+						<ul class="one">
+							<li><a href="Keylogging">Keylogging</a></li>
+							<li><a href="Meterpreter_Backdoor">Meterpreter Backdoor</a></li>
+							<li><a href="Persistent_Backdoors">Persistent Backdoors</a></li>
+						        <ul class="two small">
+								 <li><a href="Netcat_Backdoor">Netcat Backdoor</a></li>
+		 						 <li><a href="Meterpreter_Service">Meterpreter Service</a></li>
+							</ul>
+								 <div class="clear"></div>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<a href="MSF_Extended_Usage" class="root"><span class="chapter">13</span> MSF Extended Usage</a>
+					<div class="menu two-column">
+						<h3>MSF Extended Usage</h3>
+						<ul class="one">
+							<li><a href="PHP_Meterpreter">PHP Meterpreter</a></li>
+							<li><a href="Backdooring_EXE_Files">Backdooring EXE Files</a></li>
+							<li><a href="Karmetasploit">Karmetasploit</a>
+								<ul class="two small">
+									<li><a href="Karmetasploit_Configuration">Configuration</a></li>
+									<li><a href="Karmetasploit_In_Action">Karmetasploit in Action</a></li>
+									<li><a href="Attack_Analysis">Attack Analysis</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+							<li><a href="MSF_vs_OS_X">MSF vs OS X</a></li>
+							<li><a href="File-Upload_Backdoors">File-Upload Backdoors</a></li>
+							<li><a href="Building_A_Module">Building A Module</a>
+								<ul class="two small">
+									<li><a href="Payloads_Through_MSSQL">Payloads Through MSSQL</a></li>
+									<li><a href="Creating_Our_Auxiliary_Module">Creating Our Auxiliary Module</a></li>
+									<li><a href="The_Guts_Behind_It">The Guts Behind It</a></li>
+								</ul>
+								<div class="clear"></div>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+                                        <a href="Metasploit_GUIs" class="root"><span class="chapter">14</span> Metasploit GUIs</a>
+					<div class="menu two-column">
+						<h3>Metasploit GUIs</h3>
+						<ul class="one">
+							<li><a href="MSF_Community_Edition">MSF Community Edition</a>
+								<ul class="two small">
+                                                                        <li><a href="Scanning">Scanning</a></li>
+                                                                        <li><a href="Exploitation">Exploitation</a></li>
+                                                                        <li><a href="Post_Exploitation">Post Exploitation</a></li>
+                                                                </ul>
+								<div class="clear"></div>
+                                                        </li>
+							<li><a href="Armitage">Armitage</a>
+                                                                <ul class="two small">
+                                                                        <li><a href="Armitage_Setup">Armitage Setup</a></li>
+                                                                        <li><a href="Armitage_Scanning">Armitage Scanning</a></li>
+                                                                        <li><a href="Armitage_Exploitation">Armitage Exploitation</a></li>
+                                                                	<li><a href="Armitage_Post_Exploitation">Armitage Post Exploitation</a></li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li><a href="About_The_Authors" class="root">About The Authors</a>
+					<div class="menu two-column">
+						<h3>About the Authors</h3>
+						<ul class="one">
+							<li><a href="Mati_Aharoni">Mati Aharoni</a></li>
+							<li><a href="William_Coppola">William Coppola</a></li>
+							<li><a href="Paul_Hand">Paul Hand</a></li>
+							<li><a href="Alain_Hernandez">Alain Hernandez</a></li>
+							<li><a href="Devon_Kearns">Devon Kearns</a></li>
+							<li><a href="David_Kennedy">David Kennedy</a></li>
+							<li><a href="Steven_McElrea">Steven McElrea</a></li>
+							<li><a href="Matteo_Memelli">Matteo Memelli</a></li>
+							<li><a href="http://www.offensive-security.com/metasploit-unleashed/Jim_O'Gorman">Jim O'Gorman</a></li>
+							<li><a href="David_Ovitz">David Ovitz</a></li>
+							<li><a href="Carlos_Perez">Carlos Perez</a></li>
+						</ul>
+					</div>
+				</li>
+                                <li><a href="Post_Module_Reference" class="root">Post Module Reference</a>    
+                                        <div class="menu three-column">
+                                                <h3>Post Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Windows   
+                                                                <ul class="two">
+                                                                        <li><a href="Windows_Post_Capture_Modules">Capture</a></li>
+                                                                        <li><a href="Windows_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Windows_Post_Manage_Modules">Manage</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Linux
+                                                                <ul class="two">
+                                                                        <li><a href="Linux_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>OS X
+                                                                <ul class="two">
+                                                                        <li><a href="OS_X_Post_Gather_Modules">Gather</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                        <li>Multiple OS
+                                                                <ul class="two">
+                                                                        <li><a href="Multiple_OS_Post_Gather_Modules">Gather</a></li>
+                                                                        <li><a href="Multiple_OS_Post_General_Modules">General</a></li>
+                                                                </ul>
+							                                	<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+                                <li><a href="Auxiliary_Module_Reference" class="root">Auxiliary Module Reference</a>    
+                                        <div class="menu four-column">
+                                                <h3>Auxiliary Module Reference</h3>
+                                                <ul class="one">
+                                                        <li>Admin   
+                                                                <ul class="two">
+                                                                        <li><a href="Admin_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Admin_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Admin_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Admin_Postgres_Auxiliary_Modules">Postgres</a></li>
+                                                                        <li><a href="Admin_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                </ul>
+                                                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Scanner
+                                                                <ul class="two">
+                                                                        <li><a href="Scanner_DCERPC_Auxiliary_Modules">DCERPC</a></li>
+                                                                        <li><a href="Scanner_Discovery_Auxiliary_Modules">Discovery</a></li>
+                                                                        <li><a href="Scanner_FTP_Auxiliary_Modules">FTP</a></li>
+                                                                        <li><a href="Scanner_HTTP_Auxiliary_Modules">HTTP</a></li>
+                                                                        <li><a href="Scanner_IMAP_Auxiliary_Modules">IMAP</a></li>
+                                                                        <li><a href="Scanner_MSSQL_Auxiliary_Modules">MSSQL</a></li>
+                                                                        <li><a href="Scanner_MySQL_Auxiliary_Modules">MySQL</a></li>
+                                                                        <li><a href="Scanner_NetBIOS_Auxiliary_Modules">NetBIOS</a></li>
+                                                                        <li><a href="Scanner_POP3_Auxiliary_Modules">POP3</a></li>
+                                                                        <li><a href="Scanner_SMB_Auxiliary_Modules">SMB</a></li>
+                                                                        <li><a href="Scanner_SMTP_Auxiliary_Modules">SMTP</a></li>
+                                                                        <li><a href="Scanner_SNMP_Auxiliary_Modules">SNMP</a></li>
+                                                                        <li><a href="Scanner_SSH_Auxiliary_Modules">SSH</a></li>
+                                                                        <li><a href="Scanner_Telnet_Auxiliary_Modules">Telnet</a></li>
+                                                                        <li><a href="Scanner_TFTP_Auxiliary_Modules">TFTP</a></li>
+                                                                        <li><a href="Scanner_VMWare_Auxiliary_Modules">VMWare</a></li>
+                                                                        <li><a href="Scanner_VNC_Auxiliary_Modules">VNC</a></li>
+                                                                </ul>
+								                                <div class="clear"></div>
+                                                        </li>
+                                                        <li>Server
+                                                                <ul class="two">
+                                                                        <li><a href="Server_Capture_Auxiliary_Modules">Capture</a></li>
+                                                                </ul>
+					                                			<div class="clear"></div>
+                                                        </li>
+                                                </ul>
+                                        </div>
+                                </li>
+			<br />
+			<br />
+			<br />
+			<br />
+			</ul>
+													</div>
+				
+					<div class="clear"></div>
+				</div>
+
+				<div id="footer">
+					<div id="footer-content">
+						<div class="left">
+							Copyright &copy; 2013 Offensive Security Ltd. All rights reserved.
+						</div>
+						<div class="right">
+							<a href="http://www.offensive-security.com/"><img src="http://www.offensive-security.com/w/skins/msfu/offsec.png" alt="Offensive Security" /></a>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</div>
+			
+		</div>
+<script>if(window.mw){
+mw.loader.state({"site":"loading","user":"missing","user.groups":"ready"});
+}</script>
+<script>if(window.mw){
+mw.loader.load(["mediawiki.user","mediawiki.page.ready","mediawiki.searchSuggest"], null, true);
+}</script>
+<script src="http://www.offensive-security.com/w/load.php?debug=false&amp;lang=en&amp;modules=site&amp;only=scripts&amp;skin=msfu&amp;*"></script>
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-1981501-1");
+pageTracker._trackPageview();
+</script><!-- Served in 0.134 secs. --></body></html>

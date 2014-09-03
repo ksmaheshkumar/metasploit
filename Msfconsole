@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Msfconsole - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Msfconsole" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Msfconsole&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Msfconsole&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Msfconsole&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,314 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Msfconsole</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Msfconsole#column-one">navigation</a>, <a href="Msfconsole#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The msfconsole is probably the most popular interface to the MSF. It provides an "all-in-one" centralized console and allows you efficient access to virtually all of the options available in the Metasploit Framework. Msfconsole may seem intimidating at first, but once you learn the syntax of the commands you will learn to appreciate the power of utilizing this interface.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Msfconsole#Benefits"><span class="tocnumber">1</span> <span class="toctext">Benefits</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Msfconsole#Launching"><span class="tocnumber">2</span> <span class="toctext">Launching</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Msfconsole#Help"><span class="tocnumber">3</span> <span class="toctext">Help</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Msfconsole#Tab_Completion"><span class="tocnumber">4</span> <span class="toctext">Tab Completion</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h4> <span class="mw-headline" id="Benefits">Benefits</span></h4>
+<dl><dd><ul><li>It is the only supported way to access most of the features within Metasploit.
+</li><li>Provides a console-based interface to the framework
+</li><li>Contains the most features and is the most stable MSF interface
+</li><li>Full readline support, tabbing, and command completion
+</li><li>Execution of external commands in msfconsole is possible:
+</li></ul>
+</dd></dl>
+<p><br />
+<pre>msf > <span style='color:#13C16A;'>ping -c 1 192.168.1.100</span>
+<span style='color:#0000FF;'>[*]</span> exec: ping -c 1 192.168.1.100
+
+PING 192.168.1.100 (192.168.1.100) 56(84) bytes of data.
+64 bytes from 192.168.1.100: icmp_seq=1 ttl=128 time=10.3 ms
+
+--- 192.168.1.100 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 10.308/10.308/10.308/0.000 ms
+msf >
+</pre>
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+</p>
+<h2> <span class="mw-headline" id="Launching"> Launching </span></h2>
+<p>The msfconsole is launched by simply running 'msfconsole' from the command line. msfconsole is located in the /opt/metasploit/msf3 directory.
+<pre>
+<span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfconsole</span>
+
+<span style='color:#00ffff;'>                ##                          ###           ##    ##
+##  ##  #### ###### ####  #####   #####    ##    ####        ######
+####### ##  ##  ##  ##         ## ##  ##    ##   ##  ##   ###   ##
+####### ######  ##  #####   ####  ##  ##    ##   ##  ##   ##    ##
+## # ##     ##  ##  ##  ## ##      #####    ##   ##  ##   ##    ##
+##   ##  #### ###   #####   #####     ##   ####   ####   #### ###
+                                     ##</span>
+
+
+      =[<span style='color:#FFFF00;'> metasploit v4.5.0-dev [core:4.5 api:1.0]</span>
++ -- --=[ 936 exploits - 500 auxiliary - 151 post
++ -- --=[ 252 payloads - 28 encoders - 8 nops
+      =[ svn r15767 updated today (2012.08.22)
+
+
+msf >
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Help"> Help </span></h2>
+<p>You can pass '-h' to msfconsole to see the other usage options available to you.
+<br />
+<pre><span style='color:#FF0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfconsole -h</span>
+Usage: msfconsole [options]
+
+Specific options:
+    -d                               Execute the console as defanged
+    -r <filename>                    Execute the specified resource file
+    -o <filename>                    Output to the specified file
+    -c <filename>                    Load the specified configuration file
+    -m <directory>                   Specifies an additional module search path
+    -p <plugin>                      Load a plugin on startup
+    -y, --yaml <database.yml>        Specify a YAML file containing database settings
+    -e <production|development>,     Specify the database environment to load from the YAML
+        --environment
+    -v, --version                    Show version
+    -L, --real-readline              Use the system Readline library instead of RbReadline
+    -n, --no-database                Disable database support
+    -q, --quiet                      Do not print the banner on start up
+
+Common options:
+    -h, --help                       Show this message
+</pre>
+<br />
+Entering 'help' or a '?' once in the msf command prompt will display a listing of available commands along with a description of what they are used for.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>help</span>
+
+Core Commands
+=============
+
+    Command       Description
+    -------       -----------
+    ?             Help menu
+    back          Move back from the current context
+    banner        Display an awesome metasploit banner
+    cd            Change the current working directory
+    color         Toggle color
+    connect       Communicate with a host
+    exit          Exit the console
+    help          Help menu
+    info          Displays information about one or more module
+    irb           Drop into irb scripting mode
+    jobs          Displays and manages jobs
+    kill          Kill a job
+    load          Load a framework plugin
+    loadpath      Searches for and loads modules from a path
+    makerc        Save commands entered since start to a file
+    quit          Exit the console
+    reload_all    Reloads all modules from all defined module paths
+    resource      Run the commands stored in a file
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Tab_Completion"> Tab Completion </span></h2>
+<p>The msfconsole is designed to be fast to use and one of the features that helps this goal is tab completion.  With the wide array of modules available, it can be difficult to remember the exact name and path of the particular module you wish to make use of.  As with most other shells, entering what you know and pressing 'Tab' will present you with a list of options available to you or auto-complete the string if there is only one option.  Tab completion depends on the ruby readline extension and nearly every command in the console supports tab completion.
+</p>
+<dl><dd><ul><li>use exploit/windows/dce
+</li><li>use .*netapi.*
+</li><li>set LHOST
+</li><li>show
+</li><li>set TARGET
+</li><li>set PAYLOAD windows/shell/
+</li><li>exp
+</li></ul>
+</dd></dl>
+<p><br />
+<pre>msf > <span style='color:#13C16A;'>use exploit/windows/smb/ms</span>
+use exploit/windows/smb/ms03_049_netapi
+use exploit/windows/smb/ms04_007_killbill
+use exploit/windows/smb/ms04_011_lsass
+use exploit/windows/smb/ms04_031_netdde
+use exploit/windows/smb/ms05_039_pnp
+use exploit/windows/smb/ms06_025_rasmans_reg
+use exploit/windows/smb/ms06_025_rras
+use exploit/windows/smb/ms06_040_netapi
+use exploit/windows/smb/ms06_066_nwapi
+use exploit/windows/smb/ms06_066_nwwks
+use exploit/windows/smb/ms06_070_wkssvc
+use exploit/windows/smb/ms07_029_msdns_zonename
+use exploit/windows/smb/ms08_067_netapi
+use exploit/windows/smb/ms09_050_smb2_negotiate_func_index
+use exploit/windows/smb/ms10_061_spoolss
+msf > <span style='color:#13C16A;'>use exploit/windows/smb/ms08_067_netapi</span></pre>
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &gt; Msfconsole</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Msfcli" title="Msfcli">Msfcli</a> &#124; <strong class="selflink">Msfconsole</strong> &#124; <a href="Exploits" title="Exploits">Exploits</a> &#124; <a href="Payloads" title="Payloads">Payloads</a> &#124; <a href="Databases" title="Databases">Databases</a> &#124; <a href="About_Meterpreter" title="About Meterpreter">About Meterpreter</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Msfconsole_Commands" title="Msfconsole Commands">Msfconsole Commands</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 555/1000000
+Preprocessor generated node count: 2715/1000000
+Post‐expand include size: 3344/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:20-0!*!0!!en!*!* and timestamp 20131123230745 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Msfconsole&amp;oldid=1518">http://www.offensive-security.com/w/index.php?title=Msfconsole&amp;oldid=1518</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Fundamentals&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Fundamentals (page does not exist)">Metasploit Fundamentals</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +799,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.131 secs. --></body></html>

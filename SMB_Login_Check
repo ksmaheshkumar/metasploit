@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>SMB Login Check - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="SMB_Login_Check" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:SMB_Login_Check&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=SMB_Login_Check&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=SMB_Login_Check&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,211 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>SMB Login Check</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="SMB_Login_Check#column-one">navigation</a>, <a href="SMB_Login_Check#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>A common situation to find yourself in is being in possession of a valid username and password combination, and wondering where else you can use it. This is where the SMB Login Check Scanner can be very useful, as it will connect to a range of hosts and determine if the username/password combination can access the target.
 <br />
+<br />
+Keep in mind, this is very "loud" as it will show up as a failed login attempt in the event logs of every Windows box it touches. Be thoughtful on the network you are taking this action on. Any successful results can be plugged into the windows/smb/psexec exploit module (exactly like the standalone tool) which can be utilized to create Meterpreter sessions.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/smb/smb_login</span>
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/smb/smb_login):
+
+   Name              Current Setting  Required  Description
+   ----              ---------------  --------  -----------
+   BLANK_PASSWORDS   true             no        Try blank passwords for all users
+   BRUTEFORCE_SPEED  5                yes       How fast to bruteforce, from 0 to 5
+   PASS_FILE                          no        File containing passwords, one per line
+   PRESERVE_DOMAINS  true             no        Respect a username that contains a domain name.
+   RHOSTS                             yes       The target address range or CIDR identifier
+   RPORT             445              yes       Set the SMB service port
+   SMBDomain         WORKGROUP        no        SMB Domain
+   SMBPass                            no        SMB Password
+   SMBUser                            no        SMB Username
+   STOP_ON_SUCCESS   false            yes       Stop guessing when a credential works for a host
+   THREADS           1                yes       The number of concurrent threads
+   USERPASS_FILE                      no        File containing users and passwords separated by space, one pair per line
+   USER_AS_PASS      true             no        Try the username as the password for all users
+   USER_FILE                          no        File containing usernames, one per line
+   VERBOSE           true             yes       Whether to print output for all attempts
+
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.0/24</span>
+RHOSTS => 192.168.1.0/24
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) > <span style='color:#13C16A;'>set SMBUser victim</span>
+SMBUser => victim
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) > <span style='color:#13C16A;'>set SMBPass s3cr3t</span>
+SMBPass => s3cr3t
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) > <span style='color:#13C16A;'>set THREADS 50</span>
+THREADS => 50
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.100 - FAILED 0xc000006d - STATUS_LOGON_FAILURE
+<span style='color:#0000FF;'>[*]</span> 192.168.1.111 - FAILED 0xc000006d - STATUS_LOGON_FAILURE
+<span style='color:#0000FF;'>[*]</span> 192.168.1.114 - FAILED 0xc000006d - STATUS_LOGON_FAILURE
+<span style='color:#0000FF;'>[*]</span> 192.168.1.125 - FAILED 0xc000006d - STATUS_LOGON_FAILURE
+<span style='color:#0000FF;'>[*]</span> 192.168.1.116 - SUCCESSFUL LOGIN (Unix)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+msf auxiliary(<span style='color:#ff0000;'>smb_login</span>) ></pre>
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Vulnerability_Scanning" title="Vulnerability Scanning">Vulnerability Scanning</a> &gt; SMB Login Check</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">SMB Login Check</strong> &#124; <a href="VNC_Authentication" title="VNC Authentication">VNC Authentication</a> &#124; <a href="WMAP_Web_Scanner" title="WMAP Web Scanner">WMAP Web Scanner</a> &#124; <a href="Working_With_NeXpose" title="Working With NeXpose">Working With NeXpose</a> &#124; <a href="Working_With_Nessus" title="Working With Nessus">Working With Nessus</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 493/1000000
+Preprocessor generated node count: 2595/1000000
+Post‐expand include size: 3744/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:34-0!*!0!*!*!*!* and timestamp 20131124025355 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=SMB_Login_Check&amp;oldid=41">http://www.offensive-security.com/w/index.php?title=SMB_Login_Check&amp;oldid=41</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Vulnerability_Scanning&amp;action=edit&amp;redlink=1" class="new" title="Category:Vulnerability Scanning (page does not exist)">Vulnerability Scanning</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +696,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.161 secs. --></body></html>

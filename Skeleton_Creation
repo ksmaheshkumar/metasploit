@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Skeleton Creation - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Skeleton_Creation" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Skeleton_Creation&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Skeleton_Creation&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Skeleton_Creation&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,259 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Skeleton Creation</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Skeleton_Creation#column-one">navigation</a>, <a href="Skeleton_Creation#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>In this section we are going to take a look at a skeleton exploit to start building our dotDefender PoC from.
+We'll start with some of the specific things in the skeleton that are required for this exploit to work. The descriptions aren't necessary until the end so we won't worry about them for now.
+<br />
+<br />
+<pre>
+##
+# This file is part of the Metasploit Framework and may be subject to
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+#   http://metasploit.com/framework/
+##
+ 
+require 'msf/core'
+ 
+class Metasploit3 < <span style='color:#ff0000;'>Msf::Exploit::Remote</span>
+    Rank = Average
+ 
+    <span style='color:#ff0000;'>include Msf::Exploit::Remote::HttpClient</span>
+    <span style='color:#ff0000;'>include Msf::Exploit::Remote::HttpServer::HTML</span>
+ 
+    def initialize(info={})
+        super(update_info(info,
+            'Name'           => "dotDefender <= 3.8-5 No Authentication Remote Code Execution Through XSS",
+            'Description'    => %q{
+                    This module exploits a vulnerability found in dotDefender.
+            },
+            'License'        => MSF_LICENSE,
+            'Author'         =>
+                [
+                    'John Dos',   #Initial remote execution discovery
+                    'rAWjAW'  	  #Everything else
+                ],
+            'References'     =>
+                [
+                    ['EDB', '14310'],
+                    ['URL', 'http://www.exploit-db.com/exploits/14310/']
+                ],
+            <span style='color:#ff0000;'>'Arch'           => ARCH_CMD,
+	   'Compat'          =>
+		{
+	            'PayloadType' => 'cmd'
+		},
+            'Platform'       => ['unix','linux'],</span>
+            'Targets'        =>
+                [
+                    ['dotDefender <= 3.8-5', {}]
+                ],
+            'Privileged'     => false,
+            'DefaultTarget'  => 0))
+ 
+        register_options(
+            [
+
+            ], self.class)
+    	end
+
+
+	def exploit
+		 
+	end
+
+end
+</pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="Exploit_Category"> Exploit Category </span></h2>
+<p><pre>class Metasploit3 < Msf::Exploit::Remote</pre>
+<br />
+<br />
+This is defining what type of exploit we are creating.  This exploit is actually a couple of different things strung together but the initial log creation and server exploitation are a remote attack against the target server.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Exploit_Includes"> Exploit Includes </span></h2>
+<p><pre>include Msf::Exploit::Remote::HttpClient
+    include Msf::Exploit::Remote::HttpServer::HTML</pre>
+<br />
+<br />
+Both of the above lines are needed since we need to send a packet to the target server and also host the malicious JavaScript.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Payload_Limitations"> Payload Limitations </span></h2>
+<p><pre>
+'Arch'           => ARCH_CMD,
+'Compat'          =>
+		{
+                    'PayloadType' => 'cmd'
+		},
+'Platform'       => ['unix','linux'],</pre>
+<br />
+<br />
+The exploit was created and tested on a Ubuntu server which has the "nc -e" option turned on as does Metasploitable.  The above lets us limit the payloads to unix/linux machines and command execution.  We can  expand on this more in the future if we want to create a script that works across multiple operating systems but for now we just want to get any working exploit.
+<br />
+<br />
+</p>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Web_App_Exploit_Dev" title="Web App Exploit Dev">Web App Exploit Dev</a> &gt; Skeleton Creation</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Installing_dotDefender" title="Installing dotDefender">Installing dotDefender</a> &#124; <a href="Analyzing_the_Exploit" title="Analyzing the Exploit">Analyzing the Exploit</a> &#124; <strong class="selflink">Skeleton Creation</strong> &#124; <a href="Making_A_Log_Entry" title="Making A Log Entry">Making A Log Entry</a> &#124; <a href="Hosting_the_Javascript" title="Hosting the Javascript">Hosting the Javascript</a> &#124; <a href="Final_Exploit" title="Final Exploit">Final Exploit</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 537/1000000
+Preprocessor generated node count: 2681/1000000
+Post‐expand include size: 3992/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:366-0!*!0!!*!*!* and timestamp 20131124115133 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Skeleton_Creation&amp;oldid=840">http://www.offensive-security.com/w/index.php?title=Skeleton_Creation&amp;oldid=840</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Web_App_Exploit_Dev&amp;action=edit&amp;redlink=1" class="new" title="Category:Web App Exploit Dev (page does not exist)">Web App Exploit Dev</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +744,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.163 secs. --></body></html>

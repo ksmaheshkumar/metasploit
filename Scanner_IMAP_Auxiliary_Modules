@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Scanner IMAP Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Scanner_IMAP_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Scanner_IMAP_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_IMAP_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_IMAP_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,214 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Scanner IMAP Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Scanner_IMAP_Auxiliary_Modules#column-one">navigation</a>, <a href="Scanner_IMAP_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Scanner_IMAP_Auxiliary_Modules#imap_version"><span class="tocnumber">1</span> <span class="toctext">imap_version</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="imap_version"> imap_version </span></h2>
+<p>The <b>"imap_version"</b> auxiliary module is a relatively simple banner grabber for IMAP servers.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/imap/imap_version</span>
+msf auxiliary(<span style='color:#ff0000;'>imap_version</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/imap/imap_version):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   IMAPPASS                   no        The password for the specified username
+   IMAPUSER                   no        The username to authenticate as
+   RHOSTS                     yes       The target address range or CIDR identifier
+   RPORT     143              yes       The target port
+   THREADS   1                yes       The number of concurrent threads</pre>
+<br />
+To configure the module, we will only set the RHOSTS and THREADS values and let it run. Note that you can also pass credentials to the module.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>imap_version</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-240</span>
+RHOSTS => 192.168.1.200-240
+msf auxiliary(<span style='color:#ff0000;'>imap_version</span>) > <span style='color:#13C16A;'>set THREADS 20</span>
+THREADS => 20
+msf auxiliary(<span style='color:#ff0000;'>imap_version</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> 192.168.1.215:143 IMAP * OK [CAPABILITY IMAP4REV1 LOGIN-REFERRALS STARTTLS AUTH=LOGIN] [192.168.1.215] IMAP4rev1 2001.315rh at Sun, 23 Jan 2011 20:47:51 +0200 (IST)\x0d\x0a
+<span style='color:#0000FF;'>[*]</span> Scanned 13 of 55 hosts (023% complete)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.224:143 IMAP * OK Dovecot ready.\x0d\x0a
+<span style='color:#0000FF;'>[*]</span> 192.168.1.229:143 IMAP * OK IMAPrev1\x0d\x0a
+<span style='color:#0000FF;'>[*]</span> Scanned 30 of 55 hosts (054% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 31 of 55 hosts (056% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 38 of 55 hosts (069% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 39 of 55 hosts (070% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 40 of 55 hosts (072% complete)
+<span style='color:#0000FF;'>[*]</span> 192.168.1.234:143 IMAP * OK localhost Cyrus IMAP4 v2.3.2 server ready\x0d\x0a
+<span style='color:#0000FF;'>[*]</span> Scanned 52 of 55 hosts (094% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 53 of 55 hosts (096% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 54 of 55 hosts (098% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>imap_version</span>) ></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Scanner Modules (page does not exist)">Scanner Modules</a> &gt; Scanner IMAP Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=DCERPC&amp;action=edit&amp;redlink=1" class="new" title="DCERPC (page does not exist)">DCERPC</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Discovery&amp;action=edit&amp;redlink=1" class="new" title="Discovery (page does not exist)">Discovery</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=FTP&amp;action=edit&amp;redlink=1" class="new" title="FTP (page does not exist)">FTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=HTTP&amp;action=edit&amp;redlink=1" class="new" title="HTTP (page does not exist)">HTTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=IMAP&amp;action=edit&amp;redlink=1" class="new" title="IMAP (page does not exist)">IMAP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MSSQL&amp;action=edit&amp;redlink=1" class="new" title="MSSQL (page does not exist)">MSSQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MySQL&amp;action=edit&amp;redlink=1" class="new" title="MySQL (page does not exist)">MySQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=NetBIOS&amp;action=edit&amp;redlink=1" class="new" title="NetBIOS (page does not exist)">NetBIOS</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=POP3&amp;action=edit&amp;redlink=1" class="new" title="POP3 (page does not exist)">POP3</a> &#124; <a href="Port_Scanners" title="Port Scanners" class="mw-redirect">Port Scanners</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMB&amp;action=edit&amp;redlink=1" class="new" title="SMB (page does not exist)">SMB</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMTP&amp;action=edit&amp;redlink=1" class="new" title="SMTP (page does not exist)">SMTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SNMP&amp;action=edit&amp;redlink=1" class="new" title="SNMP (page does not exist)">SNMP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SSH&amp;action=edit&amp;redlink=1" class="new" title="SSH (page does not exist)">SSH</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Telnet&amp;action=edit&amp;redlink=1" class="new" title="Telnet (page does not exist)">Telnet</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=TFTP&amp;action=edit&amp;redlink=1" class="new" title="TFTP (page does not exist)">TFTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=VNC&amp;action=edit&amp;redlink=1" class="new" title="VNC (page does not exist)">VNC</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 501/1000000
+Preprocessor generated node count: 2625/1000000
+Post‐expand include size: 5460/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:244-0!*!0!*!en!*!* and timestamp 20131124141352 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Scanner_IMAP_Auxiliary_Modules&amp;oldid=1253">http://www.offensive-security.com/w/index.php?title=Scanner_IMAP_Auxiliary_Modules&amp;oldid=1253</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Scanner Modules (page does not exist)">Scanner Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +699,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.342 secs. --></body></html>

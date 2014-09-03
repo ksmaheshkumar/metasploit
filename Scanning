@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>MSF Community Scanning - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="MSF_Community_Scanning" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:MSF_Community_Scanning&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=MSF_Community_Scanning&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=MSF_Community_Scanning&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,430 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>MSF Community Scanning</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
-							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+							<div id="contentSub">(Redirected from <a href="http://www.offensive-security.com/w/index.php?title=Scanning&amp;redirect=no" title="Scanning">Scanning</a>)</div>
+																													<div id="jump-to-nav">Jump to: <a href="Scanning#column-one">navigation</a>, <a href="Scanning#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Scanning is an essential part of penetration testing. Often times, attackers go straight into exploitation as they have already obtained the IP address range used by the organization. This is a critical mistake as they have not discovered all of the live hosts or open services. Continuing a penetration test without having a solid understanding all of the live hosts, open services and operating systems being used in the environment will often result in the crash of many production systems. Clearly, we'd like to avoid having to explain to the CIO or CISO how we crashed multiple production systems.
+</p><p><br />
+</p>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Scanning#Scanning_with_Metasploit_Community_Edition"><span class="tocnumber">1</span> <span class="toctext">Scanning with Metasploit Community Edition</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Scanning#Importing_Scan_Results_from_Nessus"><span class="tocnumber">2</span> <span class="toctext">Importing Scan Results from Nessus</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Scanning#Integration_with_NeXpose"><span class="tocnumber">3</span> <span class="toctext">Integration with NeXpose</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="Scanning_with_Metasploit_Community_Edition"> Scanning with Metasploit Community Edition </span></h2>
+<p>Let us take a look at how Metasploit Community Edition helps us with this critical phase:
+</p><p><br />
+</p>
+<ul><li> First, let us create a new project by clicking on 'Project' and then on 'Create New Project' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce18.png" class="image"><img alt="Mce18.png" src="http://www.offensive-security.com/w/images/b/b6/Mce18.png" width="253" height="127" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Please note that we are only required to provide a 'Project Name', but we will also provide the 'Description' and 'Network Range' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce19.png" class="image"><img alt="Mce19.png" src="http://www.offensive-security.com/w/images/9/96/Mce19.png" width="1410" height="504" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Now that the project has been successfully created, we can begin our scan by clicking on 'Scan' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce20.png" class="image"><img alt="Mce20.png" src="http://www.offensive-security.com/w/images/1/1b/Mce20.png" width="418" height="233" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Confirm IP address range being scanned, configure advanced options such as hosts to exclude or special NMAP switches, and then click on 'Launch Scan' when ready:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce21.png" class="image"><img alt="Mce21.png" src="http://www.offensive-security.com/w/images/f/fa/Mce21.png" width="1396" height="296" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Sit back, relax and look at how different services are discovered as the scan progresses:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce22.png" class="image"><img alt="Mce22.png" src="http://www.offensive-security.com/w/images/f/f3/Mce22.png" width="1421" height="489" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Once the scan is complete, you can examine the results by clicking on 'Analysis' and then on 'Hosts' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce23.png" class="image"><img alt="Mce23.png" src="http://www.offensive-security.com/w/images/e/e4/Mce23.png" width="326" height="322" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Click on the IP address or host to obtain more information:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce24.png" class="image"><img alt="Mce24.png" src="http://www.offensive-security.com/w/images/d/dd/Mce24.png" width="1415" height="226" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Clicking on the host or IP address displays additional information about the host such as the list of open ports, service information, and so forth. Notice that you have additional tabs such as 'Vulnerabilities', 'File Shares', 'Notes', and 'Credentials'. Clicking on each tab provides additional information that may be useful during a penetration test.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce25.png" class="image"><img alt="Mce25.png" src="http://www.offensive-security.com/w/images/c/cd/Mce25.png" width="1380" height="584" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Exploring a different tab shows us this target is vulnerable to the following vulnerability:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce26.png" class="image"><img alt="Mce26.png" src="http://www.offensive-security.com/w/images/9/9b/Mce26.png" width="1382" height="541" /></a></div></div>
+<p><br />
+Armed with this information, an attacker can now proceed to the next step: Exploitation!
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="Importing_Scan_Results_from_Nessus"> Importing Scan Results from Nessus </span></h2>
+<p>Importing scan results from Nessus, Nexpose, and other vulnerability scanners simplies our lives as penetration testers. Let us explore this process in more detail:
+</p>
+<ul><li> First, we begin the process by running a Nessus scan on Metasploitable 2. To add a new scan, simply click on 'Scan' and then on 'Add' as follows:
+</li></ul>
 <p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce27.png" class="image"><img alt="Mce27.png" src="http://www.offensive-security.com/w/images/8/89/Mce27.png" width="842" height="221" /></a></div></div>
+<p><br />
+</p>
+<ul><li> We then configure our desired options, and click on 'Launch Scan' when ready. For simplicity, we are only scanning (1) machine.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce28.png" class="image"><img alt="Mce28.png" src="http://www.offensive-security.com/w/images/2/2a/Mce28.png" width="1428" height="643" /></a></div></div>
+<p><br />
+</p>
+<ul><li> The scan begins to run:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce29.png" class="image"><img alt="Mce29.png" src="http://www.offensive-security.com/w/images/1/1d/Mce29.png" width="1213" height="154" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Clicking on the name of the scan takes us to another section where we can observe updates in real time:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce30.png" class="image"><img alt="Mce30.png" src="http://www.offensive-security.com/w/images/6/69/Mce30.png" width="1286" height="213" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Once the scan is complete, we can click on 'Download Report' to download a copy and save it locally:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce31.png" class="image"><img alt="Mce31.png" src="http://www.offensive-security.com/w/images/9/9a/Mce31.png" width="1280" height="341" /></a></div></div>
+<p><br />
+</p>
+<ul><li> For simplicity, we will save the report as a standard .nessus report. Other options include html, and so forth.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce32.png" class="image"><img alt="Mce32.png" src="http://www.offensive-security.com/w/images/5/58/Mce32.png" width="362" height="137" /></a></div></div>
+<p><br />
+</p>
+<ul><li> We now turn to the Metasploit Community Edition web interface. Let us click on 'Analysis' and then on 'Import' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce33.png" class="image"><img alt="Mce33.png" src="http://www.offensive-security.com/w/images/6/60/Mce33.png" width="437" height="297" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Let us click on 'Browse' and look for our Nessus report. Please note that if necessary, you can exclude certain IP addresses from being imported altogether.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce34.png" class="image"><img alt="Mce34.png" src="http://www.offensive-security.com/w/images/3/35/Mce34.png" width="1418" height="410" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Once it's found, let's click on 'Open' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce35.png" class="image"><img alt="Mce35.png" src="http://www.offensive-security.com/w/images/3/3d/Mce35.png" width="799" height="607" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Let us click on 'Import Data' to begin the data import process:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce36.png" class="image"><img alt="Mce36.png" src="http://www.offensive-security.com/w/images/b/be/Mce36.png" width="1332" height="313" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Data import process is then started, and all data is imported into the Metasploit Community Edition.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce37.png" class="image"><img alt="Mce37.png" src="http://www.offensive-security.com/w/images/e/ee/Mce37.png" width="1008" height="243" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Once again, let's click on 'Analysis' and then on 'Hosts' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce38.png" class="image"><img alt="Mce38.png" src="http://www.offensive-security.com/w/images/e/ec/Mce38.png" width="345" height="181" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Notice how the number of vulnerabilities is now presented to us. 
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce39.png" class="image"><img alt="Mce39.png" src="http://www.offensive-security.com/w/images/1/12/Mce39.png" width="1395" height="173" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Let's click on the host or IP address in order to obtain more information. Notice how clicking on the 'Vulnerabilities' tab displays all vulnerabilities associated with this host including CVEs and applicable exploits. Isn't this amazing?
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce40.png" class="image"><img alt="Mce40.png" src="http://www.offensive-security.com/w/images/4/4a/Mce40.png" width="1273" height="697" /></a></div></div>
+<p><br />
+We are now one step closer to successful exploitation!
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+</p>
+<h2> <span class="mw-headline" id="Integration_with_NeXpose"> Integration with NeXpose </span></h2>
+<p>Metasploit Community Edition has a seamless integration with NeXpose. As penetration testers, we are often looking for shortcuts and this integration is just beautiful. Let's take a closer look.
+</p>
+<ul><li> First, let us integrate NeXpose into Metasploit Community Edition. We can accomplish this by clicking on 'Administration' and then on 'Global Settings' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce41.png" class="image"><img alt="Mce41.png" src="http://www.offensive-security.com/w/images/a/a7/Mce41.png" width="259" height="130" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Scroll down and click on 'Configure a NeXpose Console' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce42.png" class="image"><img alt="Mce42.png" src="http://www.offensive-security.com/w/images/d/d0/Mce42.png" width="280" height="89" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Configure the NeXpose Console accordingly, and then click on 'Save' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce43.png" class="image"><img alt="Mce43.png" src="http://www.offensive-security.com/w/images/b/bf/Mce43.png" width="332" height="444" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Console has now been fully configured and is ready to be used:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce44.png" class="image"><img alt="Mce44.png" src="http://www.offensive-security.com/w/images/3/3c/Mce44.png" width="1184" height="173" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Let's go back to 'Projects', and click on 'Metasploitable 2' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce45.png" class="image"><img alt="Mce45.png" src="http://www.offensive-security.com/w/images/e/e9/Mce45.png" width="280" height="148" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Once the project is loaded, click on 'Nexpose' in the 'Discovery' section as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce46.png" class="image"><img alt="Mce46.png" src="http://www.offensive-security.com/w/images/b/b5/Mce46.png" width="307" height="205" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Select the appropriate Console, the Target Range, Scan Template and Advanced Options, and when you are ready click on 'Launch Nexpose' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce47.png" class="image"><img alt="Mce47.png" src="http://www.offensive-security.com/w/images/c/c6/Mce47.png" width="1376" height="394" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Scan is now in progress, notice how you are able to see how vulnerabilities are discovered in real time.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce48.png" class="image"><img alt="Mce48.png" src="http://www.offensive-security.com/w/images/c/c1/Mce48.png" width="1022" height="519" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Once the scan is complete, you can examine the results by clicking on 'Analysis' and then on 'Hosts' as follows:
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce38.png" class="image"><img alt="Mce38.png" src="http://www.offensive-security.com/w/images/e/ec/Mce38.png" width="345" height="181" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Notice how the number of vulnerabilities is now presented to us.
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce49.png" class="image"><img alt="Mce49.png" src="http://www.offensive-security.com/w/images/c/c6/Mce49.png" width="1114" height="151" /></a></div></div>
+<p><br />
+</p>
+<ul><li> Let's click on the host or IP address in order to obtain more information. Notice how clicking on the 'Vulnerabilities' tab displays all vulnerabilities associated with this host including CVEs and applicable exploits. Isn't this amazing?
+</li></ul>
+<p><br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Mce50.png" class="image"><img alt="Mce50.png" src="http://www.offensive-security.com/w/images/7/7f/Mce50.png" width="1383" height="580" /></a></div></div>
+<p><br />
+And now the part we have all been waiting for: Exploitation!
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_GUIs" title="Metasploit GUIs">Metasploit GUIs</a> &gt; <a href="MSF_Community_Edition" title="MSF Community Edition">MSF Community Edition</a> &gt; MSF Community Scanning</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Scanning" title="Scanning" class="mw-redirect">Scanning</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Exploitation (page does not exist)">Exploitation</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Post Exploitation (page does not exist)">Post Exploitation</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 501/1000000
+Preprocessor generated node count: 2589/1000000
+Post‐expand include size: 4266/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:396-0!*!0!!en!2!* and timestamp 20131123163232 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=MSF_Community_Scanning&amp;oldid=1387">http://www.offensive-security.com/w/index.php?title=MSF_Community_Scanning&amp;oldid=1387</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Community_Edition&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Community Edition (page does not exist)">MSF Community Edition</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +915,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.194 secs. --></body></html>

@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Requirements - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Requirements" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Requirements&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Requirements&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Requirements&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,251 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Requirements</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
-							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+							<div id="contentSub">(Redirected from <a href="http://www.offensive-security.com/w/index.php?title=Required_Materials&amp;redirect=no" title="Required Materials">Required Materials</a>)</div>
+																													<div id="jump-to-nav">Jump to: <a href="Required_Materials#column-one">navigation</a>, <a href="Required_Materials#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Before we dive into the wonderful world of the Metasploit Framework we need to ensure our setup will meet or exceed some requirements before we proceed. This will help eliminate many problems before they arise later in this document.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="Hardware"> Hardware </span></h2>
+<p>All values listed are estimated or recommended. You can get away with less although performance will suffer.
+<br />
+<br />
+Some of the hardware requirements that should be considered are:
+</p>
+<dl><dd><ul><li> Hard Drive Space
+</li><li> Available Memory
+</li><li> Processors Capabilities
+</li><li> Inter/Intra-net Access
+</li></ul>
+</dd></dl>
 <p><br />
+</p>
+<h4> <span class="mw-headline" id="Hard_Drive_Space"> Hard Drive Space </span></h4>
+<p>This will be the most taxing hurdle to overcome. Be creative if you might have some storage space constraints. This process can consume almost 20 gigabytes of Storage space, so be forewarned. This means we can not use a FAT32 partition since it does not support large files. Choose NTFS, ext3 or some other format. The recommended amount of space needed is 40 gigabytes.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<pre>  730000000    696MB  //z01 file size on disk
+  730000000    696MB  //z02 file size on disk
+  730000000    696MB  //z03 file size on disk
+  730000000    696MB  //z04 file size on disk
+  730000000    696MB  //z05 file size on disk
+  272792685    260MB  //zip file size on disk
+      total -------- 
+              3740MB  //Total space before decompression and extraction
+
+ 5959506432   5700MB  //Extracted image file size on disk
+20401094656  19456MB  //Per Converted FDCC VM on disk
+      total -------- 
+             28896MB
+
+ 8589934592   8192MB  //Optional Backtrack "GUEST" HDD Requirement's
+      total --------
+             37088MB
+
+  123290094    112MB  //VMware-converter-4.0.1-161434.tar.gz
+  377487360    360MB  //VMware Converter installed on disk
+  101075736     97MB  //VMware-Player-2.5.3-185404.i386.bundle
+  157286400    150MB  //VMware Player Installed on disk
+      total --------
+             37807MB  //See how fast it gets consumed!</pre>
+<br />
+If you decided to produce clones or snapshots as you progress through this course, these will also take up valuable space on your system. Be vigilant and do not be afraid to reclaim space as needed.
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="Available_Memory"> Available Memory </span></h4>
+<p>Without supplying enough memory to your HOST and GUEST operating systems you will eventually cause system failure. You are going to require RAM for your host OS as well as the equivalent amount of RAM that you are dedicating for each virtual machine.  Use the guide below to aid you in deciding the amount of RAM needed for your situation.
+<br />
+<br />
+<pre>Linux "HOST" Minimal Memory Requirement's
+
+   1GB of system memory (RAM)
+        Realistically 2GB or more
+  
+Per Windows "GUEST" Minimal Memory Requirement's
+   
+   At least 256 megabytes (MB) of RAM (1GB is recommended) // more never hurts!
+        Realistically 1GB or more with a SWAP file of equal value
+   
+(Optional) Backtrack "GUEST" Minimal Memory Requirement's
+
+   AT least 512 megabytes (MB) of RAM (1GB is recommended) // more never hurts!
+     Realistically 1GB or more with a SWAP file of equal value</pre>
+<br />
+</p>
+<h4> <span class="mw-headline" id="Processor"> Processor </span></h4>
+<p>Processor Speed is always a problem with dated hardware although old hardware can be utilized in other fashions to serve a better purpose. The bare-minimum requirement for VMware Player is a 400MHz or faster processor (500MHz recommended).  The more horsepower you can throw at it, of course, the better.
+<br />
+<br />
+</p>
+<h4> <span class="mw-headline" id="Internet_Accessibility"> Internet Accessibility </span></h4>
+<p>This can be solved with a cat5 cable from your router/switch/hub. If there is no DHCP server on your network you will have to assign static IP addresses to your GUEST VM's. A wireless network connection can work just as well as an Ethernet cable, however, the signal degradation over distance, through objects, and structures will severely limit your connectivity.
+<br />
+<br />
+</p>
+<h2> <span class="mw-headline" id="Software"> Software </span></h2>
+<p>While VMware Converter and VMware Player are "free", you will have to register for the downloads. However, the virtualization applications and appliances are well worth the registration if you're not already a current member. You may also use VMware Workstation or other implementations of Virtual Infrastructure.  In addition to VMware, there is also VirtualBox which can be downloaded for free at <a rel="nofollow" class="external free" href="https://www.virtualbox.org/wiki/Downloads">https://www.virtualbox.org/wiki/Downloads</a>
+<br />
+<br />
+This course was created using the latest svn trunk version of the Metasploit Framework. If you are using back|track 5 as your platform, you can always update to the latest version of the trunk by issuing the <b>"msfupdate"</b> command.
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+</p>
+<div class="Total1">Requirements</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Donate" title="Donate">Donate</a> &#124; <a href="Introduction" title="Introduction">Introduction</a> &#124; <a href="Required_Materials" title="Required Materials" class="mw-redirect">Required Materials</a> &#124; <a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &#124; <a href="Information_Gathering" title="Information Gathering">Information Gathering</a> &#124; <a href="Vulnerability_Scanning" title="Vulnerability Scanning">Vulnerability Scanning</a> &#124; <a href="Writing_A_Simple_Fuzzer" title="Writing A Simple Fuzzer">Writing A Simple Fuzzer</a> &#124; <a href="Exploit_Development" title="Exploit Development">Exploit Development</a> &#124; <a href="Web_App_Exploit_Dev" title="Web App Exploit Dev">Web App Exploit Dev</a> &#124; <a href="Client_Side_Attacks" title="Client Side Attacks">Client Side Attacks</a> &#124; <a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &#124; <a href="Meterpreter_Scripting" title="Meterpreter Scripting">Meterpreter Scripting</a> &#124; <a href="Maintaining_Access" title="Maintaining Access">Maintaining Access</a> &#124; <a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &#124; <a href="Metasploit_GUIs" title="Metasploit GUIs">Metasploit GUIs</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &#124; <a href="About_The_Authors" title="About The Authors">About The Authors</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 528/1000000
+Preprocessor generated node count: 2635/1000000
+Post‐expand include size: 4144/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:10-0!*!0!!*!*!* and timestamp 20131124122849 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Requirements&amp;oldid=1291">http://www.offensive-security.com/w/index.php?title=Requirements&amp;oldid=1291</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Main&amp;action=edit&amp;redlink=1" class="new" title="Category:Main (page does not exist)">Main</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +736,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.127 secs. --></body></html>

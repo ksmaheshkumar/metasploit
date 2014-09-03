@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Scanner MSSQL Auxiliary Modules - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Scanner_MSSQL_Auxiliary_Modules" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Scanner_MSSQL_Auxiliary_Modules&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_MSSQL_Auxiliary_Modules&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Scanner_MSSQL_Auxiliary_Modules&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,324 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Scanner MSSQL Auxiliary Modules</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Scanner_MSSQL_Auxiliary_Modules#column-one">navigation</a>, <a href="Scanner_MSSQL_Auxiliary_Modules#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Scanner_MSSQL_Auxiliary_Modules#mssql_ping"><span class="tocnumber">1</span> <span class="toctext">mssql_ping</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Scanner_MSSQL_Auxiliary_Modules#mssql_idf"><span class="tocnumber">2</span> <span class="toctext">mssql_idf</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Scanner_MSSQL_Auxiliary_Modules#mssql_sql"><span class="tocnumber">3</span> <span class="toctext">mssql_sql</span></a></li>
+</ul>
+</td></tr></table>
+<p><br />
+</p>
+<h2> <span class="mw-headline" id="mssql_ping"> mssql_ping </span></h2>
+<p>The <b>"mssql_ping"</b> module queries a host or range of hosts on UDP port 1434 to determine the listening TCP port of any MSSQL server, if available. MSSQL randomizes the TCP port that it listens on so this is a very valuable module in the Framework.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/scanner/mssql/mssql_ping</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/scanner/mssql/mssql_ping):
+
+   Name      Current Setting  Required  Description
+   ----      ---------------  --------  -----------
+   PASSWORD                   no        The password for the specified username
+   RHOSTS                     yes       The target address range or CIDR identifier
+   THREADS   1                yes       The number of concurrent threads
+   USERNAME  sa               no        The username to authenticate as</pre>
+<br />
+To configure the module, we set the RHOSTS and THREADS values and let it run against our targets.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>set RHOSTS 192.168.1.200-254</span>
+RHOSTS => 192.168.1.200-254
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>set THREADS 20</span>
+THREADS => 20
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Scanned 13 of 55 hosts (023% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 16 of 55 hosts (029% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 17 of 55 hosts (030% complete)
+<span style='color:#0000FF;'>[*]</span> SQL Server information for 192.168.1.217:
+<span style='color:#0000FF;'>[*]</span>    tcp             = 27900
+<span style='color:#0000FF;'>[*]</span>    np              = \\SERVER2\pipe\sql\query
+<span style='color:#0000FF;'>[*]</span>    Version         = 8.00.194
+<span style='color:#0000FF;'>[*]</span>    InstanceName    = MSSQLSERVER
+<span style='color:#0000FF;'>[*]</span>    IsClustered     = No
+<span style='color:#0000FF;'>[*]</span>    ServerName      = SERVER2
+<span style='color:#0000FF;'>[*]</span> SQL Server information for 192.168.1.241:
+<span style='color:#0000FF;'>[*]</span>    tcp             = 1433
+<span style='color:#0000FF;'>[*]</span>    np              = \\2k3\pipe\sql\query
+<span style='color:#0000FF;'>[*]</span>    Version         = 8.00.194
+<span style='color:#0000FF;'>[*]</span>    InstanceName    = MSSQLSERVER
+<span style='color:#0000FF;'>[*]</span>    IsClustered     = No
+<span style='color:#0000FF;'>[*]</span>    ServerName      = 2k3
+<span style='color:#0000FF;'>[*]</span> Scanned 32 of 55 hosts (058% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 40 of 55 hosts (072% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 44 of 55 hosts (080% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 45 of 55 hosts (081% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 46 of 55 hosts (083% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 50 of 55 hosts (090% complete)
+<span style='color:#0000FF;'>[*]</span> Scanned 55 of 55 hosts (100% complete)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>mssql_ping</span>) ></pre>
+<br />
+As can be seen from the module output, not only does it return the listening TCP port, it returns other valuable information such as the InstanceName and ServerName values.
+<br />
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h2> <span class="mw-headline" id="mssql_idf"> mssql_idf </span></h2>
+<p>The <b>"mssql_idf"</b> (Interesting Data Finder) module will connect to a remote MSSQL server using a given set of credentials and search for rows and columns with "interesting" names. This information can help you fine-tune further attacks against the database.
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/admin/mssql/mssql_idf</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_idf</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/mssql/mssql_idf):
+
+   Name      Current Setting         Required  Description
+   ----      ---------------         --------  -----------
+   NAMES     passw|bank|credit|card  yes       Pipe separated list of column names
+   PASSWORD                          no        The password for the specified username
+   RHOST                             yes       The target address
+   RPORT     1433                    yes       The target port
+   USERNAME  sa                      no        The username to authenticate as</pre>
+<br />
+To configure the module, we will set it to look for field names of 'username' and 'password', along with a known password for the system, and our RHOST value.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>mssql_idf</span>) > <span style='color:#13C16A;'>set NAMES username|password</span>
+NAMES => username|password
+msf auxiliary(<span style='color:#ff0000;'>mssql_idf</span>) > <span style='color:#13C16A;'>set PASSWORD password1</span>
+PASSWORD => password1
+msf auxiliary(<span style='color:#ff0000;'>mssql_idf</span>) > <span style='color:#13C16A;'>set RHOST 192.168.1.195</span>
+RHOST => 192.168.1.195
+msf auxiliary(<span style='color:#ff0000;'>mssql_idf</span>) > <span style='color:#13C16A;'>run</span>
+
+
+Database Schema Table          Column                Data Type Row Count 
+
+======== ====== ============== ===================== ========= ========= ======== ====== ============== ===================== ========= ========= 
+
+msdb     dbo    sysmail_server username              nvarchar  0
+
+msdb     dbo    backupmediaset is_password_protected bit       0
+
+msdb     dbo    backupset      is_password_protected bit       0
+
+logins   dbo    userpass       username              varchar   3
+
+logins   dbo    userpass       password              varchar   3
+
+
+[*] Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>mssql_idf</span>) ></pre>
+<br />
+As can be seen in the module output, the scanner found our 'logins' database with a 'userpass' table containing username and password columns.
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="mssql_sql"> mssql_sql </span></h2>
+<p>The <b>"mssql_sql"</b> module allows you to perform SQL queries against a database using known-good credentials
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/admin/mssql/mssql_sql</span>
+msf auxiliary(<span style='color:#ff0000;'>mssql_sql</span>) > <span style='color:#13C16A;'>show options</span>
+
+Module options (auxiliary/admin/mssql/mssql_sql):
+
+   Name      Current Setting   Required  Description
+   ----      ---------------   --------  -----------
+   PASSWORD                    no        The password for the specified username
+   RHOST                       yes       The target address
+   RPORT     1433              yes       The target port
+   SQL       select @@version  no        The SQL query to execute
+   USERNAME  sa                no        The username to authenticate as</pre>
+<br />
+To configure this module, we set our PASSWORD and RHOST values, then our desired SQL command, and let it run.
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>mssql_sql</span>) > <span style='color:#13C16A;'>set PASSWORD password1</span>
+PASSWORD => password1
+msf auxiliary(<span style='color:#ff0000;'>mssql_sql</span>) > <span style='color:#13C16A;'>set RHOST 192.168.1.195</span>
+RHOST => 192.168.1.195
+msf auxiliary(<span style='color:#ff0000;'>mssql_sql</span>) > <span style='color:#13C16A;'>set SQL use logins;select * from userpass</span>
+SQL => use logins;select * from userpass
+msf auxiliary(<span style='color:#ff0000;'>mssql_sql</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> SQL Query: use logins;select * from userpass
+<span style='color:#0000FF;'>[*]</span> Row Count: 3 (Status: 16 Command: 193)
+
+
+
+ userid  username  password
+ ------  --------  --------
+ 1       bjohnson  password
+ 2       aadams    s3cr3t
+ 3       jsmith    htimsj
+
+[*] Auxiliary module execution completed
+msf auxiliary(<span style='color:#ff0000;'>mssql_sql</span>) ></pre>
+<br />
+</p><p><br />
+<br />
+</p>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="http://www.offensive-security.com/w/index.php?title=Module_Reference&amp;action=edit&amp;redlink=1" class="new" title="Module Reference (page does not exist)">Module Reference</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Auxiliary_Modules&amp;action=edit&amp;redlink=1" class="new" title="Auxiliary Modules (page does not exist)">Auxiliary Modules</a> &gt; <a href="http://www.offensive-security.com/w/index.php?title=Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Scanner Modules (page does not exist)">Scanner Modules</a> &gt; Scanner MSSQL Auxiliary Modules</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="http://www.offensive-security.com/w/index.php?title=DCERPC&amp;action=edit&amp;redlink=1" class="new" title="DCERPC (page does not exist)">DCERPC</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Discovery&amp;action=edit&amp;redlink=1" class="new" title="Discovery (page does not exist)">Discovery</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=FTP&amp;action=edit&amp;redlink=1" class="new" title="FTP (page does not exist)">FTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=HTTP&amp;action=edit&amp;redlink=1" class="new" title="HTTP (page does not exist)">HTTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=IMAP&amp;action=edit&amp;redlink=1" class="new" title="IMAP (page does not exist)">IMAP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MSSQL&amp;action=edit&amp;redlink=1" class="new" title="MSSQL (page does not exist)">MSSQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=MySQL&amp;action=edit&amp;redlink=1" class="new" title="MySQL (page does not exist)">MySQL</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=NetBIOS&amp;action=edit&amp;redlink=1" class="new" title="NetBIOS (page does not exist)">NetBIOS</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=POP3&amp;action=edit&amp;redlink=1" class="new" title="POP3 (page does not exist)">POP3</a> &#124; <a href="Port_Scanners" title="Port Scanners" class="mw-redirect">Port Scanners</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMB&amp;action=edit&amp;redlink=1" class="new" title="SMB (page does not exist)">SMB</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SMTP&amp;action=edit&amp;redlink=1" class="new" title="SMTP (page does not exist)">SMTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SNMP&amp;action=edit&amp;redlink=1" class="new" title="SNMP (page does not exist)">SNMP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=SSH&amp;action=edit&amp;redlink=1" class="new" title="SSH (page does not exist)">SSH</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=Telnet&amp;action=edit&amp;redlink=1" class="new" title="Telnet (page does not exist)">Telnet</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=TFTP&amp;action=edit&amp;redlink=1" class="new" title="TFTP (page does not exist)">TFTP</a> &#124; <a href="http://www.offensive-security.com/w/index.php?title=VNC&amp;action=edit&amp;redlink=1" class="new" title="VNC (page does not exist)">VNC</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 563/1000000
+Preprocessor generated node count: 2749/1000000
+Post‐expand include size: 5550/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:245-0!*!0!!en!*!* and timestamp 20131123201524 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Scanner_MSSQL_Auxiliary_Modules&amp;oldid=1255">http://www.offensive-security.com/w/index.php?title=Scanner_MSSQL_Auxiliary_Modules&amp;oldid=1255</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Scanner_Modules&amp;action=edit&amp;redlink=1" class="new" title="Category:Scanner Modules (page does not exist)">Scanner Modules</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +809,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.125 secs. --></body></html>

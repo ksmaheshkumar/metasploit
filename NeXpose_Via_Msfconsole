@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>NeXpose Via Msfconsole - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="NeXpose_Via_Msfconsole" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:NeXpose_Via_Msfconsole&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=NeXpose_Via_Msfconsole&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=NeXpose_Via_Msfconsole&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,390 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>NeXpose Via Msfconsole</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="NeXpose_Via_Msfconsole#column-one">navigation</a>, <a href="NeXpose_Via_Msfconsole#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>The Metasploit/NeXpose integration is not limited to simply importing scan results files.  You can run NeXpose scans directly from msfconsole by first making use of the 'nexpose' plugin.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>load nexpose</span>
+                                                                      
+ ▄▄▄   ▄▄            ▄▄▄  ▄▄▄                                         
+ ███   ██             ██ ▄██                                          
+ ██▀█  ██   ▄████▄     ████    ██▄███▄    ▄████▄   ▄▄█████▄   ▄████▄  
+ ██ ██ ██  ██▄▄▄▄██     ██     ██▀  ▀██  ██▀  ▀██  ██▄▄▄▄ ▀  ██▄▄▄▄██ 
+ ██  █▄██  ██▀▀▀▀▀▀    ████    ██    ██  ██    ██   ▀▀▀▀██▄  ██▀▀▀▀▀▀ 
+ ██   ███  ▀██▄▄▄▄█   ██  ██   ███▄▄██▀  ▀██▄▄██▀  █▄▄▄▄▄██  ▀██▄▄▄▄█ 
+ ▀▀   ▀▀▀    ▀▀▀▀▀   ▀▀▀  ▀▀▀  ██ ▀▀▀      ▀▀▀▀     ▀▀▀▀▀▀     ▀▀▀▀▀  
+                               ██                                     
+                                                                      
+<span style='color:#0000FF;'>[*]</span> Nexpose integration has been activated
+<span style='color:#0000FF;'>[*]</span> Successfully loaded plugin: nexpose
+
+</pre>
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>help</span>
+
+Nexpose Commands
+================
+
+    Command                   Description
+    -------                   -----------
+    nexpose_activity          Display any active scan jobs on the Nexpose instance
+    nexpose_command           Execute a console command on the Nexpose instance
+    nexpose_connect           Connect to a running Nexpose instance ( user:pass@host[:port] )
+    nexpose_disconnect        Disconnect from an active Nexpose instance
+    nexpose_discover          Launch a scan but only perform host and minimal service discovery
+    nexpose_dos               Launch a scan that includes checks that can crash services and devices (caution)
+    nexpose_exhaustive        Launch a scan covering all TCP ports and all authorized safe checks
+    nexpose_report_templates  List all available report templates
+    nexpose_save              Save credentials to a Nexpose instance
+    nexpose_scan              Launch a Nexpose scan against a specific IP range and import the results
+    nexpose_site_devices      List all discovered devices within a site
+    nexpose_site_import       Import data from the specified site ID
+    nexpose_sites             List all defined sites
+    nexpose_sysinfo           Display detailed system information about the Nexpose instance
+
+<span style='color:#00ff00;'>...snip...</span>
+
+</pre>
+<br />
+Before running a scan against a target, we first need to connect to our server running NeXpose by using the 'nexpose_connect' command along with the credentials for the NeXpose instance.  Note that you will have to append 'ok' to the end of the connect string to acknowledge that the SSL connections are not verified.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>nexpose_connect -h</span>
+<span style='color:#0000FF;'>[*]</span> Usage: 
+<span style='color:#0000FF;'>[*]</span>        nexpose_connect username:password@host[:port] <ssl-confirm>
+<span style='color:#0000FF;'>[*]</span>         -OR- 
+<span style='color:#0000FF;'>[*]</span>        nexpose_connect username password host port <ssl-confirm>
+
+msf > <span style='color:#13C16A;'>nexpose_connect loneferret:something@127.0.0.1:3780 ok</span>
+<span style='color:#0000FF;'>[*]</span> Connecting to Nexpose instance at 127.0.0.1:3780 with username loneferret...
+
+</pre>
+<br />
+Now that we are connected to our server, we can run a vulnerability scan right from within Metasploit.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>nexpose_scan -h</span>
+Usage: nexpose_scan [options] <Target IP Ranges>
+
+OPTIONS:
+
+    -E &lt;opt>  Exclude hosts in the specified range from the scan
+    -I &lt;opt>  Only scan systems with an address within the specified range
+    -P        Leave the scan data on the server when it completes (this counts against the maximum licensed IPs)
+    -c &lt;opt>  Specify credentials to use against these targets (format is type:user:pass
+    -d        Scan hosts based on the contents of the existing database
+    -h        This help menu
+    -n &lt;opt>  The maximum number of IPs to scan at a time (default is 32)
+    -s &lt;opt>  The directory to store the raw XML files from the Nexpose instance (optional)
+    -t &lt;opt>  The scan template to use (default:pentest-audit options:full-audit,exhaustive-audit,discovery,aggressive-discovery,dos-audit)
+    -v        Display diagnostic information about the scanning process
+
+</pre>
+<br />
+We'll provide our scanner with the credentials for the 'ssh' services, and use the "full-audit" scan template. Our scan results should be very similar to one we previously imported.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>msf > nexpose_scan  -c ssh:msfadmin:msfadmin -t full-audit 172.16.194.172</span>
+<span style='color:#0000FF;'>[*]</span> Scanning 1 addresses with template aggressive-discovery in sets of 32
+<span style='color:#0000FF;'>[*]</span> Completed the scan of 1 addresses
+msf ></pre>
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>hosts</span>
+
+Hosts
+=====
+
+address         mac  name            os_name       os_flavor  os_sp  purpose  info  comments
+-------         ---  ----            -------       ---------  -----  -------  ----  --------
+172.16.194.172       METASPLOITABLE  Ubuntu Linux                    device         
+
+</pre>
+<br />
+Again, we run 'services' and 'vulns' and we can see that the results are of the same quality as those we imported via the XML file.
+<br />
+<br />
+<pre>msf ><span style='color:#13C16A;'>services</span>
+
+Services
+========
+
+host            port   proto  name                 state  info
+----            ----   -----  ----                 -----  ----
+172.16.194.172  21     tcp    ftp                  open   vsFTPd 2.3.4 
+172.16.194.172  22     tcp    ssh                  open   OpenSSH 4.7p1 
+172.16.194.172  23     tcp    telnet               open   
+172.16.194.172  25     tcp    smtp                 open   Postfix 
+172.16.194.172  53     tcp    dns-tcp              open   BIND 9.4.2 
+172.16.194.172  53     udp    dns                  open   BIND 9.4.2 
+172.16.194.172  80     tcp    http                 open   Apache 2.2.8 
+172.16.194.172  111    udp    portmapper           open   
+172.16.194.172  111    tcp    portmapper           open   
+172.16.194.172  137    udp    cifs name service    open   
+172.16.194.172  139    tcp    cifs                 open   Samba 3.0.20-Debian 
+172.16.194.172  445    tcp    cifs                 open   Samba 3.0.20-Debian 
+172.16.194.172  512    tcp    remote execution     open   
+172.16.194.172  513    tcp    remote login         open   
+172.16.194.172  514    tcp    remote shell         open   
+172.16.194.172  1524   tcp    ingreslock (ingres)  open   
+172.16.194.172  2049   tcp    nfs                  open   
+172.16.194.172  2049   udp    nfs                  open   
+172.16.194.172  3306   tcp    mysql                open   MySQL 5.0.51a 
+172.16.194.172  5432   tcp    postgres             open   
+172.16.194.172  5900   tcp    vnc                  open   
+172.16.194.172  6000   tcp    xwindows             open   
+172.16.194.172  8180   tcp    http                 open   Tomcat 
+172.16.194.172  41407  udp    status               open   
+172.16.194.172  44841  tcp    mountd               open   
+172.16.194.172  47207  tcp    nfs lockd            open   
+172.16.194.172  48972  udp    nfs lockd            open   
+172.16.194.172  51255  tcp    status               open   
+172.16.194.172  58769  udp    mountd               open 
+
+</pre>
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>vulns</span>
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:21 UTC Vuln: host=172.16.194.172 name=NEXPOSE-cifs-nt-0001 refs=CVE-1999-0519,URL-http://www.hsc.fr/ressources/presentations/null_sessions/ 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:21 UTC Vuln: host=172.16.194.172 name=NEXPOSE-generic-ip-source-routing-enabled refs=BID-646,CVE-1999-0510,CVE-1999-0909,MSB-MS99-038,URL-http://packetstormsecurity.nl/advisories/nai/nai.99-09-20.windows_ip_source_routing 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:21 UTC Vuln: host=172.16.194.172 name=NEXPOSE-unix-hosts-equiv-allows-access refs= 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:21 UTC Vuln: host=172.16.194.172 name=NEXPOSE-cifs-share-world-writeable refs=CVE-1999-0520
+
+<span style='color:#00ff00;'>...snip...</span>
+
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:22 UTC Vuln: host=172.16.194.172 name=NEXPOSE-vnc-password-password refs= 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:22 UTC Vuln: host=172.16.194.172 name=NEXPOSE-apache-tomcat-default-password refs=BID-38084,CVE-2009-3843,CVE-2010-0557 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:22 UTC Vuln: host=172.16.194.172 name=NEXPOSE-apache-tomcat-example-leaks refs= 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:22 UTC Vuln: host=172.16.194.172 name=NEXPOSE-apache-tomcat-default-install-page refs= 
+<span style='color:#0000FF;'>[*]</span> Time: 2012-06-20 16:34:22 UTC Vuln: host=172.16.194.172 name=NEXPOSE-nfs-mountd-0002 refs= 
+
+</pre>
+<br />
+Other types of scans can be conducted against a target, or targets, by using the 'nexpose_discover', 'nexpose_dos' and 'nexpose_exhaustive' commands. The first performs a minimal service discovery scan, as the other will add denial of service checking. Caution should be used when running the 'nexpose_dos', as it may very well crash your target. The 'nexpose_exhaustive' scan will cover all TCP ports and all authorized safe checks.
+<br />
+<br />
+<pre>
+msf > <span style='color:#13C16A;'>nexpose_discover -h</span>
+Usage: nexpose_scan [options] <Target IP Ranges>
+
+OPTIONS:
+
+    -E &lt;opt>  Exclude hosts in the specified range from the scan
+    -I &lt;opt>  Only scan systems with an address within the specified range
+    -P        Leave the scan data on the server when it completes (this counts against the maximum licensed IPs)
+    -c &lt;opt>  Specify credentials to use against these targets (format is type:user:pass
+    -d        Scan hosts based on the contents of the existing database
+    -h        This help menu
+    -n &lt;opt>  The maximum number of IPs to scan at a time (default is 32)
+    -s &lt;opt>  The directory to store the raw XML files from the Nexpose instance (optional)
+    -t &lt;opt>  The scan template to use (default:pentest-audit options:full-audit,exhaustive-audit,discovery,aggressive-discovery,dos-audit)
+    -v        Display diagnostic information about the scanning process
+
+<hr>
+
+msf > <span style='color:#13C16A;'>nexpose_dos -h</span>
+Usage: nexpose_scan [options] <Target IP Ranges>
+
+OPTIONS:
+
+    -E &lt;opt>  Exclude hosts in the specified range from the scan
+    -I &lt;opt>  Only scan systems with an address within the specified range
+    -P        Leave the scan data on the server when it completes (this counts against the maximum licensed IPs)
+    -c &lt;opt>  Specify credentials to use against these targets (format is type:user:pass
+    -d        Scan hosts based on the contents of the existing database
+    -h        This help menu
+    -n &lt;opt>  The maximum number of IPs to scan at a time (default is 32)
+    -s &lt;opt>  The directory to store the raw XML files from the Nexpose instance (optional)
+    -t &lt;opt>  The scan template to use (default:pentest-audit options:full-audit,exhaustive-audit,discovery,aggressive-discovery,dos-audit)
+    -v        Display diagnostic information about the scanning process
+
+<hr>
+
+msf > <span style='color:#13C16A;'>nexpose_exhaustive -h</span>
+Usage: nexpose_scan [options] <Target IP Ranges>
+
+OPTIONS:
+
+    -E &lt;opt>  Exclude hosts in the specified range from the scan
+    -I &lt;opt>  Only scan systems with an address within the specified range
+    -P        Leave the scan data on the server when it completes (this counts against the maximum licensed IPs)
+    -c &lt;opt>  Specify credentials to use against these targets (format is type:user:pass
+    -d        Scan hosts based on the contents of the existing database
+    -h        This help menu
+    -n &lt;opt>  The maximum number of IPs to scan at a time (default is 32)
+    -s &lt;opt>  The directory to store the raw XML files from the Nexpose instance (optional)
+    -t &lt;opt>  The scan template to use (default:pentest-audit options:full-audit,exhaustive-audit,discovery,aggressive-discovery,dos-audit)
+    -v        Display diagnostic information about the scanning process
+
+</pre>
+<br />
+<br />
+NeXpose and Metasploit integration has improved greatly over time. Running scans directly from the console using all of NeXpose's features is a great addition to the framework. Also we now have the possibility to correlate our findings against Metasploit's different modules. This feature is offered using the Community Edition which is discussed in a later module. 
+<br />
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Vulnerability_Scanning" title="Vulnerability Scanning">Vulnerability Scanning</a> &gt; <a href="Working_With_NeXpose" title="Working With NeXpose">Working With NeXpose</a> &gt; NeXpose Via Msfconsole</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">NeXpose Via Msfconsole</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 527/1000000
+Preprocessor generated node count: 2775/1000000
+Post‐expand include size: 4200/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:391-0!*!0!*!*!*!* and timestamp 20131123172043 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=NeXpose_Via_Msfconsole&amp;oldid=1429">http://www.offensive-security.com/w/index.php?title=NeXpose_Via_Msfconsole&amp;oldid=1429</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Working_With_NeXpose&amp;action=edit&amp;redlink=1" class="new" title="Category:Working With NeXpose (page does not exist)">Working With NeXpose</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +875,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.146 secs. --></body></html>

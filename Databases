@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Databases - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Databases" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Databases&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Databases&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Databases&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,215 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Databases</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Databases#column-one">navigation</a>, <a href="Databases#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>When conducting a penetration test, it is frequently a challenge to keep track of everything you have done to the target network. This is where having a database configured can be a great timesaver. Metasploit has built-in support for the PostgreSQL database system.
 <br />
+<br />
+The system allows quick and easy access to scan information, gives us the ability to import and export scan results from various third party tools. We can also use this information to configure module options rather quickly. Most importantly, it keeps our results clean and organized.
+<br />
+<br />
+<pre>
+msf > <span style='color:#339966;'>help database</span>
+
+Database Backend Commands
+=========================
+
+    Command        Description
+    -------        -----------
+    creds          List all credentials in the database
+    db_connect     Connect to an existing database
+    db_disconnect  Disconnect from the current database instance
+    db_export      Export a file containing the contents of the database
+    db_import      Import a scan result file (filetype will be auto-detected)
+    db_nmap        Executes nmap and records the output automatically
+    db_status      Show the current database status
+    hosts          List all hosts in the database
+    loot           List all loot in the database
+    notes          List all notes in the database
+    services       List all services in the database
+    vulns          List all vulnerabilities in the database
+    workspace      Switch between database workspaces
+
+msf > <span style='color:#339966;'>hosts</span>
+
+Hosts
+=====
+
+address         mac                name            os_name  os_flavor  os_sp  purpose  info  comments
+-------         ---                ----            -------  ---------  -----  -------  ----  --------
+172.16.194.134                                     Unknown                    device         
+172.16.194.163                     172.16.194.163  Linux    Ubuntu            server         
+172.16.194.172  00:0C:29:D1:62:80  172.16.194.172  Linux    Ubuntu            server         
+
+msf > <span style='color:#339966;'>services -p 21</span>
+
+Services
+========
+
+host            port  proto  name  state  info
+----            ----  -----  ----  -----  ----
+172.16.194.172  21    tcp    ftp   open   vsftpd 2.3.4
+
+
+</pre>
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<hr />
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &gt; Databases</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Msfcli" title="Msfcli">Msfcli</a> &#124; <a href="Msfconsole" title="Msfconsole">Msfconsole</a> &#124; <a href="Exploits" title="Exploits">Exploits</a> &#124; <a href="Payloads" title="Payloads">Payloads</a> &#124; <strong class="selflink">Databases</strong> &#124; <a href="About_Meterpreter" title="About Meterpreter">About Meterpreter</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total3"><a href="Using_the_Database" title="Using the Database">Using the Database</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 490/1000000
+Preprocessor generated node count: 2589/1000000
+Post‐expand include size: 3252/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:392-0!*!0!*!*!*!* and timestamp 20131123182016 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Databases&amp;oldid=1189">http://www.offensive-security.com/w/index.php?title=Databases&amp;oldid=1189</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Fundamentals&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Fundamentals (page does not exist)">Metasploit Fundamentals</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +700,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.140 secs. --></body></html>

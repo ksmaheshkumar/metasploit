@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Armitage Scanning - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Armitage_Scanning" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Armitage_Scanning&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Armitage_Scanning&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Armitage_Scanning&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,211 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Armitage Scanning</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Armitage_Scanning#column-one">navigation</a>, <a href="Armitage_Scanning#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>To select a scan we wish to run with Armitage, we expand the module tree and double-click on the scanner we wish to use, in this case, <b>"smb_version"</b>, and set our RHOSTS target range.
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:Armitage_scan_config.png" class="image"><img alt="Armitage scan config.png" src="http://www.offensive-security.com/w/images/thumb/c/cc/Armitage_scan_config.png/860px-Armitage_scan_config.png" width="860" height="798" /></a></div></div>
 <p><br />
+After clicking <b>"Launch"</b>, we wait a brief amount of time for the scan to complete and are presented with the hosts that were detected. The graphics on the hosts indicate that there are either WinXP or Server 2003 targets.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
 <br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Armitage_scanned_hosts.png" class="image"><img alt="Armitage scanned hosts.png" src="http://www.offensive-security.com/w/images/thumb/1/1c/Armitage_scanned_hosts.png/860px-Armitage_scanned_hosts.png" width="860" height="725" /></a></div></div>
+<p><br />
+If there are any hosts we don't wish to target, they can be removed by right-clicking on a host, expanding the <b>"Host"</b> menu, and selecting <b>"Remove Host"</b>.
+We see in our scan results that there are two Server 2003 targets so we can select just those two and perform additional scanning on them. Notice that Armitage automatically sets the RHOSTS value based on our selection.
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Armitage_scan_servers.png" class="image"><img alt="Armitage scan servers.png" src="http://www.offensive-security.com/w/images/thumb/c/c9/Armitage_scan_servers.png/860px-Armitage_scan_servers.png" width="860" height="724" /></a></div></div>
+<p><br />
+Right-clicking on a host and selecting <b>"Services"</b> will open a new tab displaying all of the services that have been scanned on the target system.
+<br />
+<br />
+</p>
+<div class="center"><div class="floatnone"><a href="File:Armitage_scanned_services.png" class="image"><img alt="Armitage scanned services.png" src="http://www.offensive-security.com/w/images/thumb/9/9d/Armitage_scanned_services.png/860px-Armitage_scanned_services.png" width="860" height="728" /></a></div></div>
+<p><br />
+Even with these brief scans, we can see that we have gathered quite a bit of information about our targets that is presented to us in a very friendly fashion. Additionally, all of the gathered information is also conveniently stored for us in the MYSQL database.
+<br />
+<br />
+<pre>mysql> <span style='color:#13C16A;'>use msf3;</span>
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> <span style='color:#13C16A;'>select address,os_flavor from hosts;</span>
++---------------+-----------------+
+| address       | os_flavor       |
++---------------+-----------------+
+| 192.168.1.205 | Windows 2003 R2 |
+| 192.168.1.204 | Windows 2003 R2 |
+| 192.168.1.206 | Windows XP      |
+| 192.168.1.201 | Windows XP      |
+| 192.168.1.203 | Windows XP      |
++---------------+-----------------+
+5 rows in set (0.00 sec)
+
+mysql></pre>
+<br />
+<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_GUIs" title="Metasploit GUIs">Metasploit GUIs</a> &gt; <a href="Armitage" title="Armitage">Armitage</a> &gt; Armitage Scanning</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Armitage_Setup" title="Armitage Setup">Armitage Setup</a> &#124; <strong class="selflink">Armitage Scanning</strong> &#124; <a href="Armitage_Exploitation" title="Armitage Exploitation">Armitage Exploitation</a> &#124; <a href="Armitage_Post_Exploitation" title="Armitage Post Exploitation">Armitage Post Exploitation</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 504/1000000
+Preprocessor generated node count: 2617/1000000
+Post‐expand include size: 3896/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:271-0!*!0!*!*!2!* and timestamp 20131124141017 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Armitage_Scanning&amp;oldid=313">http://www.offensive-security.com/w/index.php?title=Armitage_Scanning&amp;oldid=313</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Armitage&amp;action=edit&amp;redlink=1" class="new" title="Category:Armitage (page does not exist)">Armitage</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +696,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.136 secs. --></body></html>

